@@ -1,8 +1,5 @@
 from django.shortcuts import render, redirect
 
-
-
-
 # Create your views here.
 from resume_builder.forms import EducationFormSet, InternshipJobFormSet, ProjectFormSet, AchievementFormSet, \
     OtherFormSet, SkillFormSet
@@ -25,7 +22,7 @@ def test(request):
         achievement = AchievementFormSet(request.GET or None)
         other = OtherFormSet(request.GET or None)
     elif request.method == 'POST':
-        counts = request.POST['form-TOTAL_FORMS']
+        # counts = request.POST['form-TOTAL_FORMS']
         education = EducationFormSet(request.POST)
         education_is_valid(education)
         internships_job = InternshipJobFormSet(request.POST)
