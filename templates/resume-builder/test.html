@@ -9,7 +9,7 @@
     {% csrf_token %}
 
 
-    {{ education.management_form }}
+    {{ education.management_form|crispy}}
     <h3>Education</h3>
     {% for form in education %}
         <div class="row form-row spacer">
@@ -20,7 +20,7 @@
     {% endfor %}
 
 
-    {{ skills.management_form }}
+    {{ skills.management_form|crispy }}
     <h3>Skills</h3>
     {% for form in skills %}
         <div class="row form-row spacer">
@@ -32,7 +32,7 @@
 
 
 
-    {{ projects.management_form }}
+    {{ projects.management_form|crispy }}
     <h3>Projects</h3>
     {% for form in projects %}
         <div class="row form-row spacer">
@@ -44,7 +44,7 @@
 
 
 
-    {{ internships_job.management_form }}
+    {{ internships_job.management_form|crispy }}
     <h3>Internships/Job</h3>
     {% for form in internships_job %}
         <div class="row form-row spacer">
@@ -65,7 +65,7 @@
 
     {% endfor %}
 
-    {{ other.management_form }}
+    {{ other.management_form|crispy }}
     <h3>Other particulars</h3>
     {% for form in other %}
         <div class="row form-row spacer">

@@ -1,4 +1,5 @@
 from django import forms
+
 from django.forms import formset_factory
 
 
@@ -47,6 +48,7 @@ class AchievementForm(forms.Form):
 class OtherForm(forms.Form):
     o_name = forms.CharField(label='Other particular info you wish to add?',
                            widget=forms.TextInput(attrs={'placeholder': 'Others'}))
+
 
 
 SkillFormSet = formset_factory(SkillForm, extra=1)
