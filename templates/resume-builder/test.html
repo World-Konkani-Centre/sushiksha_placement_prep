@@ -3,27 +3,92 @@
 {% load crispy_forms_tags %}
 {% block container %}
 {% if heading %}
-<h3>{{heading}}</h3>
+<h1>{{heading}}</h1>
 {% endif %}
 <form class="form-horizontal" method="post">
-{% csrf_token %}
-{{ formset.management_form }}
-{% for form in formset %}
-<div class="row form-row spacer">
-        {{ form | crispy }}
-         <button class="btn btn-success add-form-row">+</button>
-</div>
-{% endfor %}
-<div class="row spacer">
-    <div class="col-4 offset-2">
-        <button type="submit" class="btn btn-block btn-primary">Create</button>
+    {% csrf_token %}
+
+
+    {{ education.management_form }}
+    <h3>Education</h3>
+    {% for form in education %}
+        <div class="row form-row spacer">
+            {{ form | crispy }}
+            <button class="btn btn-success add-form-row">+</button>
+        </div>
+
+    {% endfor %}
+
+
+    {{ skills.management_form }}
+    <h3>Skills</h3>
+    {% for form in skills %}
+        <div class="row form-row spacer">
+            {{ form | crispy }}
+            <button class="btn btn-success add-form-row">+</button>
+        </div>
+
+    {% endfor %}
+
+
+
+    {{ projects.management_form }}
+    <h3>Projects</h3>
+    {% for form in projects %}
+        <div class="row form-row spacer">
+            {{ form | crispy }}
+            <button class="btn btn-success add-form-row">+</button>
+        </div>
+
+    {% endfor %}
+
+
+
+    {{ internships_job.management_form }}
+    <h3>Internships/Job</h3>
+    {% for form in internships_job %}
+        <div class="row form-row spacer">
+            {{ form | crispy }}
+            <button class="btn btn-success add-form-row">+</button>
+        <hr>
+        </div>
+
+    {% endfor %}
+
+    {{ achievement.management_form }}
+    <h3>Achievements</h3>
+    {% for form in achievement %}
+        <div class="row form-row spacer">
+            {{ form | crispy }}
+            <button class="btn btn-success add-form-row">+</button>
+        </div>
+
+    {% endfor %}
+
+    {{ other.management_form }}
+    <h3>Other particulars</h3>
+    {% for form in other %}
+        <div class="row form-row spacer">
+            {{ form | crispy }}
+            <button class="btn btn-success add-form-row">+</button>
+        </div>
+
+    {% endfor %}
+    <div class="row spacer">
+        <div class="col-4 offset-2">
+            <button type="submit" class="btn btn-block btn-primary">Create</button>
+        </div>
     </div>
-</div>
 </form>
+
+
+
 {% endblock %}
 
+
+
+
 {% block custom_js %}
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script type="text/javascript">
 function updateElementIndex(el, prefix, ndx) {
     var id_regex = new RegExp('(' + prefix + '-\\d+)');
@@ -55,9 +120,9 @@ function cloneMore(selector, prefix) {
     $(selector).after(newElement);
     var conditionRow = $('.form-row:not(:last)');
     conditionRow.find('.btn.add-form-row')
-    .removeClass('btn-success').addClass('btn-danger')
-    .removeClass('add-form-row').addClass('remove-form-row')
-    .html('-');
+   //.removeClass('btn-success').addClass('btn-danger')
+    //.removeClass('add-form-row').addClass('remove-form-row')
+    //.html('-');
     return false;
 }
 function deleteForm(prefix, btn) {
@@ -76,7 +141,8 @@ function deleteForm(prefix, btn) {
 }
 $(document).on('click', '.add-form-row', function(e){
     e.preventDefault();
-    cloneMore('.form-row:last', 'form');
+    parent = $(this).parent()
+    cloneMore(parent, 'form');
     return false;
 });
 $(document).on('click', '.remove-form-row', function(e){
