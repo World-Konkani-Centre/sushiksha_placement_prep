@@ -1,3 +1,5 @@
+import json
+
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -22,18 +24,19 @@ def test(request):
         achievement = AchievementFormSet(request.GET or None)
         other = OtherFormSet(request.GET or None)
     elif request.method == 'POST':
-        # counts = request.POST['form-TOTAL_FORMS']
-        education = EducationFormSet(request.POST)
-        education_is_valid(education)
-        internships_job = InternshipJobFormSet(request.POST)
-        projects = ProjectFormSet(request.POST)
-        achievement = AchievementFormSet(request.POST)
-        other = OtherFormSet(request.POST)
-        skills_is_valid(skills)
-        internships_job_is_valid(internships_job)
-        projects_is_valid(projects)
-        achievement_is_valid(achievement)
-        other_is_valid(other)
+        val = dict(request.POST.lists())
+        counts = [int(val['edFormCount'][0]), int(val['skFormCount'][0]), int(val['prFormCount'][0]),
+                  int(val['ijFormCount'][0]),
+                  int(val['achFormCount'][0]), int(val['othFormCount'][0])]
+        start = 5
+        end = start + (4 * int(counts[0]))
+        education_is_valid(request.POST, start, end)
+        skills_is_valid(val['form-0-sk_name'], val['form-0-sk_expertise'])
+        projects_is_valid(val['form-0-p_name'], val['form-0-p_start_date'], val['form-0-p_end_date'], val['form-0'
+                                                                                                          '-p_description'])
+        internships_job_is_valid(val['form-0-ij_role'], val['form-0-ij_company'], val['form-0-ij_description'])
+        achievement_is_valid(val['form-0-a_name'])
+        other_is_valid(val['form-0-o_name'])
         return redirect("test")
     context = {
         'heading': "Build the Resume",
