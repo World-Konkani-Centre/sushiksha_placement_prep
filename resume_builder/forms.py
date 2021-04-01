@@ -1,59 +1,106 @@
 from django import forms
 
-from django.forms import formset_factory
+from resume_builder.models import Contact, About, Skill, Education, InternshipExperience, TrainingCertification, \
+    Project, Extra, Language, PersonalInterest, Achievement, Declaration, Other
 
 
-class EducationForm(forms.Form):
-    ed_name = forms.CharField(label='College/School Name', widget=forms.TextInput(attrs={'placeholder': 'Enter '
-                                                                                                     'college/school '
-                                                                                                     'name here'}))
-    ed_course = forms.CharField(label='Course', widget=forms.TextInput(attrs={'placeholder': 'Enter the course studied'}))
-    ed_passing_year = forms.IntegerField(label='Passing Year',
-                                      widget=forms.NumberInput(attrs={'placeholder': 'Enter the passing year'}))
-    ed_percentage = forms.DecimalField(label='Percentage/CGPA', widget=forms.NumberInput(
-        attrs={'placeholder': 'Enter the the percentage/cgpa scored'}))
+class ContactModelForm(forms.ModelForm):
+    class Meta:
+        model = Contact
+        fields = ['prefix', 'first_name', 'last_name', 'address_1', 'address_2', 'country', 'state', 'pin',
+                  'phone_number', 'email', 'linked_in', 'github']
+
+    def __init__(self, *args, **kwargs):
+        super(ContactModelForm, self).__init__(*args, **kwargs)
+        self.fields['linked_in'].required = False
+        self.fields['github'].required = False
 
 
-class ProjectForm(forms.Form):
-    p_name = forms.CharField(label='Project Name',
-                           widget=forms.TextInput(attrs={'placeholder': 'Enter the project name'}))
-    p_start_date = forms.CharField(label='project start date')
-    p_end_date = forms.CharField(label='project end date')
-    p_description = forms.CharField(label='Project description', widget=forms.Textarea(attrs={'placeholder': 'Project '
-                                                                                                           'Description',
-                                                                                            'rows': '10',
-                                                                                            'cols': '10'}))
+class AboutModelForm(forms.ModelForm):
+    class Meta:
+        model = About
+        fields = ['summary']
 
 
-class SkillForm(forms.Form):
-    sk_name = forms.CharField(label='Skill Name', widget=forms.TextInput(attrs={'placeholder': 'Your Skill'}))
-    sk_expertise = forms.IntegerField(label='Rate your skill 1-5',
-                                   widget=forms.NumberInput(attrs={'placeholder': 'My rating'}))
+class SkillModelForm(forms.ModelForm):
+    class Meta:
+        model = Skill
+        fields = ['skill', 'proficiency']
 
 
-class InternshipJobForm(forms.Form):
-    ij_role = forms.CharField(label='Your role as an intern', widget=forms.TextInput(attrs={'placeholder': 'Your Role'}))
-    ij_company = forms.CharField(label='Where did you intern', widget=forms.TextInput(attrs={'placeholder': 'Internship '
-                                                                                                         'Company'}))
-    ij_description = forms.CharField(label='give some description',
-                                  widget=forms.Textarea(
-                                      attrs={'placeholder': 'Description', 'rows': '10', 'cols': '10'}))
+class EducationModelForm(forms.ModelForm):
+    class Meta:
+        model = Education
+        fields = ['school_name', 'board', 'country', 'state', 'city', 'degree', 'field_of_study', 'joining_date',
+                  'status', 'passing_date', 'score']
+
+    def __init__(self, *args, **kwargs):
+        super(EducationModelForm, self).__init__(*args, **kwargs)
+        self.fields['passing_date'].required = False
 
 
-class AchievementForm(forms.Form):
-    a_name = forms.CharField(label='Something you consider an achievement',
-                           widget=forms.TextInput(attrs={'placeholder': 'Achievement'}))
+class InternshipFormExperienceForm(forms.ModelForm):
+    class Meta:
+        model = InternshipExperience
+        fields = ['name', 'position', 'country', 'state', 'city', 'date_of_joining', 'i_status', 'date_of_exit',
+                  'description']
+
+    def __init__(self, *args, **kwargs):
+        super(InternshipFormExperienceForm, self).__init__(*args, **kwargs)
+        self.fields['date_of_exit'].required = False
 
 
-class OtherForm(forms.Form):
-    o_name = forms.CharField(label='Other particular info you wish to add?',
-                           widget=forms.TextInput(attrs={'placeholder': 'Others'}))
+class TrainingCertificationForm(forms.ModelForm):
+    class Meta:
+        model = TrainingCertification
+        fields = ['name', 'provider', 't_status', 'date']
+
+    def __init__(self, *args, **kwargs):
+        super(TrainingCertificationForm, self).__init__(*args, **kwargs)
+        self.fields['date'].required = False
 
 
+class ProjectForm(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = ['name', 'start_date', 'p_status', 'end_date', 'description']
 
-SkillFormSet = formset_factory(SkillForm, extra=1)
-EducationFormSet = formset_factory(EducationForm, extra=1)
-InternshipJobFormSet = formset_factory(InternshipJobForm, extra=1)
-ProjectFormSet = formset_factory(ProjectForm, extra=1)
-AchievementFormSet = formset_factory(AchievementForm, extra=1)
-OtherFormSet = formset_factory(OtherForm, extra=1)
+    def __init__(self, *args, **kwargs):
+        super(ProjectForm, self).__init__(*args, **kwargs)
+        self.fields['end_date'].required = False
+
+
+class ExtraModelForm(forms.ModelForm):
+    class Meta:
+        model = Extra
+        fields = ['description']
+
+
+class LanguageModelForm(forms.ModelForm):
+    class Meta:
+        model = Language
+        fields = ['language', 'proficiency']
+
+
+class PIModelForm(forms.ModelForm):
+    class Meta:
+        model = PersonalInterest
+        fields = ['description']
+
+
+class AchievementModelForm(forms.ModelForm):
+    class Meta:
+        model = Achievement
+        fields = ['description']
+
+
+class DeclarationModelForm(forms.ModelForm):
+    class Meta:
+        model = Declaration
+        fields = ['declaration', 'state', 'city', 'date']
+
+
+class OtherModelForm(forms.ModelForm):
+    class Meta:
+        model = Other
+        fields = ['heading', 'description']
