@@ -28,7 +28,7 @@ PREFIX_OPTIONS = (
 )
 
 class Contact(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE,unique=True)
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
     prefix = models.CharField(max_length=1,choices=PREFIX_OPTIONS,default="3")
     first_name = models.CharField(max_length=20,blank=False,default=None)
     last_name = models.CharField(max_length=20,blank=False,default=None)
@@ -44,7 +44,7 @@ class Contact(models.Model):
 
 
 class About(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE,unique=True)
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
     summary = models.TextField()
 
 
@@ -112,7 +112,7 @@ class Project(models.Model):
 
 
 class Extra(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE,unique=True)
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
     description = models.TextField()
 
 
@@ -122,15 +122,15 @@ class Language(models.Model):
     proficiency = models.CharField(max_length=1,choices=PROFICIENCY_OPTIONS,default="0")
 
 class Personal_Interest(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE,unique=True)
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
     description = models.TextField()
 
 class Achievement(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE,unique=True)
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
     description = models.TextField()
 
 class Declaration(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE,unique=True)
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
     declaration = models.TextField()
     state = models.CharField(max_length=50)
     city = models.CharField(max_length=50)
