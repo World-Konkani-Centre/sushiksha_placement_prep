@@ -452,3 +452,5 @@ def other_edit(request, id):
 def other_delete(request, id):
     oth = Other.objects.get(id=id, user=request.user).delete()
     return redirect('resume-other')
+
+

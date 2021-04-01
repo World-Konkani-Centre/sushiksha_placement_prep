@@ -66,6 +66,8 @@
 
     {% if next %}
         <a class="btn btn-info" href="{% url next %}">next</a>
+    {% else %}
+         <a class="btn btn-info" href="{% url 'verify' %}">next</a>
     {% endif %}
 {% endblock %}
 
