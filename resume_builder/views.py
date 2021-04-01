@@ -16,7 +16,8 @@ def contact(request):
         form = ContactModelForm(instance=contact)
         context = {
             'heading': "Update the Contact Information",
-            'form': form
+            'form': form,
+            'next':'resume-about',
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -38,6 +39,8 @@ def about(request):
         context = {
             'heading': "Update the Profile Information",
             'form': form,
+            'prev':'resume-contact',
+            'next':'resume-skills',
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -57,6 +60,8 @@ def skills(request):
             'heading': "Add new Skills Information",
             'form': form,
             'skills': skill,
+            'prev': 'resume-about',
+            'next':'resume-education',
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -98,6 +103,8 @@ def education(request):
             'heading': "Add new Education Information",
             'form': form,
             'education': ed,
+            'prev': 'resume-skills',
+            'next':'resume-internship'
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -138,6 +145,8 @@ def internship(request):
             'heading': "Add new Internship Information",
             'form': form,
             'internship': ie,
+            'prev': 'resume-education',
+            'next':'resume-training',
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -179,6 +188,8 @@ def training(request):
             'heading': "Add new Training Information",
             'form': form,
             'training': train,
+            'prev': 'resume-internship',
+            'next':'resume-project',
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -220,6 +231,8 @@ def project(request):
             'heading': "Add new Project Information",
             'form': form,
             'projects': proj,
+            'prev': 'resume-training',
+            'next':'resume-extra',
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -263,6 +276,8 @@ def extra(request):
         context = {
             'heading': "Update the Extra Curricular Information",
             'form': form,
+            'prev': 'resume-project',
+            'next':'resume-language',
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -282,6 +297,8 @@ def language(request):
             'heading': "Add new Language Information",
             'form': form,
             'lang': lang,
+            'prev': 'resume-extra',
+            'next':'resume-pi'
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -324,6 +341,8 @@ def pi(request):
         context = {
             'heading': "Update the Personal Interest Information",
             'form': form,
+            'prev': 'resume-language',
+            'next':'resume-achievement'
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -345,6 +364,8 @@ def achievement(request):
         context = {
             'heading': "Update the Achievements Information",
             'form': form,
+            'prev': 'resume-pi',
+            'next':'resume-declaration',
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -366,6 +387,8 @@ def declaration(request):
         context = {
             'heading': "Update the Declaration Information",
             'form': form,
+            'prev': 'resume-achievement',
+            'next':'resume-other',
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -382,9 +405,10 @@ def other(request):
     if request.method == 'GET':
         form = OtherModelForm()
         context = {
-            'heading': "Add new Information",
+            'heading': "Add any other specific Information",
             'form': form,
             'other': oth,
+            'prev': 'resume-declaration',
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
