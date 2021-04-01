@@ -1,31 +1,36 @@
 from django.contrib import admin
 
 # Register your models here.
-from resume_builder.models import About,Contact,Skill,Education,Internship_Experience,Training_Certification,Project,Extra,Language,Personal_Interest,Achievement,Declaration,Other
+from resume_builder.models import About, Contact, Skill, Education, InternshipExperience, TrainingCertification, \
+    Project, Extra, Language, PersonalInterest, Achievement, Declaration, Other
 
 
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
     pass
 
+
 @admin.register(About)
 class AboutAdmin(admin.ModelAdmin):
     pass
+
 
 @admin.register(Skill)
 class SkillAdmin(admin.ModelAdmin):
     pass
 
+
 @admin.register(Education)
 class EducationAdmin(admin.ModelAdmin):
     pass
 
-@admin.register(Internship_Experience)
+
+@admin.register(InternshipExperience)
 class InternshipExperienceAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(Training_Certification)
+@admin.register(TrainingCertification)
 class TrainingCertificationAdmin(admin.ModelAdmin):
     pass
 
@@ -40,7 +45,7 @@ class ExtraAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(Personal_Interest)
+@admin.register(PersonalInterest)
 class PersonalInterestAdmin(admin.ModelAdmin):
     pass
 
@@ -50,12 +55,11 @@ class AchievementAdmin(admin.ModelAdmin):
     pass
 
 
-
 @admin.register(Declaration)
 class DeclarationAdmin(admin.ModelAdmin):
     pass
 
+
 @admin.register(Other)
 class OtherAdmin(admin.ModelAdmin):
     pass
-
