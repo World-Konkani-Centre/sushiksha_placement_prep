@@ -57,6 +57,9 @@
         {{ form | crispy }}
         <button type="submit" class="btn btn-success">Submit</button>
     </form>
+    <div class="progress">
+    <div class="progress-bar progress-bar-striped active" style="width: {{ width }}%"></div>
+    </div>
     {% if prev %}
         <a class="btn btn-warning" href="{% url prev %}">previous</a>
     {% endif %}

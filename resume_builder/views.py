@@ -6,7 +6,7 @@ from resume_builder.forms import ContactModelForm, AboutModelForm, SkillModelFor
 from resume_builder.models import Contact, About, Skill, Education, InternshipExperience, TrainingCertification, \
     Project, Extra, Language, PersonalInterest, Achievement, Declaration, Other
 
-
+count = 13
 def contact(request):
     try:
         contact = Contact.objects.get(user=request.user)
@@ -18,6 +18,7 @@ def contact(request):
             'heading': "Update the Contact Information",
             'form': form,
             'next':'resume-about',
+            'width': 100/13,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -41,6 +42,7 @@ def about(request):
             'form': form,
             'prev':'resume-contact',
             'next':'resume-skills',
+            'width': 200 / 13,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -62,6 +64,7 @@ def skills(request):
             'skills': skill,
             'prev': 'resume-about',
             'next':'resume-education',
+            'width': 300 / 13,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -104,7 +107,8 @@ def education(request):
             'form': form,
             'education': ed,
             'prev': 'resume-skills',
-            'next':'resume-internship'
+            'next':'resume-internship',
+            'width': 400 / 13,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -147,6 +151,7 @@ def internship(request):
             'internship': ie,
             'prev': 'resume-education',
             'next':'resume-training',
+            'width': 500 / 13,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -190,6 +195,7 @@ def training(request):
             'training': train,
             'prev': 'resume-internship',
             'next':'resume-project',
+            'width': 600 / 13,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -233,6 +239,7 @@ def project(request):
             'projects': proj,
             'prev': 'resume-training',
             'next':'resume-extra',
+            'width': 700 / 13,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -278,6 +285,7 @@ def extra(request):
             'form': form,
             'prev': 'resume-project',
             'next':'resume-language',
+            'width': 800 / 13,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -298,7 +306,8 @@ def language(request):
             'form': form,
             'lang': lang,
             'prev': 'resume-extra',
-            'next':'resume-pi'
+            'next':'resume-pi',
+            'width': 900 / 13,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -342,7 +351,8 @@ def pi(request):
             'heading': "Update the Personal Interest Information",
             'form': form,
             'prev': 'resume-language',
-            'next':'resume-achievement'
+            'next':'resume-achievement',
+            'width': 1000 / 13,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -366,6 +376,7 @@ def achievement(request):
             'form': form,
             'prev': 'resume-pi',
             'next':'resume-declaration',
+            'width': 1100 / 13,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -389,6 +400,7 @@ def declaration(request):
             'form': form,
             'prev': 'resume-achievement',
             'next':'resume-other',
+            'width': 1200 / 13,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -409,6 +421,7 @@ def other(request):
             'form': form,
             'other': oth,
             'prev': 'resume-declaration',
+            'width': 1300 / 13,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
