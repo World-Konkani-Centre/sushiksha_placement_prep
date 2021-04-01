@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% block container %}
+    {% if heading %}
+        <h1>{{ heading }}</h1>
+    {% endif %}
+
+
+    {% for skill in skills %}
+        <p>{{ skill.skill }} --> {{ skill.proficiency }} --> <a
+                href="{% url 'resume-skills-edit' id=skill.id %}">edit</a> --> <a
+                href="{% url 'resume-skills-delete' id=skill.id %}">delete</a></p>
+    {% endfor %}
+
+    {% for ed in education %}
+        <p>{{ ed.school_name }} --> {{ ed.board }} --> {{ ed.country }} --> {{ ed.state }} --> {{ ed.city }}
+            --> {{ ed.degree }} --> {{ ed.field_of_study }} --> {{ ed.joining_date }} --> {{ ed.staus }}
+            --> {{ ed.passing_date }} --> {{ ed.score }} --> <a
+                    href="{% url 'resume-education-edit' id=ed.id %}">edit</a> --> <a
+                    href="{% url 'resume-education-delete' id=ed.id %}">delete</a></p>
+    {% endfor %}
+
+    {% for i in internship %}
+        <p>{{ i.name }} --> {{ i.position }} --> {{ i.country }} --> {{ i.state }} --> {{ i.city }}
+            --> {{ i.date_of_joining }} --> {{ i.i_status }} --> {{ i.date_of_exit }} --> {{ i.description }} --> <a
+                    href="{% url 'resume-internship-edit' id=i.id %}">edit</a> --> <a
+                    href="{% url 'resume-internship-delete' id=i.id %}">delete</a></p>
+    {% endfor %}
+
+    {% for t in training %}
+        <p>{{ t.name }} --> {{ t.provider }} --> {{ t.t_status }} --> {{ t.date }} --> <a
+                href="{% url 'resume-training-edit' id=t.id %}">edit</a> --> <a
+                href="{% url 'resume-training-delete' id=t.id %}">delete</a></p>
+    {% endfor %}
+
+    {% for p in projects %}
+        <p>{{ p.name }} --> {{ p.start_date }} --> {{ p.p_status }} --> {{ p.end_date }} --> {{ p.description }} --> <a
+                href="{% url 'resume-project-edit' id=p.id %}">edit</a> --> <a
+                href="{% url 'resume-project-delete' id=p.id %}">delete</a></p>
+    {% endfor %}
+
+    {% for l in lang %}
+        <p>{{ l.language }} --> {{ l.proficiency }} --> <a href="{% url 'resume-language-edit' id=l.id %}">edit</a> -->
+            <a href="{% url 'resume-language-delete' id=l.id %}">delete</a></p>
+    {% endfor %}
+
+    {% for o in other %}
+        <p>{{ o.heading }} --> {{ o.description }} --> <a href="{% url 'resume-other-edit' id=o.id %}">edit</a> --> <a
+                href="{% url 'resume-other-delete' id=o.id %}">delete</a></p>
+    {% endfor %}
+
+
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form | crispy }}
+        <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+    <div class="progress">
+    <div class="progress-bar progress-bar-striped active" style="width: {{ width }}%"></div>
+    </div>
+    {% if prev %}
+        <a class="btn btn-warning" href="{% url prev %}">previous</a>
+    {% endif %}
+
+    {% if next %}
+        <a class="btn btn-info" href="{% url next %}">next</a>
+    {% endif %}
+{% endblock %}
+
+{% block custom_js %}
+    <script>
+        $("#id_status").change(function () {
+            selected = $('#id_status').find(":selected").text();
+            console.log(selected)
+            if (selected == "Completed") {
+                $('#id_passing_date').attr("required", true);
+            } else {
+                $('#id_passing_date').attr("required", false);
+            }
+        });
+
+        $("#id_i_status").change(function () {
+            selected = $('#id_i_status').find(":selected").text();
+            console.log(selected)
+            if (selected == "Completed") {
+                $('#id_date_of_exit').attr("required", true);
+            } else {
+                $('#id_date_of_exit').attr("required", false);
+            }
+        });
+
+        $("#id_t_status").change(function () {
+            selected = $('#id_t_status').find(":selected").text();
+            console.log(selected)
+            if (selected == "Completed") {
+                $('#id_date').attr("required", true);
+            } else {
+                $('#id_date').attr("required", false);
+            }
+        });
+
+        $("#id_p_status").change(function () {
+            selected = $('#id_p_status').find(":selected").text();
+            console.log(selected)
+            if (selected == "Completed") {
+                $('#id_end_date').attr("required", true);
+            } else {
+                $('#id_end_date').attr("required", false);
+            }
+        });
+    </script>
+{% endblock %}
