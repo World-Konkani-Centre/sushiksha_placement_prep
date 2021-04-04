@@ -356,28 +356,46 @@ def language_delete(request, id):
 
 
 def pi(request):
-    try:
-        pi = PersonalInterest.objects.get(user=request.user)
-    except PersonalInterest.DoesNotExist:
-        pi = None
     if request.method == 'GET':
-        form = PIModelForm(instance=pi)
+        interests = PersonalInterest.objects.filter(user=request.user)
+        form = PIModelForm()
         context = {
             'heading': "Update the Personal Interest Information",
             'form': form,
+            'pi':interests,
             'prev': 'resume-language',
             'next':'resume-achievement',
             'width': 1000 / 13,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
-        form = PIModelForm(request.POST, instance=pi)
+        form = PIModelForm(request.POST)
         if form.is_valid():
             row = form.save(commit=False)
             row.user = request.user
             form.save()
         return redirect('resume-pi')
 
+
+def pi_edit(request, id):
+    lang = PersonalInterest.objects.get(user=request.user, id=id)
+    if request.method == 'GET':
+        form = LanguageModelForm(instance=lang)
+        context = {
+            'heading': "Update the Personal Interset Information",
+            'form': form,
+        }
+        return render(request, 'resume-builder/one_entry.html', context=context)
+    elif request.method == 'POST':
+        form = LanguageModelForm(request.POST, instance=lang)
+        if form.is_valid():
+            form.save()
+        return redirect('resume-pi')
+
+
+def pi_delete(request, id):
+    lang = PersonalInterest.objects.get(id=id, user=request.user).delete()
+    return redirect('resume-pi')
 
 def achievement(request):
     try:

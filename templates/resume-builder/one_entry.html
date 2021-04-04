@@ -281,6 +281,31 @@
                                 </div>
                             {% endif %}
 
+                        {% if pi %}
+                                <div>
+                                    <table class="table table-responsive">
+                                        <thead>
+                                        <tr>
+                                            <th> Interests</th>
+                                            <th>Edit</th>
+                                            <th> Delete</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for p in pi %}
+                                            <tr>
+                                                <td> {{ p.description }} </td>
+                                                <td><a class="btn btn-success"
+                                                       href="{% url 'resume-pi-edit' id=p.id %}">edit</a></td>
+                                                <td><a class="btn btn-danger"
+                                                       href="{% url 'resume-pi-delete' id=p.id %}">delete</a></td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {% endif %}
+
                             {% if other %}
                                 <div>
                                     <table class="table table-responsive">
@@ -330,6 +355,7 @@
                                 <li><a href="{%  url 'resume-training' %}">Training</a></li>
                                 <li><a href="{%  url 'resume-project' %}">Projects</a></li>
                                 <li><a href="{%  url 'resume-extra' %}">Extra Curricular Activities</a></li>
+                                <li><a href="{%  url 'resume-language' %}">Languages</a></li>
                                 <li><a href="{%  url 'resume-pi' %}">Personal Interests</a></li>
                                 <li><a href="{%  url 'resume-achievement' %}">Achievements</a></li>
                                 <li><a href="{%  url 'resume-declaration' %}">Declaration</a></li>

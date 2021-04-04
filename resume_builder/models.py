@@ -132,8 +132,8 @@ class Language(models.Model):
 
 
 class PersonalInterest(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    description = models.TextField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    description = models.CharField(max_length=50)
 
 
 class Achievement(models.Model):
