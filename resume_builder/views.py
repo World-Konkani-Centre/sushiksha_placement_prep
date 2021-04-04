@@ -100,7 +100,6 @@ def skills_delete(request, id):
 def education(request):
     ed = Education.objects.filter(user=request.user)
     if request.method == 'GET':
-        print(ed)
         form = EducationModelForm()
         context = {
             'heading': "Add new Education Information",
@@ -160,7 +159,6 @@ def internship(request):
             row = form.save(commit=False)
             row.user = request.user
             form.save()
-        print(form.errors)
         return redirect('resume-internship')
 
 
@@ -204,7 +202,6 @@ def training(request):
             row = form.save(commit=False)
             row.user = request.user
             form.save()
-        print(form.errors)
         return redirect('resume-training')
 
 
@@ -248,7 +245,6 @@ def project(request):
             row = form.save(commit=False)
             row.user = request.user
             form.save()
-        print(form.errors)
         return redirect('resume-project')
 
 
@@ -274,27 +270,46 @@ def project_delete(request, id):
 
 
 def extra(request):
-    try:
-        ex = Extra.objects.get(user=request.user)
-    except Extra.DoesNotExist:
-        ex = None
     if request.method == 'GET':
-        form = ExtraModelForm(instance=ex)
+        extra_obj = Extra.objects.filter(user=request.user)
+        form = ExtraModelForm()
         context = {
             'heading': "Update the Extra Curricular Information",
             'form': form,
+            'extra':extra_obj,
             'prev': 'resume-project',
             'next':'resume-language',
             'width': 800 / 13,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
-        form = ExtraModelForm(request.POST, instance=ex)
+        form = ExtraModelForm(request.POST)
         if form.is_valid():
             row = form.save(commit=False)
             row.user = request.user
             form.save()
         return redirect('resume-extra')
+
+
+def extra_edit(request, id):
+    lang = Extra.objects.get(user=request.user, id=id)
+    if request.method == 'GET':
+        form = ExtraModelForm(instance=lang)
+        context = {
+            'heading': "Update the Extra Curricular Information",
+            'form': form,
+        }
+        return render(request, 'resume-builder/one_entry.html', context=context)
+    elif request.method == 'POST':
+        form = ExtraModelForm(request.POST, instance=lang)
+        if form.is_valid():
+            form.save()
+        return redirect('resume-extra')
+
+
+def extra_delete(request, id):
+    lang = Extra.objects.get(id=id, user=request.user).delete()
+    return redirect('resume-extra')
 
 
 def language(request):

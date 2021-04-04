@@ -121,8 +121,8 @@ class Project(models.Model):
 
 
 class Extra(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    description = models.TextField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    description = models.CharField(max_length=50)
 
 
 class Language(models.Model):
