@@ -2,11 +2,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 from resume_builder.forms import ContactModelForm, AboutModelForm, SkillModelForm, EducationModelForm, \
     InternshipFormExperienceForm, TrainingCertificationForm, ProjectForm, ExtraModelForm, LanguageModelForm, \
-    PIModelForm, AchievementModelForm, DeclarationModelForm, OtherModelForm
+    PIModelForm, AchievementModelForm, DeclarationModelForm, OtherModelForm, ObjectiveModelForm
 from resume_builder.models import Contact, About, Skill, Education, InternshipExperience, TrainingCertification, \
-    Project, Extra, Language, PersonalInterest, Achievement, Declaration, Other
+    Project, Extra, Language, PersonalInterest, Achievement, Declaration, Other, Objective
 
-count = 13
+count = 14
 
 
 def contact(request):
@@ -20,7 +20,7 @@ def contact(request):
             'heading': "Update the Contact Information",
             'form': form,
             'next': 'resume-about',
-            'width': 100 / 13,
+            'width': 100 / count,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -44,7 +44,7 @@ def about(request):
             'form': form,
             'prev': 'resume-contact',
             'next': 'resume-skills',
-            'width': 200 / 13,
+            'width': 200 / count,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -54,6 +54,50 @@ def about(request):
             row.user = request.user
             form.save()
         return redirect('resume-about')
+
+
+
+def obj(request):
+    obj = Objective.objects.filter(user=request.user)
+    if request.method == 'GET':
+        form = ObjectiveModelForm()
+        context = {
+            'heading': "Add new Skills Information",
+            'form': form,
+            'obj': obj,
+            'prev': 'resume-about',
+            'next': 'resume-education',
+            'width': 300 / count,
+        }
+        return render(request, 'resume-builder/one_entry.html', context=context)
+    elif request.method == 'POST':
+        form = ObjectiveModelForm(request.POST)
+        if form.is_valid():
+            row = form.save(commit=False)
+            row.user = request.user
+            form.save()
+        return redirect('resume-obj')
+
+
+def obj_edit(request, id):
+    skill = Objective.objects.get(user=request.user, id=id)
+    if request.method == 'GET':
+        form = ObjectiveModelForm(instance=skill)
+        context = {
+            'heading': "Update the Objectives Information",
+            'form': form,
+        }
+        return render(request, 'resume-builder/one_entry.html', context=context)
+    elif request.method == 'POST':
+        form = ObjectiveModelForm(request.POST, instance=skill)
+        if form.is_valid():
+            form.save()
+        return redirect('resume-obj')
+
+
+def obj_delete(request, id):
+    skill = Objective.objects.get(id=id, user=request.user).delete()
+    return redirect('resume-obj')
 
 
 def skills(request):
@@ -66,7 +110,7 @@ def skills(request):
             'skills': skill,
             'prev': 'resume-about',
             'next': 'resume-education',
-            'width': 300 / 13,
+            'width': 400 / count,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -109,7 +153,7 @@ def education(request):
             'education': ed,
             'prev': 'resume-skills',
             'next': 'resume-internship',
-            'width': 400 / 13,
+            'width': 500 / count,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -152,7 +196,7 @@ def internship(request):
             'internship': ie,
             'prev': 'resume-education',
             'next': 'resume-training',
-            'width': 500 / 13,
+            'width': 600 / count,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -195,7 +239,7 @@ def training(request):
             'training': train,
             'prev': 'resume-internship',
             'next': 'resume-project',
-            'width': 600 / 13,
+            'width': 700 / count,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -238,7 +282,7 @@ def project(request):
             'projects': proj,
             'prev': 'resume-training',
             'next': 'resume-extra',
-            'width': 700 / 13,
+            'width': 800 / count,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -281,7 +325,7 @@ def extra(request):
             'extra': extra_obj,
             'prev': 'resume-project',
             'next': 'resume-language',
-            'width': 800 / 13,
+            'width': 900 / count,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -324,7 +368,7 @@ def language(request):
             'lang': lang,
             'prev': 'resume-extra',
             'next': 'resume-pi',
-            'width': 900 / 13,
+            'width': 1000 / count,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -367,7 +411,7 @@ def pi(request):
             'pi': interests,
             'prev': 'resume-language',
             'next': 'resume-achievement',
-            'width': 1000 / 13,
+            'width': 1100 / count,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -382,14 +426,14 @@ def pi(request):
 def pi_edit(request, id):
     lang = PersonalInterest.objects.get(user=request.user, id=id)
     if request.method == 'GET':
-        form = LanguageModelForm(instance=lang)
+        form = PIModelForm(instance=lang)
         context = {
             'heading': "Update the Personal Interset Information",
             'form': form,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
-        form = LanguageModelForm(request.POST, instance=lang)
+        form = PIModelForm(request.POST, instance=lang)
         if form.is_valid():
             form.save()
         return redirect('resume-pi')
@@ -410,7 +454,7 @@ def achievement(request):
             'ach': ach,
             'prev': 'resume-pi',
             'next': 'resume-declaration',
-            'width': 1100 / 13,
+            'width': 1200 / count,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -455,7 +499,7 @@ def declaration(request):
             'form': form,
             'prev': 'resume-achievement',
             'next': 'resume-other',
-            'width': 1200 / 13,
+            'width': 1300 / count,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -476,7 +520,7 @@ def other(request):
             'form': form,
             'other': oth,
             'prev': 'resume-declaration',
-            'width': 1300 / 13,
+            'width': 1400 / count,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':

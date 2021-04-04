@@ -1,7 +1,7 @@
 from django import forms
 
 from resume_builder.models import Contact, About, Skill, Education, InternshipExperience, TrainingCertification, \
-    Project, Extra, Language, PersonalInterest, Achievement, Declaration, Other
+    Project, Extra, Language, PersonalInterest, Achievement, Declaration, Other, Objective
 
 
 class ContactModelForm(forms.ModelForm):
@@ -21,6 +21,10 @@ class AboutModelForm(forms.ModelForm):
         model = About
         fields = ['summary']
 
+class ObjectiveModelForm(forms.ModelForm):
+    class Meta:
+        model = Objective
+        fields = ['description']
 
 class SkillModelForm(forms.ModelForm):
     class Meta:

@@ -78,7 +78,30 @@
                                 </div>
                             {% endif %}
 
-
+                            {% if obj %}
+                                <div>
+                                    <table class="table table-responsive">
+                                        <thead>
+                                        <tr>
+                                            <th>Objectives</th>
+                                            <th>Edit</th>
+                                            <th> Delete</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for p in obj %}
+                                            <tr>
+                                                <td> {{ p.description }} </td>
+                                                <td><a class="btn btn-success"
+                                                       href="{% url 'resume-obj-edit' id=p.id %}">edit</a></td>
+                                                <td><a class="btn btn-danger"
+                                                       href="{% url 'resume-obj-delete' id=p.id %}">delete</a></td>
+                                          </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {% endif %}
 
                             {% if skills %}
                                 <div>
@@ -174,7 +197,11 @@
                                             <tr>
                                                 <td> {{ t.name }} </td>
                                                 <td> {{ t.provider }} </td>
-                                                <td>  {{ t.t_status }}  </td>
+                                                {% if t.t_status == '1' %}
+                                                     <td>  Completed  </td>
+                                                {% else %}
+                                                <td> pursuing </td>
+                                                {% endif %}
                                                 <td> {{ t.date }}
                                                 <td>
                                                 <td><a class="btn btn-success"
@@ -207,7 +234,11 @@
                                             <tr>
                                                 <td> {{ p.name }} </td>
                                                 <td> {{ p.start_date }}  </td>
-                                                <td> {{ p.p_status }} </td>
+                                                {% if p.p_status == '1' %}
+                                                     <td>  Completed  </td>
+                                                {% else %}
+                                                <td> pursuing </td>
+                                                {% endif %}
                                                 <td> {{ p.end_date }} </td>
                                                 <td> {{ p.description }} </td>
                                                 <td><a class="btn btn-success"
@@ -374,6 +405,7 @@
                             <ul>
                                 <li><a href="{% url 'resume-contact' %}">Contact</a></li>
                                 <li><a href="{% url 'resume-about' %}">About</a></li>
+                                <li><a href="{% url 'resume-obj' %}">Objectives</a></li>
                                 <li><a href="{%  url 'resume-skills' %}">Skills </a></li>
                                 <li><a href="{%  url 'resume-education' %}">Education</a></li>
                                 <li><a href="{%  url 'resume-internship' %}">Internship</a></li>

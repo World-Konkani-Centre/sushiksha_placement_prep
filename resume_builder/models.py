@@ -49,6 +49,11 @@ class About(models.Model):
     summary = models.TextField()
 
 
+class Objective(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    description = models.CharField(max_length=50)
+
+
 PROFICIENCY_OPTIONS = (
     ("1", "Basic"),
     ("2", "Intermediate"),
