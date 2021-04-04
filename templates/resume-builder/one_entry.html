@@ -306,6 +306,31 @@
                                 </div>
                             {% endif %}
 
+                            {% if ach %}
+                                <div>
+                                    <table class="table table-responsive">
+                                        <thead>
+                                        <tr>
+                                            <th> Achievement</th>
+                                            <th>Edit</th>
+                                            <th> Delete</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for p in ach %}
+                                            <tr>
+                                                <td> {{ p.description }} </td>
+                                                <td><a class="btn btn-success"
+                                                       href="{% url 'resume-achievement-edit' id=p.id %}">edit</a></td>
+                                                <td><a class="btn btn-danger"
+                                                       href="{% url 'resume-achievement-delete' id=p.id %}">delete</a></td>
+                                          </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {% endif %}
+
                             {% if other %}
                                 <div>
                                     <table class="table table-responsive">

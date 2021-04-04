@@ -7,6 +7,8 @@ from resume_builder.models import Contact, About, Skill, Education, InternshipEx
     Project, Extra, Language, PersonalInterest, Achievement, Declaration, Other
 
 count = 13
+
+
 def contact(request):
     try:
         contact = Contact.objects.get(user=request.user)
@@ -17,8 +19,8 @@ def contact(request):
         context = {
             'heading': "Update the Contact Information",
             'form': form,
-            'next':'resume-about',
-            'width': 100/13,
+            'next': 'resume-about',
+            'width': 100 / 13,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -40,8 +42,8 @@ def about(request):
         context = {
             'heading': "Update the Profile Information",
             'form': form,
-            'prev':'resume-contact',
-            'next':'resume-skills',
+            'prev': 'resume-contact',
+            'next': 'resume-skills',
             'width': 200 / 13,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
@@ -63,7 +65,7 @@ def skills(request):
             'form': form,
             'skills': skill,
             'prev': 'resume-about',
-            'next':'resume-education',
+            'next': 'resume-education',
             'width': 300 / 13,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
@@ -106,7 +108,7 @@ def education(request):
             'form': form,
             'education': ed,
             'prev': 'resume-skills',
-            'next':'resume-internship',
+            'next': 'resume-internship',
             'width': 400 / 13,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
@@ -149,7 +151,7 @@ def internship(request):
             'form': form,
             'internship': ie,
             'prev': 'resume-education',
-            'next':'resume-training',
+            'next': 'resume-training',
             'width': 500 / 13,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
@@ -192,7 +194,7 @@ def training(request):
             'form': form,
             'training': train,
             'prev': 'resume-internship',
-            'next':'resume-project',
+            'next': 'resume-project',
             'width': 600 / 13,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
@@ -235,7 +237,7 @@ def project(request):
             'form': form,
             'projects': proj,
             'prev': 'resume-training',
-            'next':'resume-extra',
+            'next': 'resume-extra',
             'width': 700 / 13,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
@@ -276,9 +278,9 @@ def extra(request):
         context = {
             'heading': "Update the Extra Curricular Information",
             'form': form,
-            'extra':extra_obj,
+            'extra': extra_obj,
             'prev': 'resume-project',
-            'next':'resume-language',
+            'next': 'resume-language',
             'width': 800 / 13,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
@@ -321,7 +323,7 @@ def language(request):
             'form': form,
             'lang': lang,
             'prev': 'resume-extra',
-            'next':'resume-pi',
+            'next': 'resume-pi',
             'width': 900 / 13,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
@@ -362,9 +364,9 @@ def pi(request):
         context = {
             'heading': "Update the Personal Interest Information",
             'form': form,
-            'pi':interests,
+            'pi': interests,
             'prev': 'resume-language',
-            'next':'resume-achievement',
+            'next': 'resume-achievement',
             'width': 1000 / 13,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
@@ -397,28 +399,48 @@ def pi_delete(request, id):
     lang = PersonalInterest.objects.get(id=id, user=request.user).delete()
     return redirect('resume-pi')
 
+
 def achievement(request):
-    try:
-        ach = Achievement.objects.get(user=request.user)
-    except Achievement.DoesNotExist:
-        ach = None
     if request.method == 'GET':
-        form = AchievementModelForm(instance=ach)
+        ach = Achievement.objects.filter(user=request.user)
+        form = AchievementModelForm()
         context = {
             'heading': "Update the Achievements Information",
             'form': form,
+            'ach': ach,
             'prev': 'resume-pi',
-            'next':'resume-declaration',
+            'next': 'resume-declaration',
             'width': 1100 / 13,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
-        form = AchievementModelForm(request.POST, instance=ach)
+        form = AchievementModelForm(request.POST)
         if form.is_valid():
             row = form.save(commit=False)
             row.user = request.user
             form.save()
         return redirect('resume-achievement')
+
+
+def achievement_edit(request, id):
+    lang = Achievement.objects.get(user=request.user, id=id)
+    if request.method == 'GET':
+        form = AchievementModelForm(instance=lang)
+        context = {
+            'heading': "Update the Achievement Information",
+            'form': form,
+        }
+        return render(request, 'resume-builder/one_entry.html', context=context)
+    elif request.method == 'POST':
+        form = AchievementModelForm(request.POST, instance=lang)
+        if form.is_valid():
+            form.save()
+        return redirect('resume-achievement')
+
+
+def achievement_delete(request, id):
+    lang = Achievement.objects.get(id=id, user=request.user).delete()
+    return redirect('resume-achievement')
 
 
 def declaration(request):
@@ -432,7 +454,7 @@ def declaration(request):
             'heading': "Update the Declaration Information",
             'form': form,
             'prev': 'resume-achievement',
-            'next':'resume-other',
+            'next': 'resume-other',
             'width': 1200 / 13,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
@@ -485,5 +507,3 @@ def other_edit(request, id):
 def other_delete(request, id):
     oth = Other.objects.get(id=id, user=request.user).delete()
     return redirect('resume-other')
-
-
