@@ -34,9 +34,8 @@ urlpatterns = [
     path('achievement/edit/<int:id>',rb_views.achievement_edit,name="resume-achievement-edit"),
     path('achievement/delete/<int:id>',rb_views.achievement_delete,name="resume-achievement-delete"),
     path('declaration/',rb_views.declaration,name="resume-declaration"),
-    path('other/',rb_views.other,name="resume-other"),
-    path('other/edit/<int:id>',rb_views.other_edit,name="resume-other-edit"),
-    path('other/delete/<int:id>',rb_views.other_delete,name="resume-other-delete"),
-    #path('verify/',rb_views.verify,name="verify")
-    #path('generate/',rb_views.generate,name="generate")
+    path('preview/', rb_views.preview, name="resume-preview"),
+    path('preview-resume/', rb_views.preview_template, name="resume-preview-template"),
+
+    #y/',rb_views.verify,name=path('generate/',rb_views.generate,name="generate")
 ]

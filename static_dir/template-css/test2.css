@@ -1,0 +1,112 @@
+.top-level {
+  display: flex;
+  width: 210mm;
+    height:297mm;
+  /* to centre page on screen*/
+  margin-left: auto;
+  margin-right: auto;
+  flex-direction: column;
+  border: 1px solid black;
+}
+
+.first-level {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.first-first-level {
+  width: auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.first-second-level {
+  height: 100%;
+  width: auto;
+}
+
+.second-level {
+  height: 100%;
+  display: flex;
+}
+
+.second-first-level {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  margin-right: 5px;
+  flex-direction: column;
+}
+
+.second-second-level {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.info {
+  margin-bottom: 0px;
+}
+
+.porfile-pic {
+  --size: 120px;
+  width: var(--size);
+  height: var(--size);
+  object-fit: cover;
+  margin: 20px 20px;
+  display: block;
+  background: var(--light-brown);
+}
+.text-center {
+  text-align: center;
+}
+
+
+.header-i{
+  padding: 0 2px 0 10px;
+  margin-bottom: 0px;
+  font-size: medium;
+  border-bottom: 2px solid black;
+  font-weight: bolder;
+  /* text-decoration: underline 2px solid black; */
+}
+
+.ie-h6{
+  margin-bottom: 0px;
+}
+
+.ie-p{
+  margin-bottom: 0px;
+  font-size: small;
+}
+
+.ie-pf{
+  margin-bottom: 0px;
+  float: right;
+  font-size: small;
+}
+
+.checked {
+  color: orange;
+}
+
+.ln-p{
+  margin-left: 20px;
+  margin-bottom: 2px;
+  font-size: small;
+}
+
+ul{
+  margin-bottom: 2px;
+}
+
+.name{
+  margin-bottom: 0px;
+}
+
+.text-md{
+  font-size:22px;
+}

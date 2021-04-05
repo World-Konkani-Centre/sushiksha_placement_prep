@@ -8,6 +8,7 @@
 {% endblock %}
 {% block content %}
 
+    <main id="main">
     <section class="breadcrumbs">
         <div class="container">
 
@@ -416,7 +417,6 @@
                                 <li><a href="{%  url 'resume-pi' %}">Personal Interests</a></li>
                                 <li><a href="{%  url 'resume-achievement' %}">Achievements</a></li>
                                 <li><a href="{%  url 'resume-declaration' %}">Declaration</a></li>
-                                <li><a href="{%  url 'resume-other' %}">Other Fields</a></li>
                             </ul>
                             <div class="progress">
                                 <div class="progress-bar progress-bar-striped active" style="width: {{ width }}%"></div>
@@ -430,6 +430,8 @@
                             {% else %}
                                 <a class="btn btn-info" href="#">next</a>
                             {% endif %}
+
+                            <a class = "btn btn-success" href="{%url 'resume-preview' %}">Preview</a>
                         </div><!-- End sidebar categories-->
 
                     </div><!-- End sidebar -->

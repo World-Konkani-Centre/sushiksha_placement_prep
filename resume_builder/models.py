@@ -9,6 +9,11 @@ STATUS = (
 )
 
 
+class Template(models.Model):
+    template = models.CharField(max_length=50)
+    image = models.ImageField(upload_to='templates')
+
+
 class Resume(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
     status = models.CharField(max_length=3, choices=STATUS, default='1')
@@ -50,7 +55,7 @@ class About(models.Model):
 
 
 class Objective(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     description = models.CharField(max_length=50)
 
 
@@ -152,9 +157,3 @@ class Declaration(models.Model):
     state = models.CharField(max_length=50)
     city = models.CharField(max_length=50)
     date = models.DateField()
-
-
-class Other(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, unique=False)
-    heading = models.CharField(max_length=30)
-    description = models.TextField()

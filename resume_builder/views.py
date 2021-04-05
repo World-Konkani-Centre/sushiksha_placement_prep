@@ -2,9 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 from resume_builder.forms import ContactModelForm, AboutModelForm, SkillModelForm, EducationModelForm, \
     InternshipFormExperienceForm, TrainingCertificationForm, ProjectForm, ExtraModelForm, LanguageModelForm, \
-    PIModelForm, AchievementModelForm, DeclarationModelForm, OtherModelForm, ObjectiveModelForm
+    PIModelForm, AchievementModelForm, DeclarationModelForm,  ObjectiveModelForm
 from resume_builder.models import Contact, About, Skill, Education, InternshipExperience, TrainingCertification, \
-    Project, Extra, Language, PersonalInterest, Achievement, Declaration, Other, Objective
+    Project, Extra, Language, PersonalInterest, Achievement, Declaration, Objective, Template
 
 count = 14
 
@@ -423,7 +423,8 @@ def pi(request):
         return redirect('resume-pi')
 
 
-def pi_edit(request, id):
+def pi_edit(request,
+            id):
     lang = PersonalInterest.objects.get(user=request.user, id=id)
     if request.method == 'GET':
         form = PIModelForm(instance=lang)
@@ -498,7 +499,6 @@ def declaration(request):
             'heading': "Update the Declaration Information",
             'form': form,
             'prev': 'resume-achievement',
-            'next': 'resume-other',
             'width': 1300 / count,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
@@ -511,43 +511,16 @@ def declaration(request):
         return redirect('resume-declaration')
 
 
-def other(request):
-    oth = Other.objects.filter(user=request.user)
+def preview(request):
     if request.method == 'GET':
-        form = OtherModelForm()
-        context = {
-            'heading': "Add any other specific Information",
-            'form': form,
-            'other': oth,
-            'prev': 'resume-declaration',
-            'width': 1400 / count,
-        }
-        return render(request, 'resume-builder/one_entry.html', context=context)
-    elif request.method == 'POST':
-        form = OtherModelForm(request.POST)
-        if form.is_valid():
-            row = form.save(commit=False)
-            row.user = request.user
-            form.save()
-        return redirect('resume-other')
+        query = Template.objects.all()
+        return render(request,'resume-builder/view.html',context={'query':query})
 
 
-def other_edit(request, id):
-    oth = Other.objects.get(user=request.user, id=id)
-    if request.method == 'GET':
-        form = OtherModelForm(instance=oth)
-        context = {
-            'heading': "Update the Information",
-            'form': form,
-        }
-        return render(request, 'resume-builder/one_entry.html', context=context)
-    elif request.method == 'POST':
-        form = OtherModelForm(request.POST, instance=oth)
-        if form.is_valid():
-            form.save()
-        return redirect('resume-other')
-
-
-def other_delete(request, id):
-    oth = Other.objects.get(id=id, user=request.user).delete()
-    return redirect('resume-other')
+def preview_template(request):
+    if request.is_ajax():
+        print(request)
+        templateId = (request.headers.get('templateId'))
+        template = Template.objects.get(id=templateId)
+        loc = f'resume-builder/{template.template}'
+        return render(request,loc,context={})
