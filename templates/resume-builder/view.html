@@ -6,7 +6,6 @@
 {% block custom_css %}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'template-css/test3.css' %}" >
 {% endblock %}
 {% block content %}
 <main id="main">
@@ -36,8 +35,10 @@
                         <h3 class="sidebar-title">Categories</h3>
                         <div class="sidebar-item categories">
                             <a class="btn btn-info" href="{%  url 'resume-contact' %}">Back to Edit </a>
-                             <form method="post">
-                        <input type="hidden" id="ip" value="0">
+                            <button class="btn btn-info" type="button" onclick="printer()">Print </button>
+                             <form method="POST">
+                                 {%  csrf_token %}
+                        <input type="hidden" name="ip" id="ip" value="1">
                         <button type="submit" class="btn btn-danger">Submit for review</button>
                     </form>
                         </div><!-- End sidebar categories-->
@@ -86,6 +87,7 @@
 {% endblock %}
 
 {% block custom_js %}
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
@@ -93,15 +95,26 @@
 
 
       <script>
+      function printer() {
+          var prtContent = document.getElementById("main-content-space");
+          var WinPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
+          WinPrint.document.write(prtContent.innerHTML);
+          WinPrint.document.close();
+          WinPrint.focus();
+          WinPrint.print();
+          WinPrint.close();
+      }
+      var tid = 1;
       function  func(id) {
-          $("#ip").val(id);
+          tid = id;
+          $("#ip").attr("value",id);
+
           $.ajax({
               url: "{% url 'resume-preview-template'%}",
               headers: {
                   'templateId': id
               },
               success: function (val) {
-                  console.log(val)
                   $("#main-content-space").html(val)
               }
           });

@@ -1,10 +1,19 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse
+from django.shortcuts import redirect
+from django.shortcuts import render
+from django.template.loader import render_to_string
+from weasyprint import HTML
+import tempfile
+import os
 
 from resume_builder.forms import ContactModelForm, AboutModelForm, SkillModelForm, EducationModelForm, \
     InternshipFormExperienceForm, TrainingCertificationForm, ProjectForm, ExtraModelForm, LanguageModelForm, \
-    PIModelForm, AchievementModelForm, DeclarationModelForm,  ObjectiveModelForm
+    PIModelForm, AchievementModelForm, DeclarationModelForm, ObjectiveModelForm
 from resume_builder.models import Contact, About, Skill, Education, InternshipExperience, TrainingCertification, \
     Project, Extra, Language, PersonalInterest, Achievement, Declaration, Objective, Template
+
+
+
 
 count = 14
 
@@ -54,7 +63,6 @@ def about(request):
             row.user = request.user
             form.save()
         return redirect('resume-about')
-
 
 
 def obj(request):
@@ -512,15 +520,33 @@ def declaration(request):
 
 
 def preview(request):
+    if request.method == 'POST':
+        tid = request.POST.get('ip')
+        temp = Template.objects.get(id=tid)
+        context = {}
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment:Resume.pdf'
+        response['Content-Transfer-encoding'] = 'binary'
+
+        html_string = render_to_string(f'resume-builder/{temp.template}',context)
+        html = HTML(string=html_string)
+        result = html.write_pdf()
+
+        f = tempfile.NamedTemporaryFile(delete=False,mode='wb',dir="./")
+        f.write(result)
+        f.flush()
+        output = open(f.name, 'rb')
+        response.write(output.read())
+
+        return response
     if request.method == 'GET':
         query = Template.objects.all()
-        return render(request,'resume-builder/view.html',context={'query':query})
+        return render(request, 'resume-builder/view.html', context={'query': query})
 
 
 def preview_template(request):
     if request.is_ajax():
-        print(request)
         templateId = (request.headers.get('templateId'))
         template = Template.objects.get(id=templateId)
         loc = f'resume-builder/{template.template}'
-        return render(request,loc,context={})
+        return render(request, loc, context={})
