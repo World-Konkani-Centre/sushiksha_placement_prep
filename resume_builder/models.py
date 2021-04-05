@@ -3,9 +3,11 @@ from django.db import models
 
 STATUS = (
     ('1', 'Queued'),
-    ('2', 'Reviewed'),
-    ('3', 'Reviewed and Needs Update'),
-    ('4', 'Complete'),
+    ('2', 'Reviewing'),
+    ('3', 'Reviewed'),
+    ('4', 'Reviewed and Needs Update'),
+    ('5', 'Editing'),
+    ('6', 'Complete'),
 )
 
 
@@ -16,6 +18,7 @@ class Template(models.Model):
 
 class Resume(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
+    template = models.ForeignKey(Template,on_delete=models.CASCADE,null=True)
     status = models.CharField(max_length=3, choices=STATUS, default='1')
 
 

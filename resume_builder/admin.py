@@ -2,7 +2,12 @@ from django.contrib import admin
 
 # Register your models here.
 from resume_builder.models import About, Contact, Skill, Education, InternshipExperience, TrainingCertification, \
-    Project, Extra, Language, PersonalInterest, Achievement, Declaration,Template
+    Project, Extra, Language, PersonalInterest, Achievement, Declaration,Template, Resume
+
+
+@admin.register(Resume)
+class ResumeAdmin(admin.ModelAdmin):
+    pass
 
 
 @admin.register(Template)

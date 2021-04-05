@@ -10,10 +10,7 @@ from resume_builder.forms import ContactModelForm, AboutModelForm, SkillModelFor
     InternshipFormExperienceForm, TrainingCertificationForm, ProjectForm, ExtraModelForm, LanguageModelForm, \
     PIModelForm, AchievementModelForm, DeclarationModelForm, ObjectiveModelForm
 from resume_builder.models import Contact, About, Skill, Education, InternshipExperience, TrainingCertification, \
-    Project, Extra, Language, PersonalInterest, Achievement, Declaration, Objective, Template
-
-
-
+    Project, Extra, Language, PersonalInterest, Achievement, Declaration, Objective, Template, Resume
 
 count = 14
 
@@ -523,22 +520,10 @@ def preview(request):
     if request.method == 'POST':
         tid = request.POST.get('ip')
         temp = Template.objects.get(id=tid)
-        context = {}
-        response = HttpResponse(content_type='application/pdf')
-        response['Content-Disposition'] = 'attachment:Resume.pdf'
-        response['Content-Transfer-encoding'] = 'binary'
-
-        html_string = render_to_string(f'resume-builder/{temp.template}',context)
-        html = HTML(string=html_string)
-        result = html.write_pdf()
-
-        f = tempfile.NamedTemporaryFile(delete=False,mode='wb',dir="./")
-        f.write(result)
-        f.flush()
-        output = open(f.name, 'rb')
-        response.write(output.read())
-
-        return response
+        res, created = Resume.objects.get_or_create(user=request.user)
+        res.template = temp
+        res.save()
+        return redirect('resume-preview')
     if request.method == 'GET':
         query = Template.objects.all()
         return render(request, 'resume-builder/view.html', context={'query': query})
