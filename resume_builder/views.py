@@ -1,10 +1,5 @@
-from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.shortcuts import render
-from django.template.loader import render_to_string
-from weasyprint import HTML
-import tempfile
-import os
 
 from resume_builder.forms import ContactModelForm, AboutModelForm, SkillModelForm, EducationModelForm, \
     InternshipFormExperienceForm, TrainingCertificationForm, ProjectForm, ExtraModelForm, LanguageModelForm, \

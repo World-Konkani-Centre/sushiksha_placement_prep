@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     'resume_builder',
+    'mentors_panel',
+    'users',
 ]
 
 MIDDLEWARE = [

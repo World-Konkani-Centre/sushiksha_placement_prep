@@ -18,11 +18,13 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 import resume_builder.urls as builder_url
+import mentors_panel.urls as mentor_url
 from sushiksha_placement_prep import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url('resume-builder/',include(builder_url))
+    url('resume-builder/',include(builder_url)),
+    url('mentors/',include(mentor_url))
 ]
 
 

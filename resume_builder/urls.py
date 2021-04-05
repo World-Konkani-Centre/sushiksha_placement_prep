@@ -36,6 +36,4 @@ urlpatterns = [
     path('declaration/',rb_views.declaration,name="resume-declaration"),
     path('preview/', rb_views.preview, name="resume-preview"),
     path('preview-resume/', rb_views.preview_template, name="resume-preview-template"),
-
-    #y/',rb_views.verify,name=path('generate/',rb_views.generate,name="generate")
 ]
