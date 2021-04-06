@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from django.shortcuts import render
@@ -11,6 +12,7 @@ from resume_builder.models import Contact, About, Skill, Education, InternshipEx
 count = 14
 
 
+@login_required
 def contact(request):
     try:
         contact = Contact.objects.get(user=request.user)
@@ -34,6 +36,7 @@ def contact(request):
         return redirect('resume-contact')
 
 
+@login_required
 def about(request):
     try:
         about = About.objects.get(user=request.user)
@@ -58,6 +61,7 @@ def about(request):
         return redirect('resume-about')
 
 
+@login_required
 def obj(request):
     obj = Objective.objects.filter(user=request.user)
     if request.method == 'GET':
@@ -80,6 +84,7 @@ def obj(request):
         return redirect('resume-obj')
 
 
+@login_required
 def obj_edit(request, id):
     skill = Objective.objects.get(user=request.user, id=id)
     if request.method == 'GET':
@@ -96,11 +101,13 @@ def obj_edit(request, id):
         return redirect('resume-obj')
 
 
+@login_required
 def obj_delete(request, id):
     skill = Objective.objects.get(id=id, user=request.user).delete()
     return redirect('resume-obj')
 
 
+@login_required
 def skills(request):
     skill = Skill.objects.filter(user=request.user)
     if request.method == 'GET':
@@ -123,6 +130,7 @@ def skills(request):
         return redirect('resume-skills')
 
 
+@login_required
 def skills_edit(request, id):
     skill = Skill.objects.get(user=request.user, id=id)
     if request.method == 'GET':
@@ -139,11 +147,13 @@ def skills_edit(request, id):
         return redirect('resume-skills')
 
 
+@login_required
 def skills_delete(request, id):
     skill = Skill.objects.get(id=id, user=request.user).delete()
     return redirect('resume-skills')
 
 
+@login_required
 def education(request):
     ed = Education.objects.filter(user=request.user)
     if request.method == 'GET':
@@ -166,6 +176,7 @@ def education(request):
         return redirect('resume-education')
 
 
+@login_required
 def education_edit(request, id):
     educaiton = Education.objects.get(user=request.user, id=id)
     if request.method == 'GET':
@@ -182,11 +193,13 @@ def education_edit(request, id):
         return redirect('resume-education')
 
 
+@login_required
 def education_delete(request, id):
     educaiton = Education.objects.get(id=id, user=request.user).delete()
     return redirect('resume-education')
 
 
+@login_required
 def internship(request):
     ie = InternshipExperience.objects.filter(user=request.user)
     if request.method == 'GET':
@@ -209,6 +222,7 @@ def internship(request):
         return redirect('resume-internship')
 
 
+@login_required
 def internship_edit(request, id):
     internship = InternshipExperience.objects.get(user=request.user, id=id)
     if request.method == 'GET':
@@ -225,11 +239,13 @@ def internship_edit(request, id):
         return redirect('resume-internship')
 
 
+@login_required
 def internship_delete(request, id):
     intern = InternshipExperience.objects.get(id=id, user=request.user).delete()
     return redirect('resume-internship')
 
 
+@login_required
 def training(request):
     train = TrainingCertification.objects.filter(user=request.user)
     if request.method == 'GET':
@@ -252,6 +268,7 @@ def training(request):
         return redirect('resume-training')
 
 
+@login_required
 def training_edit(request, id):
     train = TrainingCertification.objects.get(user=request.user, id=id)
     if request.method == 'GET':
@@ -268,11 +285,13 @@ def training_edit(request, id):
         return redirect('resume-training')
 
 
+@login_required
 def training_delete(request, id):
     intern = TrainingCertification.objects.get(id=id, user=request.user).delete()
     return redirect('resume-training')
 
 
+@login_required
 def project(request):
     proj = Project.objects.filter(user=request.user)
     if request.method == 'GET':
@@ -295,6 +314,7 @@ def project(request):
         return redirect('resume-project')
 
 
+@login_required
 def project_edit(request, id):
     proj = Project.objects.get(user=request.user, id=id)
     if request.method == 'GET':
@@ -311,6 +331,7 @@ def project_edit(request, id):
         return redirect('resume-project')
 
 
+@login_required
 def project_delete(request, id):
     proj = Project.objects.get(id=id, user=request.user).delete()
     return redirect('resume-project')
@@ -338,6 +359,7 @@ def extra(request):
         return redirect('resume-extra')
 
 
+@login_required
 def extra_edit(request, id):
     lang = Extra.objects.get(user=request.user, id=id)
     if request.method == 'GET':
@@ -354,11 +376,13 @@ def extra_edit(request, id):
         return redirect('resume-extra')
 
 
+@login_required
 def extra_delete(request, id):
     lang = Extra.objects.get(id=id, user=request.user).delete()
     return redirect('resume-extra')
 
 
+@login_required
 def language(request):
     lang = Language.objects.filter(user=request.user)
     if request.method == 'GET':
@@ -381,6 +405,7 @@ def language(request):
         return redirect('resume-language')
 
 
+@login_required
 def language_edit(request, id):
     lang = Language.objects.get(user=request.user, id=id)
     if request.method == 'GET':
@@ -396,12 +421,12 @@ def language_edit(request, id):
             form.save()
         return redirect('resume-language')
 
-
+@login_required
 def language_delete(request, id):
     lang = Language.objects.get(id=id, user=request.user).delete()
     return redirect('resume-language')
 
-
+@login_required
 def pi(request):
     if request.method == 'GET':
         interests = PersonalInterest.objects.filter(user=request.user)
@@ -423,7 +448,7 @@ def pi(request):
             form.save()
         return redirect('resume-pi')
 
-
+@login_required
 def pi_edit(request,
             id):
     lang = PersonalInterest.objects.get(user=request.user, id=id)
@@ -440,12 +465,12 @@ def pi_edit(request,
             form.save()
         return redirect('resume-pi')
 
-
+@login_required
 def pi_delete(request, id):
     lang = PersonalInterest.objects.get(id=id, user=request.user).delete()
     return redirect('resume-pi')
 
-
+@login_required
 def achievement(request):
     if request.method == 'GET':
         ach = Achievement.objects.filter(user=request.user)
@@ -467,7 +492,7 @@ def achievement(request):
             form.save()
         return redirect('resume-achievement')
 
-
+@login_required
 def achievement_edit(request, id):
     lang = Achievement.objects.get(user=request.user, id=id)
     if request.method == 'GET':
@@ -483,12 +508,12 @@ def achievement_edit(request, id):
             form.save()
         return redirect('resume-achievement')
 
-
+@login_required
 def achievement_delete(request, id):
     lang = Achievement.objects.get(id=id, user=request.user).delete()
     return redirect('resume-achievement')
 
-
+@login_required
 def declaration(request):
     try:
         dec = Declaration.objects.get(user=request.user)
@@ -511,7 +536,7 @@ def declaration(request):
             form.save()
         return redirect('resume-declaration')
 
-
+@login_required
 def preview(request):
     if request.method == 'POST':
         tid = request.POST.get('ip')
@@ -524,7 +549,7 @@ def preview(request):
         query = Template.objects.all()
         return render(request, 'resume-builder/view.html', context={'query': query})
 
-
+@login_required
 def preview_template(request):
     if request.is_ajax():
         templateId = (request.headers.get('templateId'))
