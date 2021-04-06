@@ -114,9 +114,6 @@
               headers: {
                   'templateId': id,
                   'userId':{{ request.user.id }},
-                      {% if resumeId %}
-                  'resumeId':{{ resumeId }}
-                    {% endif %}
               },
               success: function (val) {
                   $("#main-content-space").html(val)
@@ -124,7 +121,7 @@
           });
       }
       $(document).ready(
-          func(2)
+          func(1)
       )
     </script>
 {% endblock %}
