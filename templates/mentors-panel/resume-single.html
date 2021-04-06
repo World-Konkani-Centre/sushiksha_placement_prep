@@ -83,14 +83,12 @@
       }
         var tid = 1;
 
-        function func(id) {
-            tid = id;
-            $("#ip").attr("value", id);
+        function func() {
 
             $.ajax({
                 url: "{% url 'resume-preview-template'%}",
                 headers: {
-                    'templateId': id
+                    'resumeId':{{ resume.id }},
                 },
                 success: function (val) {
                     $("#main-content-space").html(val)
@@ -99,7 +97,7 @@
         }
 
         $(document).ready(
-            func(1)
+            func()
         )
     </script>
 {% endblock %}

@@ -528,8 +528,15 @@ def preview(request):
 def preview_template(request):
     if request.is_ajax():
         templateId = (request.headers.get('templateId'))
-        template = Template.objects.get(id=templateId)
         userId = (request.headers.get('userId'))
+        try:
+            resumeId = request.headers.get('resumeId')
+            resume = Resume.objects.get(id=resumeId)
+            userId = resume.user.id
+            templateId = resume.template.id
+        except Resume.DoesNotExist:
+            pass
+        template = Template.objects.get(id=templateId)
         user = User.objects.get(id=userId)
         contact_obj = Contact.objects.get(user=user)
         about_obj = About.objects.get(user=request.user)

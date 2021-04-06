@@ -23,13 +23,19 @@ def resume_list(request):
 def resume_view(request, resumeId):
     resume = Resume.objects.get(id=resumeId)
     p = Profile.objects.get(user=request.user)
-    if p.is_mentor:
-        form = ResumeModelForm(instance=resume)
-        context = {
-            'resume':resume,
-            'form':form,
-            'heading': 'Resume',
-        }
-        return render(request, 'mentors-panel/resume-single.html', context=context)
+    if request.method == 'GET':
+        if p.is_mentor or resume.user == request.user:
+            form = ResumeModelForm(instance=resume)
+            context = {
+                'resume': resume,
+                'form': form,
+                'heading': 'Resume',
+            }
+            return render(request, 'mentors-panel/resume-single.html', context=context)
+    elif request.method == 'POST':
+        form = ResumeModelForm(request.POST,instance=resume)
+        if form.is_valid():
+            form.save()
+            return  redirect('resume-list')
     else:
         return HttpResponse('Unauthorized', status=401)

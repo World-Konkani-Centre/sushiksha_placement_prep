@@ -113,7 +113,10 @@
               url: "{% url 'resume-preview-template'%}",
               headers: {
                   'templateId': id,
-                  'userId':{{ request.user.id }}
+                  'userId':{{ request.user.id }},
+                      {% if resumeId %}
+                  'resumeId':{{ resumeId }}
+                    {% endif %}
               },
               success: function (val) {
                   $("#main-content-space").html(val)
