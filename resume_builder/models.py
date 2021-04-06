@@ -127,6 +127,7 @@ PROJECT_STATUS = (
 class Project(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
+    tech = models.CharField(max_length=50)
     start_date = models.DateField()
     p_status = models.CharField(choices=PROJECT_STATUS, max_length=1, default="2")
     end_date = models.DateField(null=True, blank=True)

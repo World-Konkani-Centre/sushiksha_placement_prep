@@ -112,7 +112,8 @@
           $.ajax({
               url: "{% url 'resume-preview-template'%}",
               headers: {
-                  'templateId': id
+                  'templateId': id,
+                  'userId':{{ request.user.id }}
               },
               success: function (val) {
                   $("#main-content-space").html(val)
@@ -120,7 +121,7 @@
           });
       }
       $(document).ready(
-          func(1)
+          func(2)
       )
     </script>
 {% endblock %}

@@ -1,7 +1,7 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
     img {
     -webkit-print-color-adjust: exact;
@@ -142,32 +142,33 @@ ul{
         <div class="first-level">
           <div class="first-first-level">
             <section>
-              <h2 class="name">Swasthik C Nayak</h2>
-             
-              <p class="info text-md">
-                 <small>UI / UX DESIGNER/DEVELOPER</small>
-              </p>
+              <h2 class="name">{{ contact.first_name }} {{ contact.last_name }}</h2>
+
+{#              <p class="info text-md">#}
+{#                 <small>UI / UX DESIGNER/DEVELOPER</small>#}
+{#              </p>#}
               <p class="info">
                 <small
-                  ><span class="fa fa-xs fa-map-marker"></span> 5-71B,
-                  Nagarabettu, Herga Village,Parkala post</small
-                >
+                  ><span class="fa fa-xs fa-map-marker"></span> {{ contact.address_1 }}, {{ contact.address_2 }} </small>
               </p>
               <p class="info">
-                <small> Udupi-576107,Karnataka,India post</small>
+                <small> {{ contact.state }}, {{ contact.country }}
+                            - {{ contact.pin }}</small>
               </p>
               <p class="info">
                 <small>
-                  <span class="fa fa-xs fa-phone"></span> +91 7210562014 &nbsp
-                  <span class="fa fa-xs fa-github"></span> www.github.com</small
-                >
+                  <span class="fa fa-xs fa-phone"></span> +91 {{ contact.phone_number }}
+                    {% if contact.github %}
+                        &nbsp   {{ contact.github }} {% endif %}</small>
+
               </p>
               <p class="info">
-                <small
-                  ><span class="fa fa-xs fa-linkedin"></span> www.linkedIn.com
-                  &nbsp
+                <small>
+                    {% if contact.linked_in %}
+                    <span class="fa fa-xs fa-linkedin"></span> &nbsp{{ contact.linked_in }}{% endif %}
+
                   <span class="fa fa-xs fa-envelope"></span>
-                  swasthik0304@gmail.com</small
+                  {{ contact.email }}</small
                 >
               </p>
             </section>
@@ -180,165 +181,189 @@ ul{
         </div>
         <div class="second-level">
           <div class="second-first-level">
+
+              {% if about %}
           <section>
               <h4 class="header-i">ABOUT ME</h4>
-                <p class="ln-p">I am a good guy you know that right. I am a good guy you know that right.I am a good guy you know that right.I am a good guy you know that right. </p>
+                <p class="ln-p">{{ about.summary }} </p>
             </section>
-            
+{% endif %}
+
+          {% if ie %}
             <section>
               <h4 class="header-i">INTERNSHIP AND EXPERIENCE</h4>
-              <ul>
-                <li>
-                  <h6 class="ie-h6">Company 1</h6>
-                  <i class="ie-p">Senior engineer - SanFrancisco,CA</i>
-                  <p class="ie-p">
-                    sdf asdf Senior engineer - SanFrancisco,CA Senior engineer -
-                    SanFrancisco,CA
-                  </p>
-                  <p class="ie-p"><small>February to August 1999</small></p>
-                </li>
-                <li>
-                  <h6 class="ie-h6">Company 2</h6>
-                  <i class="ie-p">Senior engineer - SanFrancisco,CA</i>
-                  <p class="ie-p">
-                    sdf asdf Senior engineer - SanFrancisco,CA Senior engineer -
-                    SanFrancisco,CA
-                  </p>
-                  <p class="ie-p"><small>February to August 1999</small></p>
-                </li>
-              </ul>
-            </section>
 
+              <ul>
+              {% for i in ie %}
+                <li>
+                  <h6 class="ie-h6">{{ i.name }}</h6>
+                  <i class="ie-p">{{ i.position }} - {{ i.city }},{{ i.state }},{{ i.country }}</i>
+                  <p class="ie-p">
+                    {{ i.description }}
+                  </p>
+                  <p class="ie-p"><small>
+                      {{ i.date_of_joining }}-{% if i.date_of_exit %}
+                                {{ i.date_of_exit }}{% else %}Current{% endif %}
+                  </small></p>
+                </li>
+              {% endfor %}
+              </ul>
+
+            </section>
+            {% endif %}
+
+           {% if education %}
             <section>
               <h4 class="header-i">EDUCATION</h4>
               <ul>
+                  {% for e in education %}
                 <li>
-                  <h6 class="ie-h6">Pre-University Education</h6>
-                  <p class="ie-p">MGM Pre University College</p>
+                  <h6 class="ie-h6">{{ e.degree }}, {{ e.field_of_study }}</h6>
+                  <p class="ie-p">{{ e.school_name }}</p>
                   <i class="ie-p">
-                    Udupi,Karnataka  
+                    {{ e.city }},{{ e.state }}
                   </i>
-                  <i class="ie-pf">Percentage - 95%</i>
-                  <p class="ie-p"><small>February to August 1999</small></p>
+                  <i class="ie-pf">CGPA -  {{ e.score }}</i>
+                  <p class="ie-p"><small>{{ e.joining_date }}-{% if e.passing_date %}
+                                {{ e.passing_date }}{% else %}Current{% endif %}</small></p>
                 </li>
-                <li>
-                  <h6 class="ie-h6">Pre-University Education</h6>
-                  <p class="ie-p">MGM Pre University College</p>
-                  <i class="ie-p">
-                    Udupi,Karnataka  
-                  </i>
-                  <i class="ie-pf">Percentage - 95%</i>
-                  <p class="ie-p"><small>February to August 1999</small></p>
-                </li>
-                <li>
-                  <h6 class="ie-h6">Pre-University Education</h6>
-                  <p class="ie-p">MGM Pre University College</p>
-                  <i class="ie-p">
-                    Udupi,Karnataka  
-                  </i>
-                  <i class="ie-pf">Percentage - 95%</i>
-                  <p class="ie-p"><small>February to August 1999</small></p>
-                </li>
+                  {% endfor %}
               </ul>
             </section>
+          {% endif %}
 
+          {% if achievement %}
             <section>
               <h4 class="header-i">ACHIEVEMENTS</h4>
               <ul>
+              {% for e in achievement %}
                 <li>
-                  <p class="ie-h6">My first Achievement</p>
+                  <p class="ie-h6">{{ e.description }}</p>
                 </li>
-                <li>
-                  <p class="ie-h6">My second Achievement</p>
-                </li>
-                <li>
-                  <p class="ie-h6">My third Achievement</p>
-                </li>
+                  {% endfor %}
               </ul>
             </section>
+          {% endif %}
+
+          {% if extras %}
+            <section>
+              <h4 class="header-i">EXTRA CURRICULAR ACTIVITIES</h4>
+              <ul>
+              {% for e in extras %}
+                <li>
+                  <p class="ie-h6">{{ e.description }}</p>
+                </li>
+                  {% endfor %}
+              </ul>
+            </section>
+          {% endif %}
+
+
           </div>
           <div class="second-second-level">
-          
+
+              {% if objectives %}
           <section>
               <h4 class="header-i">OBJECTIVES</h4>
-                <p class="ln-p">I am a good guy you know that right. I am a good guy you know that right.I am a good guy you know that right.I am a good guy you know that right. </p>
+              <ul>
+              {% for i in objectives %}
+                  <li><p class="ie-h6">{{ i.description }}</p></li>
+              {% endfor %}
+              </ul>
             </section>
+          {% endif %}
+
+          {% if skills or language%}
           <section>
               <h4 class="header-i">SKILLS</h4>
                <ul>
+                   {% if skills %}
                 <li>
                   <h6 class="ie-h6">Technical Skills</h6>
-                  <p class="ie-p">MGM Pre University College</p>
+                   <p class="ie-p">{% for sk in skills %}
+                                        {% if forloop.counter == skills|length %}
+                                            {{ sk.skill }}
+                                        {% else %}
+                                            {{ sk.skill }},
+                                        {% endif %}
+                                    {% endfor %} </p>
                 </li>
-                 <li>
-                  <h6 class="ie-h6">Language Skills</h6>
-                  <p class="ie-p">MGM Pre University College</p>
-                </li>
+               {% endif %}
+                 {% if language %}
                 <li>
-                  <h6 class="ie-h6">Other Skills</h6>
-                  <p class="ie-p">MGM Pre University College</p>
+                  <h6 class="ie-h6">Language Skills</h6>
+                   <p class="ie-p">{% for sk in language %}
+                                        {% if forloop.counter == language|length %}
+                                            {{ sk.language }}
+                                        {% else %}
+                                            {{ sk.language }},
+                                        {% endif %}
+                                    {% endfor %} </p>
                 </li>
+               {% endif %}
               </ul>
             </section>
+          {% endif %}
 
+              {% if projects %}
             <section>
               <h4 class="header-i">PROJECTS</h4>
               <ul>
+                  {% for p in projects %}
                 <li>
-                  <h6 class="ie-h6">My Biggest Project</h6>
-                  <p class="ie-p">Technologies Used</p>
+                  <h6 class="ie-h6">{{ p.name }}</h6>
+                  <p class="ie-p">{{ p.tech }}</p>
                   <i class="ie-p">
-                    Brief Explanation  
+                    {{ p.description }}
                   </i>
-                  <p class="ie-p"><small>February to August 1999</small></p>
+                  <p class="ie-p"><small>{{ p.start_date }}-{% if p.end_date %}{{ p.start_date }}{% else %}
+                                Current{% endif %}</small></p>
                 </li>
-                <li>
-                  <h6 class="ie-h6">My Biggest Project</h6>
-                  <p class="ie-p">Technologies Used</p>
-                  <i class="ie-p">
-                    Brief Explanation  
-                  </i>
-                  <p class="ie-p"><small>February to August 1999</small></p>
-                </li>
-               <li>
-                  <h6 class="ie-h6">My Biggest Project</h6>
-                  <p class="ie-p">Technologies Used</p>
-                  <i class="ie-p">
-                    Brief Explanation  
-                  </i>
-                  <p class="ie-p"><small>February to August 1999</small></p>
-                </li>
+                {% endfor %}
               </ul>
             </section>
+          {% endif %}
 
+
+         {% if training %}
 <section>
               <h4 class="header-i">TRAINING AND CERTIFICATIONS</h4>
                <ul>
+                   {% for e in training %}
                 <li>
-                  <p class="ie-h6">My first Achievement</p>
+                    <p class="ie-h6">{{ e.name }} by {{ e.provider }} </p>
+                    <p class="ie-p">{% if e.date %}
+                                {{ e.date }}{% else %}Current{% endif %}</p>
                 </li>
-                <li>
-                  <p class="ie-h6">My second Achievement</p>
-                </li>
-                <li>
-                  <p class="ie-h6">My third Achievement</p>
-                </li>
+               {% endfor %}
               </ul>
             </section>
+          {% endif %}
+
+          {% if pi %}
               <section>
               <h4 class="header-i">HOBBIES AND PERSONAL INTERESTS</h4>
                <ul>
+               {% for e in pi %}
                 <li>
-                  <p class="ie-h6">My first Achievement</p>
+                  <p class="ie-h6">{{ e.description }}</p>
                 </li>
-                <li>
-                  <p class="ie-h6">My second Achievement</p>
-                </li>
-                <li>
-                  <p class="ie-h6">My third Achievement</p>
-                </li>
+                   {% endfor %}
               </ul>
             </section>
+          {% endif %}
+
+          {% if about %}
+          <section>
+              <h4 class="header-i">DECLARATION</h4>
+                <p class="ln-p">{{ declaration.declaration }}</p>
+
+                <i class="ln-p">{{ declaration.city }},{{ declaration.state }}</i>
+
+                <i class="ie-pf">{{ declaration.date }}</i>
+            </section>
+{% endif %}
+
           </div>
         </div>
       </div>

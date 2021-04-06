@@ -69,7 +69,7 @@ class TrainingCertificationForm(forms.ModelForm):
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ['name', 'start_date', 'p_status', 'end_date', 'description']
+        fields = ['name','tech', 'start_date', 'p_status', 'end_date', 'description']
 
     def __init__(self, *args, **kwargs):
         super(ProjectForm, self).__init__(*args, **kwargs)

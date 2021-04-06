@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from django.shortcuts import render
 
@@ -528,5 +529,35 @@ def preview_template(request):
     if request.is_ajax():
         templateId = (request.headers.get('templateId'))
         template = Template.objects.get(id=templateId)
+        userId = (request.headers.get('userId'))
+        user = User.objects.get(id=userId)
+        contact_obj = Contact.objects.get(user=user)
+        about_obj = About.objects.get(user=request.user)
+        objectives_obj = Objective.objects.filter(user=user)
+        skills_obj = Skill.objects.filter(user=user)
+        education_obj = Education.objects.filter(user=user)
+        ie_obj = InternshipExperience.objects.filter(user=user)
+        training_obj = TrainingCertification.objects.filter(user=user)
+        proj_obj = Project.objects.filter(user=user)
+        extra_obj = Extra.objects.filter(user=user)
+        lang_obj = Language.objects.filter(user=user)
+        pi_obj = PersonalInterest.objects.filter(user=user)
+        achievement_obj = Achievement.objects.filter(user=user)
+        declaration_obj = Declaration.objects.get(user=user)
         loc = f'resume-builder/{template.template}'
-        return render(request, loc, context={})
+        context = {
+            'contact': contact_obj,
+            'about': about_obj,
+            'objectives': objectives_obj,
+            'skills': skills_obj,
+            'education': education_obj,
+            'ie': ie_obj,
+            'training': training_obj,
+            'projects': proj_obj,
+            'extras': extra_obj,
+            'language': lang_obj,
+            'pi': pi_obj,
+            'achievement': achievement_obj,
+            'declaration': declaration_obj,
+        }
+        return render(request, loc, context=context)
