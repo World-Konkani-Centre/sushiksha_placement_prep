@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponseNotFound
 from django.shortcuts import redirect, render
 
 from resume_builder.forms import ResumeModelForm, CommentModelForm
@@ -9,15 +9,21 @@ from users.models import Profile
 
 @login_required
 def resume_list(request):
-    if request.user.profile.is_mentor:
-        query = Resume.objects.all()
-        context = {
-            'query': query,
-            'heading': 'Resumes',
-        }
-        return render(request, 'mentors-panel/resume-list.html', context=context)
+    query = Resume.objects.all()
+    context = {
+        'query': query,
+        'heading': 'Resumes',
+    }
+    return render(request, 'mentors-panel/resume-list.html', context=context)
+
+
+@login_required
+def resume_view_user(request):
+    resume = Resume.objects.filter(user=request.user).first()
+    if resume:
+        return redirect('resume-view', resumeId=resume.id)
     else:
-        return HttpResponse('Unauthorized', status=401)
+        return HttpResponseNotFound("You have not submitted any resume for review")
 
 
 @login_required

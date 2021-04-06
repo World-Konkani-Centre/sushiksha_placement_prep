@@ -543,6 +543,7 @@ def preview(request):
         temp = Template.objects.get(id=tid)
         res, created = Resume.objects.get_or_create(user=request.user)
         res.template = temp
+        res.status = '1'
         res.save()
         return redirect('resume-preview')
     if request.method == 'GET':
