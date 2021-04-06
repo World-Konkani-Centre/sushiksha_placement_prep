@@ -30,6 +30,7 @@
                     <div class="col-lg-8" id="main-content-space">
 
                     </div>
+
                     <div class="col-lg-3 ml-auto">
                         <div class="sidebar">
                             <h3 class="sidebar-title">Options</h3>
@@ -38,10 +39,10 @@
                                 {% if resume.user == request.user %}
                                 <a class="btn btn-info" href="{%  url 'resume-contact' %}">Back to Edit </a>
                                 {% endif %}
-                                {% if form %}
+                                {% if form_r %}
                                     <form method="POST">
                                         {% csrf_token %}
-                                        {{ form | crispy }}
+                                        {{ form_r | crispy }}
                                         <button type="submit" class="btn btn-danger">Submit</button>
                                     </form>
                                 {% endif %}
@@ -51,8 +52,40 @@
 
                     </div><!-- End blog sidebar -->
 
+                 <div class="blog-comments">
+
+              <h4 class="comments-count">{{ comments|length }} Comments</h4>
+                {% for c in comments %}
+              <div id="comment" class="comment">
+                <div class="d-flex">
+                  <div class="comment-img"><img src="{{ c.user.profile.image.url }}" alt=""></div>
+                  <div>
+                    <h5><a>{{ c.user.profile.name }}</a></h5>
+                    <p>
+                     {{ c.comment }}
+                    </p>
+                  </div>
                 </div>
-            </div>
+              </div>
+                     {% endfor %}
+
+
+
+
+
+              <div class="reply-form">
+                <h4>Leave a Reply</h4>
+                <form method="POST">
+                    {% csrf_token %}
+                  {{ form_c | crispy }}
+                  <button type="submit" class="btn btn-primary">Post Comment</button>
+
+                </form>
+
+              </div>
+
+                 </div>
+
         </section><!-- End Blog Single Section -->
 
 

@@ -1,7 +1,7 @@
 from django import forms
 
 from resume_builder.models import Contact, About, Skill, Education, InternshipExperience, TrainingCertification, \
-    Project, Extra, Language, PersonalInterest, Achievement, Declaration, Objective, Resume
+    Project, Extra, Language, PersonalInterest, Achievement, Declaration, Objective, Resume, Comments
 
 
 class ContactModelForm(forms.ModelForm):
@@ -69,7 +69,7 @@ class TrainingCertificationForm(forms.ModelForm):
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ['name','tech', 'start_date', 'p_status', 'end_date', 'description']
+        fields = ['name', 'tech', 'start_date', 'p_status', 'end_date', 'description']
 
     def __init__(self, *args, **kwargs):
         super(ProjectForm, self).__init__(*args, **kwargs)
@@ -110,3 +110,9 @@ class ResumeModelForm(forms.ModelForm):
     class Meta:
         model = Resume
         fields = ['status']
+
+
+class CommentModelForm(forms.ModelForm):
+    class Meta:
+        model = Comments
+        fields = ['comment']
