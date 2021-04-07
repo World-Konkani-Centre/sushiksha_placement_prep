@@ -16,7 +16,15 @@
                 <li><a class="nav-link scrollto" href="#services">Services</a></li>
                 <li><a class="nav-link scrollto" href="#portfolio">Portfolio</a></li>
                 <li><a class="nav-link scrollto" href="#team">Team</a></li>
-                <li><a href="blog.html">Blog</a></li>
+                {% if request.user.is_authenticated %}
+                    {% if request.user.profile.is_mentor %}
+                        <li class="dropdown"><a href="#"><span>Mentors Panel</span> <i class="bi bi-chevron-down"></i></a>
+                    <ul>
+                        <li><a href="{% url 'resume-list' %}">Resume</a></li>
+                    </ul>
+                        {% endif %}
+                {% endif %}
+
                 <li class="dropdown"><a href="#"><span>Resume</span> <i class="bi bi-chevron-down"></i></a>
                     <ul>
                         <li><a href="{% url 'resume-contact' %}">Edit Details</a></li>
