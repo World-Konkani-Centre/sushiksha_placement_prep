@@ -3,14 +3,22 @@ from django.db import models
 
 STATUS = (
     ('1', 'Queued'),
-    ('2', 'Reviewed'),
-    ('3', 'Reviewed and Needs Update'),
-    ('4', 'Complete'),
+    ('2', 'Reviewing'),
+    ('3', 'Reviewed'),
+    ('4', 'Reviewed and Needs Update'),
+    ('5', 'Editing'),
+    ('6', 'Complete'),
 )
+
+
+class Template(models.Model):
+    template = models.CharField(max_length=50)
+    image = models.ImageField(upload_to='templates')
 
 
 class Resume(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
+    template = models.ForeignKey(Template,on_delete=models.CASCADE,null=True)
     status = models.CharField(max_length=3, choices=STATUS, default='1')
 
 
@@ -47,6 +55,11 @@ class Contact(models.Model):
 class About(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     summary = models.TextField()
+
+
+class Objective(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    description = models.CharField(max_length=50)
 
 
 PROFICIENCY_OPTIONS = (
@@ -114,6 +127,7 @@ PROJECT_STATUS = (
 class Project(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
+    tech = models.CharField(max_length=50)
     start_date = models.DateField()
     p_status = models.CharField(choices=PROJECT_STATUS, max_length=1, default="2")
     end_date = models.DateField(null=True, blank=True)
@@ -121,8 +135,8 @@ class Project(models.Model):
 
 
 class Extra(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    description = models.TextField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    description = models.CharField(max_length=50)
 
 
 class Language(models.Model):
@@ -132,13 +146,13 @@ class Language(models.Model):
 
 
 class PersonalInterest(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    description = models.TextField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    description = models.CharField(max_length=50)
 
 
 class Achievement(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    description = models.TextField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    description = models.CharField(max_length=50)
 
 
 class Declaration(models.Model):
@@ -147,9 +161,3 @@ class Declaration(models.Model):
     state = models.CharField(max_length=50)
     city = models.CharField(max_length=50)
     date = models.DateField()
-
-
-class Other(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, unique=False)
-    heading = models.CharField(max_length=30)
-    description = models.TextField()

@@ -1,0 +1,48 @@
+{% extends 'base_page.html' %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+    <main id="main">
+        <section class="breadcrumbs">
+            <div class="container">
+
+                <h2 class="entry-title">Profile
+                </h2>
+            </div>
+        </section>
+        <section id="team" class="team">
+
+            <div class="container" data-aos="fade-up">
+
+                <header class="section-header">
+                    <h2>Team</h2>
+                    <p>Our hard working team</p>
+                </header>
+
+                <div class="row gy-4">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-6 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+                        <div class="member">
+                            <div class="member-img">
+                                <img src="{{ user.profile.image.url }}" class="img img-fluid" alt="">
+                            </div>
+                            <div class="member-info">
+                                <h4>{{ user.username }}</h4>
+                                <span>{{ user.profile.name }}</span>
+                                <div style="text-align: left;">
+                                    <form action="" method="POST">
+                                        {% csrf_token %}
+                                        {{ u_form | crispy }}
+                                        {% csrf_token %}
+                                        {{ p_form | crispy }}
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+{% endblock %}
