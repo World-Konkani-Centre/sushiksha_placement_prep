@@ -83,4 +83,4 @@ def profile(request):
 
 def my_logout(request):
     logout(request)
-    return redirect('logout')
+    return redirect('login')
