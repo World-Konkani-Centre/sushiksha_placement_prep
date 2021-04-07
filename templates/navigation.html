@@ -14,7 +14,7 @@
                 <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
                 <li><a class="nav-link scrollto" href="#about">About</a></li>
                 <li><a class="nav-link scrollto" href="#services">Services</a></li>
-                <li><a class="nav-link scrollto" href="#portfolio">Portfolio</a></li>
+                <li><a class="nav-link scrollto" href="{% url 'quiz_index' %}">Assessments</a></li>
                 <li><a class="nav-link scrollto" href="#team">Team</a></li>
                 {% if request.user.is_authenticated %}
                     {% if request.user.profile.is_mentor %}

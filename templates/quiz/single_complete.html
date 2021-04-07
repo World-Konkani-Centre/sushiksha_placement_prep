@@ -1,0 +1,44 @@
+{% extends 'base_page.html' %}
+{% load static %}
+{% load i18n %}
+{% load quiz_tags %}
+
+
+{% block content %}
+    <main id="main">
+
+        {% if user.is_authenticated %}
+            <section id="breadcrumbs" class="breadcrumbs">
+                <div class="container">
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h2>{{ quiz.title }}</h2>
+
+                        <ol>
+                            <li><a href="#">Home</a></li>
+                            <li><a href="{% url 'quiz_index' %}">Practice</a></li>
+                            <li>
+                                <a href="{% url 'quiz_category_list_matching' category_name=quiz.category %}">{{ quiz.category }}</a>
+                            </li>
+                            <li>{{ quiz.title }}</li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+            <section id="" class="">
+            <div class="container">
+            {{ quiz.description | safe}}
+            <p>{% trans "You have already taken this test and only one test is permitted for a user" %}.</p>
+        {% else %}
+            <p>{% trans "This exam is only accessible to signed in users" %}.</p>
+        {% endif %}
+        </div>
+        </section>
+    </main>
+{% endblock %}
+
+{% block script %}
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+{% endblock script %}

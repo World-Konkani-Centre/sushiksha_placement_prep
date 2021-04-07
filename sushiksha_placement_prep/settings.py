@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'resume_builder',
     'mentors_panel',
     'users',
+    'quiz',
 ]
 
 MIDDLEWARE = [
