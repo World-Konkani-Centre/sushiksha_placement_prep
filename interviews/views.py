@@ -1,3 +1,40 @@
-from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
 
-# Create your views here.
+from interviews.forms import InterviewRegisterForm
+from interviews.models import Interview
+
+from interviews.utils import google_calendar
+
+@login_required
+def interview_list(request):
+    form = None
+    lists = Interview.objects.filter(complete=False)
+    if request.POST:
+        if request.user.profile.is_mentor:
+            form = InterviewRegisterForm(request.POST)
+            if form.is_valid():
+                interview = form.save(commit=False)
+                interview.participant_1 = request.user
+                interview.save()
+                return redirect('interviews-list')
+    else:
+        if request.user.profile.is_mentor:
+            form = InterviewRegisterForm()
+    context = {
+        'form': form,
+        'lists': lists,
+    }
+    return render(request, 'interviews/list.html', context)
+
+
+@login_required
+def interview_details(request, intId):
+    interview = Interview.objects.get(id=intId)
+    if request.POST:
+        interview.participant_2 = request.user
+        return redirect('interviews-list')
+    context = {
+        'interview': interview
+    }
+    return render(request, 'interviews/single.html', context)

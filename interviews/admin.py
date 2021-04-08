@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Interview
+
+
+@admin.register(Interview)
+class InterviewAdmin(admin.ModelAdmin):
+    pass
