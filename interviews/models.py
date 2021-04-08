@@ -11,3 +11,4 @@ class Interview(models.Model):
     participant_1 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='part1', null=True)
     participant_2 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='part2', null=True, blank=True)
     complete = models.BooleanField(default=False)
+    event_id = models.CharField(max_length=50, null=True,blank=True)

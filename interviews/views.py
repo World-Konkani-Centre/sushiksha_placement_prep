@@ -6,6 +6,7 @@ from interviews.models import Interview
 
 from interviews.utils import google_calendar
 
+
 @login_required
 def interview_list(request):
     form = None
@@ -35,7 +36,9 @@ def interview_details(request, intId):
         interview.participant_2 = request.user
         interview.complete = True
         interview.save()
-        google_calendar(interview)
+        eventId = google_calendar(interview)
+        interview.event_id = eventId
+        interview.save()
         return redirect('interviews-list')
     context = {
         'interview': interview
