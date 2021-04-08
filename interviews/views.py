@@ -33,6 +33,9 @@ def interview_details(request, intId):
     interview = Interview.objects.get(id=intId)
     if request.POST:
         interview.participant_2 = request.user
+        interview.complete = True
+        interview.save()
+        google_calendar(interview)
         return redirect('interviews-list')
     context = {
         'interview': interview

@@ -46,38 +46,3 @@ def Create_Service(client_secret_file, api_name, api_version, *scopes):
 def convert_to_RFC_datetime(year=1900, month=1, day=1, hour=0, minute=0):
     dt = datetime.datetime(year, month, day, hour, minute, 0).isoformat() + 'Z'
     return dt
-
-
-CLIENT_SECRET_FILE = 'interviews/secret.json'
-API_NAME = 'calendar'
-API_VERSION = 'v3'
-SCOPES = ['https://www.googleapis.com/auth/calendar']
-
-
-# service = Create_Service(CLIENT_SECRET_FILE,API_NAME,API_VERSION,SCOPES)
-
-def google_calendar(interview):
-    credentials = pickle.load(open('interviews/token_calendar_v3.pickle', 'rb'))
-    service = build(API_NAME, API_VERSION, credentials=credentials)
-    timezone = 'Asia/Kolkata'
-    event = {
-        'summary': interview.heading,
-        'location': interview.link,
-        'description': interview.description,
-        'start': {
-            'dateTime': interview.start_time.strftime("%Y-%m-%dT%H:%M:%S"),
-            'timeZone': timezone,
-        },
-        'end': {
-            'dateTime': interview.end_time.strftime("%Y-%m-%dT%H:%M:%S"),
-            'timeZone': timezone,
-        },
-        'attendees': [
-            {'email': interview.participant_1.email},
-            {'email': interview.participant_2.email},
-        ],
-        'reminders': {
-            'useDefault': True,
-        },
-    }
-    service.events().insert(calendarId='primary', body=event).execute()
