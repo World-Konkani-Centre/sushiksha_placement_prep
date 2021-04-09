@@ -57,8 +57,9 @@ SCOPES = ['https://www.googleapis.com/auth/calendar']
 # service = Create_Service(CLIENT_SECRET_FILE,API_NAME,API_VERSION,SCOPES)
 
 def google_calendar(interview):
-    credentials = pickle.load(open('interviews/token_calendar_v3.pickle', 'rb'))
-    service = build(API_NAME, API_VERSION, credentials=credentials)
+    service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
+    # credentials = pickle.load(open('interviews/token_calendar_v3.pickle', 'rb'))
+    # service = build(API_NAME, API_VERSION, credentials=credentials)
     timezone = 'Asia/Kolkata'
     event = {
         'summary': interview.heading,
@@ -80,4 +81,5 @@ def google_calendar(interview):
             'useDefault': True,
         },
     }
-    service.events().insert(calendarId='primary', body=event).execute()
+    respone = service.events().insert(calendarId='primary', body=event).execute()
+    return respone['id']
