@@ -1,0 +1,26 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    {% include 'head.html' %}
+    <title>{{ title }}</title>
+    {% block custom_css %}{% endblock %}
+</head>
+
+<body>
+{% include 'navigation.html' %}
+
+
+{% block content %}
+{% endblock %}
+
+{% include 'footer.html' %}
+
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+        class="bi bi-arrow-up-short"></i></a>
+
+{% include "scripts.html" %}
+{% block custom_js %}{% endblock %}
+</body>
+
+</html>

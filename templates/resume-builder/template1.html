@@ -1,0 +1,327 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+      integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+<style>
+
+    @page {
+        size: A4;
+    }
+
+    @media print {
+        body {
+            width: 210mm;
+            height: 297mm;
+        }
+    }
+
+    section {
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+
+    .top-level {
+        display: flex;
+        /* to centre page on screen*/
+
+        width: 210mm;
+        height: 297mm;
+        border: 1px solid black;
+        margin-left: auto;
+        margin-right: auto;
+        flex-direction: column;
+    }
+
+    .first-level {
+        width: 100%;
+        height: auto;
+        display: flex;
+        padding-bottom: 5px;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+    .second-level {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .info {
+        margin-bottom: 0px;
+    }
+
+    .text-center {
+        text-decoration: underline 2px solid black;
+    }
+
+    .content {
+        margin-left: 20px;
+        margin-bottom: 5px;
+    }
+
+    .l-h {
+        font-weight: 700;
+        padding-left: 10px;
+        font-size: 18px;
+        margin-left: 10px;
+        margin-right: 10px;
+        border-bottom: 1px solid black;
+        margin-bottom: 0px;
+    }
+
+
+    .l-dh {
+        font-weight: 600;
+        font-size: 16px;
+        margin-bottom: 0px;
+    }
+
+    .l-dhi {
+        font-weight: normal;
+        font-size: small;
+        float: right;
+        font-style: italic;
+        margin-right: 16px;
+    }
+
+    .list {
+        margin-bottom: 0px;
+        padding-left: 20px;
+        padding-right: 20px;
+        font-size: smaller;
+    }
+
+    .ilb {
+        font-size: smaller;
+        font-style: italic;
+        font-weight: normal;
+    }
+
+
+</style>
+<body>
+
+<div class="resmue-container">
+    <div class="top-level">
+        <div class="first-level">
+            <div class="frist-level-center">
+                <section>
+                    <h2 class="text-center">{{ contact.first_name }} {{ contact.last_name }}</h2>
+                    <!-- <small class="text-muted">UI / UX DESIGNER/DEVELOPER</small>-->
+                    <p class="info text-center" style="text-decoration: none">
+                        <small> {{ contact.address_1 }}, {{ contact.address_2 }},{{ contact.state }}
+                            - {{ contact.pin }}</small>
+                    </p>
+                    <p class="info">
+                        <small>
+                            +91 {{ contact.phone_number }} {% if contact.github %}|
+                            {{ contact.github }} {% endif %} {% if contact.linked_in %} |
+                            {{ contact.linked_in }} {% endif %} |
+                            {{ contact.email }} </small>
+                    </p>
+                </section>
+            </div>
+        </div>
+
+        <div class="second-level">
+
+         {% if about %}
+                <section>
+                    <p class="l-h">ABOUT ME</p>
+                        <div class="content">
+                            <ul class="list" style="
+    list-style: none;">
+                                <li>{{ about.summary }}</li>
+                            </ul>
+                        </div>
+                </section>
+            {% endif %}
+
+
+        {% if objectives %}
+                <section>
+                    <p class="l-h">OBJECTIVES</p>
+                    {% for i in objectives %}
+                        <div class="content">
+                            <ul class="list" style="
+    list-style: none;">
+                                <li>{{ i.description }}</li>
+                            </ul>
+                        </div>
+                    {% endfor %}
+                </section>
+            {% endif %}
+
+            {% if education %}
+                <section>
+                    <p class="l-h">EDUCATION</p>
+                    {% for e in education %}
+                        <div class="content">
+                            <p class="l-dh">{{ e.school_name }}<small><i
+                                    class="l-dhi">{{ e.city }},{{ e.state }}</i></small></p>
+                            <i><small>{{ e.degree }}, {{ e.field_of_study }} (CGPA - {{ e.score }})<i
+                                    class="l-dhi">{{ e.joining_date }}-{% if e.passing_date %}
+                                {{ e.passing_date }}{% else %}Current{% endif %}</i></small></i>
+                        </div>
+                    {% endfor %}
+                </section>
+            {% endif %}
+
+            {% if ie %}
+                <section>
+                    <p class="l-h">INTERNSHIPS &amp EXPERIENCE</p>
+                    {% for i in ie %}
+                        <div class="content">
+                            <p class="l-dh">{{ i.position }}<small><i
+                                    class="l-dhi">{{ i.date_of_joining }}-{% if i.date_of_exit %}
+                                {{ i.date_of_exit }}{% else %}Current{% endif %}</i></small></p>
+                            <i>{{ i.name }}<small><i
+                                    class="l-dhi">{{ i.city }},{{ i.state }},{{ i.country }} </i></small></i>
+                            <ul class="list" style="
+    list-style: none;">
+                                <li>{{ i.description }}</li>
+                            </ul>
+                        </div>
+                    {% endfor %}
+                </section>
+            {% endif %}
+
+            {% if projects %}
+                <section>
+                    <p class="l-h">PROJECTS</p>
+                    {% for p in projects %}
+                        <div class="content">
+                            <p class="l-dh"> {{ p.name }}   <span class="ilb">({{ p.tech }}) </span><small><i
+                                    class="l-dhi">{{ p.start_date }}-{% if p.end_date %}{{ p.start_date }}{% else %}
+                                Current{% endif %}</i></small></p>
+                            <ul class="list" style="
+    list-style: none;">
+                                <li>{{ p.description }}</li>
+                            </ul>
+                        </div>
+                    {% endfor %}
+                </section>
+            {% endif %}
+
+{% if skills or language%}
+            <section>
+                <p class="l-h">SKILLS</p>
+                <div class="content">
+                    <table>
+                        <tbody>
+                        {% if skills %}
+                            <tr>
+                                <th>Technical Skills :
+                                <td>
+                                    {% for sk in skills %}
+                                        {% if forloop.counter == skills|length %}
+                                            {{ sk.skill }}
+                                        {% else %}
+                                            {{ sk.skill }},
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                        {% endif %}
+                        <tr>
+                            {% if language %}
+                                <th>Language Skills :
+                                <td>
+                                    {% for l in language %}
+                                        {% if forloop.counter ==  language|length %}
+                                            {{ l.language }}
+                                        {% else %}
+                                            {{ l.language }},
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        {% endif %}
+
+         {% if training %}
+                <section>
+                    <p class="l-h">TRAINING AND CERTIFICATION</p>
+                    {% for e in training %}
+                        <div class="content">
+                            <p class="l-dh">{{ e.name }}</p>
+                            <i>{{ e.provider }}<i
+                                    class="l-dhi">{% if e.date %}
+                                {{ e.date }}{% else %}Current{% endif %}</i></i>
+                        </div>
+                    {% endfor %}
+                </section>
+            {% endif %}
+
+           {% if acievement %}
+                <section>
+                    <p class="l-h">ACHIEVEMENTS</p>
+                    {% for e in achievement %}
+                        <div class="content">
+                           <ul class="list" style="
+    list-style: none;">
+                                <li>{{ e.description }}</li>
+                            </ul>
+                        </div>
+                    {% endfor %}
+                </section>
+            {% endif %}
+
+        {% if extras %}
+                <section>
+                    <p class="l-h">EXTRA CURRICULAR ACTIVITIES</p>
+                    {% for e in extras %}
+                        <div class="content">
+                           <ul class="list" style="
+    list-style: none;">
+                                <li>{{ e.description }}</li>
+                            </ul>
+                        </div>
+                    {% endfor %}
+                </section>
+            {% endif %}
+
+                    {% if pi %}
+                <section>
+                    <p class="l-h">PERSONAL INTERESTS</p>
+                    {% for e in pi %}
+                        <div class="content">
+                           <ul class="list" style="
+    list-style: none;">
+                                <li>{{ e.description }}</li>
+                            </ul>
+                        </div>
+                    {% endfor %}
+                </section>
+            {% endif %}
+
+
+                    {% if declaration %}
+                <section>
+                    <p class="l-h">DECLARATION</p>
+                        <div class="content">
+                           <ul class="list" style="
+    list-style: none;">
+                                <li>{{ declaration.declaration }}</li>
+                               <li>{{ declaration.city }},{{ declaration.state }}</li>
+                               <li>{{ declaration.date }}</li>
+                            </ul>
+                        </div>
+                </section>
+            {% endif %}
+        </div>
+    </div>
+
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"></script>
+
+</body>
