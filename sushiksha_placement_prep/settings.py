@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'mentors_panel',
     'users',
     'quiz',
+    'interviews',
 ]
 
 MIDDLEWARE = [

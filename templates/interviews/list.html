@@ -1,0 +1,90 @@
+{% extends "base_page.html" %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+
+{% block custom_css %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.min.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.css"/>
+{% endblock %}
+
+{% block content %}
+
+    <main id="main">
+        <section class="breadcrumbs">
+            <div class="container">
+                <h2 class="entry-title">Schedule/Apply for the Interview
+                </h2>
+                <p>*All date and time are based IST (Kolkata/Asia)</p>
+            </div>
+        </section>
+
+
+        <section id="blog" class="blog">
+            <div class="container" data-aos="fade-up">
+                {% if form %}
+                    <div class="row">
+                        <form method="POST" action="" class="col-md-6">
+                            {% csrf_token %}
+                            {{ form | crispy }}
+                            <button type="submit" class="btn btn-success">Schedule</button>
+                        </form>
+                    </div>
+                {% endif %}
+
+                {% if lists %}
+                    <div class="row mt-5">
+                        {% for i in lists %}
+                            <div class="col-sm-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ i.heading }}</h5>
+                                        <p class="card-text">{{ i.start_time }} - {{ i.end_time }}</p>
+                                        <a href="{% url 'interviews-single' intId=i.id %}" class="btn btn-primary">Details </a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </section><!-- End Blog Single Section -->
+
+    </main><!-- End #main -->
+
+{% endblock content %}
+
+
+{% block custom_js %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+            integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+            crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
+            integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA=="
+            crossorigin="anonymous"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.js"
+            integrity="sha512-s5u/JBtkPg+Ff2WEr49/cJsod95UgLHbC00N/GglqdQuLnYhALncz8ZHiW/LxDRGduijLKzeYb7Aal9h3codZA=="
+            crossorigin="anonymous"></script>
+    <script>
+        $(function () {
+            $("#id_start_time").datetimepicker({
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-100:+0",
+            }).attr("autocomplete", "off");
+            $("#id_end_time").datetimepicker({
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-100:+0",
+            }).attr("autocomplete", "off");
+
+        });
+    </script>
+
+{% endblock %}
