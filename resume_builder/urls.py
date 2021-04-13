@@ -2,7 +2,6 @@ from django.urls import path
 import resume_builder.views as rb_views
 urlpatterns = [
     path('contact/', rb_views.contact,name="resume-contact"),
-    path('about/',rb_views.about,name="resume-about"),
     path('obj/', rb_views.obj, name="resume-obj"),
     path('obj/edit/<int:id>', rb_views.obj_edit, name="resume-obj-edit"),
     path('obj/delete/<int:id>', rb_views.obj_delete, name="resume-obj-delete"),
@@ -27,13 +26,9 @@ urlpatterns = [
     path('language/',rb_views.language,name="resume-language"),
     path('language/edit/<int:id>',rb_views.language_edit,name="resume-language-edit"),
     path('language/delete/<int:id>',rb_views.language_delete,name="resume-language-delete"),
-    path('pi/edit/<int:id>',rb_views.pi_edit,name="resume-pi-edit"),
-    path('pi/delete/<int:id>',rb_views.pi_delete,name="resume-pi-delete"),
-    path('pi/',rb_views.pi,name="resume-pi"),
     path('achievement/',rb_views.achievement,name="resume-achievement"),
     path('achievement/edit/<int:id>',rb_views.achievement_edit,name="resume-achievement-edit"),
     path('achievement/delete/<int:id>',rb_views.achievement_delete,name="resume-achievement-delete"),
-    path('declaration/',rb_views.declaration,name="resume-declaration"),
     path('preview/', rb_views.preview, name="resume-preview"),
     path('preview-resume/', rb_views.preview_template, name="resume-preview-template"),
 ]
