@@ -2,16 +2,16 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import render, redirect
 
-from interviews.forms import InterviewRegisterForm, GDCreationForm, GDParticipationForm
+from interviews.forms import GDCreationForm, GDParticipationForm
 from interviews.models import Interview, GDList
-
-from interviews.utils import google_calendar
+from interviews.utils import google_calendar_set_interview1v1, google_calendar_cancel_interview1v1, \
+    send_interview_cancel_email, send_interview_set_email
 
 
 @login_required
 def interview_list(request):
-    interviews_completed = Interview.objects.filter(Q(participant_2=request.user) | Q(participant_1=request.user) ,complete=True)
-    interviews_scheduled = Interview.objects.filter(Q(participant_2=request.user) | Q(participant_1=request.user) ,complete=False)
+    interviews_completed = Interview.objects.filter(Q(participant_2=request.user) | Q(participant_1=request.user) & Q(complete=True))
+    interviews_scheduled = Interview.objects.filter(complete=False)
     context = {
         'interviews_completed': interviews_completed,
         'interviews_scheduled': interviews_scheduled,
@@ -23,13 +23,19 @@ def interview_list(request):
 def interview_details(request, intId):
     interview = Interview.objects.get(id=intId)
     if request.POST:
-        interview.participant_2 = request.user
-        interview.complete = True
-        interview.save()
-        eventId = google_calendar(interview)
-        # google_calendar(interview)
-        interview.event_id = eventId
-        interview.save()
+        val = request.POST.get('hidden_option')
+        if val == '0':
+            send_interview_cancel_email(interview)
+            google_calendar_cancel_interview1v1(interview)
+            interview.delete()
+        elif val == '1':
+            interview.participant_2 = request.user
+            interview.complete = True
+            interview.save()
+            send_interview_set_email(interview)
+            eventId = google_calendar_set_interview1v1(interview)
+            interview.event_id = eventId
+            interview.save()
         return redirect('interviews-list')
     context = {
         'interview': interview
