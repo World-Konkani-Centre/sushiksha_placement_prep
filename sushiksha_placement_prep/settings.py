@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'resume_builder',
     'mentors_panel',
-    'users',
+    'users.apps.UsersConfig',
     'quiz',
     'interviews',
 ]

@@ -2,10 +2,7 @@
 {% load crispy_forms_filters %}
 {% load crispy_forms_tags %}
 
-{% block custom_css %}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-{% endblock %}
+
 {% block content %}
 
     <main id="main">
@@ -313,30 +310,6 @@
                                 </div>
                             {% endif %}
 
-                        {% if pi %}
-                                <div>
-                                    <table class="table table-responsive">
-                                        <thead>
-                                        <tr>
-                                            <th> Interests</th>
-                                            <th>Edit</th>
-                                            <th> Delete</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% for p in pi %}
-                                            <tr>
-                                                <td> {{ p.description }} </td>
-                                                <td><a class="btn btn-success"
-                                                       href="{% url 'resume-pi-edit' id=p.id %}">edit</a></td>
-                                                <td><a class="btn btn-danger"
-                                                       href="{% url 'resume-pi-delete' id=p.id %}">delete</a></td>
-                                            </tr>
-                                        {% endfor %}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            {% endif %}
 
                             {% if ach %}
                                 <div>
@@ -405,7 +378,6 @@
                         <div class="sidebar-item categories">
                             <ul>
                                 <li><a href="{% url 'resume-contact' %}">Contact</a></li>
-                                <li><a href="{% url 'resume-about' %}">About</a></li>
                                 <li><a href="{% url 'resume-obj' %}">Objectives</a></li>
                                 <li><a href="{%  url 'resume-skills' %}">Skills </a></li>
                                 <li><a href="{%  url 'resume-education' %}">Education</a></li>
@@ -414,9 +386,7 @@
                                 <li><a href="{%  url 'resume-project' %}">Projects</a></li>
                                 <li><a href="{%  url 'resume-extra' %}">Extra Curricular Activities</a></li>
                                 <li><a href="{%  url 'resume-language' %}">Languages</a></li>
-                                <li><a href="{%  url 'resume-pi' %}">Personal Interests</a></li>
                                 <li><a href="{%  url 'resume-achievement' %}">Achievements</a></li>
-                                <li><a href="{%  url 'resume-declaration' %}">Declaration</a></li>
                             </ul>
                             <div class="progress">
                                 <div class="progress-bar progress-bar-striped active" style="width: {{ width }}%"></div>
@@ -427,8 +397,6 @@
 
                             {% if next %}
                                 <a class="btn btn-info" href="{% url next %}">next</a>
-                            {% else %}
-                                <a class="btn btn-info" href="#">next</a>
                             {% endif %}
 
                             <a class = "btn btn-success" href="{%url 'resume-preview' %}">Preview</a>
@@ -453,9 +421,6 @@
 {% block custom_js %}
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
             integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-            crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
             crossorigin="anonymous"></script>
 
     <script>
