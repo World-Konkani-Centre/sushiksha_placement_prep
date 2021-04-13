@@ -29,14 +29,13 @@
                 </div>
                 <div class="col-lg-3 ml-auto">
                     <div class="sidebar">
-                        <h3 class="sidebar-title">Categories</h3>
                         <div class="sidebar-item categories">
-                            <a class="btn btn-info" href="{%  url 'resume-contact' %}">Back to Edit </a>
-                            <button class="btn btn-info" type="button" onclick="printer()">Print </button>
+                            <a class="btn btn-info mb-2" href="{%  url 'resume-contact' %}">Back to Edit </a>
+                            <button class="btn btn-info mb-2" type="button" onclick="printer()">Print </button>
                              <form method="POST">
                                  {%  csrf_token %}
                         <input type="hidden" name="ip" id="ip" value="1">
-                        <button type="submit" class="btn btn-danger">Submit for review</button>
+                        <button type="submit" class="btn btn-danger mb-2">Submit for review</button>
                     </form>
                         </div><!-- End sidebar categories-->
 
@@ -62,9 +61,8 @@
               <img src="{{ q.image.url }}" class="img-fluid" alt="">
               <div class="portfolio-info">
 
-                <div class="portfolio-links">
-                  <a href="{{ q.image.url }}" data-gallery="portfolioGallery" class="portfokio-lightbox" ><i class="bi bi-search"></i></a>
-                  <a href="#"  onclick="func({{  q.id }})"><i class="bi bi-door-open"></i></a>
+                <div class="portfolio-links text-center">
+                  <a href="{{ q.image.url }}" target="_blank" data-gallery="portfolioGallery" class="portfokio-lightbox" ><i class="bx bx-zoom-in"></i></a><a href="#" onclick="func({{  q.id }})"><i class="bx bx-add-to-queue"></i></a>
                 </div>
               </div>
             </div>

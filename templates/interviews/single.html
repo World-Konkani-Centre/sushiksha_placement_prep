@@ -44,10 +44,10 @@
                         <div class="sidebar">
                             <h3 class="sidebar-title">Categories</h3>
                             <div class="sidebar-item categories">
-                                <a class="btn btn-info" href="{% url 'interviews-list' %}">Back to List </a>
+                                <a class="btn btn-info mb-2" href="{% url 'interviews-list' %}">Back to List </a>
                                 <form method="POST">
                                     {% csrf_token %}
-                                    <button type="submit" class="btn btn-block custom-danger-btn animate__animated animate__fadeInUp scrollto">Apply for Interview</button>
+                                    <button type="submit" class="btn custom-danger-btn animate__animated animate__fadeInUp scrollto">Apply for Interview</button>
                                 </form>
                             </div><!-- End sidebar categories-->
 
@@ -58,36 +58,6 @@
                 </div>
             </div>
         </section><!-- End Blog Single Section -->
-
-
-        <section id="portfolio" class="portfolio">
-            <div class="container" data-aos="fade-up">
-                <header class="section-header">
-                    <h2>Available Templates</h2>
-                </header>
-                <div class="row gy-4 portfolio-container" data-aos="fade-up" data-aos-delay="200">
-
-                    {% for q in query %}
-                        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                            <div class="portfolio-wrap">
-                                <img src="{{ q.image.url }}" class="img-fluid" alt="">
-                                <div class="portfolio-info">
-
-                                    <div class="portfolio-links">
-                                        <a href="{{ q.image.url }}" data-gallery="portfolioGallery"
-                                           class="portfokio-lightbox"><i class="bi bi-search"></i></a>
-                                        <a href="#" onclick="func({{ q.id }})"><i class="bi bi-door-open"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-
-            </div>
-
-        </section><!-- End Portfolio Section -->
-
     </main><!-- End #main -->
 
 

@@ -9,6 +9,7 @@ from resume_builder.models import Resume, Comments
 from users.models import Profile
 from interviews.models import Interview
 
+
 @login_required
 def resume_list(request):
     query = Resume.objects.all()
@@ -78,7 +79,10 @@ def resume_view(request, resumeId):
 
 def interview_list(request):
     form = None
-    interviews = Interview.objects.filter(Q(participant_1=request.user) | Q(participant_2=request.user) | Q(complete=False))
+    interviews_completed = Interview.objects.filter(Q(participant_2=request.user) | Q(participant_1=request.user),
+                                                    complete=True)
+    interviews_scheduled = Interview.objects.filter(Q(participant_2=request.user) | Q(participant_1=request.user),
+                                                    complete=False)
     if request.POST:
         if request.user.profile.is_mentor:
             form = InterviewRegisterForm(request.POST)
@@ -86,12 +90,14 @@ def interview_list(request):
                 interview = form.save(commit=False)
                 interview.participant_1 = request.user
                 interview.save()
-                return redirect('interviews-list')
+                return redirect('interview-list-mentor')
     else:
         if request.user.profile.is_mentor:
             form = InterviewRegisterForm()
     context = {
         'form': form,
-        'lists': interviews,
+        'interviews_completed': interviews_completed,
+        'interviews_scheduled': interviews_scheduled,
+
     }
     return render(request, 'interviews/list.html', context)
