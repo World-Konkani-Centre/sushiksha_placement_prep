@@ -45,7 +45,7 @@ def obj(request):
             'form': form,
             'obj': obj,
             'prev': 'resume-contact',
-            'next': 'resume-education',
+            'next': 'resume-skills',
             'width': 200 / count,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
@@ -147,6 +147,7 @@ def education(request):
             row = form.save(commit=False)
             row.user = request.user
             form.save()
+        print(form.errors)
         return redirect('resume-education')
 
 
@@ -366,7 +367,7 @@ def language(request):
             'form': form,
             'lang': lang,
             'prev': 'resume-extra',
-            'next': 'resume-language',
+            'next': 'resume-achievement',
             'width': 900 / count,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)

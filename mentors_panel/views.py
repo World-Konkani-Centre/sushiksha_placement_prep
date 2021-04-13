@@ -1,10 +1,13 @@
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.http import HttpResponseNotFound
 from django.shortcuts import redirect, render
 
+from interviews.forms import InterviewRegisterForm
 from resume_builder.forms import ResumeModelForm, CommentModelForm
 from resume_builder.models import Resume, Comments
 from users.models import Profile
+from interviews.models import Interview
 
 
 @login_required
@@ -72,3 +75,29 @@ def resume_view(request, resumeId):
                 comm.user = request.user
                 comm.save()
                 return redirect('resume-view', resumeId=resumeId)
+
+
+def interview_list(request):
+    form = None
+    interviews_completed = Interview.objects.filter(Q(participant_2=request.user) | Q(participant_1=request.user),
+                                                    complete=True)
+    interviews_scheduled = Interview.objects.filter(Q(participant_2=request.user) | Q(participant_1=request.user),
+                                                    complete=False)
+    if request.POST:
+        if request.user.profile.is_mentor:
+            form = InterviewRegisterForm(request.POST)
+            if form.is_valid():
+                interview = form.save(commit=False)
+                interview.participant_1 = request.user
+                interview.save()
+                return redirect('interview-list-mentor')
+    else:
+        if request.user.profile.is_mentor:
+            form = InterviewRegisterForm()
+    context = {
+        'form': form,
+        'interviews_completed': interviews_completed,
+        'interviews_scheduled': interviews_scheduled,
+
+    }
+    return render(request, 'interviews/list.html', context)

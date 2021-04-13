@@ -6,7 +6,7 @@ from interviews.models import Interview, GDParticipants
 class InterviewRegisterForm(forms.ModelForm):
     class Meta:
         model = Interview
-        fields = ['heading', 'description', 'start_time', 'end_time', 'link']
+        fields = ['heading', 'type','description', 'start_time', 'end_time', 'link']
 
 
 class GDParticipationForm(forms.ModelForm):
