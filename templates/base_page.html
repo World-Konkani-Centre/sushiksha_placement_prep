@@ -1,25 +1,26 @@
 {% load static %}
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-    {% include 'head.html' %}
-    <title>{{ title }}</title>
-    {% block custom_css %}{% endblock %}
+{% include 'include/head.html' %}
+  {% if title %}
+  <title>{{ title }}</title>
+  {% else %}
+  <title>Sushiksha Placement Preparation website</title>
+  {% endif %}
+{% block custom_css %}{% endblock %}
 </head>
 
 <body>
-{% include 'navigation.html' %}
 
+{% include 'include/navbar.html' %}
 
 {% block content %}
 {% endblock %}
 
-{% include 'footer.html' %}
+{% include 'include/footer.html' %}
 
-<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-        class="bi bi-arrow-up-short"></i></a>
-
-{% include "scripts.html" %}
 {% block custom_js %}{% endblock %}
 </body>
 
