@@ -1,5 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 
 def index(request):
-    return render(request, 'base_page.html')
+    if not request.user.is_authenticated:
+        return redirect('login')
+    return render(request, 'web/home.html')
