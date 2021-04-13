@@ -93,26 +93,28 @@ def google_calendar_cancel_interview1v1(interview):
     # service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
     credentials = pickle.load(open('interviews/token_calendar_v3.pickle', 'rb'))
     service = build(API_NAME, API_VERSION, credentials=credentials)
-    service.events().delete(calendarId='primary', eventId=interview.event_id).execute()
+    if interview.event_id:
+        service.events().delete(calendarId='primary', eventId=interview.event_id).execute()
 
 
 def send_interview_cancel_email(interview):
-    try:
+    if interview.participant_2:
         send_mail(
-            subject = 'Cancelled -- Mock Interview with sushiksha mentor',
+            subject='Cancelled -- Mock Interview with sushiksha mentor',
             message=f'{interview.heading} -- {interview.description}',
             from_email=None,
-            recipient_list = [f'{interview.participant_2.email}', f'{interview.participant_1.email}'],
+            recipient_list=[f'{interview.participant_2.email}', f'{interview.participant_1.email}'],
             fail_silently=False,
         )
-    except SMTPException:
+    else:
         send_mail(
             subject='Cancelled -- Mock Interview with sushiksha mentor ',
             message=f'{interview.heading} -- {interview.description}',
             from_email=None,
-            recipient_list = [f'{interview.participant_1.email}'],
+            recipient_list=[f'{interview.participant_1.email}'],
             fail_silently=False,
         )
+
 
 def send_interview_set_email(interview):
     send_mail(
