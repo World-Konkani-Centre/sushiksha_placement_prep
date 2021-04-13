@@ -1,10 +1,14 @@
 import pickle
 import datetime
 import os
+from smtplib import SMTPException
+
 from google_auth_oauthlib.flow import Flow, InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
 from google.auth.transport.requests import Request
+
+from django.core.mail import send_mail
 
 
 def Create_Service(client_secret_file, api_name, api_version, *scopes):
@@ -56,13 +60,13 @@ SCOPES = ['https://www.googleapis.com/auth/calendar']
 
 # service = Create_Service(CLIENT_SECRET_FILE,API_NAME,API_VERSION,SCOPES)
 
-def google_calendar(interview):
-    service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
-    # credentials = pickle.load(open('interviews/token_calendar_v3.pickle', 'rb'))
-    # service = build(API_NAME, API_VERSION, credentials=credentials)
+def google_calendar_set_interview1v1(interview):
+    # service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
+    credentials = pickle.load(open('interviews/token_calendar_v3.pickle', 'rb'))
+    service = build(API_NAME, API_VERSION, credentials=credentials)
     timezone = 'Asia/Kolkata'
     event = {
-        'summary': interview.heading,
+        'summary': f'{interview.heading}--{interview.type}',
         'location': interview.link,
         'description': interview.description,
         'start': {
@@ -83,3 +87,38 @@ def google_calendar(interview):
     }
     respone = service.events().insert(calendarId='primary', body=event).execute()
     return respone['id']
+
+
+def google_calendar_cancel_interview1v1(interview):
+    # service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
+    credentials = pickle.load(open('interviews/token_calendar_v3.pickle', 'rb'))
+    service = build(API_NAME, API_VERSION, credentials=credentials)
+    service.events().delete(calendarId='primary', eventId=interview.event_id).execute()
+
+
+def send_interview_cancel_email(interview):
+    try:
+        send_mail(
+            subject = 'Cancelled -- Mock Interview with sushiksha mentor',
+            message=f'{interview.heading} -- {interview.description}',
+            from_email=None,
+            recipient_list = [f'{interview.participant_2.email}', f'{interview.participant_1.email}'],
+            fail_silently=False,
+        )
+    except SMTPException:
+        send_mail(
+            subject='Cancelled -- Mock Interview with sushiksha mentor ',
+            message=f'{interview.heading} -- {interview.description}',
+            from_email=None,
+            recipient_list = [f'{interview.participant_1.email}'],
+            fail_silently=False,
+        )
+
+def send_interview_set_email(interview):
+    send_mail(
+        subject='Interview set up -- Mock Interview with sushiksha mentor',
+        message=f'{interview.heading} -- {interview.description}',
+        from_email=None,
+        recipient_list=[f'{interview.participant_2.email}', f'{interview.participant_1.email}'],
+        fail_silently=False,
+    )
