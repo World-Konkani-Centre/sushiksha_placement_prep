@@ -27,7 +27,13 @@ def interview_details(request, intId):
         if val == '0':
             send_interview_cancel_email(interview)
             google_calendar_cancel_interview1v1(interview)
-            interview.delete()
+            if request.user.profile.is_mentor:
+                interview.delete()
+            else:
+                interview.participant_2 = None
+                interview.complete = False
+                interview.event_id = None
+                interview.save()
         elif val == '1':
             interview.participant_2 = request.user
             interview.complete = True
