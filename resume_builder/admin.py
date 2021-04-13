@@ -1,8 +1,8 @@
 from django.contrib import admin
 
 # Register your models here.
-from resume_builder.models import About, Contact, Skill, Education, InternshipExperience, TrainingCertification, \
-    Project, Extra, Language, PersonalInterest, Achievement, Declaration,Template, Resume
+from resume_builder.models import  Contact, Skill, Education, InternshipExperience, TrainingCertification, \
+    Project, Extra, Language,  Achievement, Template, Resume
 
 
 @admin.register(Resume)
@@ -18,10 +18,6 @@ class TemplateAdmin(admin.ModelAdmin):
 class ContactAdmin(admin.ModelAdmin):
     pass
 
-
-@admin.register(About)
-class AboutAdmin(admin.ModelAdmin):
-    pass
 
 
 @admin.register(Skill)
@@ -54,11 +50,6 @@ class ExtraAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(PersonalInterest)
-class PersonalInterestAdmin(admin.ModelAdmin):
-    pass
-
-
 @admin.register(Achievement)
 class AchievementAdmin(admin.ModelAdmin):
     pass
@@ -68,7 +59,3 @@ class LanguageAdmin(admin.ModelAdmin):
     pass
 
 
-
-@admin.register(Declaration)
-class DeclarationAdmin(admin.ModelAdmin):
-    pass
