@@ -1,0 +1,33 @@
+.login-page {
+    width: 360px;
+    padding: 8% 0 0;
+    margin: auto;
+}
+
+.form {
+    position: relative;
+    z-index: 1;
+    background: #FFFFFF;
+    max-width: 360px;
+    margin: 0 auto 100px;
+    border-radius: 6px;
+    padding: 30px 40px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.heading {
+    text-align: center;
+    color: #FFFFFF;
+    font-weight: 800;
+}
+
+body {
+    background: #4a5562;
+    background: -webkit-linear-gradient(right, #4a5562, #515d6a);
+    background: -moz-linear-gradient(right, #4a5562, #515d6a);
+    background: -o-linear-gradient(right, #4a5562, #515d6a);
+    background: linear-gradient(to left, #4a5562, #515d6a);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
