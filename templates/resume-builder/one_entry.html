@@ -1,7 +1,12 @@
 {% extends "base_page.html" %}
 {% load crispy_forms_filters %}
 {% load crispy_forms_tags %}
-
+{% block custom_css %}
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.min.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.css"/>
+{% endblock %}
 
 {% block content %}
 
@@ -419,11 +424,73 @@
 {% endblock %}
 
 {% block custom_js %}
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+            integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
             crossorigin="anonymous"></script>
-
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
+            integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA=="
+            crossorigin="anonymous"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.js"
+            integrity="sha512-s5u/JBtkPg+Ff2WEr49/cJsod95UgLHbC00N/GglqdQuLnYhALncz8ZHiW/LxDRGduijLKzeYb7Aal9h3codZA=="
+            crossorigin="anonymous"></script>
     <script>
+    $(function () {
+          $("#id_date_of_joining").datepicker({
+              dateFormat: 'yy-mm-dd',
+              changeMonth: true,
+              changeYear: true,
+              yearRange: "-100:+0",
+          }).attr("autocomplete", "off");
+      })
+    $(function () {
+          $("#id_date").datepicker({
+              dateFormat: 'yy-mm-dd',
+              changeMonth: true,
+              changeYear: true,
+              yearRange: "-100:+0",
+          }).attr("autocomplete", "off");
+      })
+$(function () {
+          $("#id_start_date").datepicker({
+              dateFormat: 'yy-mm-dd',
+              changeMonth: true,
+              changeYear: true,
+              yearRange: "-100:+0",
+          }).attr("autocomplete", "off");
+      })
+     $(function () {
+          $("#id_end_date").datepicker({
+              dateFormat: 'yy-mm-dd',
+              changeMonth: true,
+              changeYear: true,
+              yearRange: "-100:+0",
+          }).attr("autocomplete", "off");
+      })
+    $(function () {
+          $("#id_date_of_exit").datepicker({
+              dateFormat: 'yy-mm-dd',
+              changeMonth: true,
+              changeYear: true,
+              yearRange: "-100:+0",
+          }).attr("autocomplete", "off");
+      })
+      $(function () {
+          $("#id_joining_date").datepicker({
+              dateFormat: 'yy-mm-dd',
+              changeMonth: true,
+              changeYear: true,
+              yearRange: "-100:+0",
+          }).attr("autocomplete", "off");
+      })
+      $(function () {
+          $("#id_passing_date").datepicker({
+              dateFormat: 'yy-mm-dd',
+              changeMonth: true,
+              changeYear: true,
+              yearRange: "-100:+0",
+          }).attr("autocomplete", "off");
+      })
         $("#id_status").change(function () {
             selected = $('#id_status').find(":selected").text();
             console.log(selected)

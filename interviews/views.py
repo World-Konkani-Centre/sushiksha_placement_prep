@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.shortcuts import render, redirect
 
 from interviews.forms import InterviewRegisterForm, GDCreationForm, GDParticipationForm
@@ -9,22 +10,11 @@ from interviews.utils import google_calendar
 
 @login_required
 def interview_list(request):
-    form = None
-    lists = Interview.objects.filter(complete=False)
-    if request.POST:
-        if request.user.profile.is_mentor:
-            form = InterviewRegisterForm(request.POST)
-            if form.is_valid():
-                interview = form.save(commit=False)
-                interview.participant_1 = request.user
-                interview.save()
-                return redirect('interviews-list')
-    else:
-        if request.user.profile.is_mentor:
-            form = InterviewRegisterForm()
+    interviews_completed = Interview.objects.filter(Q(participant_2=request.user) | Q(participant_1=request.user) ,complete=True)
+    interviews_scheduled = Interview.objects.filter(Q(participant_2=request.user) | Q(participant_1=request.user) ,complete=False)
     context = {
-        'form': form,
-        'lists': lists,
+        'interviews_completed': interviews_completed,
+        'interviews_scheduled': interviews_scheduled,
     }
     return render(request, 'interviews/list.html', context)
 
