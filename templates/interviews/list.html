@@ -40,6 +40,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h5 class="card-title">{{ i.heading }}</h5>
+                                        <h4 class="card-title">{{ i.type }}</h4>
                                         <p class="card-text">{{ i.start_time }} - {{ i.end_time }}</p>
                                         <a href="{% url 'interviews-single' intId=i.id %}" class="btn btn-primary">Details </a>
                                     </div>

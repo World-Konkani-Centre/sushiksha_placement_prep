@@ -9,21 +9,8 @@ from interviews.utils import google_calendar
 
 @login_required
 def interview_list(request):
-    form = None
     lists = Interview.objects.filter(complete=False)
-    if request.POST:
-        if request.user.profile.is_mentor:
-            form = InterviewRegisterForm(request.POST)
-            if form.is_valid():
-                interview = form.save(commit=False)
-                interview.participant_1 = request.user
-                interview.save()
-                return redirect('interviews-list')
-    else:
-        if request.user.profile.is_mentor:
-            form = InterviewRegisterForm()
     context = {
-        'form': form,
         'lists': lists,
     }
     return render(request, 'interviews/list.html', context)
