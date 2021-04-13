@@ -3,13 +3,13 @@ from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from django.shortcuts import render
 
-from resume_builder.forms import ContactModelForm, AboutModelForm, SkillModelForm, EducationModelForm, \
+from resume_builder.forms import ContactModelForm, SkillModelForm, EducationModelForm, \
     InternshipFormExperienceForm, TrainingCertificationForm, ProjectForm, ExtraModelForm, LanguageModelForm, \
-    PIModelForm, AchievementModelForm, DeclarationModelForm, ObjectiveModelForm
-from resume_builder.models import Contact, About, Skill, Education, InternshipExperience, TrainingCertification, \
-    Project, Extra, Language, PersonalInterest, Achievement, Declaration, Objective, Template, Resume
+    AchievementModelForm, ObjectiveModelForm
+from resume_builder.models import Contact, Skill, Education, InternshipExperience, TrainingCertification, \
+    Project, Extra, Language, Achievement, Objective, Template, Resume
 
-count = 14
+count = 10
 
 
 @login_required
@@ -23,7 +23,7 @@ def contact(request):
         context = {
             'heading': "Update the Contact Information",
             'form': form,
-            'next': 'resume-about',
+            'next': 'resume-obj',
             'width': 100 / count,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
@@ -35,44 +35,18 @@ def contact(request):
             form.save()
         return redirect('resume-contact')
 
-
-@login_required
-def about(request):
-    try:
-        about = About.objects.get(user=request.user)
-    except About.DoesNotExist:
-        about = None
-    if request.method == 'GET':
-        form = AboutModelForm(instance=about)
-        context = {
-            'heading': "Update the Profile Information",
-            'form': form,
-            'prev': 'resume-contact',
-            'next': 'resume-skills',
-            'width': 200 / count,
-        }
-        return render(request, 'resume-builder/one_entry.html', context=context)
-    elif request.method == 'POST':
-        form = AboutModelForm(request.POST, instance=about)
-        if form.is_valid():
-            row = form.save(commit=False)
-            row.user = request.user
-            form.save()
-        return redirect('resume-about')
-
-
 @login_required
 def obj(request):
     obj = Objective.objects.filter(user=request.user)
     if request.method == 'GET':
         form = ObjectiveModelForm()
         context = {
-            'heading': "Add new Skills Information",
+            'heading': "Add new Objective Information",
             'form': form,
             'obj': obj,
-            'prev': 'resume-about',
+            'prev': 'resume-contact',
             'next': 'resume-education',
-            'width': 300 / count,
+            'width': 200 / count,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -116,9 +90,9 @@ def skills(request):
             'heading': "Add new Skills Information",
             'form': form,
             'skills': skill,
-            'prev': 'resume-about',
+            'prev': 'resume-obj',
             'next': 'resume-education',
-            'width': 400 / count,
+            'width': 300 / count,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -164,7 +138,7 @@ def education(request):
             'education': ed,
             'prev': 'resume-skills',
             'next': 'resume-internship',
-            'width': 500 / count,
+            'width': 400 / count,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -210,7 +184,7 @@ def internship(request):
             'internship': ie,
             'prev': 'resume-education',
             'next': 'resume-training',
-            'width': 600 / count,
+            'width': 500 / count,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -256,7 +230,7 @@ def training(request):
             'training': train,
             'prev': 'resume-internship',
             'next': 'resume-project',
-            'width': 700 / count,
+            'width': 600 / count,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -302,7 +276,7 @@ def project(request):
             'projects': proj,
             'prev': 'resume-training',
             'next': 'resume-extra',
-            'width': 800 / count,
+            'width': 700 / count,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -347,7 +321,7 @@ def extra(request):
             'extra': extra_obj,
             'prev': 'resume-project',
             'next': 'resume-language',
-            'width': 900 / count,
+            'width': 800 / count,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -392,8 +366,8 @@ def language(request):
             'form': form,
             'lang': lang,
             'prev': 'resume-extra',
-            'next': 'resume-pi',
-            'width': 1000 / count,
+            'next': 'resume-language',
+            'width': 900 / count,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -421,54 +395,13 @@ def language_edit(request, id):
             form.save()
         return redirect('resume-language')
 
+
 @login_required
 def language_delete(request, id):
     lang = Language.objects.get(id=id, user=request.user).delete()
     return redirect('resume-language')
 
-@login_required
-def pi(request):
-    if request.method == 'GET':
-        interests = PersonalInterest.objects.filter(user=request.user)
-        form = PIModelForm()
-        context = {
-            'heading': "Update the Personal Interest Information",
-            'form': form,
-            'pi': interests,
-            'prev': 'resume-language',
-            'next': 'resume-achievement',
-            'width': 1100 / count,
-        }
-        return render(request, 'resume-builder/one_entry.html', context=context)
-    elif request.method == 'POST':
-        form = PIModelForm(request.POST)
-        if form.is_valid():
-            row = form.save(commit=False)
-            row.user = request.user
-            form.save()
-        return redirect('resume-pi')
 
-@login_required
-def pi_edit(request,
-            id):
-    lang = PersonalInterest.objects.get(user=request.user, id=id)
-    if request.method == 'GET':
-        form = PIModelForm(instance=lang)
-        context = {
-            'heading': "Update the Personal Interset Information",
-            'form': form,
-        }
-        return render(request, 'resume-builder/one_entry.html', context=context)
-    elif request.method == 'POST':
-        form = PIModelForm(request.POST, instance=lang)
-        if form.is_valid():
-            form.save()
-        return redirect('resume-pi')
-
-@login_required
-def pi_delete(request, id):
-    lang = PersonalInterest.objects.get(id=id, user=request.user).delete()
-    return redirect('resume-pi')
 
 @login_required
 def achievement(request):
@@ -479,9 +412,8 @@ def achievement(request):
             'heading': "Update the Achievements Information",
             'form': form,
             'ach': ach,
-            'prev': 'resume-pi',
-            'next': 'resume-declaration',
-            'width': 1200 / count,
+            'prev': 'resume-language',
+            'width': 1000 / count,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
     elif request.method == 'POST':
@@ -491,6 +423,7 @@ def achievement(request):
             row.user = request.user
             form.save()
         return redirect('resume-achievement')
+
 
 @login_required
 def achievement_edit(request, id):
@@ -508,33 +441,12 @@ def achievement_edit(request, id):
             form.save()
         return redirect('resume-achievement')
 
+
 @login_required
 def achievement_delete(request, id):
     lang = Achievement.objects.get(id=id, user=request.user).delete()
     return redirect('resume-achievement')
 
-@login_required
-def declaration(request):
-    try:
-        dec = Declaration.objects.get(user=request.user)
-    except Declaration.DoesNotExist:
-        dec = None
-    if request.method == 'GET':
-        form = DeclarationModelForm(instance=dec)
-        context = {
-            'heading': "Update the Declaration Information",
-            'form': form,
-            'prev': 'resume-achievement',
-            'width': 1300 / count,
-        }
-        return render(request, 'resume-builder/one_entry.html', context=context)
-    elif request.method == 'POST':
-        form = DeclarationModelForm(request.POST, instance=dec)
-        if form.is_valid():
-            row = form.save(commit=False)
-            row.user = request.user
-            form.save()
-        return redirect('resume-declaration')
 
 @login_required
 def preview(request):
@@ -549,6 +461,7 @@ def preview(request):
     if request.method == 'GET':
         query = Template.objects.all()
         return render(request, 'resume-builder/view.html', context={'query': query})
+
 
 @login_required
 def preview_template(request):
@@ -565,7 +478,6 @@ def preview_template(request):
         template = Template.objects.get(id=templateId)
         user = User.objects.get(id=userId)
         contact_obj = Contact.objects.get(user=user)
-        about_obj = About.objects.get(user=request.user)
         objectives_obj = Objective.objects.filter(user=user)
         skills_obj = Skill.objects.filter(user=user)
         education_obj = Education.objects.filter(user=user)
@@ -574,13 +486,10 @@ def preview_template(request):
         proj_obj = Project.objects.filter(user=user)
         extra_obj = Extra.objects.filter(user=user)
         lang_obj = Language.objects.filter(user=user)
-        pi_obj = PersonalInterest.objects.filter(user=user)
         achievement_obj = Achievement.objects.filter(user=user)
-        declaration_obj = Declaration.objects.get(user=user)
         loc = f'resume-builder/{template.template}'
         context = {
             'contact': contact_obj,
-            'about': about_obj,
             'objectives': objectives_obj,
             'skills': skills_obj,
             'education': education_obj,
@@ -589,8 +498,6 @@ def preview_template(request):
             'projects': proj_obj,
             'extras': extra_obj,
             'language': lang_obj,
-            'pi': pi_obj,
             'achievement': achievement_obj,
-            'declaration': declaration_obj,
         }
         return render(request, loc, context=context)

@@ -18,7 +18,7 @@ class Template(models.Model):
 
 class Resume(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
-    template = models.ForeignKey(Template,on_delete=models.CASCADE,null=True)
+    template = models.ForeignKey(Template, on_delete=models.CASCADE, null=True)
     status = models.CharField(max_length=3, choices=STATUS, default='1')
 
 
@@ -50,11 +50,6 @@ class Contact(models.Model):
     email = models.EmailField(unique=True)
     linked_in = models.URLField(unique=True)
     github = models.URLField(unique=True)
-
-
-class About(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    summary = models.TextField()
 
 
 class Objective(models.Model):
@@ -145,19 +140,6 @@ class Language(models.Model):
     proficiency = models.CharField(max_length=1, choices=PROFICIENCY_OPTIONS, default="0")
 
 
-class PersonalInterest(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    description = models.CharField(max_length=50)
-
-
 class Achievement(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     description = models.CharField(max_length=50)
-
-
-class Declaration(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    declaration = models.TextField()
-    state = models.CharField(max_length=50)
-    city = models.CharField(max_length=50)
-    date = models.DateField()
