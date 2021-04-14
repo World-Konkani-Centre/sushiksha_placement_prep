@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.http import HttpResponseNotFound
@@ -61,11 +62,13 @@ def resume_view(request, resumeId):
             form_c = CommentModelForm(request.POST)
             if form_r.is_valid():
                 form_r.save()
+                messages.success(request,f'Resume has been changed successfully')
             if form_c.is_valid():
                 comm = form_c.save(commit=False)
                 comm.resume = resume
                 comm.user = request.user
                 comm.save()
+                messages.success(request, f'comment has been posted successfully')
             return redirect('resume-list')
         else:
             form_c = CommentModelForm(request.POST)
@@ -74,6 +77,9 @@ def resume_view(request, resumeId):
                 comm.resume = resume
                 comm.user = request.user
                 comm.save()
+                messages.success(request, f'comment has been posted successfully')
+            else:
+                messages.error(request,f'something wrong in the input')
                 return redirect('resume-view', resumeId=resumeId)
 
 
@@ -90,7 +96,10 @@ def interview_list(request):
                 interview = form.save(commit=False)
                 interview.participant_1 = request.user
                 interview.save()
+                messages.success(request, f'New Interview has been scheduled successfully')
                 return redirect('interview-list-mentor')
+            else:
+                messages.error(request, f'something wrong in the input')
     else:
         if request.user.profile.is_mentor:
             form = InterviewRegisterForm()
