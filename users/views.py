@@ -24,7 +24,10 @@ def register(request):
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account created for {username}')
             form.save()
-            return redirect('login')
+            messages.success(request,"Your Account has been registered successfully")
+            return redirect('index')
+        else:
+            messages.error(request,"Check your inputs and try again")
     else:
         form = UserRegisterForm()
 
@@ -69,7 +72,8 @@ def profile(request):
 
             messages.success(request, f'Your Account has been Updated')
             return redirect('profile')
-
+        else:
+            messages.error(request,"Unable to update the account, check the details")
     else:
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)
@@ -83,4 +87,4 @@ def profile(request):
 
 def my_logout(request):
     logout(request)
-    return redirect('login')
+    return redirect('index')
