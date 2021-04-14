@@ -137,6 +137,5 @@ EMAIL_HOST_USER = config.get('MAIL_USER')
 EMAIL_HOST_PASSWORD = config.get('MAIL_PASS')
 
 LOGIN_REDIRECT_URL = 'profile'
-LOGOUT_REDIRECT_URL = 'login'
 LOGIN_URL = 'login'
 
