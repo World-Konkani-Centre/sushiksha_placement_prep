@@ -5,6 +5,8 @@ from django.http import HttpResponseNotFound
 from django.shortcuts import redirect, render
 
 from interviews.forms import InterviewRegisterForm
+from interviews.utils import send_interview_cancel_email, send_interview_set_email, google_calendar_set_interview1v1, \
+    google_calendar_cancel_interview1v1
 from resume_builder.forms import ResumeModelForm, CommentModelForm
 from resume_builder.models import Resume, Comments
 from users.models import Profile
@@ -62,7 +64,7 @@ def resume_view(request, resumeId):
             form_c = CommentModelForm(request.POST)
             if form_r.is_valid():
                 form_r.save()
-                messages.success(request,f'Resume has been changed successfully')
+                messages.success(request, f'Resume has been changed successfully')
             if form_c.is_valid():
                 comm = form_c.save(commit=False)
                 comm.resume = resume
@@ -79,7 +81,7 @@ def resume_view(request, resumeId):
                 comm.save()
                 messages.success(request, f'comment has been posted successfully')
             else:
-                messages.error(request,f'something wrong in the input')
+                messages.error(request, f'something wrong in the input')
                 return redirect('resume-view', resumeId=resumeId)
 
 
@@ -110,3 +112,37 @@ def interview_list(request):
 
     }
     return render(request, 'interviews/list.html', context)
+
+
+@login_required
+def interview_details(request, intId):
+    interview = Interview.objects.get(id=intId)
+    if request.POST:
+        val = request.POST.get('hidden_option')
+        if val == '0':
+            send_interview_cancel_email(interview)
+            google_calendar_cancel_interview1v1(interview)
+            if request.user.profile.is_mentor:
+                messages.success(request, f'The interview has been cancelled and same is informed to the other')
+                interview.delete()
+            else:
+                interview.participant_2 = None
+                interview.complete = False
+                interview.event_id = None
+                messages.success(request, f'The interview has been cancelled and same is informed to the other')
+                interview.save()
+        elif val == '1':
+            interview.participant_2 = request.user
+            interview.complete = True
+            interview.save()
+            send_interview_set_email(interview)
+            eventId = google_calendar_set_interview1v1(interview)
+            interview.event_id = eventId
+            interview.save()
+            messages.success(request,
+                             f'The interview has been set up and same is informed to the other along with the google calendar, accept the google calendar link for further notification')
+        return redirect('interviews-list')
+    context = {
+        'interview': interview
+    }
+    return render(request, 'interviews/single.html', context)

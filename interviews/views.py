@@ -45,7 +45,8 @@ def interview_details(request, intId):
             eventId = google_calendar_set_interview1v1(interview)
             interview.event_id = eventId
             interview.save()
-            messages.success(request, f'The interview has been set up and same is informed to the other along with the google calendar, accept the google calendar link for further notification')
+            messages.success(request, f'The interview has been set up and same is informed to the other along with '
+                                      f'the google calendar, accept the google calendar link for further notification')
         return redirect('interviews-list')
     context = {
         'interview': interview

@@ -9,11 +9,6 @@ class InterviewRegisterForm(forms.ModelForm):
         fields = ['heading', 'type','description', 'start_time', 'end_time', 'link']
 
 
-class GDParticipationForm(forms.ModelForm):
-    class Meta:
-        model = GDParticipants
-        fields = ['branch']
-
 
 class GDCreationForm(forms.Form):
     heading = forms.CharField(max_length=50)

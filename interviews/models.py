@@ -22,7 +22,6 @@ class Interview(models.Model):
 
 class GDParticipants(models.Model):
     participants = models.ForeignKey(User, on_delete=models.CASCADE)
-    branch = models.CharField(max_length=50)
 
     def __str__(self):
         return f'{self.participants.profile.name}'
