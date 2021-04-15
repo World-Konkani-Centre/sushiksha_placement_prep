@@ -412,14 +412,15 @@ h6 {
 }
 
 #hero .container {
-    text-align: center;
+    text-align: left;
 }
 
 #hero h2 {
     color: #fff;
     margin-bottom: 20px;
-    font-size: 48px;
+    font-size: 55px;
     font-weight: 700;
+    line-height: 43px;
 }
 
 #hero p {
@@ -782,7 +783,6 @@ section {
     margin-bottom: 30px;
 }
 
-
 .portfolio #portfolio-flters {
     padding: 0;
     margin: 0 auto 20px auto;
@@ -914,8 +914,10 @@ section {
 
 .team .member .pic {
     overflow: hidden;
-    width: 140px;
+    width: 250px;
     border-radius: 4px;
+    align-items: center;
+    justify-content: center;
 }
 
 .team .member .pic img {
@@ -956,9 +958,10 @@ section {
     left: 0;
 }
 
-.team .member p {
+.team .member .profile-update-form {
     margin: 10px 0 0 0;
     font-size: 14px;
+    text-align: left;
 }
 
 .team .member .social {

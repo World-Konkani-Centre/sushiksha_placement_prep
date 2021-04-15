@@ -19,38 +19,41 @@
         </div>
         </section><!-- End Breadcrumbs -->
 
-        <section id="team" class="team">
 
-            <div class="container" data-aos="fade-up">
 
-                <header class="section-header">
-                    <h2>Team</h2>
-                    <p>Our hard working team</p>
-                </header>
+            <section id="team" class="team ">
+      <div class="container">
 
-                <div class="row gy-4">
-                    <div class="col-lg-3"></div>
-                    <div class="col-lg-6 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-                        <div class="member">
-                            <div class="member-img">
-                                <img src="{{ user.profile.image.url }}" class="img img-fluid" alt="">
-                            </div>
-                            <div class="member-info">
-                                <h4>{{ user.username }}</h4>
-                                <span>{{ user.profile.name }}</span>
-                                <div style="text-align: left;">
-                                    <form action="" method="POST">
-                                        {% csrf_token %}
-                                        {{ u_form | crispy }}
-                                        {% csrf_token %}
-                                        {{ p_form | crispy }}
-                                        <button type="submit" class="btn btn-block custom-info-btn animate__animated animate__fadeInUp scrollto">Submit</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <div class="row">
+
+          <div class="col-lg-12">
+
+            <div class="member d-flex align-items-start">
+            <div class="row">
+            <div class="col-lg-4 col-12">
+              <div class="pic"><img src="{{ user.profile.image.url }}" class="img-fluid" alt=""></div>
+              </div>
+              <div class="col-lg-8 col-12">
+              <div class="member-info">
+                <h4>{{ user.profile.name }}</h4>
+                <span><strong>Username: </strong>{{ user.username }}</span>
+                <div class="profile-update-form">
+                   <form action="" method="POST">
+                        {% csrf_token %}
+                        {{ u_form | crispy }}
+                        {% csrf_token %}
+                        {{ p_form | crispy }}
+                        <button type="submit" class="btn btn-block custom-info-btn animate__animated animate__fadeInUp scrollto">Submit</button>
+                    </form>
                 </div>
+              </div>
+              </div>
+            
             </div>
+            </div>
+          </div>
+          </div>
+          <div>
         </section>
+
 {% endblock %}
