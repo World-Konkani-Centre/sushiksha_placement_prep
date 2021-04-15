@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from django.http import HttpResponseNotFound
+from django.http import HttpResponseNotFound, HttpResponse
 from django.shortcuts import redirect, render
 
 from interviews.forms import InterviewRegisterForm
@@ -177,5 +177,12 @@ def gd_list(request):
     return render(request, 'interviews/gd-list.html', context)
 
 
-def gd_details(request,intId):
-    pass
+@login_required
+def gd_details(request, intId):
+    interview = GD.objects.get(id=intId)
+    context = {
+        'interview': interview
+    }
+    if request.POST:
+        return HttpResponse('Service not available now', status=401)
+    return render(request, 'interviews/gd-single.html', context)

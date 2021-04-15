@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 
@@ -71,4 +72,6 @@ def gd_interview_details(request, intId):
     context = {
         'interview': interview
     }
+    if request.POST:
+        return HttpResponse('Service not available now', status=401)
     return render(request, 'interviews/gd-single.html', context)

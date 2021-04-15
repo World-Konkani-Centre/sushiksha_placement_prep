@@ -29,8 +29,16 @@
                                 <a>{{ interview.heading }}</a>
                             </h2>
                             <div class="entry-content">
-                                <p>Interview type : {{ interview.type }}</p>
-                                <p>Participants : {{ interview.participant_1.profile.name }},{{ interview.participant_2.profile.name }}</p>
+                                <p>Participants : {{ interview.participant_1.profile.name }}
+                                    {% if interview.participant_2 %},{{ interview.participant_2.profile.name }}{% endif %}
+                                    {% if interview.participant_3 %},{{ interview.participant_3.profile.name }}{% endif %}
+                                {% if interview.participant_4 %},{{ interview.participant_4.profile.name }}{% endif %}
+                                {% if interview.participant_5 %},{{ interview.participant_5.profile.name }}{% endif %}
+                                {% if interview.participant_6 %},{{ interview.participant_6.profile.name }}{% endif %}
+                                {% if interview.participant_7 %},{{ interview.participant_7.profile.name }}{% endif %}
+                                {% if interview.participant_8 %},{{ interview.participant_8.profile.name }}{% endif %}
+                                {% if interview.participant_9 %},{{ interview.participant_9.profile.name }}{% endif %}
+                                </p>
                                 <p>Start Time : {{ interview.start_time }}</p>
                                 <p>End Time : {{ interview.end_time }}</p>
                                 <p>Location : <a href="{{ interview.link }}">{{ interview.link }}</a></p>
