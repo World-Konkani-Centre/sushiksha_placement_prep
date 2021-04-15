@@ -412,7 +412,7 @@ h6 {
 }
 
 #hero .container {
-    text-align: center;
+    text-align: left;
 }
 
 #hero h2 {
@@ -781,7 +781,6 @@ section {
 .portfolio .portfolio-item {
     margin-bottom: 30px;
 }
-
 
 .portfolio #portfolio-flters {
     padding: 0;
