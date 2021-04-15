@@ -1,14 +1,11 @@
-import pickle
 import datetime
 import os
-from smtplib import SMTPException
-
-from google_auth_oauthlib.flow import Flow, InstalledAppFlow
-from googleapiclient.discovery import build
-from googleapiclient.http import MediaFileUpload
-from google.auth.transport.requests import Request
+import pickle
 
 from django.core.mail import send_mail
+from google.auth.transport.requests import Request
+from google_auth_oauthlib.flow import InstalledAppFlow
+from googleapiclient.discovery import build
 
 
 def Create_Service(client_secret_file, api_name, api_version, *scopes):
@@ -202,16 +199,3 @@ def update_gd_event(interview, user):
     event['attendees'] = attendees
     updated_event = service.events().update(calendarId='primary', eventId=interview.event_id, body=event).execute()
     return updated_event['updated']
-
-# def addGuestAndSendEmail(calendarId, eventId, newGuest) {
-#     credentials = pickle.load(open('interviews/token_calendar_v3.pickle', 'rb'))
-#     service = build(API_NAME, API_VERSION, credentials=credentials)
-#     event = Calendar.Events.get(calendarId, eventId);
-#     attendees = event.attendees;
-#     attendees.push({email: newGuest});
-#
-#     resource = { attendees: attendees };
-#     args = { sendUpdates: "all" };
-#
-#     Calendar.Events.patch(resource, calendarId, eventId, args);
-# }
