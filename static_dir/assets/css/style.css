@@ -418,8 +418,9 @@ h6 {
 #hero h2 {
     color: #fff;
     margin-bottom: 20px;
-    font-size: 48px;
+    font-size: 55px;
     font-weight: 700;
+    line-height: 43px;
 }
 
 #hero p {
