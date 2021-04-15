@@ -174,4 +174,8 @@ def gd_list(request):
         'interviews_completed': gd_completed,
         'interviews_scheduled': gd_scheduled,
     }
-    return render(request, 'interviews/list.html', context)
+    return render(request, 'interviews/gd-list.html', context)
+
+
+def gd_details(request,intId):
+    pass

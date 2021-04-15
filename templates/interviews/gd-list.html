@@ -1,0 +1,141 @@
+{% extends "base_page.html" %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+
+{% block custom_css %}
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.min.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.css"/>
+{% endblock %}
+
+{% block content %}
+
+    <main id="main">
+        <section class="breadcrumbs">
+            <div class="container">
+                <h2 class="entry-title">Schedule/Apply for the Interview
+                </h2>
+                <p>*All date and time are based IST (Kolkata/Asia)</p>
+            </div>
+        </section>
+
+
+        <section id="blog" class="blog">
+            <div class="container" data-aos="fade-up">
+                {% if form %}
+                    <div class="row">
+                        <form method="POST" action="" class="col-md-6">
+                            {% csrf_token %}
+                            {{ form | crispy }}
+                            <button type="submit" class="btn btn-block custom-success-btn animate__animated">Schedule</button>
+                        </form>
+                    </div>
+                {% endif %}
+
+            {% if interviews_scheduled %}
+
+                    <h3 class="mt-5">Available Interviews</h3>
+                    <div class="row ">
+                        {% for i in interviews_scheduled %}
+                            <div class="col-sm-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ i.heading }}</h5>
+                                        <h4 class="card-title">{{ i.type }}</h4>
+                                        <p class="card-text">{{ i.start_time }} - {{ i.end_time }}</p>
+                                        {% if request.user.profile.is_mentor and request.user == i.participant_1 %}
+                                            <a href="{% url 'gd-detail-mentor' intId=i.id %}" class="btn btn-block custom-info-btn animate__animated animate__fadeInUp scrollto">Details </a>
+                                        {% else %}
+                                            <a href="{% url 'gd-single' intId=i.id %}" class="btn btn-block custom-info-btn animate__animated animate__fadeInUp scrollto">Details </a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+            {% if interviews_completed %}
+                <h3 class="mt-5">Interviews Completed/Scheduled</h3>
+                    <div class="row">
+
+                        {% for i in interviews_completed %}
+                            <div class="col-sm-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ i.heading }}</h5>
+                                        <h4 class="card-title">{{ i.type }}</h4>
+                                        <p class="card-text">{{ i.start_time }} - {{ i.end_time }}</p>
+                                        <p class="card-text">participants - {{ i.participant_1 }},{{ i.participant_2 }}</p>
+                                        {% if request.user.profile.is_mentor and request.user == i.participant_1 %}
+                                            <a href="{% url 'gd-detail-mentor' intId=i.id %}" class="btn btn-block custom-info-btn animate__animated animate__fadeInUp scrollto">Details </a>
+                                        {% else %}
+                                            <a href="{% url 'gd-single' intId=i.id %}" class="btn btn-block custom-info-btn animate__animated animate__fadeInUp scrollto">Details </a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                {% if lists %}
+                    <div class="row mt-5">
+                        {% for i in lists %}
+                            <div class="col-sm-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ i.heading }}</h5>
+                                        <h4 class="card-title">{{ i.type }}</h4>
+                                        <p class="card-text">{{ i.start_time }} - {{ i.end_time }}</p>
+                                        {% if request.user.profile.is_mentor and request.user == i.participant_1 %}
+                                            <a href="{% url 'gd-detail-mentor' intId=i.id %}" class="btn btn-block custom-info-btn animate__animated animate__fadeInUp scrollto">Details </a>
+                                        {% else %}
+                                            <a href="{% url 'gd-single' intId=i.id %}" class="btn btn-block custom-info-btn animate__animated animate__fadeInUp scrollto">Details </a>
+                                        {% endif %}
+
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </section><!-- End Blog Single Section -->
+
+    </main><!-- End #main -->
+
+{% endblock content %}
+
+
+{% block custom_js %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+            integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+            crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
+            integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA=="
+            crossorigin="anonymous"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.js"
+            integrity="sha512-s5u/JBtkPg+Ff2WEr49/cJsod95UgLHbC00N/GglqdQuLnYhALncz8ZHiW/LxDRGduijLKzeYb7Aal9h3codZA=="
+            crossorigin="anonymous"></script>
+    <script>
+        $(function () {
+            $("#id_start_time").datetimepicker({
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-100:+0",
+            }).attr("autocomplete", "off");
+            $("#id_end_time").datetimepicker({
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-100:+0",
+            }).attr("autocomplete", "off");
+
+        });
+    </script>
+
+{% endblock %}

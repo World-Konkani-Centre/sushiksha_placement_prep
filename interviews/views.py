@@ -62,13 +62,13 @@ def gd_apply(request):
         'interviews_completed': gd_completed,
         'interviews_scheduled': gd_scheduled,
         }
-    return render(request, 'interviews/list.html', context)
+    return render(request, 'interviews/gd-list.html', context)
 
 
 @login_required
 def gd_interview_details(request, intId):
-    interview = GDList.objects.get(id=intId)
+    interview = GD.objects.get(id=intId)
     context = {
         'interview': interview
     }
-    return render(request, 'interviews/single.html', context)
+    return render(request, 'interviews/gd-single.html', context)
