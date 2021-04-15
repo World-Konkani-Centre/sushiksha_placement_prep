@@ -10,8 +10,15 @@ import interviews.urls as int_urls
 import users.urls as user_url
 from .views import index
 
+handler404 = 'sushiksha_placement_prep.views.handler404'
+handler500 = 'sushiksha_placement_prep.views.handler500'
+handler400 = 'sushiksha_placement_prep.views.handler400'
+handler403 = 'sushiksha_placement_prep.views.handler403'
+
 urlpatterns = [
     path('', index, name='index'),
+    path('grappelli/', include('grappelli.urls')),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
     path('admin/', admin.site.urls),
     url('users/', include(user_url)),
     url('resume-builder/', include(builder_url)),
