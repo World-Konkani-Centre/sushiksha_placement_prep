@@ -126,6 +126,9 @@ def send_interview_set_email(interview):
     )
 
 
+def send_gd_cancel_email(interview):
+    pass
+
 # def addGuestAndSendEmail(calendarId, eventId, newGuest) {
 #     credentials = pickle.load(open('interviews/token_calendar_v3.pickle', 'rb'))
 #     service = build(API_NAME, API_VERSION, credentials=credentials)

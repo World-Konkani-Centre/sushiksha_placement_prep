@@ -44,7 +44,7 @@
                                         <h5 class="card-title">{{ i.heading }}</h5>
                                         <h4 class="card-title">{{ i.type }}</h4>
                                         <p class="card-text">{{ i.start_time }} - {{ i.end_time }}</p>
-                                        {% if request.user.profile.is_mentor and request.user == i.participant_1 %}
+                                        {% if request.user == i.participant_1 %}
                                             <a href="{% url 'gd-detail-mentor' intId=i.id %}" class="btn btn-block custom-info-btn animate__animated animate__fadeInUp scrollto">Details </a>
                                         {% else %}
                                             <a href="{% url 'gd-single' intId=i.id %}" class="btn btn-block custom-info-btn animate__animated animate__fadeInUp scrollto">Details </a>
@@ -67,33 +67,11 @@
                                         <h5 class="card-title">{{ i.heading }}</h5>
                                         <h4 class="card-title">{{ i.type }}</h4>
                                         <p class="card-text">{{ i.start_time }} - {{ i.end_time }}</p>
-                                        {% if request.user.profile.is_mentor and request.user == i.participant_1 %}
+                                        {% if request.user == i.participant_1 %}
                                             <a href="{% url 'gd-detail-mentor' intId=i.id %}" class="btn btn-block custom-info-btn animate__animated animate__fadeInUp scrollto">Details </a>
                                         {% else %}
                                             <a href="{% url 'gd-single' intId=i.id %}" class="btn btn-block custom-info-btn animate__animated animate__fadeInUp scrollto">Details </a>
                                         {% endif %}
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-
-                {% if lists %}
-                    <div class="row mt-5">
-                        {% for i in lists %}
-                            <div class="col-sm-6">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{ i.heading }}</h5>
-                                        <h4 class="card-title">{{ i.type }}</h4>
-                                        <p class="card-text">{{ i.start_time }} - {{ i.end_time }}</p>
-                                        {% if request.user.profile.is_mentor and request.user == i.participant_1 %}
-                                            <a href="{% url 'gd-detail-mentor' intId=i.id %}" class="btn btn-block custom-info-btn animate__animated animate__fadeInUp scrollto">Details </a>
-                                        {% else %}
-                                            <a href="{% url 'gd-single' intId=i.id %}" class="btn btn-block custom-info-btn animate__animated animate__fadeInUp scrollto">Details </a>
-                                        {% endif %}
-
                                     </div>
                                 </div>
                             </div>

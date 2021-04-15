@@ -29,8 +29,8 @@ def interview_details(request, intId):
         if val == '0':
             send_interview_cancel_email(interview)
             google_calendar_cancel_interview1v1(interview)
-            if request.user.profile.is_mentor:
-                messages.success(request,f'The interview has been cancelled and same is informed to the other')
+            if request.user == interview.participant_1:
+                messages.success(request, f'The interview has been cancelled and same is informed to the other')
                 interview.delete()
             else:
                 interview.participant_2 = None
@@ -57,8 +57,8 @@ def interview_details(request, intId):
 
 @login_required
 def gd_apply(request):
-    gd_completed = GD.objects.filter(Q(participant_2=request.user) | Q(participant_1=request.user) | Q(participant_3=request.user) | Q(participant_4=request.user) | Q(participant_5=request.user) | Q(participant_6=request.user) | Q(participant_7=request.user) | Q(participant_8=request.user) | Q(participant_9=request.user))
-    gd_scheduled = GD.objects.filter(~Q(participant_2=request.user) & ~Q(participant_1=request.user) & ~Q(participant_3=request.user) & ~Q(participant_4=request.user) & ~Q(participant_5=request.user) & ~Q(participant_6=request.user) & ~Q(participant_7=request.user) & ~Q(participant_8=request.user) & ~Q(participant_9=request.user))
+    gd_completed = GD.objects.filter(Q(participant_2=request.user) | Q(participant_1=request.user) | Q(participant_3=request.user) | Q(participant_4=request.user) | Q(participant_5=request.user) | Q(participant_6=request.user) | Q(participant_7=request.user) | Q(participant_8=request.user) | Q(participant_9=request.user), complete=True)
+    gd_scheduled = GD.objects.filter(~Q(participant_2=request.user) & ~Q(participant_1=request.user) & ~Q(participant_3=request.user) & ~Q(participant_4=request.user) & ~Q(participant_5=request.user) & ~Q(participant_6=request.user) & ~Q(participant_7=request.user) & ~Q(participant_8=request.user) & ~Q(participant_9=request.user),complete=False)
     context = {
         'interviews_completed': gd_completed,
         'interviews_scheduled': gd_scheduled,
