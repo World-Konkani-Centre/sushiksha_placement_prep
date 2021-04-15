@@ -6,7 +6,7 @@ from django.shortcuts import redirect, render
 
 from interviews.forms import InterviewRegisterForm
 from interviews.utils import send_interview_cancel_email, send_interview_set_email, google_calendar_set_interview1v1, \
-    google_calendar_cancel_interview1v1, send_gd_cancel_email, send_gd_set_email, update_gd_event
+    google_calendar_cancel_interview1v1, send_gd_cancel_email, send_gd_set_email, update_gd_event, set_gd_event
 from resume_builder.forms import ResumeModelForm, CommentModelForm
 from resume_builder.models import Resume, Comments
 from users.models import Profile
@@ -175,6 +175,8 @@ def gd_list(request):
                 gd_obj = form.save(commit=False)
                 gd_obj.participant_1 = request.user
                 gd_obj.count = gd_obj.count + 1
+                eventId = set_gd_event(gd_obj,request.user)
+                gd_obj.eventId = eventId
                 gd_obj.save()
                 messages.success(request, f'New GD Interview has been scheduled successfully')
                 return redirect('gd-list-mentor')
