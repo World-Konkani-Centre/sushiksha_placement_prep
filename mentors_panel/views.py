@@ -10,8 +10,8 @@ from interviews.utils import send_interview_cancel_email, send_interview_set_ema
 from resume_builder.forms import ResumeModelForm, CommentModelForm
 from resume_builder.models import Resume, Comments
 from users.models import Profile
-from interviews.models import Interview
-
+from interviews.models import Interview,GD
+from interviews.forms import GDCreationForm
 
 @login_required
 def resume_list(request):
@@ -146,3 +146,32 @@ def interview_details(request, intId):
         'interview': interview
     }
     return render(request, 'interviews/single.html', context)
+
+
+@login_required
+def gd_list(request):
+    form = GDCreationForm(request.POST or None)
+    gd_completed = GD.objects.filter(
+        Q(participant_2=request.user) | Q(participant_1=request.user) | Q(participant_3=request.user) | Q(
+            participant_4=request.user) | Q(participant_5=request.user) | Q(participant_6=request.user) | Q(
+            participant_7=request.user) | Q(participant_8=request.user) | Q(participant_9=request.user))
+    gd_scheduled = GD.objects.filter(
+        ~Q(participant_2=request.user) & ~Q(participant_1=request.user) & ~Q(participant_3=request.user) & ~Q(
+            participant_4=request.user) & ~Q(participant_5=request.user) & ~Q(participant_6=request.user) & ~Q(
+            participant_7=request.user) & ~Q(participant_8=request.user) & ~Q(participant_9=request.user))
+    if request.POST:
+        if form.is_valid():
+            gd_obj = form.save(commit=False)
+            gd_obj.participant_1 = request.user
+            gd_obj.count = gd_obj.count + 1
+            gd_obj.save()
+            messages.success(request, f'New GD Interview has been scheduled successfully')
+            return redirect('gd-list-mentor')
+        else:
+            messages.error(request, f'something wrong in the input')
+    context = {
+        'form':form,
+        'interviews_completed': gd_completed,
+        'interviews_scheduled': gd_scheduled,
+    }
+    return render(request, 'interviews/list.html', context)

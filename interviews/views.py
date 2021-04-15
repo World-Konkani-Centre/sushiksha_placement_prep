@@ -3,8 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import render, redirect
 
-from interviews.forms import GDCreationForm, GDParticipationForm
-from interviews.models import Interview, GDList
+
+from interviews.models import Interview, GD
 from interviews.utils import google_calendar_set_interview1v1, google_calendar_cancel_interview1v1, \
     send_interview_cancel_email, send_interview_set_email
 
@@ -56,40 +56,11 @@ def interview_details(request, intId):
 
 @login_required
 def gd_apply(request):
-    form = None
-    lists = GDList.objects.filter(complete=False)
-    if request.POST:
-        if request.user.profile.is_mentor:
-            form = GDCreationForm(request.POST)
-            if form.is_valid():
-                heading = form.heading
-                start = form.start_time
-                end = form.end_time
-                description = form.description
-                link = form.link
-                attendees = form.attendees
-                print(heading)
-                print(start)
-                print(end)
-                print(description)
-                print(link)
-                print(attendees)
-                return redirect('gd-interviews-list')
-        else:
-            form = GDParticipationForm(request.POST)
-            if form.is_valid():
-                s = form.save(commit=False)
-                s.participants = request.user
-                s.save()
-                return redirect('gd-interviews-list')
-    else:
-        if request.user.profile.is_mentor:
-            form = GDCreationForm()
-        else:
-            form = GDParticipationForm()
+    gd_completed = GD.objects.filter(Q(participant_2=request.user) | Q(participant_1=request.user) | Q(participant_3=request.user) | Q(participant_4=request.user) | Q(participant_5=request.user) | Q(participant_6=request.user) | Q(participant_7=request.user) | Q(participant_8=request.user) | Q(participant_9=request.user))
+    gd_scheduled = GD.objects.filter(~Q(participant_2=request.user) & ~Q(participant_1=request.user) & ~Q(participant_3=request.user) & ~Q(participant_4=request.user) & ~Q(participant_5=request.user) & ~Q(participant_6=request.user) & ~Q(participant_7=request.user) & ~Q(participant_8=request.user) & ~Q(participant_9=request.user))
     context = {
-        'form': form,
-        'lists':lists,
+        'interviews_completed': gd_completed,
+        'interviews_scheduled': gd_scheduled,
         }
     return render(request, 'interviews/list.html', context)
 
