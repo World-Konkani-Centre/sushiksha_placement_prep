@@ -12,6 +12,7 @@ from .views import index
 
 urlpatterns = [
     path('', index, name='index'),
+    path('grappelli/', include('grappelli.urls')),
     path('admin/', admin.site.urls),
     url('users/', include(user_url)),
     url('resume-builder/', include(builder_url)),
