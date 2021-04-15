@@ -128,6 +128,17 @@ def send_interview_set_email(interview):
 
 def send_gd_cancel_email(interview):
     pass
+    # send gd event being cancelled via mail to all the participants
+
+
+def send_gd_set_email(interview, user):
+    pass
+    # send the email of gd being set for the user who just applied for a gd
+
+
+def update_gd_event(interview, user):
+    pass
+    # add the new user to the participant list
 
 # def addGuestAndSendEmail(calendarId, eventId, newGuest) {
 #     credentials = pickle.load(open('interviews/token_calendar_v3.pickle', 'rb'))

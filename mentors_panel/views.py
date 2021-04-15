@@ -6,7 +6,7 @@ from django.shortcuts import redirect, render
 
 from interviews.forms import InterviewRegisterForm
 from interviews.utils import send_interview_cancel_email, send_interview_set_email, google_calendar_set_interview1v1, \
-    google_calendar_cancel_interview1v1, send_gd_cancel_email
+    google_calendar_cancel_interview1v1, send_gd_cancel_email, send_gd_set_email, update_gd_event
 from resume_builder.forms import ResumeModelForm, CommentModelForm
 from resume_builder.models import Resume, Comments
 from users.models import Profile
@@ -198,12 +198,43 @@ def gd_details(request, intId):
             'interview': interview
         }
         if request.POST:
-            send_gd_cancel_email(interview)
-            google_calendar_cancel_interview1v1(interview)
-            if request.user.profile.is_mentor:
-                messages.success(request, f'The interview has been cancelled and same is informed to the other')
-                interview.delete()
-                return redirect('gd-list-mentor')
+            val = request.POST.get('hidden_option')
+            if val == '0':
+                if request.user == interview.participant_1:
+                    send_gd_cancel_email(interview)
+                    google_calendar_cancel_interview1v1(interview)
+                    messages.success(request, f'The interview has been cancelled and same is informed to the other')
+                    interview.delete()
+                else:
+                    messages.error(request,"invalid operation by non mentor")
+            elif val == '1':
+                if interview.participant_2 is None:
+                    interview.participant_2 = request.user
+                elif interview.participant_3 is None:
+                    interview.participant_3 = request.user
+                elif interview.participant_4 is None:
+                    interview.participant_4 = request.user
+                elif interview.participant_5 is None:
+                    interview.participant_5 = request.user
+                elif interview.participant_6 is None:
+                    interview.participant_6 = request.user
+                elif interview.participant_7 is None:
+                    interview.participant_7 = request.user
+                elif interview.participant_8 is None:
+                    interview.participant_8 = request.user
+                elif interview.participant_9 is None:
+                    interview.participant_9 = request.user
+                else:
+                    messages.error(request,"slot is full")
+                interview.count = interview.count + 1
+                if interview.count == 10:
+                    interview.complete = True
+                interview.save()
+                send_gd_set_email(interview,request.user)
+                update_gd_event(interview,request.user)
+                messages.success(request,
+                                 f'The interview has been set up and same is informed to the other along with the google calendar, accept the google calendar link for further notification')
+            return redirect('gd-list-mentor')
         return render(request, 'interviews/gd-single.html', context)
     else:
         return HttpResponse("Unauthorized", 401)

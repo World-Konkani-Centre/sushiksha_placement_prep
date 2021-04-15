@@ -48,7 +48,7 @@
                     </div>
                     <div class="col-lg-3 ml-auto">
                         <div class="sidebar">
-                                {% if interview.participant_1 == request.user or interview.participant_2 == request.user %}
+                                {% if interview.participant_1 == request.user%}
                                     <h3 class="sidebar-title">Cancel</h3>
                                     <div class="sidebar-item categories">
                                         <form method="POST">
