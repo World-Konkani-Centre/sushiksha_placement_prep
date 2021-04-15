@@ -1,0 +1,18 @@
+{% extends 'profile/auth.html' %} {% load static %} {% load crispy_forms_filters
+%} {% load crispy_forms_tags %} {% block custom_css %}
+<link href="{% static 'assets/css/auth.css' %}" rel="stylesheet" />
+{% endblock custom_css %} {% block content %}
+
+<div class="login-page">
+  <h2 class="heading">You found a glitch in Matrix</h2>
+  <h2 class="heading">{{error_no}}: {{error_detail}}</h2>
+
+  {% if error_no == 404 %}
+    <img src="{% static 'assets/img/error/404.svg' %}">
+  {% else %}
+    <img src="{% static 'assets/img/error/403.svg' %}">
+  {% endif %}
+
+</div>
+
+{% endblock content %}
