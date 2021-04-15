@@ -124,3 +124,17 @@ def send_interview_set_email(interview):
         recipient_list=[f'{interview.participant_2.email}', f'{interview.participant_1.email}'],
         fail_silently=False,
     )
+
+
+# def addGuestAndSendEmail(calendarId, eventId, newGuest) {
+#     credentials = pickle.load(open('interviews/token_calendar_v3.pickle', 'rb'))
+#     service = build(API_NAME, API_VERSION, credentials=credentials)
+#     event = Calendar.Events.get(calendarId, eventId);
+#     attendees = event.attendees;
+#     attendees.push({email: newGuest});
+#
+#     resource = { attendees: attendees };
+#     args = { sendUpdates: "all" };
+#
+#     Calendar.Events.patch(resource, calendarId, eventId, args);
+# }
