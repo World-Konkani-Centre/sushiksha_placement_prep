@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import render, redirect
@@ -27,7 +28,15 @@ def interview_details(request, intId):
         if val == '0':
             send_interview_cancel_email(interview)
             google_calendar_cancel_interview1v1(interview)
-            interview.delete()
+            if request.user.profile.is_mentor:
+                messages.success(request,f'The interview has been cancelled and same is informed to the other')
+                interview.delete()
+            else:
+                interview.participant_2 = None
+                interview.complete = False
+                interview.event_id = None
+                messages.success(request, f'The interview has been cancelled and same is informed to the other')
+                interview.save()
         elif val == '1':
             interview.participant_2 = request.user
             interview.complete = True
@@ -36,6 +45,7 @@ def interview_details(request, intId):
             eventId = google_calendar_set_interview1v1(interview)
             interview.event_id = eventId
             interview.save()
+            messages.success(request, f'The interview has been set up and same is informed to the other along with the google calendar, accept the google calendar link for further notification')
         return redirect('interviews-list')
     context = {
         'interview': interview
