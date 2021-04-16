@@ -18,7 +18,7 @@ def Create_Service(client_secret_file, api_name, api_version, *scopes):
 
     cred = None
 
-    pickle_file = f'interviews/token_{API_SERVICE_NAME}_{API_VERSION}.pickle'
+    pickle_file = os.path.join(BASE_DIR, f'interviews/token_{API_SERVICE_NAME}_{API_VERSION}.pickle')
     # print(pickle_file)
 
     if os.path.exists(pickle_file):
@@ -49,7 +49,7 @@ def convert_to_RFC_datetime(year=1900, month=1, day=1, hour=0, minute=0):
     return dt
 
 
-CLIENT_SECRET_FILE = os.path.join(BASE_DIR,'interviews/secret.json')
+CLIENT_SECRET_FILE = os.path.join(BASE_DIR, 'interviews/secret.json')
 API_NAME = 'calendar'
 API_VERSION = 'v3'
 SCOPES = ['https://www.googleapis.com/auth/calendar']
@@ -58,7 +58,7 @@ SCOPES = ['https://www.googleapis.com/auth/calendar']
 # service = Create_Service(CLIENT_SECRET_FILE,API_NAME,API_VERSION,SCOPES)
 
 def google_calendar_set_interview1v1(interview):
-    #service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
+    # service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
     credentials = pickle.load(open('interviews/token_calendar_v3.pickle', 'rb'))
     service = build(API_NAME, API_VERSION, credentials=credentials)
     timezone = 'Asia/Kolkata'
@@ -87,7 +87,7 @@ def google_calendar_set_interview1v1(interview):
 
 
 def google_calendar_cancel_interview1v1(interview):
-    #service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
+    # service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
     credentials = pickle.load(open('interviews/token_calendar_v3.pickle', 'rb'))
     service = build(API_NAME, API_VERSION, credentials=credentials)
     if interview.event_id:
@@ -163,7 +163,7 @@ def send_gd_set_email(interview, user):
 
 
 def set_gd_event(interview, user):
-    #service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
+    # service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
     credentials = pickle.load(open('interviews/token_calendar_v3.pickle', 'rb'))
     service = build(API_NAME, API_VERSION, credentials=credentials)
     timezone = 'Asia/Kolkata'
