@@ -154,8 +154,9 @@ def interview_details(request, intId):
                 interview.event_id = eventId
                 interview.save()
                 messages.success(request,
-                                 f'The interview has been set up and same is informed to the other along with the google calendar, accept the google calendar link for further notification')
-            return redirect('interviews-list')
+                                 f'The interview has been set up and same is informed to the other along with the '
+                                 f'google calendar, accept the google calendar link for further notification')
+            return redirect('interviews-list-mentor')
         context = {
             'interview': interview
         }
@@ -176,8 +177,9 @@ def gd_list(request):
                 gd_obj.participant_1 = request.user
                 gd_obj.count = gd_obj.count + 1
                 eventId = set_gd_event(gd_obj,request.user)
-                gd_obj.eventId = eventId
+                gd_obj.event_id = eventId
                 gd_obj.save()
+
                 messages.success(request, f'New GD Interview has been scheduled successfully')
                 return redirect('gd-list-mentor')
             else:
@@ -235,7 +237,8 @@ def gd_details(request, intId):
                 send_gd_set_email(interview,request.user)
                 update_gd_event(interview,request.user)
                 messages.success(request,
-                                 f'The interview has been set up and same is informed to the other along with the google calendar, accept the google calendar link for further notification')
+                                 f'The interview has been set up and same is informed to the other along with the '
+                                 f'google calendar, accept the google calendar link for further notification')
             return redirect('gd-list-mentor')
         return render(request, 'interviews/gd-single.html', context)
     else:

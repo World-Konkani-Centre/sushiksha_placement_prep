@@ -18,7 +18,7 @@ def Create_Service(client_secret_file, api_name, api_version, *scopes):
 
     cred = None
 
-    pickle_file = f'token_{API_SERVICE_NAME}_{API_VERSION}.pickle'
+    pickle_file = f'interviews/token_{API_SERVICE_NAME}_{API_VERSION}.pickle'
     # print(pickle_file)
 
     if os.path.exists(pickle_file):
@@ -58,9 +58,9 @@ SCOPES = ['https://www.googleapis.com/auth/calendar']
 # service = Create_Service(CLIENT_SECRET_FILE,API_NAME,API_VERSION,SCOPES)
 
 def google_calendar_set_interview1v1(interview):
-    # service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
-    credentials = pickle.load(open('interviews/token_calendar_v3.pickle', 'rb'))
-    service = build(API_NAME, API_VERSION, credentials=credentials)
+    service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
+    # credentials = pickle.load(open('interviews/token_calendar_v3.pickle', 'rb'))
+    # service = build(API_NAME, API_VERSION, credentials=credentials)
     timezone = 'Asia/Kolkata'
     event = {
         'summary': f'{interview.heading}--{interview.type}',
@@ -87,9 +87,9 @@ def google_calendar_set_interview1v1(interview):
 
 
 def google_calendar_cancel_interview1v1(interview):
-    # service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
-    credentials = pickle.load(open('interviews/token_calendar_v3.pickle', 'rb'))
-    service = build(API_NAME, API_VERSION, credentials=credentials)
+    service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
+    # credentials = pickle.load(open('interviews/token_calendar_v3.pickle', 'rb'))
+    # service = build(API_NAME, API_VERSION, credentials=credentials)
     if interview.event_id:
         service.events().delete(calendarId='primary', eventId=interview.event_id).execute()
 
@@ -126,23 +126,23 @@ def send_interview_set_email(interview):
 def send_gd_cancel_email(interview):
     li = []
     if interview.participant_1 is not None:
-        li.append(interview.participant_1.profile.email)
+        li.append(interview.participant_1.email)
     if interview.participant_2 is not None:
-        li.append(interview.participant_1.profile.email)
+        li.append(interview.participant_1.email)
     if interview.participant_3 is not None:
-        li.append(interview.participant_1.profile.email)
+        li.append(interview.participant_1.email)
     if interview.participant_4 is not None:
-        li.append(interview.participant_1.profile.email)
+        li.append(interview.participant_1.email)
     if interview.participant_5 is not None:
-        li.append(interview.participant_1.profile.email)
+        li.append(interview.participant_1.email)
     if interview.participant_6 is not None:
-        li.append(interview.participant_1.profile.email)
+        li.append(interview.participant_1.email)
     if interview.participant_7 is not None:
-        li.append(interview.participant_1.profile.email)
+        li.append(interview.participant_1.email)
     if interview.participant_8 is not None:
-        li.append(interview.participant_1.profile.email)
+        li.append(interview.participant_1.email)
     if interview.participant_9 is not None:
-        li.append(interview.participant_1.profile.email)
+        li.append(interview.participant_1.email)
     send_mail(
         subject='GD Interview cancelled up -- Mock Interview with sushiksha mentor',
         message=f'{interview.heading} -- {interview.description}',
@@ -157,17 +157,18 @@ def send_gd_set_email(interview, user):
         subject='GD Interview set up -- Mock Interview with sushiksha mentor',
         message=f'{interview.heading} -- {interview.description}',
         from_email=None,
-        recipient_list=[f'{user.profile.email}'],
+        recipient_list=[f'{user.email}'],
         fail_silently=False,
     )
 
 
 def set_gd_event(interview, user):
-    credentials = pickle.load(open('interviews/token_calendar_v3.pickle', 'rb'))
-    service = build(API_NAME, API_VERSION, credentials=credentials)
+    service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
+    # credentials = pickle.load(open('interviews/token_calendar_v3.pickle', 'rb'))
+    # service = build(API_NAME, API_VERSION, credentials=credentials)
     timezone = 'Asia/Kolkata'
     event = {
-        'summary': f'{interview.heading}--{interview.type}',
+        'summary': f'{interview.heading}--GD',
         'location': interview.link,
         'description': interview.description,
         'start': {
@@ -179,7 +180,7 @@ def set_gd_event(interview, user):
             'timeZone': timezone,
         },
         'attendees': [
-            {'email': user.profile.email}
+            {'email': user.email},
         ],
         'reminders': {
             'useDefault': True,
@@ -190,12 +191,13 @@ def set_gd_event(interview, user):
 
 
 def update_gd_event(interview, user):
-    credentials = pickle.load(open('interviews/token_calendar_v3.pickle', 'rb'))
-    service = build(API_NAME, API_VERSION, credentials=credentials)
+    service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
+    # credentials = pickle.load(open('interviews/token_calendar_v3.pickle', 'rb'))
+    # service = build(API_NAME, API_VERSION, credentials=credentials)
     event = service.events().get(calendarId='primary', eventId=interview.event_id).execute()
     attendees = event['attendees']
     print(attendees)
-    attendees.append({'email': user.profile.email})
+    attendees.append({'email': user.email})
     event['attendees'] = attendees
     updated_event = service.events().update(calendarId='primary', eventId=interview.event_id, body=event).execute()
     return updated_event['updated']
