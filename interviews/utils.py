@@ -9,12 +9,10 @@ from googleapiclient.discovery import build
 
 
 def Create_Service(client_secret_file, api_name, api_version, *scopes):
-    print(client_secret_file, api_name, api_version, scopes, sep='-')
     CLIENT_SECRET_FILE = client_secret_file
     API_SERVICE_NAME = api_name
     API_VERSION = api_version
     SCOPES = [scope for scope in scopes[0]]
-    print(SCOPES)
 
     cred = None
 
@@ -196,7 +194,6 @@ def update_gd_event(interview, user):
     # service = build(API_NAME, API_VERSION, credentials=credentials)
     event = service.events().get(calendarId='primary', eventId=interview.event_id).execute()
     attendees = event['attendees']
-    print(attendees)
     attendees.append({'email': user.email})
     event['attendees'] = attendees
     updated_event = service.events().update(calendarId='primary', eventId=interview.event_id, body=event).execute()
