@@ -1,0 +1,106 @@
+{% extends "base_page.html" %}
+{% load static %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <main id="main">
+        <section class="breadcrumbs">
+            <div class="container">
+
+                {% if heading %}
+                    <h2 class="entry-title">{{ heading }}
+                    </h2>
+                {% endif %}
+            </div>
+        </section>
+
+
+        <section id="blog" class="blog">
+            <div class="container" data-aos="fade-up">
+
+                <div class="row">
+
+                    <!-- End blog entries list -->
+
+                    <div class="col-lg-8 entries">
+                        <article class="entry entry-single">
+                            <h2 class="entry-title">
+                                <a>{{ interview.heading }}</a>
+                            </h2>
+                            <div class="entry-content">
+                                <p>Participants : {{ interview.participant_1.profile.name }}
+                                    {% if interview.participant_2 %},{{ interview.participant_2.profile.name }}{% endif %}
+                                    {% if interview.participant_3 %},{{ interview.participant_3.profile.name }}{% endif %}
+                                {% if interview.participant_4 %},{{ interview.participant_4.profile.name }}{% endif %}
+                                {% if interview.participant_5 %},{{ interview.participant_5.profile.name }}{% endif %}
+                                {% if interview.participant_6 %},{{ interview.participant_6.profile.name }}{% endif %}
+                                {% if interview.participant_7 %},{{ interview.participant_7.profile.name }}{% endif %}
+                                {% if interview.participant_8 %},{{ interview.participant_8.profile.name }}{% endif %}
+                                {% if interview.participant_9 %},{{ interview.participant_9.profile.name }}{% endif %}
+                                </p>
+                                <p>Start Time : {{ interview.start_time }}</p>
+                                <p>End Time : {{ interview.end_time }}</p>
+                                <p>Location : <a href="{{ interview.link }}">{{ interview.link }}</a></p>
+                                <p>Description : {{ interview.description }}</p>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-lg-3 ml-auto">
+                        <div class="sidebar">
+                                {% if interview.participant_1 == request.user%}
+                                    <h3 class="sidebar-title">Cancel</h3>
+                                    <div class="sidebar-item categories">
+                                        <form method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="hidden_option" value="0">
+                                            <button type="submit"
+                                                    class="btn custom-danger-btn animate__animated animate__fadeInUp scrollto">
+                                                Cancel the Interview
+                                            </button>
+                                        </form>
+                                    </div>
+                            {% else %}
+                                        {% if interview.participant_2 == request.user or interview.participant_3 == request.user or interview.participant_4 == request.user or interview.participant_5 == request.user or interview.participant_6 == request.user or interview.participant_7 == request.user or interview.participant_8 == request.user or interview.participant_9 == request.user%}
+
+                                            <h3>You have already applied for this, please join in time</h3>
+                                    {% else %}
+                                            <h3 class="sidebar-title">Apply</h3>
+                                <div class="sidebar-item categories">
+                                    <form method="POST">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="hidden_option" value="1">
+                                        <button type="submit"
+                                                class="btn custom-danger-btn animate__animated animate__fadeInUp scrollto">
+                                            Apply for Interview
+                                        </button>
+                                    </form>
+                                </div>
+                                            {% endif %}
+                            {% endif %}
+                        </div><!-- End sidebar -->
+
+                    </div><!-- End blog sidebar -->
+
+                </div>
+            </div>
+        </section><!-- End Blog Single Section -->
+    </main><!-- End #main -->
+
+
+
+
+{% endblock %}
+
+{% block custom_js %}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+            crossorigin="anonymous"></script>
+
+
+    <script>
+
+    </script>
+{% endblock %}

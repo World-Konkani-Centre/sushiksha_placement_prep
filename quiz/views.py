@@ -242,23 +242,26 @@ class QuizTake(FormView):
         describe = "This is a badge for your aptitude practice session, keep learning."
         awarded = 'ADMIN'
         if percent == 100:
-            badge_obj = get_object_or_404(Badge, id=129)
-            Reward.objects.create(user=get_object_or_404(User, id=int(self.request.user.id)), description=describe,
-                                  awarded_by=awarded, badges=badge_obj)
-            messages.success(self.request,
-                             f'You have successfully completed the quiz and you are awarded with {badge_obj.title} badge')
+            pass
+        # badge_obj = get_object_or_404(Badge, id=129)
+        #  Reward.objects.create(user=get_object_or_404(User, id=int(self.request.user.id)), description=describe,
+        #                        awarded_by=awarded, badges=badge_obj)
+        #  messages.success(self.request,
+        #                   f'You have successfully completed the quiz and you are awarded with {badge_obj.title} badge')
         elif percent >= 80:
-            badge_obj = get_object_or_404(Badge, id=130)
-            Reward.objects.create(user=get_object_or_404(User, id=int(self.request.user.id)), description=describe,
-                                  awarded_by=awarded, badges=badge_obj)
-            messages.success(self.request,
-                             f'You have successfully completed the quiz and you are awarded with {badge_obj.title} badge')
+            pass
+            # badge_obj = get_object_or_404(Badge, id=130)
+            # Reward.objects.create(user=get_object_or_404(User, id=int(self.request.user.id)), description=describe,
+            #                       awarded_by=awarded, badges=badge_obj)
+            # messages.success(self.request,
+            #                  f'You have successfully completed the quiz and you are awarded with {badge_obj.title} badge')
         elif percent >= 50:
-            badge_obj = get_object_or_404(Badge, id=131)
-            Reward.objects.create(user=get_object_or_404(User, id=int(self.request.user.id)), description=describe,
-                                  awarded_by=awarded, badges=badge_obj)
-            messages.success(self.request,
-                             f'You have successfully completed the quiz and you are awarded with {badge_obj.title} badge')
+            pass
+            # badge_obj = get_object_or_404(Badge, id=131)
+            # Reward.objects.create(user=get_object_or_404(User, id=int(self.request.user.id)), description=describe,
+            #                       awarded_by=awarded, badges=badge_obj)
+            # messages.success(self.request,
+            #                  f'You have successfully completed the quiz and you are awarded with {badge_obj.title} badge')
         else:
             messages.warning(self.request,
                              f'Keep learning and score higher percentage to win a badge')
