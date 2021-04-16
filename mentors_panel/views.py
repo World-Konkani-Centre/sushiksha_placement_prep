@@ -156,7 +156,7 @@ def interview_details(request, intId):
                 messages.success(request,
                                  f'The interview has been set up and same is informed to the other along with the '
                                  f'google calendar, accept the google calendar link for further notification')
-            return redirect('interviews-list-mentor')
+            return redirect('interview-list-mentor')
         context = {
             'interview': interview
         }
