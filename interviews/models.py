@@ -19,6 +19,8 @@ class Interview(models.Model):
     complete = models.BooleanField(default=False)
     event_id = models.CharField(max_length=50, null=True, blank=True)
 
+    def __str__(self):
+        return f'{self.heading} - {self.type} - {self.participant_1}'
 
 
 class GD(models.Model):
@@ -39,3 +41,6 @@ class GD(models.Model):
     link = models.URLField(default='https://tinyurl.com/pair-link')
     complete = models.BooleanField(default=False)
     event_id = models.CharField(max_length=50, null=True, blank=True)
+
+    def __str__(self):
+        return f'{self.heading} - {self.participant_1}'

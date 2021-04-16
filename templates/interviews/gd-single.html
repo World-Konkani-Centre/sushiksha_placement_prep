@@ -48,7 +48,7 @@
                     </div>
                     <div class="col-lg-3 ml-auto">
                         <div class="sidebar">
-                                {% if interview.participant_1 == request.user or interview.participant_2 == request.user %}
+                                {% if interview.participant_1 == request.user%}
                                     <h3 class="sidebar-title">Cancel</h3>
                                     <div class="sidebar-item categories">
                                         <form method="POST">
@@ -61,8 +61,11 @@
                                         </form>
                                     </div>
                             {% else %}
+                                        {% if interview.participant_2 == request.user or interview.participant_3 == request.user or interview.participant_4 == request.user or interview.participant_5 == request.user or interview.participant_6 == request.user or interview.participant_7 == request.user or interview.participant_8 == request.user or interview.participant_9 == request.user%}
 
-                                <h3 class="sidebar-title">Apply</h3>
+                                            <h3>You have already applied for this, please join in time</h3>
+                                    {% else %}
+                                            <h3 class="sidebar-title">Apply</h3>
                                 <div class="sidebar-item categories">
                                     <form method="POST">
                                         {% csrf_token %}
@@ -73,6 +76,7 @@
                                         </button>
                                     </form>
                                 </div>
+                                            {% endif %}
                             {% endif %}
                         </div><!-- End sidebar -->
 
