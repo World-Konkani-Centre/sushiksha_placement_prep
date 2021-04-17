@@ -2,9 +2,12 @@ import datetime
 import os
 import pickle
 
+from django.contrib.sites.models import Site
+
+
 from django.core.mail import send_mail
 from google.auth.transport.requests import Request
-from google_auth_oauthlib.flow import InstalledAppFlow
+from google_auth_oauthlib.flow import Flow
 from googleapiclient.discovery import build
 
 from sushiksha_placement_prep.settings import BASE_DIR
@@ -25,18 +28,14 @@ def Create_Service(client_secret_file, api_name, api_version, *scopes):
     if os.path.exists(pickle_file):
         with open(pickle_file, 'rb') as token:
             cred = pickle.load(token)
-            print("here 1")
 
     if not cred or not cred.valid:
         if cred and cred.expired and cred.refresh_token:
-            print("here 2")
             cred.refresh(Request())
-            print("here 3")
         else:
-            print("here 4")
-            flow = InstalledAppFlow.from_client_secrets_file(CLIENT_SECRET_FILE, SCOPES)
-            cred = flow.run_local_server()
-            print("here 5")
+            flow = Flow.from_client_secrets_file(CLIENT_SECRET_FILE, SCOPES)
+            flow.redirect_uri = "http://localhost:8000/callback"
+            cred = flow.credentials
 
         with open(pickle_file, 'wb') as token:
             pickle.dump(cred, token)
