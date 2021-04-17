@@ -62,7 +62,7 @@ SCOPES = ['https://www.googleapis.com/auth/calendar']
 # service = Create_Service(CLIENT_SECRET_FILE,API_NAME,API_VERSION,SCOPES)
 
 def google_calendar_set_interview1v1(request,interview):
-    service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
+    service = Create_Service(request,CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
     # credentials = pickle.load(open(pickle_file, 'rb'))
     # service = build(API_NAME, API_VERSION, credentials=credentials)
     timezone = 'Asia/Kolkata'
@@ -167,7 +167,7 @@ def send_gd_set_email(interview, user):
 
 
 def set_gd_event(request,interview, user):
-    service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
+    service = Create_Service(request,CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
     # credentials = pickle.load(open(pickle_file, 'rb'))
     # service = build(API_NAME, API_VERSION, credentials=credentials)
     timezone = 'Asia/Kolkata'
@@ -195,7 +195,7 @@ def set_gd_event(request,interview, user):
 
 
 def update_gd_event(request,interview, user):
-    service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
+    service = Create_Service(request,CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
     # credentials = pickle.load(open(pickle_file, 'rb'))
     # service = build(API_NAME, API_VERSION, credentials=credentials)
     event = service.events().get(calendarId='primary', eventId=interview.event_id).execute()
