@@ -1,9 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
-
 
 from interviews.models import Interview, GD
 from interviews.utils import google_calendar_set_interview1v1, google_calendar_cancel_interview1v1, \
@@ -43,7 +41,7 @@ def interview_details(request, intId):
             interview.complete = True
             interview.save()
             send_interview_set_email(interview)
-            eventId = google_calendar_set_interview1v1(request,interview)
+            eventId = google_calendar_set_interview1v1(interview)
             interview.event_id = eventId
             interview.save()
             messages.success(request,
@@ -78,7 +76,7 @@ def gd_interview_details(request, intId):
         if val == '0':
             if request.user == interview.participant_1:
                 send_gd_cancel_email(interview)
-                google_calendar_cancel_interview1v1(request,interview)
+                google_calendar_cancel_interview1v1(interview)
                 messages.success(request, f'The interview has been cancelled and same is informed to the other')
                 interview.delete()
             else:
