@@ -28,7 +28,7 @@ def interview_details(request, intId):
         val = request.POST.get('hidden_option')
         if val == '0':
             send_interview_cancel_email(interview)
-            google_calendar_cancel_interview1v1(interview)
+            google_calendar_cancel_interview1v1(request,interview)
             if request.user == interview.participant_1:
                 messages.success(request, f'The interview has been cancelled and same is informed to the other')
                 interview.delete()
@@ -43,7 +43,7 @@ def interview_details(request, intId):
             interview.complete = True
             interview.save()
             send_interview_set_email(interview)
-            eventId = google_calendar_set_interview1v1(interview)
+            eventId = google_calendar_set_interview1v1(request,interview)
             interview.event_id = eventId
             interview.save()
             messages.success(request,
@@ -78,7 +78,7 @@ def gd_interview_details(request, intId):
         if val == '0':
             if request.user == interview.participant_1:
                 send_gd_cancel_email(interview)
-                google_calendar_cancel_interview1v1(interview)
+                google_calendar_cancel_interview1v1(request,interview)
                 messages.success(request, f'The interview has been cancelled and same is informed to the other')
                 interview.delete()
             else:
