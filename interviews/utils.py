@@ -2,8 +2,6 @@ import datetime
 import os
 import pickle
 
-
-
 from django.core.mail import send_mail
 from google.auth.transport.requests import Request
 from google_auth_oauthlib.flow import Flow
@@ -14,7 +12,7 @@ from sushiksha_placement_prep.settings import BASE_DIR
 pickle_file = os.path.join(BASE_DIR, 'interviews/token_calendar_v3.pickle')
 
 
-def Create_Service(client_secret_file, api_name, api_version, *scopes):
+def Create_Service(request,client_secret_file, api_name, api_version, *scopes):
     CLIENT_SECRET_FILE = client_secret_file
     API_SERVICE_NAME = api_name
     API_VERSION = api_version
@@ -34,6 +32,8 @@ def Create_Service(client_secret_file, api_name, api_version, *scopes):
         else:
             flow = Flow.from_client_secrets_file(CLIENT_SECRET_FILE, SCOPES)
             flow.redirect_uri = "http://localhost:8000/callback"
+            auth_response = request.build_absolute_uri()
+            flow.fetch_token(authorization_response=auth_response)
             cred = flow.credentials
 
         with open(pickle_file, 'wb') as token:
@@ -61,7 +61,7 @@ SCOPES = ['https://www.googleapis.com/auth/calendar']
 
 # service = Create_Service(CLIENT_SECRET_FILE,API_NAME,API_VERSION,SCOPES)
 
-def google_calendar_set_interview1v1(interview):
+def google_calendar_set_interview1v1(request,interview):
     service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
     # credentials = pickle.load(open(pickle_file, 'rb'))
     # service = build(API_NAME, API_VERSION, credentials=credentials)
@@ -90,8 +90,8 @@ def google_calendar_set_interview1v1(interview):
     return respone['id']
 
 
-def google_calendar_cancel_interview1v1(interview):
-    service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
+def google_calendar_cancel_interview1v1(request,interview):
+    service = Create_Service(request,CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
     # credentials = pickle.load(open(pickle_file, 'rb'))
     # service = build(API_NAME, API_VERSION, credentials=credentials)
     if interview.event_id:
@@ -166,7 +166,7 @@ def send_gd_set_email(interview, user):
     )
 
 
-def set_gd_event(interview, user):
+def set_gd_event(request,interview, user):
     service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
     # credentials = pickle.load(open(pickle_file, 'rb'))
     # service = build(API_NAME, API_VERSION, credentials=credentials)
@@ -194,7 +194,7 @@ def set_gd_event(interview, user):
     return response['id']
 
 
-def update_gd_event(interview, user):
+def update_gd_event(request,interview, user):
     service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
     # credentials = pickle.load(open(pickle_file, 'rb'))
     # service = build(API_NAME, API_VERSION, credentials=credentials)
