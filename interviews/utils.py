@@ -2,7 +2,6 @@ import datetime
 import os
 import pickle
 
-from django.contrib.sites.models import Site
 
 
 from django.core.mail import send_mail
