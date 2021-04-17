@@ -150,7 +150,7 @@ def interview_details(request, intId):
                 interview.complete = True
                 interview.save()
                 send_interview_set_email(interview)
-                eventId = google_calendar_set_interview1v1(request,interview)
+                eventId = google_calendar_set_interview1v1(interview)
                 interview.event_id = eventId
                 interview.save()
                 messages.success(request,
@@ -176,7 +176,7 @@ def gd_list(request):
                 gd_obj = form.save(commit=False)
                 gd_obj.participant_1 = request.user
                 gd_obj.count = gd_obj.count + 1
-                eventId = set_gd_event(request,gd_obj,request.user)
+                eventId = set_gd_event(gd_obj,request.user)
                 gd_obj.event_id = eventId
                 gd_obj.save()
 
@@ -206,7 +206,7 @@ def gd_details(request, intId):
             if val == '0':
                 if request.user == interview.participant_1:
                     send_gd_cancel_email(interview)
-                    google_calendar_cancel_interview1v1(request,interview)
+                    google_calendar_cancel_interview1v1(interview)
                     messages.success(request, f'The interview has been cancelled and same is informed to the other')
                     interview.delete()
                 else:
@@ -235,7 +235,7 @@ def gd_details(request, intId):
                     interview.complete = True
                 interview.save()
                 send_gd_set_email(interview,request.user)
-                update_gd_event(request,interview,request.user)
+                update_gd_event(interview,request.user)
                 messages.success(request,
                                  f'The interview has been set up and same is informed to the other along with the '
                                  f'google calendar, accept the google calendar link for further notification')
