@@ -25,13 +25,18 @@ def Create_Service(client_secret_file, api_name, api_version, *scopes):
     if os.path.exists(pickle_file):
         with open(pickle_file, 'rb') as token:
             cred = pickle.load(token)
+            print("here 1")
 
     if not cred or not cred.valid:
         if cred and cred.expired and cred.refresh_token:
+            print("here 2")
             cred.refresh(Request())
+            print("here 3")
         else:
+            print("here 4")
             flow = InstalledAppFlow.from_client_secrets_file(CLIENT_SECRET_FILE, SCOPES)
             cred = flow.run_local_server()
+            print("here 5")
 
         with open(pickle_file, 'wb') as token:
             pickle.dump(cred, token)
