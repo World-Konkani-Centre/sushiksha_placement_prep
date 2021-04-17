@@ -12,16 +12,14 @@ service_account_email = settings.SERVICE_EMAIL
 from sushiksha_placement_prep.settings import BASE_DIR
 
 CLIENT_SECRET_FILE = os.path.join(BASE_DIR, 'interviews/secret.json')
-secret_password = settings.SECRET_PASSWORD
 API_NAME = 'calendar'
 API_VERSION = 'v3'
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 
 
 def Create_Service():
-    credentials = ServiceAccountCredentials.from_p12_keyfile(
-        service_account_email=service_account_email,
-        filename=CLIENT_SECRET_FILE,
+    credentials = ServiceAccountCredentials.from_json_keyfile_name(
+        filename=service_account_email,
         scopes=SCOPES
     )
     http = credentials.authorize(httplib2.Http())
