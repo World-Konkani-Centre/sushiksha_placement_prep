@@ -33,7 +33,7 @@ def Create_Service(request,client_secret_file, api_name, api_version, *scopes):
             flow = Flow.from_client_secrets_file(CLIENT_SECRET_FILE, SCOPES)
             flow.redirect_uri = "http://localhost:8000/callback"
             auth_response = request.build_absolute_uri()
-            flow.fetch_token()
+            flow.fetch_token(authorization_response = auth_response)
             cred = flow.credentials
 
         with open(pickle_file, 'wb') as token:
