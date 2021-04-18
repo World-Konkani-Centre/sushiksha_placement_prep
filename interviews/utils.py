@@ -7,6 +7,13 @@ from oauth2client.service_account import ServiceAccountCredentials
 
 from sushiksha_placement_prep import settings
 
+
+from googleapiclient import discovery
+from httplib2 import Http
+from oauth2client import file, client, tools
+from google.oauth2 import service_account
+
+
 service_account_email = settings.SERVICE_EMAIL
 
 from sushiksha_placement_prep.settings import BASE_DIR
@@ -18,12 +25,10 @@ SCOPES = ['https://www.googleapis.com/auth/calendar']
 
 
 def Create_Service():
-    credentials = ServiceAccountCredentials.from_json_keyfile_name(
-        filename=CLIENT_SECRET_FILE,
-        scopes=SCOPES
-    )
-    http = credentials.authorize(httplib2.Http())
-    service = build('calendar', 'v3', http=http)
+    credentials = service_account.Credentials. \
+        from_service_account_file(CLIENT_SECRET_FILE, scopes=SCOPES)
+    delegated_credentials = credentials.with_subject(service_account_email)
+    service = discovery.build('calendar', 'v3', credentials=delegated_credentials)
     return service
 
 
