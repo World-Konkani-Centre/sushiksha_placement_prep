@@ -114,8 +114,8 @@
                     <p class="info">
                         <small>
                             +91 {{ contact.phone_number }} {% if contact.github %}|
-                            {{ contact.github }} {% endif %} {% if contact.linked_in %} |
-                            {{ contact.linked_in }} {% endif %} |
+                            <a href="{{ contact.github }}">GitHub</a> {% endif %} {% if contact.linked_in %} |
+                            <a href="{{ contact.linked_in }}">LinkedIn</a> {% endif %} |
                             {{ contact.email }} </small>
                     </p>
                 </section>

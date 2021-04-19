@@ -156,13 +156,13 @@ ul{
                 <small>
                   <span class="fa fa-xs fa-phone"></span> +91 {{ contact.phone_number }}
                     {% if contact.github %}
-                        &nbsp <span class="fa fa-xs fa-github"></span>  {{ contact.github }} {% endif %}</small>
+                        &nbsp <span class="fa fa-xs fa-github"></span> <a href="{{ contact.github }}">GitHub</a> {% endif %}</small>
 
               </p>
               <p class="info">
                 <small>
                     {% if contact.linked_in %}
-                    <span class="fa fa-xs fa-linkedin"></span> &nbsp{{ contact.linked_in }}{% endif %}
+                        <span class="fa fa-xs fa-linkedin"></span> &nbsp<a href="{{ contact.linked_in }}">LinkedIn</a>{% endif %}
 
                   <span class="fa fa-xs fa-envelope"></span>
                   {{ contact.email }}</small>
