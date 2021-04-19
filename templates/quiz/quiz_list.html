@@ -80,9 +80,9 @@
                                             <td>{{ quiz.category }}</td>
                                             <td>
                                                 <a href="{% url 'quiz_start_page' slug=quiz.url %}"
-                                                   class="p-1 mb-2 lh-1 fw-bold bg-danger bg-gradient text-white rounded-pill text-sm"
-                                                   style="font-size: 9px">
-                                                    {% trans "View details" %}
+                                                   class="btn btn-danger"
+                                                   >
+                                                    {% trans "Start Test" %}
                                                 </a>
                                         </tr>
                                     {% endfor %}
