@@ -25,17 +25,42 @@
                 <h3>Select the Quiz</h3>
                 {% with object_list as quizzes %}
                     {% if quizzes %}
-                        <ul>
-                            {% for quiz in quizzes %}
-                                <li>
-                                    <a href="{% url 'quiz_question' quiz_name=quiz.url %}">
-                                        {{ quiz.title }}
-                                    </a>
-                                </li>
-                            {% endfor %}
-                        </ul>
+
+                        <div class="card">
+                        <div class="card-header py-3">
+                            <p class="font-weight-bold p-0 m-0 text-center text-uppercase underline highlight_text">
+                                Select the Quiz</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table  table-hover table-striped table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>{% trans "Test Name" %}</th>
+                                        <th style="min-width:130px"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for quiz in quizzes %}
+                                        <tr>
+                                            <td>{{ quiz.title }}</td>
+                                            <td><a class="btn btn-danger"
+                                                   href="{% url 'quiz_start_page' slug=quiz.url %}">Solve</a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                     {% else %}
-                        <p>{% trans "There are no quizzes available in this category" %}</p>
+                        <div class="card">
+                        <div class="card-header py-3">
+                            <p class="font-weight-bold p-0 m-0 text-center text-uppercase underline highlight_text">
+                                No Quizzes available in this category, stay tuned</p>
+                        </div>
+                    </div>
                     {% endif %}
                 {% endwith %}
             </div>
