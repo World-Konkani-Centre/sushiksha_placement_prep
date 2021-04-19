@@ -26,22 +26,37 @@
             </div>
         </section>
 
-        <section id="" class="">
-            <div class="container">
-                <a href="{% url 'quiz_category_list_all' %}">Solve questions Categorically</a>
-                <br>
-                <a href="{% url 'quiz_progress' %}">Progress</a>
-                {% if user.is_superuser %}
-                    <br>
-                    <a href="{% url 'quiz_marking' %}">View Test Submission</a>
-                {% endif %}
+    <section id="services" class="services">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-md-4">
+            <div class="icon-box">
+            <i class="icofont-dart"></i>
+              <h4><a href="{% url 'quiz_category_list_all' %}">Category wise</a></h4>
             </div>
-        </section>
+          </div>
 
-        {% if quiz_list %}
-            <section id="" class="">
+            <div class="col-md-4">
+            <div class="icon-box">
+            <i class="icofont-anchor"></i>
+              <h4><a href="{% url 'quiz_progress' %}">Progress</a></h4>
+            </div>
+          </div>
+            {% if user.is_superuser %}
+            <div class="col-md-4">
+            <div class="icon-box">
+            <i class="icofont-settings"></i>
+              <h4><a href="{% url 'quiz_marking' %}">View Test Submission</a></h4>
+            </div>
+          </div>
+             {% endif %}
+        </div>
+      </div>
+    </section>
+<section id="" class="">
                 <div class="container">
-
+        {% if quiz_list %}
                     <div class="card">
                         <div class="card-header py-3">
                             <p class="font-weight-bold p-0 m-0 text-center text-uppercase underline highlight_text">
@@ -54,7 +69,6 @@
                                     <tr>
                                         <th>{% trans "Title" %}</th>
                                         <th>{% trans "Category" %}</th>
-                                        <th>{% trans "Single attempt" %}</th>
                                         <th style="min-width:130px"></th>
                                     </tr>
                                     </thead>
@@ -64,7 +78,6 @@
                                         <tr>
                                             <td>{{ quiz.title }}</td>
                                             <td>{{ quiz.category }}</td>
-                                            <td>{{ quiz.single_attempt }}</td>
                                             <td>
                                                 <a href="{% url 'quiz_start_page' slug=quiz.url %}"
                                                    class="p-1 mb-2 lh-1 fw-bold bg-danger bg-gradient text-white rounded-pill text-sm"
@@ -79,10 +92,15 @@
                         </div>
                     </div>
                     {% else %}
-                    <p>{% trans "There are no available quizzes" %}.</p>
-                </div>
-            </section>
+                    <div class="card">
+                        <div class="card-header py-3">
+                            <p class="font-weight-bold p-0 m-0 text-center text-uppercase underline highlight_text">
+                                No tests available now, stay tuned</p>
+                        </div>
+                    </div>
         {% endif %}
+                </div>
+</section>
 
 
     </main>

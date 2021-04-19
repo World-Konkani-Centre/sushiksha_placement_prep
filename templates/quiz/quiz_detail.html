@@ -26,24 +26,32 @@
             </div>
         </section>
 
-            <section id="" class="">
-                <div class="container">
-                    {% if quiz.single_attempt %}
-                        <h4>{% trans "You will only get one attempt at this quiz" %}.</h4>
-                    {% endif %}
-                    {{ quiz.description | safe}}
-                    <p>
-                        <a href="{% url 'quiz_question' quiz_name=quiz.url %}">
+
+        <section id="about" class="about">
+            <div class="container">
+
+                <div class="row content">
+                    <div class="pt-lg-0">
+                        <h5>
+                            {{ quiz.description | safe }}
+                        </h5>
+                        {% if quiz.single_attempt %}
+                            <h5>{% trans "You will only get one attempt at this quiz" %}.</h5>
+                        {% endif %}
+
+                        <a class="btn btn-danger" href="{% url 'quiz_question' quiz_name=quiz.url %}">
                             {% trans "Start quiz" %}
                         </a>
-                    </p>
+                    </div>
                 </div>
-            </section>
+
+            </div>
+        </section>
     </main>
 {% endblock %}
 
 
 {% block script %}
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 {% endblock script %}
