@@ -21,6 +21,8 @@ class Resume(models.Model):
     template = models.ForeignKey(Template, on_delete=models.CASCADE, null=True)
     status = models.CharField(max_length=3, choices=STATUS, default='1')
 
+    def __str__(self):
+        return  f'{self.user.profile.name}'
 
 class Comments(models.Model):
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE)

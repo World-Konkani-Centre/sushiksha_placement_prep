@@ -1,11 +1,11 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import render, redirect
 
-from interviews.forms import GDCreationForm, GDParticipationForm
-from interviews.models import Interview, GDList
+from interviews.models import Interview, GD
 from interviews.utils import google_calendar_set_interview1v1, google_calendar_cancel_interview1v1, \
-    send_interview_cancel_email, send_interview_set_email
+    send_interview_cancel_email, send_interview_set_email, send_gd_set_email, update_gd_event, send_gd_cancel_email
 
 
 @login_required
@@ -27,7 +27,15 @@ def interview_details(request, intId):
         if val == '0':
             send_interview_cancel_email(interview)
             google_calendar_cancel_interview1v1(interview)
-            interview.delete()
+            if request.user == interview.participant_1:
+                messages.success(request, f'The interview has been cancelled and same is informed to the other')
+                interview.delete()
+            else:
+                interview.participant_2 = None
+                interview.complete = False
+                interview.event_id = None
+                messages.success(request, f'The interview has been cancelled and same is informed to the other')
+                interview.save()
         elif val == '1':
             interview.participant_2 = request.user
             interview.complete = True
@@ -36,6 +44,9 @@ def interview_details(request, intId):
             eventId = google_calendar_set_interview1v1(interview)
             interview.event_id = eventId
             interview.save()
+            messages.success(request,
+                             f'The interview has been set up and same is informed to the other along with the google '
+                             f'calendar, accept the google calendar link for further notification')
         return redirect('interviews-list')
     context = {
         'interview': interview
@@ -45,48 +56,59 @@ def interview_details(request, intId):
 
 @login_required
 def gd_apply(request):
-    form = None
-    lists = GDList.objects.filter(complete=False)
-    if request.POST:
-        if request.user.profile.is_mentor:
-            form = GDCreationForm(request.POST)
-            if form.is_valid():
-                heading = form.heading
-                start = form.start_time
-                end = form.end_time
-                description = form.description
-                link = form.link
-                attendees = form.attendees
-                print(heading)
-                print(start)
-                print(end)
-                print(description)
-                print(link)
-                print(attendees)
-                return redirect('gd-interviews-list')
-        else:
-            form = GDParticipationForm(request.POST)
-            if form.is_valid():
-                s = form.save(commit=False)
-                s.participants = request.user
-                s.save()
-                return redirect('gd-interviews-list')
-    else:
-        if request.user.profile.is_mentor:
-            form = GDCreationForm()
-        else:
-            form = GDParticipationForm()
+    gd_completed = GD.objects.filter(Q(participant_2=request.user) | Q(participant_1=request.user) | Q(participant_3=request.user) | Q(participant_4=request.user) | Q(participant_5=request.user) | Q(participant_6=request.user) | Q(participant_7=request.user) | Q(participant_8=request.user) | Q(participant_9=request.user), complete=True)
+    gd_scheduled = GD.objects.filter(complete=False)
     context = {
-        'form': form,
-        'lists':lists,
+        'interviews_completed': gd_completed,
+        'interviews_scheduled': gd_scheduled,
         }
-    return render(request, 'interviews/list.html', context)
+    return render(request, 'interviews/gd-list.html', context)
 
 
 @login_required
 def gd_interview_details(request, intId):
-    interview = GDList.objects.get(id=intId)
+    interview = GD.objects.get(id=intId)
     context = {
         'interview': interview
     }
-    return render(request, 'interviews/single.html', context)
+    if request.POST:
+        val = request.POST.get('hidden_option')
+        if val == '0':
+            if request.user == interview.participant_1:
+                send_gd_cancel_email(interview)
+                google_calendar_cancel_interview1v1(interview)
+                messages.success(request, f'The interview has been cancelled and same is informed to the other')
+                interview.delete()
+            else:
+                messages.error(request, "invalid operation by non mentor")
+        elif val == '1':
+            if interview.count == 10:
+                messages.error(request, "slot is full")
+                return redirect('gd-interviews-list')
+            if interview.participant_2 is None:
+                interview.participant_2 = request.user
+            elif interview.participant_3 is None:
+                interview.participant_3 = request.user
+            elif interview.participant_4 is None:
+                interview.participant_4 = request.user
+            elif interview.participant_5 is None:
+                interview.participant_5 = request.user
+            elif interview.participant_6 is None:
+                interview.participant_6 = request.user
+            elif interview.participant_7 is None:
+                interview.participant_7 = request.user
+            elif interview.participant_8 is None:
+                interview.participant_8 = request.user
+            elif interview.participant_9 is None:
+                interview.participant_9 = request.user
+            interview.count = interview.count + 1
+            if interview.count == 10:
+                interview.complete = True
+            interview.save()
+            send_gd_set_email(interview, request.user)
+            update_gd_event(interview, request.user)
+            messages.success(request,
+                             f'The interview has been set up and same is informed to the other along with the google '
+                             f'calendar, accept the google calendar link for further notification')
+        return redirect('gd-interviews-list')
+    return render(request, 'interviews/gd-single.html', context)
