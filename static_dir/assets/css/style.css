@@ -578,7 +578,7 @@ section {
 .services .icon-box::before {
     content: '';
     position: absolute;
-    background: #bdc7c9;
+    background: #e81c28c9;
     right: -60px;
     top: -40px;
     width: 100px;
@@ -647,7 +647,7 @@ section {
 
 .breadcrumbs {
     padding: 18px 0;
-    background: #f8f9fa;
+    background: #e3ebec;
     min-height: 40px;
     margin-top: 86px;
 }
