@@ -11,22 +11,28 @@
 
         <nav class="nav-menu d-none d-lg-block">
           <ul>
+          {% if user.is_authenticated %}
             <li><a href="{% url 'index' %}">Home</a></li>
-            {% comment %}
-            <li><a href="#about">About</a></li>
-            {% endcomment %} {% if user.is_authenticated %}
-            <li class="drop-down">
-              <a href="#">Interviews</a>
+          {% endif %}
+         {% if user.is_authenticated %}
+         <li><a href="{% url 'quiz_index' %}">Aptitude Tests</a></li>
+          <li class="drop-down">
+              <a href="{% url 'resume-contact' %}">Resume Builder</a>
               <ul>
-                <li>
-                  <a href="{% url 'interviews-list' %}">Interviews</a>
-                </li>
-                <li>
-                  <a href="{% url 'gd-interviews-list' %}">Group Discussion</a>
-                </li>
+                <li><a href="{% url 'resume-contact' %}">Build</a></li>
+                <li><a href="{% url 'resume-preview' %}">Preview</a></li>
+                <li><a href="{% url 'resume-view-user' %}">Status</a></li>
               </ul>
             </li>
-            <li><a href="{% url 'quiz_index' %}">Assessments</a></li>
+
+            <li class="drop-down">
+              <a href="{% url 'interviews-list' %}">Mock Interviews</a>
+              <ul>
+                <li><a href="{% url 'interviews-list' %}">HR</a></li>
+                <li><a href="#">TECH</a></li>
+                <li><a href="{% url 'gd-interviews-list' %}">GD</a></li>
+              </ul>
+            </li>
             {% if request.user.profile.is_mentor %}
             <li class="drop-down">
               <a href="">Mentors Panel</a>
@@ -34,29 +40,9 @@
                 <li><a href="{% url 'resume-list' %}">Resume</a></li>
                 <li><a href="{% url 'interview-list-mentor' %}">Interviews</a></li>
                 <li><a href="{% url 'gd-list-mentor' %}">Group Discussion</a></li></li>
-                <li><a href="#">Drop Down 4</a></li>
               </ul>
             </li>
             {% endif %}
-
-            <li class="drop-down">
-              <a href="">Resume</a>
-              <ul>
-                <li><a href="{% url 'resume-contact' %}">Edit Details</a></li>
-                <li><a href="{% url 'resume-preview' %}">Preview</a></li>
-                <li><a href="{% url 'resume-view-user' %}">Status</a></li>
-                <li class="drop-down">
-                  <a href="#">Deep Drop Down</a>
-                  <ul>
-                    <li><a href="#">Deep Drop Down 1</a></li>
-                    <li><a href="#">Deep Drop Down 2</a></li>
-                    <li><a href="#">Deep Drop Down 3</a></li>
-                    <li><a href="#">Deep Drop Down 4</a></li>
-                    <li><a href="#">Deep Drop Down 5</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
 
             {% if user.is_staff or user.is_superuser %}
             <li><a href="/admin">Admin Panel</a></li>
@@ -72,15 +58,10 @@
 
             {% else %}
             <li><a href="{% url 'login' %}">Login</a></li>
-            <li><a href="{% url 'register' %}">Register</a></li>
-
             {% endif %}
           </ul>
         </nav>
-
-        {% comment %}
-        <a href="#about" class="get-started-btn scrollto">Get Started</a> 
-        {% endcomment %}
+        
       </div>
     </div>
   </div>
