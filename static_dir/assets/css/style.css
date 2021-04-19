@@ -589,7 +589,7 @@ section {
 }
 
 .services .icon-box:hover::before {
-    background: #515d6a;
+    background: red;
     right: 0;
     top: 0;
     width: 100%;
@@ -620,7 +620,7 @@ section {
 
 .services .icon-box i {
     float: left;
-    color: #4a5562;
+    color: red;
     font-size: 40px;
 }
 

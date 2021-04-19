@@ -63,7 +63,7 @@
 
         <div class="row content">
           <div class="col-lg-6">
-            <h3 class-"font-weight-bold">Scholars Online Platform for Employability Assessment</h3>
+            <h3 class=font-weight-bold">Scholars Online Platform for Employability Assessment</h3>
           </div>
           <div class="col-lg-6 pt-4 pt-lg-0">
             <p>
@@ -119,5 +119,14 @@
     </section><!-- End Services Section -->
 
     </main>
+
+{% endblock %}
+
+{% block custom_js %}
+<script>
+$('#heroCarousel').carousel({
+    interval: 3000
+});
+</script>
 
 {% endblock %}
