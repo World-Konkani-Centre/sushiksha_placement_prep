@@ -45,7 +45,7 @@
                                         <tr>
                                             <td>{{ quiz.title }}</td>
                                             <td><a class="btn btn-danger"
-                                                   href="{% url 'quiz_question' quiz_name=quiz.url %}">Solve</a>
+                                                   href="{% url 'quiz_start_page' slug=quiz.url %}">Solve</a>
                                             </td>
                                         </tr>
                                     {% endfor %}
