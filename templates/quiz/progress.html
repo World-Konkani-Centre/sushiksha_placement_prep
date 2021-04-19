@@ -73,7 +73,12 @@
                 </div>
             </div>
             {% else %}
-            <p>No quizzes available right now</p>
+           <div class="card">
+                        <div class="card-header py-3">
+                            <p class="font-weight-bold p-0 m-0 text-center text-uppercase underline highlight_text">
+                                No tests available now, stay tuned</p>
+                        </div>
+                    </div>
             {% endif %}
 
             {% if exams %}
@@ -122,7 +127,12 @@
                 </div>
             </div>
             {% else %}
-            <p>No quiz submissions made</p>
+            <div class="card">
+                        <div class="card-header py-3">
+                            <p class="font-weight-bold p-0 m-0 text-center text-uppercase underline highlight_text">
+                                No test submissions made</p>
+                        </div>
+                    </div>
             {% endif %}
         </div>
     </section>
