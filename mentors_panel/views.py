@@ -94,6 +94,7 @@ def resume_view(request, resumeId):
     else:
         return HttpResponse("Unauthorized", 401)
 
+
 @login_required
 def interview_list(request):
     if request.user.profile.is_mentor:
@@ -169,14 +170,14 @@ def interview_details(request, intId):
 def gd_list(request):
     if request.user.profile.is_mentor:
         form = GDCreationForm(request.POST or None)
-        gd_completed = GD.objects.filter( Q(participant_1=request.user), complete=True)
+        gd_completed = GD.objects.filter(Q(participant_1=request.user), complete=True)
         gd_scheduled = GD.objects.filter(Q(participant_1=request.user), complete=False)
         if request.POST:
             if form.is_valid():
                 gd_obj = form.save(commit=False)
                 gd_obj.participant_1 = request.user
                 gd_obj.count = gd_obj.count + 1
-                eventId = set_gd_event(gd_obj,request.user)
+                eventId = set_gd_event(gd_obj, request.user)
                 gd_obj.event_id = eventId
                 gd_obj.save()
 
@@ -210,7 +211,7 @@ def gd_details(request, intId):
                     messages.success(request, f'The interview has been cancelled and same is informed to the other')
                     interview.delete()
                 else:
-                    messages.error(request,"invalid operation by non mentor")
+                    messages.error(request, "invalid operation by non mentor")
             elif val == '1':
                 if interview.participant_2 is None:
                     interview.participant_2 = request.user
@@ -229,13 +230,13 @@ def gd_details(request, intId):
                 elif interview.participant_9 is None:
                     interview.participant_9 = request.user
                 else:
-                    messages.error(request,"slot is full")
+                    messages.error(request, "slot is full")
                 interview.count = interview.count + 1
                 if interview.count == 10:
                     interview.complete = True
                 interview.save()
-                send_gd_set_email(interview,request.user)
-                update_gd_event(interview,request.user)
+                send_gd_set_email(interview, request.user)
+                update_gd_event(interview, request.user)
                 messages.success(request,
                                  f'The interview has been set up and same is informed to the other along with the '
                                  f'google calendar, accept the google calendar link for further notification')

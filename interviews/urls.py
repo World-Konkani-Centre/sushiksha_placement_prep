@@ -5,7 +5,9 @@ from . import views
 urlpatterns = [
     path('gd/', views.gd_apply, name='gd-interviews-list'),
     path('gd/<int:intId>', views.gd_interview_details, name='gd-single'),
-    path('view/', views.interview_list, name='interviews-list'),
-    path('view/<int:intId>', views.interview_details, name='interviews-single'),
+    path('tech/view/', views.interview_list, name='interviews-list'),
+    path('tech/view/<int:intId>', views.interview_details, name='interviews-single'),
+    path('hr/view/', views.hr_interview_list, name='hr-interviews-list'),
+    path('hr/view/<int:intId>', views.hr_interview_details, name='hr-interviews-single'),
 ]
 
