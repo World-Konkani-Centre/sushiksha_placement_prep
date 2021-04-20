@@ -1,103 +1,107 @@
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css"
+          integrity="sha512-P5MgMn1jBN01asBgU0z60Qk4QxiXo86+wlFahKrsQf37c9cro517WzVSPPV1tDKzhku2iJ2FVgL67wG03SGnNA=="
+          crossorigin="anonymous"/>
+    <style>
 
-<style>
-
-    @page {
-        size: A4;
-    }
-
-    @media print {
-        body {
-            width: 210mm;
-            height: 297mm;
+        @page {
+            size: A4;
+            font-size: 200%;
         }
-    }
 
-    section {
-        padding-top: 0px;
-        padding-bottom: 0px;
-    }
+        @page :left {
+            margin-left: 250mm;
+        }
 
-    .top-level {
-        display: flex;
-        /* to centre page on screen*/
+        @media print {
+            body {
+                font-size: 130%;
+            }
+        }
 
-        width: 210mm;
-        height: 297mm;
-        border: 1px solid black;
-        margin-left: auto;
-        margin-right: auto;
-        flex-direction: column;
-    }
+        section {
+            padding-top: 0px;
+            padding-bottom: 0px;
+        }
 
-    .first-level {
-        width: 100%;
-        height: auto;
-        display: flex;
-        padding-bottom: 5px;
-        justify-content: center;
-        align-items: center;
-    }
+        .top-level {
+            display: flex;
+            /* to centre page on screen*/
+            margin-left: auto;
+            margin-right: auto;
+            flex-direction: column;
+        }
 
-
-    .second-level {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .info {
-        margin-bottom: 0px;
-    }
-
-    .text-center {
-        text-decoration: underline 2px solid black;
-    }
-
-    .content {
-        margin-left: 20px;
-        margin-bottom: 5px;
-    }
-
-    .l-h {
-        font-weight: 700;
-        padding-left: 10px;
-        font-size: 18px;
-        margin-left: 10px;
-        margin-right: 10px;
-        border-bottom: 1px solid black;
-        margin-bottom: 0px;
-    }
+        .first-level {
+            width: 100%;
+            height: auto;
+            display: flex;
+            padding-bottom: 5px;
+            justify-content: center;
+            align-items: center;
+        }
 
 
-    .l-dh {
-        font-weight: 600;
-        font-size: 16px;
-        margin-bottom: 0px;
-    }
+        .second-level {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
 
-    .l-dhi {
-        font-weight: normal;
-        font-size: small;
-        float: right;
-        font-style: italic;
-        margin-right: 16px;
-    }
+        .info {
+            margin-bottom: 0px;
+        }
 
-    .list {
-        margin-bottom: 0px;
-        padding-left: 20px;
-        padding-right: 20px;
-        font-size: smaller;
-    }
+        .text-center {
+            text-decoration: underline 2px solid black;
+        }
 
-    .ilb {
-        font-size: smaller;
-        font-style: italic;
-        font-weight: normal;
-    }
+        .content {
+            margin-left: 20px;
+            margin-bottom: 5px;
+        }
+
+        .l-h {
+            font-weight: 700;
+            padding-left: 10px;
+            font-size: 18px;
+            margin-left: 10px;
+            margin-right: 10px;
+            border-bottom: 1px solid black;
+            margin-bottom: 0px;
+        }
 
 
-</style>
+        .l-dh {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 0px;
+        }
+
+        .l-dhi {
+            font-weight: normal;
+            font-size: small;
+            float: right;
+            font-style: italic;
+            margin-right: 16px;
+        }
+
+        .list {
+            margin-bottom: 0px;
+            padding-left: 20px;
+            padding-right: 20px;
+            font-size: smaller;
+        }
+
+        .ilb {
+            font-size: smaller;
+            font-style: italic;
+            font-weight: normal;
+        }
+
+
+    </style>
+</head>
 <body>
 
 <div class="resmue-container">
@@ -114,8 +118,8 @@
                     <p class="info">
                         <small>
                             +91 {{ contact.phone_number }} {% if contact.github %}|
-                            {{ contact.github }} {% endif %} {% if contact.linked_in %} |
-                            {{ contact.linked_in }} {% endif %} |
+                            <a href="{{ contact.github }}">GitHub</a> {% endif %} {% if contact.linked_in %} |
+                            <a href="{{ contact.linked_in }}">LinkedIn</a> {% endif %} |
                             {{ contact.email }} </small>
                     </p>
                 </section>
@@ -125,7 +129,7 @@
         <div class="second-level">
 
 
-        {% if objectives %}
+            {% if objectives %}
                 <section>
                     <p class="l-h">OBJECTIVES</p>
                     {% for i in objectives %}
@@ -178,7 +182,7 @@
                     <p class="l-h">PROJECTS</p>
                     {% for p in projects %}
                         <div class="content">
-                            <p class="l-dh"> {{ p.name }}   <span class="ilb">({{ p.tech }}) </span><small><i
+                            <p class="l-dh"> {{ p.name }} <span class="ilb">({{ p.tech }}) </span><small><i
                                     class="l-dhi">{{ p.start_date }}-{% if p.end_date %}{{ p.start_date }}{% else %}
                                 Current{% endif %}</i></small></p>
                             <ul class="list" style="
@@ -190,47 +194,47 @@
                 </section>
             {% endif %}
 
-{% if skills or language%}
-            <section>
-                <p class="l-h">SKILLS</p>
-                <div class="content">
-                    <table>
-                        <tbody>
-                        {% if skills %}
-                            <tr>
-                                <th>Technical Skills :
-                                <td>
-                                    {% for sk in skills %}
-                                        {% if forloop.counter == skills|length %}
-                                            {{ sk.skill }}
-                                        {% else %}
-                                            {{ sk.skill }},
-                                        {% endif %}
-                                    {% endfor %}
-                                </td>
-                            </tr>
-                        {% endif %}
-                        <tr>
-                            {% if language %}
-                                <th>Language Skills :
-                                <td>
-                                    {% for l in language %}
-                                        {% if forloop.counter ==  language|length %}
-                                            {{ l.language }}
-                                        {% else %}
-                                            {{ l.language }},
-                                        {% endif %}
-                                    {% endfor %}
-                                </td>
+            {% if skills or language %}
+                <section>
+                    <p class="l-h">SKILLS</p>
+                    <div class="content">
+                        <table>
+                            <tbody>
+                            {% if skills %}
+                                <tr>
+                                    <th>Technical Skills :
+                                    <td>
+                                        {% for sk in skills %}
+                                            {% if forloop.counter == skills|length %}
+                                                {{ sk.skill }}
+                                            {% else %}
+                                                {{ sk.skill }},
+                                            {% endif %}
+                                        {% endfor %}
+                                    </td>
                                 </tr>
                             {% endif %}
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-        {% endif %}
+                            <tr>
+                                {% if language %}
+                                    <th>Language Skills :
+                                    <td>
+                                        {% for l in language %}
+                                            {% if forloop.counter ==  language|length %}
+                                                {{ l.language }}
+                                            {% else %}
+                                                {{ l.language }},
+                                            {% endif %}
+                                        {% endfor %}
+                                    </td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            {% endif %}
 
-         {% if training %}
+            {% if training %}
                 <section>
                     <p class="l-h">TRAINING AND CERTIFICATION</p>
                     {% for e in training %}
@@ -244,12 +248,12 @@
                 </section>
             {% endif %}
 
-           {% if acievement %}
+            {% if acievement %}
                 <section>
                     <p class="l-h">ACHIEVEMENTS</p>
                     {% for e in achievement %}
                         <div class="content">
-                           <ul class="list" style="
+                            <ul class="list" style="
     list-style: none;">
                                 <li>{{ e.description }}</li>
                             </ul>
@@ -258,12 +262,12 @@
                 </section>
             {% endif %}
 
-        {% if extras %}
+            {% if extras %}
                 <section>
                     <p class="l-h">EXTRA CURRICULAR ACTIVITIES</p>
                     {% for e in extras %}
                         <div class="content">
-                           <ul class="list" style="
+                            <ul class="list" style="
     list-style: none;">
                                 <li>{{ e.description }}</li>
                             </ul>
