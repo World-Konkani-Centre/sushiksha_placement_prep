@@ -6,9 +6,9 @@ from django.shortcuts import render
 
 from resume_builder.forms import ContactModelForm, SkillModelForm, EducationModelForm, \
     InternshipFormExperienceForm, TrainingCertificationForm, ProjectForm, ExtraModelForm, LanguageModelForm, \
-    AchievementModelForm, ObjectiveModelForm
+    AchievementModelForm
 from resume_builder.models import Contact, Skill, Education, InternshipExperience, TrainingCertification, \
-    Project, Extra, Language, Achievement, Objective, Template, Resume
+    Project, Extra, Language, Achievement, Template, Resume
 
 count = 10
 
@@ -24,7 +24,7 @@ def contact(request):
         context = {
             'heading': "Update the Contact Information",
             'form': form,
-            'next': 'resume-obj',
+            'next': 'resume-skills',
             'width': 100 / count,
         }
         return render(request, 'resume-builder/one_entry.html', context=context)
@@ -39,59 +39,59 @@ def contact(request):
             messages.error(request, f'Something is wrong in your input')
         return redirect('resume-contact')
 
-
-@login_required
-def obj(request):
-    obj = Objective.objects.filter(user=request.user)
-    if request.method == 'GET':
-        form = ObjectiveModelForm()
-        context = {
-            'heading': "Add new Objective Information",
-            'form': form,
-            'obj': obj,
-            'prev': 'resume-contact',
-            'next': 'resume-skills',
-            'width': 200 / count,
-        }
-        return render(request, 'resume-builder/one_entry.html', context=context)
-    elif request.method == 'POST':
-        form = ObjectiveModelForm(request.POST)
-        if form.is_valid():
-            row = form.save(commit=False)
-            row.user = request.user
-            form.save()
-            messages.success(request, f'Your objectives information has been created')
-        else:
-            messages.error(request, f'Something is wrong in your input')
-        return redirect('resume-obj')
-
-
-@login_required
-def obj_edit(request, id):
-    skill = Objective.objects.get(user=request.user, id=id)
-    if request.method == 'GET':
-        form = ObjectiveModelForm(instance=skill)
-        context = {
-            'heading': "Update the Objectives Information",
-            'form': form,
-        }
-        return render(request, 'resume-builder/one_entry.html', context=context)
-    elif request.method == 'POST':
-        form = ObjectiveModelForm(request.POST, instance=skill)
-        if form.is_valid():
-            form.save()
-            messages.success(request, f'Your objectives information has been updated')
-        else:
-            messages.error(request, f'Something is wrong in your input')
-        return redirect('resume-obj')
-
-
-@login_required
-def obj_delete(request, id):
-    skill = Objective.objects.get(id=id, user=request.user).delete()
-    messages.success(request, f'Your objectives information has been deleted')
-    return redirect('resume-obj')
-
+#
+# @login_required
+# def obj(request):
+#     obj = Objective.objects.filter(user=request.user)
+#     if request.method == 'GET':
+#         form = ObjectiveModelForm()
+#         context = {
+#             'heading': "Add new Objective Information",
+#             'form': form,
+#             'obj': obj,
+#             'prev': 'resume-contact',
+#             'next': 'resume-skills',
+#             'width': 200 / count,
+#         }
+#         return render(request, 'resume-builder/one_entry.html', context=context)
+#     elif request.method == 'POST':
+#         form = ObjectiveModelForm(request.POST)
+#         if form.is_valid():
+#             row = form.save(commit=False)
+#             row.user = request.user
+#             form.save()
+#             messages.success(request, f'Your objectives information has been created')
+#         else:
+#             messages.error(request, f'Something is wrong in your input')
+#         return redirect('resume-obj')
+#
+#
+# @login_required
+# def obj_edit(request, id):
+#     skill = Objective.objects.get(user=request.user, id=id)
+#     if request.method == 'GET':
+#         form = ObjectiveModelForm(instance=skill)
+#         context = {
+#             'heading': "Update the Objectives Information",
+#             'form': form,
+#         }
+#         return render(request, 'resume-builder/one_entry.html', context=context)
+#     elif request.method == 'POST':
+#         form = ObjectiveModelForm(request.POST, instance=skill)
+#         if form.is_valid():
+#             form.save()
+#             messages.success(request, f'Your objectives information has been updated')
+#         else:
+#             messages.error(request, f'Something is wrong in your input')
+#         return redirect('resume-obj')
+#
+#
+# @login_required
+# def obj_delete(request, id):
+#     skill = Objective.objects.get(id=id, user=request.user).delete()
+#     messages.success(request, f'Your objectives information has been deleted')
+#     return redirect('resume-obj')
+#
 
 @login_required
 def skills(request):
@@ -102,7 +102,7 @@ def skills(request):
             'heading': "Add new Skills Information",
             'form': form,
             'skills': skill,
-            'prev': 'resume-obj',
+            'prev': 'resume-contact',
             'next': 'resume-education',
             'width': 300 / count,
         }
@@ -546,7 +546,7 @@ def preview_template(request):
         template = Template.objects.get(id=templateId)
         user = User.objects.get(id=userId)
         contact_obj = Contact.objects.get(user=user)
-        objectives_obj = Objective.objects.filter(user=user)
+        # objectives_obj = Objective.objects.filter(user=user)
         skills_obj = Skill.objects.filter(user=user)
         education_obj = Education.objects.filter(user=user)
         ie_obj = InternshipExperience.objects.filter(user=user)
@@ -558,7 +558,7 @@ def preview_template(request):
         loc = f'resume-builder/{template.template}'
         context = {
             'contact': contact_obj,
-            'objectives': objectives_obj,
+            # 'objectives': objectives_obj,
             'skills': skills_obj,
             'education': education_obj,
             'ie': ie_obj,
