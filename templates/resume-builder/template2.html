@@ -12,6 +12,7 @@
             font-size: 200%;
         }
 
+
         @page :left {
             margin-left: 250mm;
         }
@@ -61,7 +62,7 @@
             height: 100%;
             width: 50%;
             display: flex;
-            margin-right: 5px;
+            margin-right: 10px;
             flex-direction: column;
         }
 
@@ -69,11 +70,13 @@
             width: 50%;
             height: 100%;
             display: flex;
+            margin-left: 10px;
             flex-direction: column;
         }
 
         .info {
             margin-bottom: 0px;
+            font-size: medium;
         }
 
         .porfile-pic {
@@ -101,17 +104,17 @@
 
         .ie-h6 {
             margin-bottom: 0px;
+            font-weight: 600
         }
 
         .ie-p {
             margin-bottom: 0px;
-            font-size: small;
+            font-size: 16px;
         }
 
         .ie-pf {
             margin-bottom: 0px;
             float: right;
-            font-size: small;
         }
 
         .checked {
@@ -146,34 +149,31 @@
                 <section>
                     <h2 class="name text-capitalize">{{ contact.first_name }} {{ contact.last_name }}</h2>
 
-                    {#              <p class="info text-md">#}
-                    {#                 <small>UI / UX DESIGNER/DEVELOPER</small>#}
-                    {#              </p>#}
+                                  <p class="info text-md">
+                                     <small>{{ contact.prefix }}</small>
+                                  </p>
                     <p class="info">
-                        <small
-                        ><span class="fa fa-xs fa-map-marker"></span> {{ contact.address_1 }}, {{ contact.address_2 }}
-                        </small>
+                       <span class="fa fa-xs fa-map-marker"></span> {{ contact.address_1 }}, {{ contact.address_2 }}
+
                     </p>
                     <p class="info">
-                        <small> {{ contact.state }}, {{ contact.country }}
-                            - {{ contact.pin }}</small>
+                         {{ contact.state }}, {{ contact.country }}
+                            - {{ contact.pin }}
                     </p>
                     <p class="info">
-                        <small>
                             <span class="fa fa-xs fa-phone"></span> +91 {{ contact.phone_number }}
                             {% if contact.github %}
                                 &nbsp <span class="fa fa-xs fa-github"></span>
-                                <a href="{{ contact.github }}">GitHub</a> {% endif %}</small>
+                                <a href="{{ contact.github }}">GitHub</a> {% endif %}
 
                     </p>
                     <p class="info">
-                        <small>
                             {% if contact.linked_in %}
-                                <span class="fa fa-xs fa-linkedin"></span> &nbsp
+                                <span class="fa fa-xs fa-linkedin"></span>
                                 <a href="{{ contact.linked_in }}">LinkedIn</a>{% endif %}
 
                             <span class="fa fa-xs fa-envelope"></span>
-                            {{ contact.email }}</small>
+                            {{ contact.email }}
                     </p>
                 </section>
             </div>
@@ -194,14 +194,14 @@
                             {% for i in ie %}
                                 <li>
                                     <h6 class="ie-h6">{{ i.name }}</h6>
-                                    <i class="ie-p">{{ i.position }} - {{ i.city }},{{ i.state }},{{ i.country }}</i>
+                                    <i class="ie-p"><span style="font-weight: 500">{{ i.position }}</span> - {{ i.city }},{{ i.state }},{{ i.country }}</i>
                                     <p class="ie-p">
                                         {{ i.description }}
                                     </p>
-                                    <p class="ie-p"><small>
+                                    <p class="ie-p">
                                         {{ i.date_of_joining }}-{% if i.date_of_exit %}
                                         {{ i.date_of_exit }}{% else %}Current{% endif %}
-                                    </small></p>
+                                    </p>
                                 </li>
                             {% endfor %}
                         </ul>
@@ -221,8 +221,8 @@
                                         {{ e.city }},{{ e.state }}
                                     </i>
                                     <i class="ie-pf">CGPA - {{ e.score }}</i>
-                                    <p class="ie-p"><small>{{ e.joining_date }}-{% if e.passing_date %}
-                                        {{ e.passing_date }}{% else %}Current{% endif %}</small></p>
+                                    <p class="ie-p">{{ e.joining_date }}-{% if e.passing_date %}
+                                        {{ e.passing_date }}{% else %}Current{% endif %}</p>
                                 </li>
                             {% endfor %}
                         </ul>
@@ -235,7 +235,7 @@
                         <ul>
                             {% for e in achievement %}
                                 <li>
-                                    <p class="ie-h6">{{ e.description }}</p>
+                                    <p class="ie-p">{{ e.description }}</p>
                                 </li>
                             {% endfor %}
                         </ul>
@@ -247,8 +247,8 @@
                         <h4 class="header-i">EXTRA CURRICULAR ACTIVITIES</h4>
                         <ul>
                             {% for e in extras %}
-                                <li>
-                                    <p class="ie-h6">{{ e.description }}</p>
+                                <li><h6 class="ie-h6">{{ e.name }}</h6>
+                                    <p class="ie-p">{{ e.description }}</p>
                                 </li>
                             {% endfor %}
                         </ul>
@@ -309,13 +309,13 @@
                             {% for p in projects %}
                                 <li>
                                     <h6 class="ie-h6">{{ p.name }}</h6>
-                                    <p class="ie-p">{{ p.tech }}</p>
-                                    <i class="ie-p">
+                                    <p class="ie-p" style="font-weight: 500">{{ p.tech }}</p>
+                                    <p class="ie-p">
                                         {{ p.description }}
-                                    </i>
-                                    <p class="ie-p"><small>{{ p.start_date }}-{% if p.end_date %}
+                                    </p>
+                                    <p class="ie-p">{{ p.start_date }}-{% if p.end_date %}
                                         {{ p.start_date }}{% else %}
-                                        Current{% endif %}</small></p>
+                                        Current{% endif %}</p>
                                 </li>
                             {% endfor %}
                         </ul>
@@ -329,7 +329,7 @@
                         <ul>
                             {% for e in training %}
                                 <li>
-                                    <p class="ie-h6">{{ e.name }} by {{ e.provider }} </p>
+                                    <h6 class="ie-h6">{{ e.name }} by {{ e.provider }} </h6>
                                     <p class="ie-p">{% if e.date %}
                                         {{ e.date }}{% else %}Current{% endif %}</p>
                                 </li>
@@ -342,5 +342,4 @@
         </div>
     </div>
 </div>
-
 </body>
