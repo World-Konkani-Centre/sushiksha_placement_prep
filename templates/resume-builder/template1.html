@@ -87,6 +87,7 @@
             float: right;
             font-style: italic;
             margin-right: 16px;
+            font-weight: 400;
         }
 
         .list {
@@ -103,7 +104,6 @@
 
         .l-dd {
             margin-bottom: 0px;
-            font-size: 100%;
         }
 
     </style>
@@ -157,8 +157,8 @@
                     <p class="l-h">EDUCATION</p>
                     {% for e in education %}
                         <div class="content">
-                            <p class="l-dh">{{ e.school_name }}<small><i
-                                    class="l-dhi">{{ e.city }},{{ e.state }}</i></small></p>
+                            <p class="l-dh">{{ e.school_name }}<i
+                                    class="l-dhi">{{ e.city }},{{ e.state }}</i></p>
                             <p class="l-dd">{{ e.degree }}, {{ e.field_of_study }} (CGPA - {{ e.score }})<i
                                     class="l-dhi">{{ e.joining_date }}-{% if e.passing_date %}
                                 {{ e.passing_date }}{% else %}Current{% endif %}</i></p>
@@ -175,8 +175,8 @@
                             <p class="l-dh">{{ i.position }}<i
                                     class="l-dhi">{{ i.date_of_joining }}-{% if i.date_of_exit %}
                                 {{ i.date_of_exit }}{% else %}Current{% endif %}</i></p>
-                            <p class="l-dd" style="font-weight: 500">{{ i.name }}<small><i
-                                    class="l-dhi">{{ i.city }},{{ i.state }},{{ i.country }} </i></small></p>
+                            <p class="l-dd" style="font-weight: 500">{{ i.name }}<i
+                                    class="l-dhi">{{ i.city }},{{ i.state }},{{ i.country }} </i></p>
                             <ul class="list" style="
     list-style: none;">
                                 <li ><p class="l-lid">{{ i.description }}</p></li>
@@ -191,9 +191,9 @@
                     <p class="l-h">PROJECTS</p>
                     {% for p in projects %}
                         <div class="content">
-                            <p class="l-dh"> {{ p.name }} <span class="ilb">({{ p.tech }}) </span><small><i
+                            <p class="l-dh"> {{ p.name }} <span class="ilb">({{ p.tech }}) </span><i
                                     class="l-dhi">{{ p.start_date }}-{% if p.end_date %}{{ p.start_date }}{% else %}
-                                Current{% endif %}</i></small></p>
+                                Current{% endif %}</i></p>
                             <ul class="list" style="
     list-style: none;">
                                 <li>{{ p.description }}</li>
