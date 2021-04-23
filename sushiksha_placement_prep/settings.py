@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'mentors_panel',
     'users.apps.UsersConfig',
     'quiz',
+    'language',
     'interviews',
 ]
 

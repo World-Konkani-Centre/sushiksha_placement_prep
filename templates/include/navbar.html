@@ -16,6 +16,7 @@
           {% endif %}
          {% if user.is_authenticated %}
          <li><a href="{% url 'quiz_index' %}">Aptitude Tests</a></li>
+             <li><a href="{% url 'quiz_index' %}">Language Tests</a></li>
           <li class="drop-down">
               <a href="{% url 'resume-contact' %}">Resume Builder</a>
               <ul>
