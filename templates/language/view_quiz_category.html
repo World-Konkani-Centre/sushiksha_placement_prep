@@ -1,0 +1,69 @@
+{% extends 'base_page.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+    <main id="main">
+    <section id="breadcrumbs" class="breadcrumbs">
+            <div class="container">
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2>{% trans "Quizzes related to " %} <strong>{{ category.category }} </strong>{% trans "category" %}</h2>
+
+                    <ol>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="{% url 'language_quiz_index' %}">Practice</a></li>
+                        <li><a href="{% url 'language_quiz_category_list_all' %}">Category</a></li>
+                        <li>{{ category.category }}</li>
+                    </ol>
+                </div>
+            </div>
+    </section>
+
+        <section id="" class="">
+            <div class="container">
+                <h3>Select the Quiz</h3>
+                {% with object_list as quizzes %}
+                    {% if quizzes %}
+
+                        <div class="card">
+                        <div class="card-header py-3">
+                            <p class="font-weight-bold p-0 m-0 text-center text-uppercase underline highlight_text">
+                                Select the Quiz</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table  table-hover table-striped table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>{% trans "Test Name" %}</th>
+                                        <th style="min-width:130px"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for quiz in quizzes %}
+                                        <tr>
+                                            <td>{{ quiz.title }}</td>
+                                            <td><a class="btn btn-danger"
+                                                   href="{% url 'language_quiz_start_page' slug=quiz.url %}">Solve</a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                        <div class="card">
+                        <div class="card-header py-3">
+                            <p class="font-weight-bold p-0 m-0 text-center text-uppercase underline highlight_text">
+                                No Quizzes available in this category, stay tuned</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endwith %}
+            </div>
+        </section>
+    </main>
+{% endblock %}

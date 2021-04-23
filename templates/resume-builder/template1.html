@@ -6,6 +6,7 @@
 
         @page {
             size: A4;
+            font-size: 17px;
         }
 
         @page :left {
@@ -83,7 +84,7 @@
         }
 
         .l-dhi {
-            font-size: 100%;
+            font-size: 90%;
             float: right;
             font-style: italic;
             margin-right: 16px;
@@ -192,7 +193,7 @@
                     {% for p in projects %}
                         <div class="content">
                             <p class="l-dh"> {{ p.name }} <span class="ilb">({{ p.tech }}) </span><i
-                                    class="l-dhi">{{ p.start_date }}-{% if p.end_date %}{{ p.start_date }}{% else %}
+                                    class="l-dhi">{{ p.start_date }}-{% if p.end_date %}{{ p.end_date  }}{% else %}
                                 Current{% endif %}</i></p>
                             <ul class="list" style="
     list-style: none;">
