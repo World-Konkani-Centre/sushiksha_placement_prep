@@ -6,7 +6,6 @@
 
         @page {
             size: A4;
-            font-size: 200%;
         }
 
         @page :left {
@@ -15,13 +14,18 @@
 
         @media print {
             body {
-                font-size: 130%;
+                font-size: 17px;
             }
+        }
+
+        .resmue-container{
+            font-size: 17px;
         }
 
         section {
             padding-top: 0px;
             padding-bottom: 0px;
+            font-size: 100%;
         }
 
         .top-level {
@@ -64,7 +68,7 @@
         .l-h {
             font-weight: 700;
             padding-left: 10px;
-            font-size: 18px;
+            font-size: 112.5%;
             margin-left: 10px;
             margin-right: 10px;
             border-bottom: 1px solid black;
@@ -74,12 +78,12 @@
 
         .l-dh {
             font-weight: 600;
-            font-size: 16px;
+            font-size: 100%;
             margin-bottom: 0px;
         }
 
         .l-dhi {
-            font-size: medium;
+            font-size: 100%;
             float: right;
             font-style: italic;
             margin-right: 16px;
@@ -89,7 +93,7 @@
             margin-bottom: 0px;
             padding-left: 20px;
             padding-right: 20px;
-            font-size: medium;
+            font-size: 100%;
         }
 
         .ilb {
@@ -99,12 +103,8 @@
 
         .l-dd {
             margin-bottom: 0px;
+            font-size: 100%;
         }
-
-        .l-lid {
-
-        }
-
 
     </style>
 </head>
@@ -172,14 +172,14 @@
                     <p class="l-h">INTERNSHIPS &amp EXPERIENCE</p>
                     {% for i in ie %}
                         <div class="content">
-                            <p class="l-dh">{{ i.position }}<small><i
+                            <p class="l-dh">{{ i.position }}<i
                                     class="l-dhi">{{ i.date_of_joining }}-{% if i.date_of_exit %}
-                                {{ i.date_of_exit }}{% else %}Current{% endif %}</i></small></p>
+                                {{ i.date_of_exit }}{% else %}Current{% endif %}</i></p>
                             <p class="l-dd" style="font-weight: 500">{{ i.name }}<small><i
                                     class="l-dhi">{{ i.city }},{{ i.state }},{{ i.country }} </i></small></p>
                             <ul class="list" style="
     list-style: none;">
-                                <li class="l-lid">{{ i.description }}</li>
+                                <li ><p class="l-lid">{{ i.description }}</p></li>
                             </ul>
                         </div>
                     {% endfor %}
