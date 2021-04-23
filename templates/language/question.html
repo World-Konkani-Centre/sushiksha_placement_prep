@@ -74,6 +74,7 @@
 
                 {% if question %}
 
+
                     {% if progress %}
                         <div style="float: right;">
                             {% trans "Question" %} {{ progress.0|add:1 }} {% trans "of" %} {{ progress.1 }}
@@ -83,6 +84,9 @@
                     <p>
                         <small class="muted">{% trans "Question category" %}:</small>
                         <strong>{{ question.category }}</strong>
+                    </p>
+                    <p>
+                    {{ quiz.description | safe}}
                     </p>
 
                     <h3>{{ question.content }}</h3>
