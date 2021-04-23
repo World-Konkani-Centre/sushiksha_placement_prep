@@ -51,10 +51,10 @@ class Contact(models.Model):
     pin = models.BigIntegerField()
     phone_number = models.BigIntegerField()
     email = models.EmailField(unique=True)
-    linked_in = models.URLField(unique=True)
-    linked_in_user = models.CharField(max_length=50)
-    github = models.URLField(unique=True)
-    github_user = models.CharField(max_length=50)
+    linked_in = models.URLField(unique=True,null=True)
+    linked_in_user = models.CharField(max_length=50,null=True)
+    github = models.URLField(unique=True,null=True)
+    github_user = models.CharField(max_length=50,null=True)
 
 
 # class Objective(models.Model):

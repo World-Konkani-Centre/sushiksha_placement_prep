@@ -8,7 +8,7 @@ class ContactModelForm(forms.ModelForm):
     class Meta:
         model = Contact
         fields = ['prefix', 'first_name', 'last_name', 'address_1', 'address_2', 'country', 'state', 'pin',
-                  'phone_number', 'email', 'linked_in', 'github']
+                  'phone_number', 'email', 'linked_in','linked_in_user', 'github','github_user']
 
     def __init__(self, *args, **kwargs):
         super(ContactModelForm, self).__init__(*args, **kwargs)
