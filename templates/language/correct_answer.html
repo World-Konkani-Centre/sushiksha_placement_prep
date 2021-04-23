@@ -1,0 +1,40 @@
+{% load i18n %}
+<main id="main">
+{% if previous.answers %}
+
+  {% if user_was_incorrect %}
+    <div class="bg-danger text-white">
+  	  <strong>{% trans "You answered this question incorrectly" %}</strong>
+    </div>
+  {% endif %}
+
+  <table class="table table-bordered">
+    <tbody>
+  	  {% for answer in previous.answers %}
+        {% if answer.correct %}
+  	    <tr class="bg-success">
+  		  <td>{{ answer.content }}</td>
+  		  <td><strong>{% trans "This is the correct answer" %}</strong></td>
+        {% else %}
+  		<tr>
+      	  <td>{{ answer.content }}</td>
+  		  <td>
+  			{% if previous.question_type.MCQuestion %}
+  			  {% if answer.id|add:"0" == previous.previous_answer|add:"0" %}
+  			    {% trans "This was your answer." %}
+  			  {% endif %}
+  			{% endif %}
+  		  </td>
+  	  {% endif %}
+  	    </tr>
+  	{% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+</main>
+
+
+{% block script %}
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+{% endblock script %}
