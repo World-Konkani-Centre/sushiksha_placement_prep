@@ -79,8 +79,7 @@
         }
 
         .l-dhi {
-            font-weight: normal;
-            font-size: small;
+            font-size: medium;
             float: right;
             font-style: italic;
             margin-right: 16px;
@@ -90,13 +89,20 @@
             margin-bottom: 0px;
             padding-left: 20px;
             padding-right: 20px;
-            font-size: smaller;
+            font-size: medium;
         }
 
         .ilb {
-            font-size: smaller;
             font-style: italic;
             font-weight: normal;
+        }
+
+        .l-dd {
+            margin-bottom: 0px;
+        }
+
+        .l-lid {
+
         }
 
 
@@ -110,16 +116,19 @@
             <div class="frist-level-center">
                 <section>
                     <h2 class="text-center text-capitalize">{{ contact.first_name }} {{ contact.last_name }}</h2>
-                    <!-- <small class="text-muted">UI / UX DESIGNER/DEVELOPER</small>-->
+                    <p class="info text-center" style="text-decoration: none">
+                        {{ contact.prefix }}
+                    </p>
                     <p class="info text-center" style="text-decoration: none">
                         <small> {{ contact.address_1 }}, {{ contact.address_2 }},{{ contact.state }}
                             - {{ contact.pin }}</small>
                     </p>
-                    <p class="info">
+                    <p class="info text-center" style="text-decoration: none">
                         <small>
                             +91 {{ contact.phone_number }} {% if contact.github %}|
-                            <a href="{{ contact.github }}">GitHub</a> {% endif %} {% if contact.linked_in %} |
-                            <a href="{{ contact.linked_in }}">LinkedIn</a> {% endif %} |
+                            <a href="{{ contact.github }}">{{ contact.github_user }}</a> {% endif %}
+                            {% if contact.linked_in %} |
+                                <a href="{{ contact.linked_in }}">{{ contact.linked_in_user }}</a> {% endif %} |
                             {{ contact.email }} </small>
                     </p>
                 </section>
@@ -150,9 +159,9 @@
                         <div class="content">
                             <p class="l-dh">{{ e.school_name }}<small><i
                                     class="l-dhi">{{ e.city }},{{ e.state }}</i></small></p>
-                            <i><small>{{ e.degree }}, {{ e.field_of_study }} (CGPA - {{ e.score }})<i
+                            <p class="l-dd">{{ e.degree }}, {{ e.field_of_study }} (CGPA - {{ e.score }})<i
                                     class="l-dhi">{{ e.joining_date }}-{% if e.passing_date %}
-                                {{ e.passing_date }}{% else %}Current{% endif %}</i></small></i>
+                                {{ e.passing_date }}{% else %}Current{% endif %}</i></p>
                         </div>
                     {% endfor %}
                 </section>
@@ -166,11 +175,11 @@
                             <p class="l-dh">{{ i.position }}<small><i
                                     class="l-dhi">{{ i.date_of_joining }}-{% if i.date_of_exit %}
                                 {{ i.date_of_exit }}{% else %}Current{% endif %}</i></small></p>
-                            <i>{{ i.name }}<small><i
-                                    class="l-dhi">{{ i.city }},{{ i.state }},{{ i.country }} </i></small></i>
+                            <p class="l-dd" style="font-weight: 500">{{ i.name }}<small><i
+                                    class="l-dhi">{{ i.city }},{{ i.state }},{{ i.country }} </i></small></p>
                             <ul class="list" style="
     list-style: none;">
-                                <li>{{ i.description }}</li>
+                                <li class="l-lid">{{ i.description }}</li>
                             </ul>
                         </div>
                     {% endfor %}
@@ -239,16 +248,14 @@
                     <p class="l-h">TRAINING AND CERTIFICATION</p>
                     {% for e in training %}
                         <div class="content">
-                            <p class="l-dh">{{ e.name }}</p>
-                            <i>{{ e.provider }}<i
-                                    class="l-dhi">{% if e.date %}
-                                {{ e.date }}{% else %}Current{% endif %}</i></i>
+                            <p class="l-dh"><span class="">{{ e.name }} by {{ e.provider }}</span><i class="l-dhi" style="font-weight: 400">{% if e.date %}
+                                {{ e.date }}{% else %}Current{% endif %}</i></p>
                         </div>
                     {% endfor %}
                 </section>
             {% endif %}
 
-            {% if acievement %}
+            {% if achievement %}
                 <section>
                     <p class="l-h">ACHIEVEMENTS</p>
                     {% for e in achievement %}
@@ -267,9 +274,10 @@
                     <p class="l-h">EXTRA CURRICULAR ACTIVITIES</p>
                     {% for e in extras %}
                         <div class="content">
+                            <p class="l-dh">{{ e.name }}</p>
                             <ul class="list" style="
     list-style: none;">
-                                <li>{{ e.description }}</li>
+                                <li class="l-lid">{{ e.description }}</li>
                             </ul>
                         </div>
                     {% endfor %}
