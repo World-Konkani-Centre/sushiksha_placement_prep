@@ -1,0 +1,66 @@
+{% extends 'base_page.html' %}
+{% load static %}
+{% load i18n %}
+{% block title %}{% trans "All Quizzes" %}{% endblock %}
+
+{% block content %}
+    <main id="main">
+
+        <section id="breadcrumbs" class="breadcrumbs">
+            <div class="container">
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2>{% trans "Category list" %}</h2>
+
+                    <ol>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="{% url 'language_quiz_index' %}">Practice</a></li>
+                        <li>Category</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <section id="" class="">
+            <div class="container">
+                {% if category_list.count != 0 %}
+                    <div class="card">
+                        <div class="card-header py-3">
+                            <p class="font-weight-bold p-0 m-0 text-center text-uppercase underline highlight_text">
+                                Select the category</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table  table-hover table-striped table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>{% trans "Category Name" %}</th>
+                                        <th style="min-width:130px"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for cat in category_list %}
+                                        <tr>
+                                            <td>{{ cat.category }}</td>
+                                            <td><a class="btn btn-danger"
+                                                   href="{% url 'language_quiz_category_list_matching' category_name=cat.category %}">Solve</a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="card">
+                        <div class="card-header py-3">
+                            <p class="font-weight-bold p-0 m-0 text-center text-uppercase underline highlight_text">
+                                No tests available now, stay tuned</p>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </section>
+    </main>
+{% endblock %}

@@ -22,7 +22,8 @@ class Resume(models.Model):
     status = models.CharField(max_length=3, choices=STATUS, default='1')
 
     def __str__(self):
-        return  f'{self.user.profile.name}'
+        return f'{self.user.profile.name}'
+
 
 class Comments(models.Model):
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE)
@@ -30,17 +31,17 @@ class Comments(models.Model):
     comment = models.TextField()
 
 
-PREFIX_OPTIONS = (
-    ("3", "-"),
-    ("0", "Mr"),
-    ("1", "Mrs"),
-    ("2", "Ms"),
-)
+# PREFIX_OPTIONS = (
+#     ("3", "-"),
+#     ("0", "Mr"),
+#     ("1", "Mrs"),
+#     ("2", "Ms"),
+# )
 
 
 class Contact(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    prefix = models.CharField(max_length=1, choices=PREFIX_OPTIONS, default="3")
+    prefix = models.CharField(max_length=50, default="coder, activist, eager to learn")
     first_name = models.CharField(max_length=20, blank=False, default=None)
     last_name = models.CharField(max_length=20, blank=False, default=None)
     address_1 = models.CharField(max_length=50)
@@ -50,13 +51,15 @@ class Contact(models.Model):
     pin = models.BigIntegerField()
     phone_number = models.BigIntegerField()
     email = models.EmailField(unique=True)
-    linked_in = models.URLField(unique=True)
-    github = models.URLField(unique=True)
+    linked_in = models.URLField(unique=True,null=True)
+    linked_in_user = models.CharField(max_length=50,null=True)
+    github = models.URLField(unique=True,null=True)
+    github_user = models.CharField(max_length=50,null=True)
 
 
-class Objective(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    description = models.CharField(max_length=50)
+# class Objective(models.Model):
+#     user = models.ForeignKey(User, on_delete=models.CASCADE)
+#     description = models.CharField(max_length=50)
 
 
 PROFICIENCY_OPTIONS = (
@@ -133,7 +136,8 @@ class Project(models.Model):
 
 class Extra(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    description = models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
+    description = models.TextField()
 
 
 class Language(models.Model):

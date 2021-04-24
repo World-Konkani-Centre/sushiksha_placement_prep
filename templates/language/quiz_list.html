@@ -53,21 +53,21 @@
           <div class="col-md-4">
             <div class="icon-box">
             <i class="icofont-dart"></i>
-              <h4><a href="{% url 'quiz_category_list_all' %}">Category wise</a></h4>
+              <h4><a href="{% url 'language_quiz_category_list_all' %}">Category wise</a></h4>
             </div>
           </div>
 
             <div class="col-md-4">
             <div class="icon-box">
             <i class="icofont-anchor"></i>
-              <h4><a href="{% url 'quiz_progress' %}">Progress</a></h4>
+              <h4><a href="{% url 'language_quiz_progress' %}">Progress</a></h4>
             </div>
           </div>
             {% if user.is_superuser %}
             <div class="col-md-4">
             <div class="icon-box">
             <i class="icofont-settings"></i>
-              <h4><a href="{% url 'quiz_marking' %}">View Test Submission</a></h4>
+              <h4><a href="{% url 'language_quiz_marking' %}">View Test Submission</a></h4>
             </div>
           </div>
              {% endif %}
@@ -99,7 +99,7 @@
                                             <td>{{ quiz.title }}</td>
                                             <td>{{ quiz.category }}</td>
                                             <td>
-                                                <a href="{% url 'quiz_start_page' slug=quiz.url %}"
+                                                <a href="{% url 'language_quiz_start_page' slug=quiz.url %}"
                                                    class="btn btn-danger"
                                                    >
                                                     {% trans "Start Test" %}

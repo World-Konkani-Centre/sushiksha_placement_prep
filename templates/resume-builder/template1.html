@@ -1,12 +1,12 @@
 <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css"
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css"
           integrity="sha512-P5MgMn1jBN01asBgU0z60Qk4QxiXo86+wlFahKrsQf37c9cro517WzVSPPV1tDKzhku2iJ2FVgL67wG03SGnNA=="
           crossorigin="anonymous"/>
     <style>
 
         @page {
             size: A4;
-            font-size: 200%;
+            font-size: 17px;
         }
 
         @page :left {
@@ -15,13 +15,18 @@
 
         @media print {
             body {
-                font-size: 130%;
+                font-size: 17px;
             }
+        }
+
+        .resmue-container{
+            font-size: 17px;
         }
 
         section {
             padding-top: 0px;
             padding-bottom: 0px;
+            font-size: 100%;
         }
 
         .top-level {
@@ -64,7 +69,7 @@
         .l-h {
             font-weight: 700;
             padding-left: 10px;
-            font-size: 18px;
+            font-size: 112.5%;
             margin-left: 10px;
             margin-right: 10px;
             border-bottom: 1px solid black;
@@ -74,31 +79,33 @@
 
         .l-dh {
             font-weight: 600;
-            font-size: 16px;
+            font-size: 100%;
             margin-bottom: 0px;
         }
 
         .l-dhi {
-            font-weight: normal;
-            font-size: small;
+            font-size: 90%;
             float: right;
             font-style: italic;
             margin-right: 16px;
+            font-weight: 400;
         }
 
         .list {
             margin-bottom: 0px;
             padding-left: 20px;
             padding-right: 20px;
-            font-size: smaller;
+            font-size: 100%;
         }
 
         .ilb {
-            font-size: smaller;
             font-style: italic;
             font-weight: normal;
         }
 
+        .l-dd {
+            margin-bottom: 0px;
+        }
 
     </style>
 </head>
@@ -110,16 +117,19 @@
             <div class="frist-level-center">
                 <section>
                     <h2 class="text-center text-capitalize">{{ contact.first_name }} {{ contact.last_name }}</h2>
-                    <!-- <small class="text-muted">UI / UX DESIGNER/DEVELOPER</small>-->
+                    <p class="info text-center" style="text-decoration: none">
+                        {{ contact.prefix }}
+                    </p>
                     <p class="info text-center" style="text-decoration: none">
                         <small> {{ contact.address_1 }}, {{ contact.address_2 }},{{ contact.state }}
                             - {{ contact.pin }}</small>
                     </p>
-                    <p class="info">
+                    <p class="info text-center" style="text-decoration: none">
                         <small>
                             +91 {{ contact.phone_number }} {% if contact.github %}|
-                            <a href="{{ contact.github }}">GitHub</a> {% endif %} {% if contact.linked_in %} |
-                            <a href="{{ contact.linked_in }}">LinkedIn</a> {% endif %} |
+                            <a href="{{ contact.github }}">{{ contact.github_user }}</a> {% endif %}
+                            {% if contact.linked_in %} |
+                                <a href="{{ contact.linked_in }}">{{ contact.linked_in_user }}</a> {% endif %} |
                             {{ contact.email }} </small>
                     </p>
                 </section>
@@ -148,11 +158,11 @@
                     <p class="l-h">EDUCATION</p>
                     {% for e in education %}
                         <div class="content">
-                            <p class="l-dh">{{ e.school_name }}<small><i
-                                    class="l-dhi">{{ e.city }},{{ e.state }}</i></small></p>
-                            <i><small>{{ e.degree }}, {{ e.field_of_study }} (CGPA - {{ e.score }})<i
+                            <p class="l-dh">{{ e.school_name }}<i
+                                    class="l-dhi">{{ e.city }},{{ e.state }}</i></p>
+                            <p class="l-dd">{{ e.degree }}, {{ e.field_of_study }} (CGPA - {{ e.score }})<i
                                     class="l-dhi">{{ e.joining_date }}-{% if e.passing_date %}
-                                {{ e.passing_date }}{% else %}Current{% endif %}</i></small></i>
+                                {{ e.passing_date }}{% else %}Current{% endif %}</i></p>
                         </div>
                     {% endfor %}
                 </section>
@@ -163,14 +173,14 @@
                     <p class="l-h">INTERNSHIPS &amp EXPERIENCE</p>
                     {% for i in ie %}
                         <div class="content">
-                            <p class="l-dh">{{ i.position }}<small><i
+                            <p class="l-dh">{{ i.position }}<i
                                     class="l-dhi">{{ i.date_of_joining }}-{% if i.date_of_exit %}
-                                {{ i.date_of_exit }}{% else %}Current{% endif %}</i></small></p>
-                            <i>{{ i.name }}<small><i
-                                    class="l-dhi">{{ i.city }},{{ i.state }},{{ i.country }} </i></small></i>
+                                {{ i.date_of_exit }}{% else %}Current{% endif %}</i></p>
+                            <p class="l-dd" style="font-weight: 500">{{ i.name }}<i
+                                    class="l-dhi">{{ i.city }},{{ i.state }},{{ i.country }} </i></p>
                             <ul class="list" style="
     list-style: none;">
-                                <li>{{ i.description }}</li>
+                                <li ><p class="l-lid">{{ i.description }}</p></li>
                             </ul>
                         </div>
                     {% endfor %}
@@ -182,9 +192,9 @@
                     <p class="l-h">PROJECTS</p>
                     {% for p in projects %}
                         <div class="content">
-                            <p class="l-dh"> {{ p.name }} <span class="ilb">({{ p.tech }}) </span><small><i
-                                    class="l-dhi">{{ p.start_date }}-{% if p.end_date %}{{ p.start_date }}{% else %}
-                                Current{% endif %}</i></small></p>
+                            <p class="l-dh"> {{ p.name }} <span class="ilb">({{ p.tech }}) </span><i
+                                    class="l-dhi">{{ p.start_date }}-{% if p.end_date %}{{ p.end_date  }}{% else %}
+                                Current{% endif %}</i></p>
                             <ul class="list" style="
     list-style: none;">
                                 <li>{{ p.description }}</li>
@@ -239,16 +249,14 @@
                     <p class="l-h">TRAINING AND CERTIFICATION</p>
                     {% for e in training %}
                         <div class="content">
-                            <p class="l-dh">{{ e.name }}</p>
-                            <i>{{ e.provider }}<i
-                                    class="l-dhi">{% if e.date %}
-                                {{ e.date }}{% else %}Current{% endif %}</i></i>
+                            <p class="l-dh"><span class="">{{ e.name }} by {{ e.provider }}</span><i class="l-dhi" style="font-weight: 400">{% if e.date %}
+                                {{ e.date }}{% else %}Current{% endif %}</i></p>
                         </div>
                     {% endfor %}
                 </section>
             {% endif %}
 
-            {% if acievement %}
+            {% if achievement %}
                 <section>
                     <p class="l-h">ACHIEVEMENTS</p>
                     {% for e in achievement %}
@@ -267,9 +275,10 @@
                     <p class="l-h">EXTRA CURRICULAR ACTIVITIES</p>
                     {% for e in extras %}
                         <div class="content">
+                            <p class="l-dh">{{ e.name }}</p>
                             <ul class="list" style="
     list-style: none;">
-                                <li>{{ e.description }}</li>
+                                <li class="l-lid">{{ e.description }}</li>
                             </ul>
                         </div>
                     {% endfor %}

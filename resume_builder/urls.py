@@ -2,9 +2,6 @@ from django.urls import path
 import resume_builder.views as rb_views
 urlpatterns = [
     path('contact/', rb_views.contact,name="resume-contact"),
-    path('obj/', rb_views.obj, name="resume-obj"),
-    path('obj/edit/<int:id>', rb_views.obj_edit, name="resume-obj-edit"),
-    path('obj/delete/<int:id>', rb_views.obj_delete, name="resume-obj-delete"),
     path('skills/',rb_views.skills,name="resume-skills"),
     path('skills/edit/<int:id>',rb_views.skills_edit,name="resume-skills-edit"),
     path('skills/delete/<int:id>',rb_views.skills_delete,name="resume-skills-delete"),

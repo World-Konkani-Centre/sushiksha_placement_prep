@@ -38,7 +38,7 @@
                 <h4>{{ user.profile.name }}</h4>
                 <span><strong>Username: </strong>{{ user.username }}</span>
                 <div class="profile-update-form">
-                   <form action="" method="POST">
+                   <form action="" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         {{ u_form | crispy }}
                         {% csrf_token %}

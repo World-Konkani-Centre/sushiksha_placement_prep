@@ -9,6 +9,7 @@ from sushiksha_placement_prep import settings
 import interviews.urls as int_urls
 import users.urls as user_url
 from .views import index
+import language.urls as l_urls
 
 handler404 = 'sushiksha_placement_prep.views.handler404'
 handler500 = 'sushiksha_placement_prep.views.handler500'
@@ -23,7 +24,8 @@ urlpatterns = [
     url('users/', include(user_url)),
     url('resume-builder/', include(builder_url)),
     url('mentors/', include(mentor_url)),
-    url('assessment/', include(assmt_url)),
+    url('aptitude/', include(assmt_url)),
+    url('language/', include(l_urls)),
     url('interview/', include(int_urls)),
 ]
 
