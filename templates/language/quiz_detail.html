@@ -15,8 +15,8 @@
                     <h2>{{ quiz.title }}</h2>
 
                     <ol>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="{% url 'language_quiz_index' %}">Practice</a></li>
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li><a href="{% url 'language_quiz_index' %}">Language tests</a></li>
                         <li>
                             <a href="{% url 'language_quiz_category_list_matching' category_name=quiz.category %}">{{ quiz.category }}</a>
                         </li>
@@ -33,7 +33,7 @@
                 <div class="row content">
                     <div class="pt-lg-0">
                     <div>
-                            {{ quiz.description}}
+                            {{ quiz.description | safe}}
                     </div>
                         {% if quiz.single_attempt %}
                             <h5>{% trans "You will only get one attempt at this quiz" %}.</h5>
