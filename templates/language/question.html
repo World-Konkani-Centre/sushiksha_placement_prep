@@ -22,8 +22,8 @@
                     <h2>{{ quiz.title }}</h2>
 
                     <ol>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="{% url 'language_quiz_index' %}">Practice</a></li>
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li><a href="{% url 'language_quiz_index' %}">Language tests</a></li>
                         <li>
                             <a href="{% url 'language_quiz_category_list_matching' category_name=quiz.category %}">{{ quiz.category }}</a>
                         </li>
@@ -38,7 +38,9 @@
                 {% if previous.answers %}
 
                     <h2>{{ quiz.title }}</h2>
-                    {{ quiz.description | safe }}
+
+                    {{ quiz.description | safe}}
+
                     <p class="muted"><small>{% trans "The previous question" %}:</small></p>
                     <p>{{ previous.previous_question }}</p>
 
@@ -74,7 +76,7 @@
 
                 {% if question %}
 
-                        {{ quiz.description}}
+                        {{ quiz.description | safe}}
 
                     {% if progress %}
                         <div style="float: right;">
