@@ -65,13 +65,12 @@
               </ul>
              
             </li>
-
-            {% else %}
-            <li><a href="{% url 'login' %}">Login</a></li>
             {% endif %}
           </ul>
         </nav>
-        
+        {% if not user.is_authenticated %}
+            <a href="{% url 'login' %}" class="get-started-btn ml-auto">Login</a>
+        {% endif %}
       </div>
     </div>
   </div>
