@@ -8,7 +8,7 @@
             <div class="container">
 
                 <div class="d-flex justify-content-between align-items-center">
-                    <h2>{% trans "Quizzes related to " %} <strong>{{ category.category }} </strong>{% trans "category" %}</h2>
+                    <h2>{% trans "Tests related to " %} <strong>{{ category.category }} </strong>{% trans "category" %}</h2>
 
                     <ol>
                         <li><a href="{% url 'index' %}">Home</a></li>
@@ -22,7 +22,7 @@
 
         <section id="" class="">
             <div class="container">
-                <h3>Select the Quiz</h3>
+                <h3 class="p-3">Select the Test</h3>
                 {% with object_list as quizzes %}
                     {% if quizzes %}
 
