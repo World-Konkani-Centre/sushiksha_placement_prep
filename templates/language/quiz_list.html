@@ -32,8 +32,8 @@
       
         <div class="row">
 
-            <div class="col-lg-6  align-self-baseline" data-aos="fade-right" data-aos-delay="100">
-                <img src="/static/assets/img/language.svg" class="img-fluid" alt="">
+            <div class="col-lg-6  align-self-baseline text-center" data-aos="fade-right" data-aos-delay="100">
+                <img src="/static/assets/img/language.svg" class="img-fluid" alt="" width="65%">
                 
             </div>
 
@@ -53,21 +53,21 @@
           <div class="col-md-4">
             <div class="icon-box">
             <i class="icofont-dart"></i>
-              <h4><a href="{% url 'language_quiz_category_list_all' %}">Category wise</a></h4>
+              <h4><a href="{% url 'language_quiz_category_list_all' %}" class="stretched-link">Category wise</a></h4>
             </div>
           </div>
 
             <div class="col-md-4">
             <div class="icon-box">
             <i class="icofont-anchor"></i>
-              <h4><a href="{% url 'language_quiz_progress' %}">Progress</a></h4>
+              <h4><a href="{% url 'language_quiz_progress' %}" class="stretched-link">Progress</a></h4>
             </div>
           </div>
             {% if user.is_superuser %}
             <div class="col-md-4">
             <div class="icon-box">
             <i class="icofont-settings"></i>
-              <h4><a href="{% url 'language_quiz_marking' %}">View Test Submission</a></h4>
+              <h4><a href="{% url 'language_quiz_marking' %}" class="stretched-link">View Test Submission</a></h4>
             </div>
           </div>
              {% endif %}
