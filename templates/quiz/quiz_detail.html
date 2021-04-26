@@ -15,8 +15,8 @@
                     <h2>{{ quiz.title }}</h2>
 
                     <ol>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="{% url 'quiz_index' %}">Practice</a></li>
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li><a href="{% url 'quiz_index' %}">Aptitude Tests</a></li>
                         <li>
                             <a href="{% url 'quiz_category_list_matching' category_name=quiz.category %}">{{ quiz.category }}</a>
                         </li>
@@ -40,7 +40,7 @@
                         {% endif %}
 
                         <a class="btn btn-danger" href="{% url 'quiz_question' quiz_name=quiz.url %}">
-                            {% trans "Start quiz" %}
+                            {% trans "Start Test" %}
                         </a>
                     </div>
                 </div>

@@ -8,11 +8,11 @@
             <div class="container">
 
                 <div class="d-flex justify-content-between align-items-center">
-                    <h2>{% trans "Quizzes related to " %} <strong>{{ category.category }} </strong>{% trans "category" %}</h2>
+                    <h2>{% trans "Tests related to " %} <strong>{{ category.category }} </strong>{% trans "category" %}</h2>
 
                     <ol>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="{% url 'quiz_index' %}">Practice</a></li>
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li><a href="{% url 'quiz_index' %}">Aptitude Tests</a></li>
                         <li><a href="{% url 'quiz_category_list_all' %}">Category</a></li>
                         <li>{{ category.category }}</li>
                     </ol>
@@ -22,7 +22,7 @@
 
         <section id="" class="">
             <div class="container">
-                <h3>Select the Quiz</h3>
+                <h3 class="p-3">Select the Test</h3>
                 {% with object_list as quizzes %}
                     {% if quizzes %}
 

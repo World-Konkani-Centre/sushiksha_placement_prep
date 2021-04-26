@@ -17,8 +17,8 @@
                     <h3>{% trans "Category" %}: {{ sitting.quiz.category }}</h3>
 
                     <ol>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="{% url 'language_quiz_index' %}">Practice</a></li>
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li><a href="{% url 'language_quiz_index' %}">Language Tests</a></li>
                         <li>
                             <a href="{% url 'language_quiz_category_list_matching' category_name=sitting.quiz.category %}">{{ sitting.quiz.category }}</a>
                         </li>

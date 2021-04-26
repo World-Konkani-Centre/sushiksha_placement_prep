@@ -7,11 +7,13 @@
   <h2 class="heading">You found a glitch in Matrix</h2>
   <h2 class="heading">{{error_no}}: {{error_detail}}</h2>
 
+  <div class="container">
   {% if error_no == 404 %}
     <img src="{% static 'assets/img/error/404.svg' %}">
   {% else %}
     <img src="{% static 'assets/img/error/403.svg' %}">
   {% endif %}
+  </div>
 
 </div>
 

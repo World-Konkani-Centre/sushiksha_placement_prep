@@ -13,10 +13,6 @@
         }
 
 
-        @page :left {
-            margin-left: 250mm;
-        }
-
         @media print {
             body {
                 font-size: 120%;
@@ -314,7 +310,7 @@
                                         {{ p.description }}
                                     </p>
                                     <p class="ie-p">{{ p.start_date }}-{% if p.end_date %}
-                                        {{ p.start_date }}{% else %}
+                                        {{ p.end_date }}{% else %}
                                         Current{% endif %}</p>
                                 </li>
                             {% endfor %}
