@@ -1,19 +1,25 @@
 from django import forms
 
-from resume_builder.models import Contact,  Skill, Education, InternshipExperience, TrainingCertification, \
-    Project, Extra, Language, Achievement,   Resume, Comments
+from resume_builder.models import Contact, Skill, Education, InternshipExperience, TrainingCertification, \
+    Project, Extra, Language, Achievement, Resume, Comments
 
 
 class ContactModelForm(forms.ModelForm):
     class Meta:
         model = Contact
         fields = ['prefix', 'first_name', 'last_name', 'address_1', 'address_2', 'country', 'state', 'pin',
-                  'phone_number', 'email', 'linked_in','linked_in_user', 'github','github_user']
+                  'phone_number', 'email', 'linked_in', 'linked_in_user', 'github', 'github_user']
 
     def __init__(self, *args, **kwargs):
         super(ContactModelForm, self).__init__(*args, **kwargs)
         self.fields['linked_in'].required = False
         self.fields['github'].required = False
+        self.fields['github'].label = 'GitHub'
+        self.fields['linked_in'].label = 'LinkedIn'
+        self.fields['prefix'].label = 'Tagline'
+        self.fields['linked_in_user'].label = 'LinkedIn username'
+        self.fields['github_user'].label = 'GitHub username'
+
 
 #
 # class ObjectiveModelForm(forms.ModelForm):
@@ -31,7 +37,7 @@ class SkillModelForm(forms.ModelForm):
 class EducationModelForm(forms.ModelForm):
     class Meta:
         model = Education
-        fields = ['school_name', 'board', 'country', 'state', 'city', 'degree', 'field_of_study', 'joining_date',
+        fields = ['school_name', 'board', 'degree', 'country', 'state', 'city', 'field_of_study', 'joining_date',
                   'status', 'passing_date', 'score']
 
     def __init__(self, *args, **kwargs):
@@ -48,6 +54,8 @@ class InternshipFormExperienceForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(InternshipFormExperienceForm, self).__init__(*args, **kwargs)
         self.fields['date_of_exit'].required = False
+        self.fields['date_of_exit'].label = 'Date of Completion'
+        self.fields['name'].label = 'Company name/ Industry name'
 
 
 class TrainingCertificationForm(forms.ModelForm):
@@ -73,14 +81,13 @@ class ProjectForm(forms.ModelForm):
 class ExtraModelForm(forms.ModelForm):
     class Meta:
         model = Extra
-        fields = ['name','description']
+        fields = ['name', 'description']
 
 
 class LanguageModelForm(forms.ModelForm):
     class Meta:
         model = Language
         fields = ['language', 'proficiency']
-
 
 
 class AchievementModelForm(forms.ModelForm):
