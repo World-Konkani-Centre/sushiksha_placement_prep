@@ -545,7 +545,7 @@ def preview_template(request):
             pass
         template = Template.objects.get(id=templateId)
         user = User.objects.get(id=userId)
-        contact_obj = Contact.objects.get(user=user)
+        contact_obj = Contact.objects.filter(user=user).first()
         # objectives_obj = Objective.objects.filter(user=user)
         skills_obj = Skill.objects.filter(user=user)
         education_obj = Education.objects.filter(user=user)
