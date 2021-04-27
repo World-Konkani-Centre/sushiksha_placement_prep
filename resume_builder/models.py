@@ -2,12 +2,9 @@ from django.contrib.auth.models import User
 from django.db import models
 
 STATUS = (
-    ('1', 'Queued'),
-    ('2', 'Reviewing'),
-    ('3', 'Reviewed'),
-    ('4', 'Reviewed and Needs Update'),
-    ('5', 'Editing'),
-    ('6', 'Complete'),
+    ('1', 'Under Review'),
+    ('2', 'Needs Update'),
+    ('3', 'Complete'),
 )
 
 
@@ -29,14 +26,6 @@ class Comments(models.Model):
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     comment = models.TextField()
-
-
-# PREFIX_OPTIONS = (
-#     ("3", "-"),
-#     ("0", "Mr"),
-#     ("1", "Mrs"),
-#     ("2", "Ms"),
-# )
 
 
 class Contact(models.Model):
