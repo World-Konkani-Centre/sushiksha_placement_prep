@@ -10,7 +10,7 @@ import sushiksha_placement_prep.settings as se
 API_ENDPOINT = "https://api.jdoodle.com/v1/execute"
 
 LANG_CODE = {'c': 1, 'java': 3, 'cpp14': 3, 'python3': 3, 'go': 3,
-             'sql': 3, 'csharp': 3, 'dart': 3, 'nodejs': 3, 'kotlin': 2, 'brainfuck': 0, }
+             'sql': 3, 'csharp': 3, 'dart': 3, 'nodejs': 3, 'kotlin': 2 }
 
 
 @login_required
@@ -38,14 +38,10 @@ def result(request):
             headers = {'Content-type': 'application/json'}
             r = requests.post(url=API_ENDPOINT, data=json.dumps(data), headers=headers)
             json_data = r.json()
-            print(json_data)
             status = r.status_code
-            print(status)
             output = json_data['output']
         except Exception as e:
-            print(e)
             output = settings.ERROR_MESSAGE
-        print(output)
         return HttpResponse(json.dumps({'output': json_data['output']}), content_type="application/json")
     else:
         return render(request, 'compiler/code_editor.html', locals())
