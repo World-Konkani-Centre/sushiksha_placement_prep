@@ -76,13 +76,13 @@
                                         </form>
                                     {% endif %}
                                 {% else %}
-                                    <h3>{% if q.status == '1' %}
-                                        Under Review
-                                    {% elif q.status == '2' %}
-                                        Needs Update
-                                    {% elif q.status == '3' %}
-                                        Complete
-                                    {% endif %}</h3>
+                                    {% if resume.status == '1' %}
+                                        <h3>Under Review</h3>
+                                    {% elif resume.status == '2' %}
+                                        <h3>Needs Update</h3>
+                                    {% elif resume.status == '3' %}
+                                        <h3>Complete</h3>
+                                    {% endif %}
                                 {% endif %}
                             </div><!-- End sidebar categories-->
 
