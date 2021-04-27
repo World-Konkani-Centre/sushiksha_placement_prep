@@ -56,6 +56,7 @@ class InternshipFormExperienceForm(forms.ModelForm):
         self.fields['date_of_exit'].required = False
         self.fields['date_of_exit'].label = 'Date of Completion'
         self.fields['name'].label = 'Company name/ Industry name'
+        self.fields['i_status'].label = 'Status'
 
 
 class TrainingCertificationForm(forms.ModelForm):
@@ -66,6 +67,7 @@ class TrainingCertificationForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(TrainingCertificationForm, self).__init__(*args, **kwargs)
         self.fields['date'].required = False
+        self.fields['t_status'].lable = 'Status'
 
 
 class ProjectForm(forms.ModelForm):
@@ -76,6 +78,7 @@ class ProjectForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ProjectForm, self).__init__(*args, **kwargs)
         self.fields['end_date'].required = False
+        self.fields['p_status'].label = 'Status'
 
 
 class ExtraModelForm(forms.ModelForm):
