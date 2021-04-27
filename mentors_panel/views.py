@@ -29,70 +29,64 @@ def resume_list(request):
 
 @login_required
 def resume_view_user(request):
-    if request.user.profile.is_mentor:
-        resume = Resume.objects.filter(user=request.user).first()
-        if resume:
-            return redirect('resume-view', resumeId=resume.id)
-        else:
-            return HttpResponseNotFound("You have not submitted any resume for review")
+    resume = Resume.objects.filter(user=request.user).first()
+    if resume:
+        return redirect('resume-view', resumeId=resume.id)
     else:
-        return HttpResponse("Unauthorized", 401)
+        return HttpResponseNotFound("You have not submitted any resume for review")
 
 
 @login_required
 def resume_view(request, resumeId):
-    if request.user.profile.is_mentor:
-        resume = Resume.objects.get(id=resumeId)
-        p = Profile.objects.get(user=request.user)
-        if request.method == 'GET':
-            comments = Comments.objects.filter(resume=resume).order_by('-id')
-            if p.is_mentor:
-                form_r = ResumeModelForm(instance=resume)
-                form_c = CommentModelForm()
-                context = {
-                    'resume': resume,
-                    'form_r': form_r,
-                    'form_c': form_c,
-                    'heading': 'Resume',
-                    'comments': comments
-                }
-                return render(request, 'mentors-panel/resume-single.html', context=context)
+    resume = Resume.objects.get(id=resumeId)
+    p = Profile.objects.get(user=request.user)
+    if request.method == 'GET':
+        comments = Comments.objects.filter(resume=resume).order_by('-id')
+        if p.is_mentor:
+            form_r = ResumeModelForm(instance=resume)
+            form_c = CommentModelForm()
+            context = {
+                'resume': resume,
+                'form_r': form_r,
+                'form_c': form_c,
+                'heading': 'Resume',
+                'comments': comments
+            }
+            return render(request, 'mentors-panel/resume-single.html', context=context)
+        else:
+            form_c = CommentModelForm()
+            context = {
+                'resume': resume,
+                'form_c': form_c,
+                'heading': 'Resume',
+                'comments': comments
+            }
+            return render(request, 'mentors-panel/resume-single.html', context=context)
+    elif request.method == 'POST':
+        if p.is_mentor:
+            form_r = ResumeModelForm(request.POST, instance=resume)
+            form_c = CommentModelForm(request.POST)
+            if form_r.is_valid():
+                form_r.save()
+                messages.success(request, f'Resume has been changed successfully')
+            if form_c.is_valid():
+                comm = form_c.save(commit=False)
+                comm.resume = resume
+                comm.user = request.user
+                comm.save()
+                messages.success(request, f'comment has been posted successfully')
+            return redirect('resume-list')
+        else:
+            form_c = CommentModelForm(request.POST)
+            if form_c.is_valid():
+                comm = form_c.save(commit=False)
+                comm.resume = resume
+                comm.user = request.user
+                comm.save()
+                messages.success(request, f'comment has been posted successfully')
             else:
-                form_c = CommentModelForm()
-                context = {
-                    'resume': resume,
-                    'form_c': form_c,
-                    'heading': 'Resume',
-                    'comments': comments
-                }
-                return render(request, 'mentors-panel/resume-single.html', context=context)
-        elif request.method == 'POST':
-            if p.is_mentor:
-                form_r = ResumeModelForm(request.POST, instance=resume)
-                form_c = CommentModelForm(request.POST)
-                if form_r.is_valid():
-                    form_r.save()
-                    messages.success(request, f'Resume has been changed successfully')
-                if form_c.is_valid():
-                    comm = form_c.save(commit=False)
-                    comm.resume = resume
-                    comm.user = request.user
-                    comm.save()
-                    messages.success(request, f'comment has been posted successfully')
-                return redirect('resume-list')
-            else:
-                form_c = CommentModelForm(request.POST)
-                if form_c.is_valid():
-                    comm = form_c.save(commit=False)
-                    comm.resume = resume
-                    comm.user = request.user
-                    comm.save()
-                    messages.success(request, f'comment has been posted successfully')
-                else:
-                    messages.error(request, f'something wrong in the input')
-                    return redirect('resume-view', resumeId=resumeId)
-    else:
-        return HttpResponse("Unauthorized", 401)
+                messages.error(request, f'something wrong in the input')
+                return redirect('resume-view', resumeId=resumeId)
 
 
 @login_required
