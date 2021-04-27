@@ -1,0 +1,157 @@
+
+
+<form id = "data">
+{% csrf_token %}
+<style type="text/css" media="screen">
+    #editor {
+        width: 100%;
+        height: 400px;
+        border: 3px solid #73AD21;
+    }
+    #stdin{
+         top: 0%;
+        width: 50%;
+        right: 0%;
+        bottom: 0%;
+        left: 0%;
+        border: 3px solid #73AD21;
+    }
+</style>
+
+<div class="container">
+    <div class="row" id="header">
+        <div class="col-sm-4">
+            <h4 class="language-text">Select your language:</h4>
+        </div>
+        <div id="outer" class="col-">
+            <select id="language" data-placeholder="Choose a Language..." class="" tabindex="1">
+            <option value="1">c</option>
+            <option value="3">python3</option>
+            <option value="3">java</option>
+            <option value="3">cpp14</option>
+            <option value="3">go</option>
+            <option value="3">sql</option>
+            <option value="3">csharp</option>
+            <option value="3">dart</option>
+            <option value="3">nodejs</option>
+            <option value="2">kotlin</option>
+        </select>
+        </div>
+    </div>
+    <div class="row" id="header">
+        <div class="col-sm-4">
+            <h4 class="language-text">Select theme:</h4>
+        </div>
+        <div id="outer" class="col-">
+            <select id="language" data-placeholder="Choose a theme..." class="" tabindex="1">
+            <option value="iplastic">iplastic</option>
+            <option value="ambiance">ambiane</option>
+            <option value="chrome">chrome</option>
+            <option value="clouds">clouds</option>
+            <option value="github">github</option>
+            <option value="monokai">monokai</option>
+            <option value="terminal">terminal</option>
+            <option value="xcode">xcode</option>
+            <option value="kuroir">kuroir</option>
+            <option value="2">kotlin</option>
+        </select>
+        </div>
+    </div>
+    <br>
+    <div id="spacing" class="col-sm-12">
+        <div id="editor"></div>
+    </div>
+
+    <div class="col-sm-12" id="footer-compiler mt-5">
+        <button id="btn" class="btn btn-success mt-5">Run</button>
+    </div>
+</div>
+<div class="container" id="outermost">
+        <div class="container innermost">
+            <div class="checkbox">
+                <label><input id="custom-input-checkbox" type="checkbox" checked>Use custom input to test the code</label>
+            </div>
+
+            <h4>Testcases:</h4>
+            <textarea id="stdin" placeholder="Enter your testcases here..." rows="10" cols="20"></textarea>
+        </div>
+
+        <div class="container innermost">
+            <div id="output" class="well">
+                <h5>Output:</h5>
+            </div>
+    </div>
+
+</div>
+</form>
+
+{% load static %}
+<script src="{% static 'compiler/src-min/ace.js' %}" type="text/javascript" charset="utf-8"></script>
+
+<script>
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/xcode");
+    editor.getSession().setMode("ace/mode/c_cpp");
+    editor.setShowPrintMargin(false);
+    editor.setFontSize("14px");
+
+    $("#language").change(function () {
+        var l =$("select option:selected").text();
+        console.log(l);
+        if (l==="python" || l==="python3")
+            {editor.getSession().setMode("ace/mode/python");}
+        else if (l==="c"){
+            editor.getSession().setMode("ace/mode/c_cpp");
+        }
+        else{
+            editor.getSession().setMode("ace/mode/"+l);
+        }
+
+
+    });
+
+     $('#custom-input-checkbox').click(function () {
+
+        $("#stdin").slideToggle();
+
+    });
+
+    $(document).on("submit","#data" ,function (e) {
+            e.preventDefault();
+            $("#output").html("Submitting..");
+            // disable submit btn
+            $("#btn").prop('disabled', true)
+        $.ajax(
+            {
+                type: "POST",
+                url : "{% url 'compiler:result' %}",
+                data: {
+
+                    script: editor.getValue(),
+                    lang: $("select option:selected").text(),
+                    stdin:$("#stdin").val(),
+                    csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+
+                },
+
+
+                success: function (output) {
+                    // enables submit btn
+                    $("#btn").prop('disabled', false)
+                    var str = (output.output).toString();
+                    str=decodeURIComponent(escape(str));
+                 $("#output").html(str);
+                },
+
+                error:function (err) {
+                    // enables submit btn
+                    $("#btn").prop('disabled', false)
+                    $("#output").html("Something went wrong please try again");
+                },
+            })
+
+
+    })
+
+
+</script>
