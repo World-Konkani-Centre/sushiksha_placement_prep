@@ -56,14 +56,12 @@
               <h4><a href="{% url 'resume-preview' %}" class="stretched-link">Preview</a></h4>
             </div>
           </div>
-            {% if user.is_superuser or request.user.profile.is_mentor %}
             <div class="col-md-4">
             <div class="icon-box">
             <i class="icofont-refresh"></i>
               <h4><a href="{% url 'resume-view-user' %}" class="stretched-link">Status</a></h4>
             </div>
           </div>
-             {% endif %}
         </div>
       </div>
     </section>

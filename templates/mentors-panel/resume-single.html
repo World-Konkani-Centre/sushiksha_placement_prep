@@ -67,6 +67,7 @@
                                 {% if resume.user == request.user %}
                                     <a class="btn btn-info" href="{% url 'resume-contact' %}">Back to Edit </a>
                                 {% endif %}
+                            {% if request.user.profile.is_mentor or request.user.is_superuser%}
                                 {% if form_r %}
                                     <form method="POST">
                                         {% csrf_token %}
@@ -74,6 +75,7 @@
                                         <button type="submit" class="btn btn-danger">Submit</button>
                                     </form>
                                 {% endif %}
+                            {% endif %}
                             </div><!-- End sidebar categories-->
 
                         </div><!-- End sidebar -->
