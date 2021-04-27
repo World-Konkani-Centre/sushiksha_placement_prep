@@ -66,7 +66,7 @@
 
                     <p><strong>{% trans "Explanation" %}:</strong></p>
                     <div class="well " style="background-color: #fcf8e3;">
-                        {{ previous.previous_question.explanation | safe}}
+                        {{ previous.previous_question.explanation | safe }}
                     </div>
                     <hr>
                 {% endif %}
@@ -79,11 +79,12 @@
                             {% trans "Question" %} {{ progress.0|add:1 }} {% trans "of" %} {{ progress.1 }}
                         </div>
                     {% endif %}
-
-                    <p>
-                        <small class="muted">{% trans "Question category" %}:</small>
-                        <strong>{{ question.category }}</strong>
-                    </p>
+                    {% if question.category %}
+                        <p>
+                            <small class="muted">{% trans "Question category" %}:</small>
+                            <strong>{{ question.category }}</strong>
+                        </p>
+                    {% endif %}
 
                     <h3>{{ question.content }}</h3>
 
@@ -106,9 +107,9 @@
                             {% endfor %}
                         </ul>
 
-                            {{ form.timeout_count }}
+                        {{ form.timeout_count }}
 
-                        <input type="submit" id="submit" value="{% trans "Check" %}"
+                        <input type="submit" id="submit" value="{% trans "Submit" %}"
                                class="btn btn-info btn-lg btn-block mt-2 ">
                     </form>
                     <script>
@@ -116,16 +117,15 @@
                         let count = 0
                         const intervalId = window.setInterval(function () {
                             if (time_left === 0) {
-                                if(count===0) {
+                                if (count === 0) {
                                     alert("Time allotted for this question has been parred so you wont be awarded with points of this question, give this a try and all the best for rest of the questions in the series")
-                                    count=1;
+                                    count = 1;
                                     console.log(document.getElementById('timeoutID').value);
                                     document.getElementById('timeoutID').value = "True";
                                     console.log(document.getElementById('timeoutID').value);
                                 }
                                 document.getElementById('timer').innerHTML = time_left.toString()
-                            }
-                            else{
+                            } else {
                                 time_left = time_left - 1;
                                 document.getElementById('timer').innerHTML = time_left.toString()
                             }
@@ -141,6 +141,6 @@
 
 
 {% block script %}
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 {% endblock script %}
