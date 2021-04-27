@@ -18,11 +18,13 @@
          <li><a href="{% url 'quiz_index' %}">Aptitude Tests</a></li>
              <li><a href="{% url 'language_quiz_index' %}">Language Tests</a></li>
           <li class="drop-down">
-              <a href="{% url 'resume-contact' %}">Resume Builder</a>
+              <a href="{% url 'resume-home' %}">Resume Builder</a>
               <ul>
                 <li><a href="{% url 'resume-contact' %}">Build</a></li>
                 <li><a href="{% url 'resume-preview' %}">Preview</a></li>
+                {% if request.user.profile.is_mentor %}
                 <li><a href="{% url 'resume-view-user' %}">Status</a></li>
+                {% endif %}
               </ul>
           </li>
 
