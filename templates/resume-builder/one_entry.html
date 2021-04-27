@@ -11,15 +11,23 @@
 {% block content %}
 
     <main id="main">
-    <section class="breadcrumbs">
-        <div class="container">
+     <section id="breadcrumbs" class="breadcrumbs">
+            <div class="container">
 
-            {% if heading %}
-                <h2 class="entry-title">{{ heading }}
-                </h2>
-            {% endif %}
-        </div>
-    </section>
+                <div class="d-flex justify-content-between align-items-center">
+                {% if heading %}
+                    <h2>{{ heading }}</h2>
+                {% endif %}
+
+                    <ol>
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li><a href="{% url 'resume-home' %}">Resume Builder</a></li>
+                        <li>Build</li>
+                    </ol>
+                </div>
+
+            </div>
+        </section>
 
 
     <section id="blog" class="blog">
@@ -270,9 +278,9 @@
                                             <tr>
                                                 <td> {{ p.name }} </td>
                                                 <td><a class="btn btn-success"
-                                                       href="{% url 'resume-extra-edit' id=p.id %}">edit</a></td>
+                                                       href="{% url 'resume-extra-edit' id=p.id %}">Edit</a></td>
                                                 <td><a class="btn btn-danger"
-                                                       href="{% url 'resume-extra-delete' id=p.id %}">delete</a></td>
+                                                       href="{% url 'resume-extra-delete' id=p.id %}">Delete</a></td>
                                             </tr>
                                         {% endfor %}
                                         </tbody>
