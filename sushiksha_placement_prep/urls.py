@@ -10,6 +10,7 @@ import interviews.urls as int_urls
 import users.urls as user_url
 from .views import index
 import language.urls as l_urls
+import  compiler.urls as c_urls
 
 handler404 = 'sushiksha_placement_prep.views.handler404'
 handler500 = 'sushiksha_placement_prep.views.handler500'
@@ -27,6 +28,7 @@ urlpatterns = [
     url('aptitude/', include(assmt_url)),
     url('language/', include(l_urls)),
     url('interview/', include(int_urls)),
+    url('compiler/', include(c_urls)),
 ]
 
 if settings.DEBUG:
