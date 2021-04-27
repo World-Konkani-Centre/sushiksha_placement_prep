@@ -4,6 +4,6 @@ from . import views
 app_name = 'compiler'
 
 urlpatterns = [
-    path('', views.code_editor, name = "compiler"),
-    path('result/', views.result, name = "result"),
+    path('', views.code_editor, name="compiler"),
+    path('result/', views.result, name="result"),
 ]

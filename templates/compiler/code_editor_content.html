@@ -37,7 +37,25 @@
             <option value="2">kotlin</option>
         </select>
         </div>
-        <div class="col-sm-4"></div>
+    </div>
+    <div class="row" id="header">
+        <div class="col-sm-4">
+            <h4 class="language-text">Select theme:</h4>
+        </div>
+        <div id="outer" class="col-">
+            <select id="language" data-placeholder="Choose a theme..." class="" tabindex="1">
+            <option value="iplastic">iplastic</option>
+            <option value="ambiance">ambiane</option>
+            <option value="chrome">chrome</option>
+            <option value="clouds">clouds</option>
+            <option value="github">github</option>
+            <option value="monokai">monokai</option>
+            <option value="terminal">terminal</option>
+            <option value="xcode">xcode</option>
+            <option value="kuroir">kuroir</option>
+            <option value="2">kotlin</option>
+        </select>
+        </div>
     </div>
     <br>
     <div id="spacing" class="col-sm-12">
@@ -72,7 +90,7 @@
 
 <script>
     var editor = ace.edit("editor");
-    editor.setTheme("ace/theme/iplastic");
+    editor.setTheme("ace/theme/xcode");
     editor.getSession().setMode("ace/mode/c_cpp");
     editor.setShowPrintMargin(false);
     editor.setFontSize("14px");
