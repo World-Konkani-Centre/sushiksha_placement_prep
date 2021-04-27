@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'quiz',
     'language',
     'interviews',
+    'compiler',
 ]
 
 MIDDLEWARE = [
@@ -216,3 +217,11 @@ LOGIN_URL = 'login'
 
 
 SERVICE_EMAIL = config.get("SERVICE_EMAIL")
+
+
+Client_id = config.get('CLIENT_ID')
+Client_secret = config.get('CLIENT_SECRET')
+
+ERROR_MESSAGE = "Something went wrong please try again"
+CORECT_SUBMISSION_MESSAGE = "Correct!!"
+INCORECT_SUBMISSION_MESSAGE = "Wrong Answer. How about changing few more lines in the code"

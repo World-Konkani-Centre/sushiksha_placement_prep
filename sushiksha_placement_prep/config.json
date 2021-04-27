@@ -4,5 +4,7 @@
   "MAIL_PASS": "",
   "HCK_SECRET_kEY": "key here",
   "SECRET_PASSWORD": "",
-  "SERVICE_EMAIL" : ""
+  "SERVICE_EMAIL" : "",
+  "CLIENT_ID": "",
+  "CLIENT_SECRET" : ""
 }
