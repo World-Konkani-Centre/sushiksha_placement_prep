@@ -12,11 +12,22 @@
 {% block content %}
 
     <main id="main">
-        <section class="breadcrumbs">
+
+          <section id="breadcrumbs" class="breadcrumbs">
             <div class="container">
-                <h2 class="entry-title">GD interview list
-                </h2>
-                <p>*All date and time are based IST (Kolkata/Asia)</p>
+
+                <div class="d-flex justify-content-between align-items-center">
+                     <h2>GD Interview List<br>
+                    <small class="text-muted" style="font-size:13px">*All date and time are based IST (Kolkata/Asia)</small>
+                    </h2>
+
+                    <ol>
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li><a href="{% url 'interview-home' %}">Mock Interviews</a></li>
+                        <li>GD Interview</li>
+                    </ol>
+                </div>
+
             </div>
         </section>
 

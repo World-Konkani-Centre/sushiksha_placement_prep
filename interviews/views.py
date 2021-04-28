@@ -172,3 +172,8 @@ def gd_interview_details(request, intId):
                              f'calendar, accept the google calendar link for further notification')
         return redirect('gd-interviews-list')
     return render(request, 'interviews/gd-single.html', context)
+
+
+@login_required
+def interview_home(request):
+    return render(request, 'interviews/interviews-home.html')
