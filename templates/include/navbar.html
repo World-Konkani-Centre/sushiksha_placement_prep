@@ -11,10 +11,9 @@
 
         <nav class="nav-menu d-none d-lg-block">
           <ul>
-          {% if user.is_authenticated %}
             <li><a href="{% url 'index' %}">Home</a></li>
-          {% endif %}
-         {% if user.is_authenticated %}
+        
+         
          <li><a href="{% url 'quiz_index' %}">Aptitude Tests</a></li>
              <li><a href="{% url 'language_quiz_index' %}">Language Tests</a></li>
              <li>
@@ -32,7 +31,7 @@
               </ul>
             </li>
             {% endif %}
-
+            {% if user.is_authenticated %}
             <li class="drop-down">
               <a href="{% url 'profile' %}">Profile</a>
               <ul>

@@ -174,6 +174,5 @@ def gd_interview_details(request, intId):
     return render(request, 'interviews/gd-single.html', context)
 
 
-@login_required
 def interview_home(request):
     return render(request, 'interviews/interviews-home.html')
