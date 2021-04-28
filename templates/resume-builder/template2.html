@@ -2,6 +2,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css"
           integrity="sha512-P5MgMn1jBN01asBgU0z60Qk4QxiXo86+wlFahKrsQf37c9cro517WzVSPPV1tDKzhku2iJ2FVgL67wG03SGnNA=="
           crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
     <style>
         img {
             -webkit-print-color-adjust: exact;
@@ -48,7 +49,7 @@
         }
 
         .header-i{
-            margin-top: 5px;
+            margin-top: 2px;
         }
 
         .first-first-level {
@@ -177,16 +178,25 @@
                             <span class="fa fa-xs fa-phone"></span> +91 {{ contact.phone_number }}
                             {% if contact.github %}
                                 &nbsp <span class="fa fa-xs fa-github"></span>
-                                <a href="{{ contact.github }}">GitHub</a> {% endif %}
+                                {% if contact.github_user %}
+                                <a href="{{ contact.github }}">{{ contact.github_user }}</a>
+                                {% else %}
+                                    <a href="{{ contact.github }}">{{ contact.github }}</a>
+                                {% endif %}
+                {% endif %}
 
                     </p>
                     <p class="info">
                             {% if contact.linked_in %}
                                 <span class="fa fa-xs fa-linkedin"></span>
-                                <a href="{{ contact.linked_in }}">LinkedIn</a>{% endif %}
-
-                            <span class="fa fa-xs fa-envelope"></span>
-                            {{ contact.email }}
+                                {% if contact.linked_in_user %}
+                                <a href="{{ contact.linked_in }}">{{ contact.linked_in_user }}</a>
+                    {% else %}
+                    <a href="{{ contact.linked_in }}">{{ contact.linked_in }}</a>
+                    {% endif %}
+                    {% endif %}
+                            &nbsp <span class="fa fa-xs fa-envelope"></span><a href="mailto:{{ contact.email }}">
+                        {{ contact.email }}</a>
                     </p>
                 </section>
             </div>
