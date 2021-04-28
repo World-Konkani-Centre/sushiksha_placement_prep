@@ -38,11 +38,12 @@ class EducationModelForm(forms.ModelForm):
     class Meta:
         model = Education
         fields = ['school_name', 'board', 'degree', 'country', 'state', 'city', 'field_of_study', 'joining_date',
-                  'status', 'passing_date', 'score']
+                  'status', 'passing_date', 'grades_type', 'score']
 
     def __init__(self, *args, **kwargs):
         super(EducationModelForm, self).__init__(*args, **kwargs)
         self.fields['passing_date'].required = False
+        self.fields['grades_type'].label = 'Grade Type'
 
 
 class InternshipFormExperienceForm(forms.ModelForm):
