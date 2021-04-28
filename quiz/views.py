@@ -29,7 +29,6 @@ class SittingFilterTitleMixin(object):
         return queryset
 
 
-@method_decorator(login_required, name='dispatch')
 class QuizListView(ListView):
     model = Quiz
 
