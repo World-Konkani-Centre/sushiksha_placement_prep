@@ -1,0 +1,70 @@
+{% extends 'base_page.html' %}
+{% load static %}
+
+{% block content %}
+    <main id="main">
+
+
+        <section id="breadcrumbs" class="breadcrumbs">
+            <div class="container">
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2>Mock Interviews</h2>
+
+                    <ol>
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li>Mock Interviews</li>
+                    </ol>
+                </div>
+
+            </div>
+        </section>
+
+    <section id="services" class="services">
+      <div class="container">
+          <h3 class="font-weight-bold pb-2">Face your Campus Interview with confidence</h3>
+
+
+        <div class="row">
+        
+            <div class="col-lg-6  align-self-baseline text-center" data-aos="fade-right" data-aos-delay="100">
+                <img src="/static/assets/img/interview2.svg" class="img-fluid" alt="" width="70%">
+            </div>
+
+            <div class="col-lg-6 wow pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up"
+                    data-aos-delay="100">
+                <p>
+                SCOPEA brings you Alumni power of Vishwa Konkani Scholarship Programme in preparing you for the Campus Placement Interviews. Hundreds of Alumni Mentors are investing a part of their life to give you an experience of real time corporate interviews. </p><p>Select and book yourself a Technical Interview according to your Branch. Attempt multiple HR interviews to gain insight in to corporate minds. Book a slot for yourself in a Group Discussion to experience the heat of Campus Placements. We the Alumni of WKC are with you in your greatest challenge in life so far. Getting you Placed. Go ahead, book yourself an interview!
+                </p>
+
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+          <div class="col-md-4">
+            <div class="icon-box">
+            <i class="icofont-search-job"></i>
+              <h4><a href="{% url 'hr-interviews-list' %}" class="stretched-link">HR</a></h4>
+            </div>
+          </div>
+            <div class="col-md-4">
+            <div class="icon-box">
+            <i class="icofont-code-alt"></i>
+              <h4><a href="{% url 'interviews-list' %}" class="stretched-link">TECH</a></h4>
+            </div>
+          </div>
+            <div class="col-md-4">
+            <div class="icon-box">
+            <i class="icofont-ui-user-group"></i>
+              <h4><a href="{% url 'gd-interviews-list' %}" class="stretched-link">GD</a></h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+
+    </main>
+{% endblock %}

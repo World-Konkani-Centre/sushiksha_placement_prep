@@ -9,7 +9,7 @@
             <div class="container">
 
                 <div class="d-flex justify-content-between align-items-center">
-                    <h2>Build a Professional and Powerful Resume with ease!</h2>
+                    <h2>Resume Builder</h2>
 
                     <ol>
                         <li><a href="{% url 'index' %}">Home</a></li>
@@ -20,53 +20,58 @@
             </div>
         </section>
 
-    <section id="services" class="services">
-      <div class="container">
+        <section id="services" class="services">
+            <div class="container">
+                <h3 class="font-weight-bold pb-2">Build a Professional and Powerful Resume with ease!</h3>
 
-      
-        <div class="row">
+                <div class="row">
 
-            <div class="col-lg-6  align-self-baseline text-center" data-aos="fade-right" data-aos-delay="100">
-                <img src="/static/assets/img/resume.svg" class="img-fluid" alt="" width="55%">
-                
+
+                    <div class="col-lg-6  align-self-baseline text-center" data-aos="fade-right" data-aos-delay="100">
+                        <img src="/static/assets/img/resume.svg" class="img-fluid" alt="" width="55%">
+
+                    </div>
+
+                    <div class="col-lg-6 wow pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up"
+                         data-aos-delay="100">
+                        <p>
+                            With SCOPEA's online Resume Builder, now you can build a professional and powerful Resume
+                            without worrying about the layout and formatting. All you need to do is just go on filling
+                            out the forms provided here for different sections of the Resume, you are done. Then you can
+                            preview the Resume with SCOPEA Templates.</p>
+                        <p>You can also submit your Resume for Review by a Alumni Mentor to ensure your information is
+                            relevant and important. Once you get the Resume Reviewed, you can update it with ease and
+                            Print it out to PDF or Hardcopy. Enjoy.
+                        </p>
+
+                    </div>
+                </div>
+                <br>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="icon-box">
+                            <i class="icofont-automation"></i>
+                            <h4><a href="{% url 'resume-contact' %}" class="stretched-link">Build</a></h4>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="icon-box">
+                            <i class="icofont-file-document"></i>
+                            <h4><a href="{% url 'resume-preview' %}" class="stretched-link">Preview</a></h4>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="icon-box">
+                            <i class="icofont-refresh"></i>
+                            <h4><a href="{% url 'resume-view-user' %}" class="stretched-link">Status</a></h4>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </section>
 
-            <div class="col-lg-6 wow pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up"
-                    data-aos-delay="100">
-                <p>
-                With SCOPEA's online Resume Builder, now you can build a professional and powerful Resume without worrying about the layout and formatting. All you need to do is just go on filling out the forms provided here for different sections of the Resume, you are done. Then you can preview the Resume with SCOPEA Templates.</p>
-                <p>You can also submit your Resume for  Review by a Alumni Mentor to ensure your information is relevant and important. Once you get the Resume Reviewed, you can update it with ease and Print it out to PDF or Hardcopy. Enjoy.    
-                </p>
-
-            </div>
-        </div>
-        <br>
-
-        <div class="row">
-          <div class="col-md-4">
-            <div class="icon-box">
-            <i class="icofont-automation"></i>
-              <h4><a href="{% url 'resume-contact' %}" class="stretched-link">Build</a></h4>
-            </div>
-          </div>
-
-            <div class="col-md-4">
-            <div class="icon-box">
-            <i class="icofont-file-document"></i>
-              <h4><a href="{% url 'resume-preview' %}" class="stretched-link">Preview</a></h4>
-            </div>
-          </div>
-            <div class="col-md-4">
-            <div class="icon-box">
-            <i class="icofont-refresh"></i>
-              <h4><a href="{% url 'resume-view-user' %}" class="stretched-link">Status</a></h4>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    
 
     </main>
 {% endblock %}

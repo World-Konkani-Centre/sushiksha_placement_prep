@@ -571,6 +571,5 @@ def preview_template(request):
         return render(request, loc, context=context)
 
 
-@login_required
 def resume_home(request):
     return render(request, 'resume-builder/resume-home.html')
