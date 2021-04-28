@@ -156,7 +156,7 @@
                         <div class="content">
                             <p class="l-dh">{{ e.school_name }}<i
                                     class="l-dhi">{{ e.city }},{{ e.state }}</i></p>
-                            <p class="l-dd">{{ e.degree }}, {{ e.field_of_study }} (CGPA - {{ e.score }})<i
+                            <p class="l-dd">{{ e.degree }}, {{ e.field_of_study }} ({{e.grades_type}} - {{ e.score }})<i
                                     class="l-dhi">{{ e.joining_date }}-{% if e.passing_date %}
                                 {{ e.passing_date }}{% else %}Current{% endif %}</i></p>
                         </div>
