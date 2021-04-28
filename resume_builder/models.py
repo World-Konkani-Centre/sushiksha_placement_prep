@@ -71,8 +71,8 @@ STATUS = (
 )
 
 GRADE = (
-    ("1", "CGPA"),
-    ("2", "Percentage")
+    ("CGPA", "CGPA"),
+    ("Percentage", "Percentage")
 )
 
 class Education(models.Model):
@@ -87,7 +87,7 @@ class Education(models.Model):
     joining_date = models.DateField()
     status = models.CharField(max_length=1, default="2", choices=STATUS)
     passing_date = models.DateField(null=True, blank=True)
-    grades_type = models.CharField(max_length=30, choices=GRADE, default="1")
+    grades_type = models.CharField(max_length=30, choices=GRADE, default="CGPA")
     score = models.DecimalField(decimal_places=2, max_digits=5)
 
 
