@@ -50,6 +50,15 @@
         <br>
 
         <div class="row">
+        {% if not user.is_authenticated %}
+<div class="col-md-4">
+            <div class="icon-box">
+            <i class="icofont-calculations"></i>
+              <h4><a href="{% url 'login' %}" class="stretched-link">Take Test</a></h4>
+            </div>
+          </div>
+      {% endif %}
+
           <div class="col-md-4">
             <div class="icon-box">
             <i class="icofont-dart"></i>
@@ -122,12 +131,6 @@
         {% endif %}
                 </div>
 </section>
-        {% else %}
-        <section id="" class="">
-                <div class="container">
-                    <a class="btn btn-danger" href="{% url 'login' %}">Take Test</a>
-                </div>
-        </section>
     {% endif %}
 
 
