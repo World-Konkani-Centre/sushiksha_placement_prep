@@ -74,22 +74,36 @@ def send_interview_cancel_email(interview):
             'content': 'The Below Interview has been canceled',
             'interview_type': interview.type,
             'interview_email': 'None' ,
-            'interview_date': f'{interview.start_time} -- {interview.end_time}',
+            'interview_date': f'{interview.start_time.strftime("%I:%M %p, %A, %x")} -- {interview.end_time.strftime("%I:%M %p, %A, %x")}',
             'interview_description': interview.description,
             'interview_location': interview.link,
-            'interview_time': 'None',
+            'interview_time': 'Asia/Kolkata',
             'link': 'None'
         }
     )
 
-    subject = f'CANCELED : {interview.participant_1.profile.name} - {interview.start_time} - {interview.type}'
+    subject = f'CANCELED : {interview.participant_1.profile.name} - {interview.start_time.strftime("%I:%M %p, %A, %x")} - {interview.type}'
 
     if interview.participant_2:
+        html_message = loader.render_to_string(
+        'mail/template.html',
+        {
+            'content': 'The Below Interview has been canceled',
+            'interview_type': interview.type,
+            'interview_email': 'None' ,
+            'interview_date': f'{interview.start_time.strftime("%I:%M %p, %A, %x")} -- {interview.end_time.strftime("%I:%M %p, %A, %x")}',
+            'interview_description': interview.description,
+            'interview_location': interview.link,
+            'interview_time': 'Asia/Kolkata',
+            'link': 'None'
+        }
+    )
         send_mail(
-            subject='Cancelled -- Mock Interview with sushiksha mentor',
-            message=f'{interview.heading} -- {interview.description}',
+            subject=subject,
+            message=subject,
             from_email=None,
             recipient_list=[f'{interview.participant_2.email}', f'{interview.participant_1.email}'],
+            html_message=html_message,
             fail_silently=False,
         )
     else:
@@ -108,11 +122,10 @@ def send_interview_set_email(interview):
     html_message = loader.render_to_string(
         'mail/template.html',
         {
-            'name': interview.participant_1.profile.name,
             'content': 'A new Mock Interview has been scheduled.',
             'interview_type': interview.type,
             'interview_email': 'None' ,
-            'interview_date': f'{interview.start_time} -- {interview.end_time}',
+            'interview_date': f'{interview.start_time.strftime("%I:%M %p, %A, %x")} -- {interview.end_time.strftime("%I:%M %p, %A, %x")}',
             'interview_description': interview.description,
             'interview_location': interview.link,
             'interview_time': 'None',
@@ -120,7 +133,8 @@ def send_interview_set_email(interview):
         }
     )
 
-    subject = f'NEW INTERVIEW : {interview.participant_1.profile.name} - {interview.start_time} - {interview.type}'
+    subject = f'NEW INTERVIEW : {interview.participant_1.profile.name} -- {interview.start_time.strftime("%I:%M %p, %A, %x")} -- {interview.type}'
+
     send_mail(
         subject=subject,
         message=subject,
