@@ -3,6 +3,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    path('', views.interview_home, name='interview-home'),
     path('gd/', views.gd_apply, name='gd-interviews-list'),
     path('gd/<int:intId>', views.gd_interview_details, name='gd-single'),
     path('tech/view/', views.interview_list, name='interviews-list'),
