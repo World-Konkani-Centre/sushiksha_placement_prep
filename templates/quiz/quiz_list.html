@@ -15,7 +15,7 @@
             <div class="container">
 
                 <div class="d-flex justify-content-between align-items-center">
-                    <h2>Take your Aptitude solving skills to new level</h2>
+                    <h2>{% trans "Aptitude Tests" %}</h2>
 
                     <ol>
                         <li><a href="{% url 'index' %}">Home</a></li>
@@ -29,7 +29,7 @@
     <section id="services" class="services">
       <div class="container">
 
-      
+      <h3 class="font-weight-bold pb-2">Take your Aptitude solving skills to new level</h3>
         <div class="row">
 
             <div class="col-lg-6  align-self-baseline text-center" data-aos="fade-right" data-aos-delay="100">
@@ -83,7 +83,7 @@
         </div>
       </div>
     </section>
-    {% if request.user.is_authenticated %}
+    {% if user.is_authenticated %}
 <section id="" class="">
                 <div class="container">
         {% if quiz_list %}
