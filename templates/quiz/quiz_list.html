@@ -74,6 +74,7 @@
         </div>
       </div>
     </section>
+    {% if request.user.is_authenticated %}
 <section id="" class="">
                 <div class="container">
         {% if quiz_list %}
@@ -121,6 +122,13 @@
         {% endif %}
                 </div>
 </section>
+        {% else %}
+        <section id="" class="">
+                <div class="container">
+                    <a class="btn btn-danger" href="{% url 'login' %}">Take Test</a>
+                </div>
+        </section>
+    {% endif %}
 
 
     </main>
