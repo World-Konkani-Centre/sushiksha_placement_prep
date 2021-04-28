@@ -70,6 +70,10 @@ STATUS = (
     ("2", "Pursuing"),
 )
 
+GRADE = (
+    ("1", "CGPA"),
+    ("2", "Percentage")
+)
 
 class Education(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -83,6 +87,7 @@ class Education(models.Model):
     joining_date = models.DateField()
     status = models.CharField(max_length=1, default="2", choices=STATUS)
     passing_date = models.DateField(null=True, blank=True)
+    grades_type = models.CharField(max_length=30, choices=GRADE, default="1")
     score = models.DecimalField(decimal_places=2, max_digits=5)
 
 
