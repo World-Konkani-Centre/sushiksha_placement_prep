@@ -25,7 +25,7 @@
 
                 <div class="row">
                     <div class="col-lg-8">
-                        <div id="main-content-space">
+                        <div id="main-content-space" style="border: 0.5px solid black">
                         </div>
                         <div>
                             <div class="card card-comments mb-3">
@@ -67,12 +67,22 @@
                                 {% if resume.user == request.user %}
                                     <a class="btn btn-info" href="{% url 'resume-contact' %}">Back to Edit </a>
                                 {% endif %}
-                                {% if form_r %}
-                                    <form method="POST">
-                                        {% csrf_token %}
-                                        {{ form_r | crispy }}
-                                        <button type="submit" class="btn btn-danger">Submit</button>
-                                    </form>
+                                {% if request.user.profile.is_mentor or request.user.is_superuser %}
+                                    {% if form_r %}
+                                        <form method="POST">
+                                            {% csrf_token %}
+                                            {{ form_r | crispy }}
+                                            <button type="submit" class="btn btn-danger">Submit</button>
+                                        </form>
+                                    {% endif %}
+                                {% else %}
+                                    {% if resume.status == '1' %}
+                                        <h3>Under Review</h3>
+                                    {% elif resume.status == '2' %}
+                                        <h3>Needs Update</h3>
+                                    {% elif resume.status == '3' %}
+                                        <h3>Complete</h3>
+                                    {% endif %}
                                 {% endif %}
                             </div><!-- End sidebar categories-->
 
