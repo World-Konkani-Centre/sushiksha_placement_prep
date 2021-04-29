@@ -3,13 +3,17 @@ from django.db import models
 
 OPTIONS = (
     ('HR', 'HR'),
-    ('Technical', 'Technical')
+    ('Technical', 'Technical'),
+    ('Career Counselling', 'Career Counselling'),
+    ('Higher Education Counselling', 'Higher Education Counselling'),
+    ('Stress Management', 'Stress Management'),
+    ('Placement Failures', 'Placement Failures'),
 )
 
 
 class Interview(models.Model):
     heading = models.CharField(max_length=50)
-    type = models.CharField(max_length=10, choices=OPTIONS, default="Technical")
+    type = models.CharField(max_length=50, choices=OPTIONS, default="Technical")
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
     description = models.TextField()
