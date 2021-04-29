@@ -67,7 +67,7 @@ def interview_list(request):
         'interviews_completed': interviews_completed,
         'interviews_scheduled': interviews_scheduled,
         'heading': "Technical interview list",
-        'whatIs': 'tech',
+        'whatIS': 'tech',
     }
     return render(request, 'interviews/list.html', context)
 
@@ -190,7 +190,7 @@ def counselling_list(request):
         'interviews_completed': interviews_completed,
         'interviews_scheduled': interviews_scheduled,
         'heading': "Counselling list",
-        'whatIs': 'counsel',
+        'whatIS': 'counsel',
         'counselling': True
     }
     return render(request, 'interviews/list.html', context)
