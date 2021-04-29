@@ -1111,20 +1111,35 @@ section {
     overflow: hidden;
 }
 
+.pricing h2 {
+    font-weight: 600;
+    padding-bottom: 20px;
+}
+
 .pricing h3 {
     font-weight: 400;
     margin: -20px -20px 20px -20px;
     padding: 20px 15px;
-    font-size: 16px;
+    font-size: 25px;
+    font-weight: 600;
+    color: #777777;
+    background: #f8f8f8;
+}
+
+.pricing h3 {
+    font-weight: 400;
+    margin: -20px -20px 20px -20px;
+    padding: 20px 15px;
+    font-size: 20px;
     font-weight: 600;
     color: #777777;
     background: #f8f8f8;
 }
 
 .pricing h4 {
-    font-size: 36px;
-    color: #d9232d;
-    font-weight: 600;
+    font-size: 18px;
+    color: #777777;
+    font-weight: 400;
     font-family: "Poppins", sans-serif;
     margin-bottom: 20px;
 }
@@ -1168,18 +1183,18 @@ section {
 .pricing .btn-wrap {
     margin: 20px -20px -20px -20px;
     padding: 20px 15px;
-    background: #f8f8f8;
+    background: #fff;
     text-align: center;
 }
 
 .pricing .btn-buy {
-    background: #d9232d;
+    background: #1597bb;
     display: inline-block;
-    padding: 8px 35px 9px 35px;
+    padding: 12px 40px 13px 40px;
     border-radius: 4px;
     color: #fff;
     transition: none;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 400;
     font-family: "Raleway", sans-serif;
     font-weight: 600;
@@ -1187,7 +1202,7 @@ section {
 }
 
 .pricing .btn-buy:hover {
-    background: #e1444d;
+    background: #51c4d3;
 }
 
 .pricing .featured h3 {
