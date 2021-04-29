@@ -190,6 +190,7 @@ def counselling_list(request):
         'interviews_scheduled': interviews_scheduled,
         'heading': "Counselling list",
         'whatIs': 'counsel',
+        'counselling': True
     }
     return render(request, 'interviews/list.html', context)
 
