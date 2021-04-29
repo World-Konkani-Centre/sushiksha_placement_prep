@@ -227,6 +227,7 @@ def counselling_details(request, intId):
         return redirect('interviews-list')
     context = {
         'interview': interview,
-        'heading': "Counselling Interview details"
+        'heading': "Counselling Interview details",
+        'counselling': True
     }
     return render(request, 'interviews/single.html', context)

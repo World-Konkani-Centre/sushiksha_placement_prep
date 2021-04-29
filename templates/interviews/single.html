@@ -20,6 +20,7 @@
                     <ol>
                         <li><a href="{% url 'index' %}">Home</a></li>
                         {% if counselling %}
+                        <li><a href="{% url 'interview-home' %}">Counselling list</a></li>
                         <li>{{ heading }}</li>
                         {% else %}
                         <li><a href="{% url 'interview-home' %}">Mock Interviews</a></li>
