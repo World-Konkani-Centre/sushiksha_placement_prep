@@ -243,7 +243,7 @@
                                     <i class="ie-p">
                                         {{ e.city }},{{ e.state }}
                                     </i>
-                                    <i class="ie-pf">CGPA - {{ e.score }}</i>
+                                    <i class="ie-pf">{{e.grades_type}} - {{ e.score }}</i>
                                     <p class="ie-p">{{ e.joining_date }}-{% if e.passing_date %}
                                         {{ e.passing_date }}{% else %}Current{% endif %}</p>
                                 </li>

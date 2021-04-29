@@ -2,6 +2,7 @@ import os
 
 import httplib2
 from django.core.mail import send_mail
+from django.template import loader
 from googleapiclient.discovery import build
 from oauth2client.service_account import ServiceAccountCredentials
 
@@ -66,30 +67,80 @@ def google_calendar_cancel_interview1v1(interview):
 
 
 def send_interview_cancel_email(interview):
+    html_message = loader.render_to_string(
+        'mail/template.html',
+        {
+            'name': interview.participant_1.profile.name,
+            'content': 'The Below Interview has been canceled',
+            'interview_type': interview.type,
+            'interview_email': 'None' ,
+            'interview_date': f'{interview.start_time.strftime("%I:%M %p, %A, %x")} -- {interview.end_time.strftime("%I:%M %p, %A, %x")}',
+            'interview_description': interview.description,
+            'interview_location': interview.link,
+            'interview_time': 'Asia/Kolkata',
+            'link': 'None'
+        }
+    )
+
+    subject = f'CANCELED : {interview.participant_1.profile.name} - {interview.start_time.strftime("%I:%M %p, %A, %x")} - {interview.type}'
+
     if interview.participant_2:
+        html_message = loader.render_to_string(
+        'mail/template.html',
+        {
+            'content': 'The Below Interview has been canceled',
+            'interview_type': interview.type,
+            'interview_email': 'None' ,
+            'interview_date': f'{interview.start_time.strftime("%I:%M %p, %A, %x")} -- {interview.end_time.strftime("%I:%M %p, %A, %x")}',
+            'interview_description': interview.description,
+            'interview_location': interview.link,
+            'interview_time': 'Asia/Kolkata',
+            'link': 'None'
+        }
+    )
         send_mail(
-            subject='Cancelled -- Mock Interview with sushiksha mentor',
-            message=f'{interview.heading} -- {interview.description}',
+            subject=subject,
+            message=subject,
             from_email=None,
             recipient_list=[f'{interview.participant_2.email}', f'{interview.participant_1.email}'],
+            html_message=html_message,
             fail_silently=False,
         )
     else:
         send_mail(
-            subject='Cancelled -- Mock Interview with sushiksha mentor ',
-            message=f'{interview.heading} -- {interview.description}',
+            subject=subject,
+            message=subject,
             from_email=None,
             recipient_list=[f'{interview.participant_1.email}'],
+            html_message=html_message,
             fail_silently=False,
         )
 
 
 def send_interview_set_email(interview):
+
+    html_message = loader.render_to_string(
+        'mail/template.html',
+        {
+            'content': 'A new Mock Interview has been scheduled.',
+            'interview_type': interview.type,
+            'interview_email': 'None' ,
+            'interview_date': f'{interview.start_time.strftime("%I:%M %p, %A, %x")} -- {interview.end_time.strftime("%I:%M %p, %A, %x")}',
+            'interview_description': interview.description,
+            'interview_location': interview.link,
+            'interview_time': 'None',
+            'link': 'None'
+        }
+    )
+
+    subject = f'NEW INTERVIEW : {interview.participant_1.profile.name} -- {interview.start_time.strftime("%I:%M %p, %A, %x")} -- {interview.type}'
+
     send_mail(
-        subject='Interview set up -- Mock Interview with sushiksha mentor',
-        message=f'{interview.heading} -- {interview.description}',
+        subject=subject,
+        message=subject,
         from_email=None,
         recipient_list=[f'{interview.participant_2.email}', f'{interview.participant_1.email}'],
+        html_message=html_message,
         fail_silently=False,
     )
 
