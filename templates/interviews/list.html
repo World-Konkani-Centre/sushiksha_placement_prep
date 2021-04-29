@@ -12,15 +12,16 @@
 {% block content %}
 
     <main id="main">
-        
-               <section id="breadcrumbs" class="breadcrumbs">
+
+        <section id="breadcrumbs" class="breadcrumbs">
             <div class="container">
 
                 <div class="d-flex justify-content-between align-items-center">
                     <h2>{{ heading }}<br>
-                    <small class="text-muted" style="font-size:13px">*All date and time are based IST (Kolkata/Asia)</small>
+                        <small class="text-muted" style="font-size:13px">*All date and time are based IST
+                            (Kolkata/Asia)</small>
                     </h2>
-                    
+
 
                     <ol>
                         <li><a href="{% url 'index' %}">Home</a></li>
@@ -40,12 +41,13 @@
                         <form method="POST" action="" class="col-md-6">
                             {% csrf_token %}
                             {{ form | crispy }}
-                            <button type="submit" class="btn btn-block custom-success-btn animate__animated">Schedule</button>
+                            <button type="submit" class="btn btn-block custom-success-btn animate__animated">Schedule
+                            </button>
                         </form>
                     </div>
                 {% endif %}
 
-            {% if interviews_scheduled %}
+                {% if interviews_scheduled %}
 
                     <h3 class="mt-5">Available Interviews</h3>
                     <div class="row ">
@@ -57,14 +59,20 @@
                                         <h4 class="card-title">{{ i.type }}</h4>
                                         <p class="card-text">{{ i.start_time }} - {{ i.end_time }}</p>
                                         {% if request.user == i.participant_1 %}
-                                            <a href="{% url 'interview-detail-mentor' intId=i.id %}" class="btn btn-block custom-info-btn animate__animated animate__fadeInUp scrollto">Details </a>
+                                            <a href="{% url 'interview-detail-mentor' intId=i.id %}"
+                                               class="btn btn-block custom-info-btn animate__animated animate__fadeInUp scrollto">Details </a>
                                         {% else %}
                                             {% if whatIS == 'hr' %}
-                                                <a href="{% url 'hr-interviews-single' intId=i.id %}" class="btn btn-block custom-info-btn animate__animated animate__fadeInUp scrollto">Details </a>
-                                                {% else %}
-                                            <a href="{% url 'interviews-single' intId=i.id %}" class="btn btn-block custom-info-btn animate__animated animate__fadeInUp scrollto">Details </a>
-                                        {% endif %}
+                                                <a href="{% url 'hr-interviews-single' intId=i.id %}"
+                                                   class="btn btn-block custom-info-btn animate__animated animate__fadeInUp scrollto">Details </a>
+                                            {% elif whatIS == 'tech' %}
+                                                <a href="{% url 'interviews-single' intId=i.id %}"
+                                                   class="btn btn-block custom-info-btn animate__animated animate__fadeInUp scrollto">Details </a>
+                                            {% else %}
+                                                <a href="{% url 'counselling-single' intId=i.id %}"
+                                                   class="btn btn-block custom-info-btn animate__animated animate__fadeInUp scrollto">Details </a>
                                             {% endif %}
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
@@ -72,8 +80,8 @@
                     </div>
                 {% endif %}
 
-            {% if interviews_completed %}
-                <h3 class="mt-5">Interviews Completed/Scheduled</h3>
+                {% if interviews_completed %}
+                    <h3 class="mt-5">Interviews Completed/Scheduled</h3>
                     <div class="row">
 
                         {% for i in interviews_completed %}
@@ -83,11 +91,14 @@
                                         <h5 class="card-title">{{ i.heading }}</h5>
                                         <h4 class="card-title">{{ i.type }}</h4>
                                         <p class="card-text">{{ i.start_time }} - {{ i.end_time }}</p>
-                                        <p class="card-text">participants - {{ i.participant_1 }},{{ i.participant_2 }}</p>
+                                        <p class="card-text">participants
+                                            - {{ i.participant_1 }},{{ i.participant_2 }}</p>
                                         {% if request.user.profile.is_mentor and request.user == i.participant_1 %}
-                                            <a href="{% url 'interview-detail-mentor' intId=i.id %}" class="btn btn-block custom-info-btn animate__animated animate__fadeInUp scrollto">Details </a>
+                                            <a href="{% url 'interview-detail-mentor' intId=i.id %}"
+                                               class="btn btn-block custom-info-btn animate__animated animate__fadeInUp scrollto">Details </a>
                                         {% else %}
-                                            <a href="{% url 'interviews-single' intId=i.id %}" class="btn btn-block custom-info-btn animate__animated animate__fadeInUp scrollto">Details </a>
+                                            <a href="{% url 'interviews-single' intId=i.id %}"
+                                               class="btn btn-block custom-info-btn animate__animated animate__fadeInUp scrollto">Details </a>
                                         {% endif %}
                                     </div>
                                 </div>
