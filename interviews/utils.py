@@ -69,8 +69,10 @@ def google_calendar_cancel_interview1v1(interview):
 def send_interview_cancel_email(interview):
     if interview.type == 'HR':
         interview_type = 'hr'
-    else:
+    elif interview.type == 'Technical':
         interview_type = 'tech'
+    else:
+        interview_type = 'counselling'
 
     html_message = loader.render_to_string(
         'mail/template.html',
@@ -123,8 +125,10 @@ def send_interview_cancel_email(interview):
 def send_interview_set_email(interview):
     if interview.type == 'HR':
         interview_type = 'hr'
-    else:
+    elif interview.type == 'Technical':
         interview_type = 'tech'
+    else:
+        interview_type = 'counselling'
 
     html_message = loader.render_to_string(
         'mail/template.html',
