@@ -17,7 +17,7 @@ def hr_interview_list(request):
         'interviews_completed': interviews_completed,
         'interviews_scheduled': interviews_scheduled,
         'heading': "HR interview list",
-        'whatIS':'hr'
+        'whatIS': 'hr'
     }
     return render(request, 'interviews/list.html', context)
 
@@ -67,7 +67,7 @@ def interview_list(request):
         'interviews_completed': interviews_completed,
         'interviews_scheduled': interviews_scheduled,
         'heading': "Technical interview list",
-        'whatIs':'tech',
+        'whatIs': 'tech',
     }
     return render(request, 'interviews/list.html', context)
 
@@ -176,3 +176,55 @@ def gd_interview_details(request, intId):
 
 def interview_home(request):
     return render(request, 'interviews/interviews-home.html')
+
+
+@login_required
+def counselling_list(request):
+    interviews_completed = Interview.objects.filter(
+        ( Q(participant_2=request.user) | Q(participant_1=request.user) )& Q(complete=True) &
+        ~(Q(type="HR") | Q(type="Technical")))
+    interviews_scheduled = Interview.objects.filter(Q(complete=False) & ~(
+                                                    Q(type="HR") | Q(type="Technical")))
+    context = {
+        'interviews_completed': interviews_completed,
+        'interviews_scheduled': interviews_scheduled,
+        'heading': "Counselling list",
+        'whatIs': 'counsel',
+    }
+    return render(request, 'interviews/list.html', context)
+
+
+@login_required
+def counselling_details(request, intId):
+    interview = Interview.objects.get(id=intId)
+    if request.POST:
+        val = request.POST.get('hidden_option')
+        if val == '0':
+            send_interview_cancel_email(interview)
+            google_calendar_cancel_interview1v1(interview)
+            if request.user == interview.participant_1:
+                messages.success(request, f'The interview has been cancelled and same is informed to the other')
+                interview.delete()
+            else:
+                interview.participant_2 = None
+                interview.complete = False
+                interview.event_id = None
+                messages.success(request, f'The interview has been cancelled and same is informed to the other')
+                interview.save()
+        elif val == '1':
+            interview.participant_2 = request.user
+            interview.complete = True
+            interview.save()
+            send_interview_set_email(interview)
+            eventId = google_calendar_set_interview1v1(interview)
+            interview.event_id = eventId
+            interview.save()
+            messages.success(request,
+                             f'The interview has been set up and same is informed to the other along with the google '
+                             f'calendar, accept the google calendar link for further notification')
+        return redirect('interviews-list')
+    context = {
+        'interview': interview,
+        'heading': "Counselling Interview details"
+    }
+    return render(request, 'interviews/single.html', context)

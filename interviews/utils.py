@@ -67,35 +67,38 @@ def google_calendar_cancel_interview1v1(interview):
 
 
 def send_interview_cancel_email(interview):
+    if interview.type == 'HR':
+        interview_type = 'hr'
+    else:
+        interview_type = 'tech'
+
     html_message = loader.render_to_string(
         'mail/template.html',
         {
             'name': interview.participant_1.profile.name,
             'content': 'The Below Interview has been canceled',
-            'interview_type': interview.type,
-            'interview_email': 'None' ,
-            'interview_date': f'{interview.start_time.strftime("%I:%M %p, %A, %x")} -- {interview.end_time.strftime("%I:%M %p, %A, %x")}',
+            'interview_type': f'{interview.heading} -- {interview.type}',
+            'interview_date': f'{interview.start_time.strftime("%I:%M %p")} -- {interview.end_time.strftime("%I:%M %p")} ({interview.end_time.strftime("%A, %x")})',
             'interview_description': interview.description,
             'interview_location': interview.link,
             'interview_time': 'Asia/Kolkata',
-            'link': 'None'
+            'link': f'https://scopea.konkanischolarship.com/interview/{interview_type}/view/{interview.id}'
         }
     )
 
-    subject = f'CANCELED : {interview.participant_1.profile.name} - {interview.start_time.strftime("%I:%M %p, %A, %x")} - {interview.type}'
+    subject = f'CANCELED : {interview.heading} - {interview.start_time.strftime("%I:%M %p, %A, %x")} - {interview.type}'
 
     if interview.participant_2:
         html_message = loader.render_to_string(
         'mail/template.html',
         {
             'content': 'The Below Interview has been canceled',
-            'interview_type': interview.type,
-            'interview_email': 'None' ,
-            'interview_date': f'{interview.start_time.strftime("%I:%M %p, %A, %x")} -- {interview.end_time.strftime("%I:%M %p, %A, %x")}',
+            'interview_type': f'{interview.heading} -- {interview.type}',
+            'interview_date': f'{interview.start_time.strftime("%I:%M %p")} -- {interview.end_time.strftime("%I:%M %p")} ({interview.end_time.strftime("%A, %x")})',
             'interview_description': interview.description,
             'interview_location': interview.link,
             'interview_time': 'Asia/Kolkata',
-            'link': 'None'
+            'link': f'https://scopea.konkanischolarship.com/interview/{interview_type}/view/{interview.id}'
         }
     )
         send_mail(
@@ -118,22 +121,25 @@ def send_interview_cancel_email(interview):
 
 
 def send_interview_set_email(interview):
+    if interview.type == 'HR':
+        interview_type = 'hr'
+    else:
+        interview_type = 'tech'
 
     html_message = loader.render_to_string(
         'mail/template.html',
         {
             'content': 'A new Mock Interview has been scheduled.',
-            'interview_type': interview.type,
-            'interview_email': 'None' ,
-            'interview_date': f'{interview.start_time.strftime("%I:%M %p, %A, %x")} -- {interview.end_time.strftime("%I:%M %p, %A, %x")}',
+            'interview_type': f'{interview.heading} -- {interview.type}',
+            'interview_date': f'{interview.start_time.strftime("%I:%M %p")} -- {interview.end_time.strftime("%I:%M %p")} ({interview.end_time.strftime("%A, %x")})',
             'interview_description': interview.description,
             'interview_location': interview.link,
-            'interview_time': 'None',
-            'link': 'None'
+            'interview_time': 'Asia/Kolkata',
+            'link': f'https://scopea.konkanischolarship.com/interview/{interview_type}/view/{interview.id}'
         }
     )
 
-    subject = f'NEW INTERVIEW : {interview.participant_1.profile.name} -- {interview.start_time.strftime("%I:%M %p, %A, %x")} -- {interview.type}'
+    subject = f'NEW INTERVIEW : {interview.heading} -- {interview.start_time.strftime("%I:%M %p, %A, %x")} -- {interview.type}'
 
     send_mail(
         subject=subject,
@@ -165,21 +171,57 @@ def send_gd_cancel_email(interview):
         li.append(interview.participant_1.email)
     if interview.participant_9 is not None:
         li.append(interview.participant_1.email)
+
+    html_message = loader.render_to_string(
+        'mail/template.html',
+        {
+            'content': 'The Below GD Interview has been canceled',
+            'interview_type': f'{interview.heading} -- GD',
+            'interview_date': f'{interview.start_time.strftime("%I:%M %p")} -- {interview.end_time.strftime("%I:%M %p")} ({interview.end_time.strftime("%A, %x")})',
+            'interview_description': interview.description,
+            'interview_location': interview.link,
+            'interview_time': 'Asia/Kolkata',
+            'link': f'https://scopea.konkanischolarship.com/interview/hr/view/{interview.id}'
+        }
+    )
+
+    subject = f'CANCELED : {interview.heading} -- {interview.start_time.strftime("%I:%M %p, %A, %x")} -- GD'
+    
+
     send_mail(
-        subject='GD Interview cancelled up -- Mock Interview with sushiksha mentor',
-        message=f'{interview.heading} -- {interview.description}',
+        subject=subject,
+        message=subject,
         from_email=None,
         recipient_list=li,
+        html_message=html_message,
         fail_silently=False,
     )
 
 
 def send_gd_set_email(interview, user):
+
+    html_message = loader.render_to_string(
+        'mail/template.html',
+        {
+            'name': f'{user.profile.name}',
+            'content': 'A new GD Interview has been scheduled. ',
+            'interview_type': f'{interview.heading} -- GD',
+            'interview_date': f'{interview.start_time.strftime("%I:%M %p")} -- {interview.end_time.strftime("%I:%M %p")} ({interview.end_time.strftime("%A, %x")})',
+            'interview_description': interview.description,
+            'interview_location': interview.link,
+            'interview_time': 'Asia/Kolkata',
+            'link': f'https://scopea.konkanischolarship.com/interview/hr/view/{interview.id}'
+        }
+    )
+
+    subject = f'NEW GD INTERVIEW : {interview.heading} -- {interview.start_time.strftime("%I:%M %p, %A, %x")} -- GD'
+
     send_mail(
-        subject='GD Interview set up -- Mock Interview with sushiksha mentor',
-        message=f'{interview.heading} -- {interview.description}',
+        subject=subject,
+        message=subject,
         from_email=None,
         recipient_list=[f'{user.email}'],
+        html_message=html_message,
         fail_silently=False,
     )
 
