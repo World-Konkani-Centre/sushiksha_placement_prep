@@ -193,7 +193,7 @@ def send_gd_cancel_email(interview):
         message=subject,
         from_email=None,
         recipient_list=li,
-        html_message=html_message
+        html_message=html_message,
         fail_silently=False,
     )
 
