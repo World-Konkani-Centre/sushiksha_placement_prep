@@ -108,6 +108,7 @@ def interview_details(request, intId):
     return render(request, 'interviews/single.html', context)
 
 
+
 @login_required
 def gd_apply(request):
     gd_completed = GD.objects.filter(

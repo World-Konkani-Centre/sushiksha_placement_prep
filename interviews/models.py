@@ -4,10 +4,7 @@ from django.db import models
 OPTIONS = (
     ('HR', 'HR'),
     ('Technical', 'Technical'),
-    ('Career Counselling', 'Career Counselling'),
-    ('Higher Education Counselling', 'Higher Education Counselling'),
-    ('Stress Management', 'Stress Management'),
-    ('Placement Failures', 'Placement Failures'),
+    ('Counselling', 'Counselling'),
 )
 
 

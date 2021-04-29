@@ -35,8 +35,8 @@
         <section id="blog" class="blog">
             <div class="container" data-aos="fade-up">
                 {% if form %}
-                    <div class="row">
-                        <form method="POST" action="" class="col-md-6">
+                    <div class="col-lg-8 offset-lg-2 col-12">
+                        <form method="POST" action="">
                             {% csrf_token %}
                             {{ form | crispy }}
                             <button type="submit" class="btn btn-block custom-success-btn animate__animated">Schedule</button>
