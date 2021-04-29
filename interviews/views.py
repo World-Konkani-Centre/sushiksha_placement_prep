@@ -67,7 +67,7 @@ def interview_list(request):
         'interviews_completed': interviews_completed,
         'interviews_scheduled': interviews_scheduled,
         'heading': "Technical interview list",
-        'whatIs': 'tech',
+        'whatIS': 'tech',
     }
     return render(request, 'interviews/list.html', context)
 
@@ -106,6 +106,7 @@ def interview_details(request, intId):
         'heading': "Technical Interview details"
     }
     return render(request, 'interviews/single.html', context)
+
 
 
 @login_required
@@ -178,18 +179,23 @@ def interview_home(request):
     return render(request, 'interviews/interviews-home.html')
 
 
+def counselling_home(request):
+    return render(request, 'interviews/counselling-home.html')
+
+
 @login_required
 def counselling_list(request):
     interviews_completed = Interview.objects.filter(
-        Q(participant_2=request.user) | Q(participant_1=request.user) & Q(complete=True) &
-        (Q(type="HR") | Q(type="Technical")))
+        ( Q(participant_2=request.user) | Q(participant_1=request.user) )& Q(complete=True) &
+        ~(Q(type="HR") | Q(type="Technical")))
     interviews_scheduled = Interview.objects.filter(Q(complete=False) & ~(
                                                     Q(type="HR") | Q(type="Technical")))
     context = {
         'interviews_completed': interviews_completed,
         'interviews_scheduled': interviews_scheduled,
         'heading': "Counselling list",
-        'whatIs': 'counsel',
+        'whatIS': 'counsel',
+        'counselling': True
     }
     return render(request, 'interviews/list.html', context)
 
@@ -225,6 +231,7 @@ def counselling_details(request, intId):
         return redirect('interviews-list')
     context = {
         'interview': interview,
-        'heading': "Counselling Interview details"
+        'heading': "Counselling Interview details",
+        'counselling': True
     }
     return render(request, 'interviews/single.html', context)

@@ -22,7 +22,7 @@
 
             <li><a href="{% url 'interview-home' %}">Mock Interviews</a></li>
           <li>
-              <a href="{% url 'counselling-list' %}">Counselling</a>
+              <a href="{% url 'counselling-home' %}">Counselling</a>
           </li>
             {% if request.user.profile.is_mentor and not user.is_superuser %}
             <li class="drop-down">

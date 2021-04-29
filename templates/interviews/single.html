@@ -5,14 +5,31 @@
 
 {% block content %}
     <main id="main">
-        <section class="breadcrumbs">
+
+
+        <section id="breadcrumbs" class="breadcrumbs">
             <div class="container">
 
-                {% if heading %}
-                    <h2 class="entry-title">{{ heading }}
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2>{{ heading }}<br>
+                        <small class="text-muted" style="font-size:13px">*All date and time are based IST
+                            (Kolkata/Asia)</small>
                     </h2>
-                     <p>*All date and time are based IST (Kolkata/Asia)</p>
-                {% endif %}
+
+
+                    <ol>
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        {% if counselling %}
+                        <li> <a href="{% url 'counselling-home' %}">Counselling</a></li>
+                        <li><a href="{% url 'counselling-list' %}">Counselling list</a></li>
+                        <li>{{ heading }}</li>
+                        {% else %}
+                        <li><a href="{% url 'interview-home' %}">Mock Interviews</a></li>
+                        <li>{{ heading }}</li>
+                        {% endif %}
+                    </ol>
+                </div>
+
             </div>
         </section>
 
