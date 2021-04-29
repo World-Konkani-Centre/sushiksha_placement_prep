@@ -181,7 +181,7 @@ def interview_home(request):
 @login_required
 def counselling_list(request):
     interviews_completed = Interview.objects.filter(
-        Q(participant_2=request.user) | Q(participant_1=request.user) & Q(complete=True) &
+        ( Q(participant_2=request.user) | Q(participant_1=request.user) )& Q(complete=True) &
         ~(Q(type="HR") | Q(type="Technical")))
     interviews_scheduled = Interview.objects.filter(Q(complete=False) & ~(
                                                     Q(type="HR") | Q(type="Technical")))
