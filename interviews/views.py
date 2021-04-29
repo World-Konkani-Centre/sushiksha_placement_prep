@@ -16,7 +16,7 @@ def hr_interview_list(request):
     context = {
         'interviews_completed': interviews_completed,
         'interviews_scheduled': interviews_scheduled,
-        'heading': "HR interview list",
+        'heading': "HR interviews",
         'whatIS': 'hr'
     }
     return render(request, 'interviews/list.html', context)
@@ -53,7 +53,7 @@ def hr_interview_details(request, intId):
         return redirect('interviews-list')
     context = {
         'interview': interview,
-        'heading': "HR interview details"
+        'heading': "HR interview detail"
     }
     return render(request, 'interviews/single.html', context)
 
@@ -66,7 +66,7 @@ def interview_list(request):
     context = {
         'interviews_completed': interviews_completed,
         'interviews_scheduled': interviews_scheduled,
-        'heading': "Technical interview list",
+        'heading': "Technical interviews",
         'whatIS': 'tech',
     }
     return render(request, 'interviews/list.html', context)
@@ -193,7 +193,7 @@ def counselling_list(request):
     context = {
         'interviews_completed': interviews_completed,
         'interviews_scheduled': interviews_scheduled,
-        'heading': "Counselling list",
+        'heading': "Counselling Sessions",
         'whatIS': 'counsel',
         'counselling': True
     }
@@ -231,7 +231,7 @@ def counselling_details(request, intId):
         return redirect('interviews-list')
     context = {
         'interview': interview,
-        'heading': "Counselling Interview details",
+        'heading': "Counselling session details",
         'counselling': True
     }
     return render(request, 'interviews/single.html', context)
