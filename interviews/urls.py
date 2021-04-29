@@ -10,6 +10,7 @@ urlpatterns = [
     path('tech/view/<int:intId>', views.interview_details, name='interviews-single'),
     path('hr/view/', views.hr_interview_list, name='hr-interviews-list'),
     path('hr/view/<int:intId>', views.hr_interview_details, name='hr-interviews-single'),
+    path('counselling/', views.counselling_home, name='counselling-home'),
     path('counselling/view/', views.counselling_list, name='counselling-list'),
     path('counselling/view/<int:intId>', views.counselling_details, name='counselling-single'),
 ]

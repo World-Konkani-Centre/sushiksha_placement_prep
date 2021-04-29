@@ -179,6 +179,10 @@ def interview_home(request):
     return render(request, 'interviews/interviews-home.html')
 
 
+def counselling_home(request):
+    return render(request, 'interviews/counselling-home.html')
+
+
 @login_required
 def counselling_list(request):
     interviews_completed = Interview.objects.filter(
