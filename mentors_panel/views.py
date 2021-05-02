@@ -153,7 +153,14 @@ def interview_details(request, intId):
                                  f'google calendar, accept the google calendar link for further notification')
             return redirect('interview-list-mentor')
         context = {
-            'interview': interview
+            'interview': interview,
+            'heading': "Technical Interview details"
+        }
+        if interview.type == 'Counselling':
+            context = {
+            'interview': interview,
+            'heading': "Counselling session details",
+            'counselling': True
         }
         return render(request, 'interviews/single.html', context)
     else:
