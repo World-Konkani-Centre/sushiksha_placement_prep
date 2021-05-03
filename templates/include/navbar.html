@@ -17,7 +17,7 @@
                         <li><a href="{% url 'resume-home' %}">Resume Builder</a></li>
                         <li><a href="{% url 'interview-home' %}">Mock Interviews</a></li>
                         <li><a href="{% url 'counselling-home' %}">Counselling</a></li>
-                        {% if request.user.profile.is_mentor and not user.is_superuser %}
+                        {% if user.is_authenticated and user.profile.is_mentor and not user.is_superuser %}
                             <li class="drop-down">
                                 <a href="#">Mentors Panel</a>
                                 <ul>
