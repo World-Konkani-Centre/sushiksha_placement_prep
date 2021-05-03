@@ -90,10 +90,10 @@
                         </p>
                     {% endif %}
 
-                    <h3>{{ question.content }}</h3>
+                    <h3>{{ question.content | safe }}</h3>
 
                     {% if question.figure %}
-                        <img src="{{ question.figure.url }}" alt="{{ question.content }}"
+                        <img src="{{ question.figure.url }}" alt="{{ question.content | safe }}"
                              class="img-thumbnail img-fluid"/>
                     {% endif %}
                     <h5>Answer before time ends to get the points</h5>

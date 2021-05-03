@@ -571,7 +571,7 @@ class Question(models.Model):
                                                                      "more understanding of the "
                                                                      "Question."))
 
-    content = models.CharField(max_length=1000,
+    content = RichTextField(max_length=1000,
                                blank=False,
                                help_text=_("Enter the question text that "
                                            "you want displayed"),
