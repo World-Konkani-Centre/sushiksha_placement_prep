@@ -2,67 +2,59 @@
 
 <!-- ======= Header ======= -->
 <header id="header" class="fixed-top">
-  <div class="container-fluid">
-    <div class="row justify-content-center">
-      <div class="col-xl-9 d-flex align-items-center">
-        {% comment %} <h1 class="logo mr-auto"><a href="{% url 'index' %}">SCOPEA</a></h1> {% endcomment %}
-        <!-- Uncomment below if you prefer to use an image logo -->
-         <a href="{% url 'index' %}" class="logo mr-auto"><img src="{% static 'assets/img/scopea.png' %}" alt="" class="img-fluid"></a>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-xl-9 d-flex align-items-center">
+                <!-- Uncomment below if you prefer to use an image logo -->
+                <a href="{% url 'index' %}" class="logo mr-auto"><img src="{% static 'assets/img/scopea.png' %}" alt=""
+                                                                      class="img-fluid"/></a>
 
-        <nav class="nav-menu d-none d-lg-block">
-          <ul>
-            <li><a href="{% url 'index' %}">Home</a></li>
-        
-         
-         <li><a href="{% url 'quiz_index' %}">Aptitude Tests</a></li>
-             <li><a href="{% url 'language_quiz_index' %}">Language Tests</a></li>
-             <li>
-              <a href="{% url 'resume-home' %}">Resume Builder</a>
-          </li>
-
-            <li><a href="{% url 'interview-home' %}">Mock Interviews</a></li>
-          <li>
-              <a href="{% url 'counselling-list' %}">Counselling</a>
-          </li>
-            {% if request.user.profile.is_mentor and not user.is_superuser %}
-            <li class="drop-down">
-              <a href="#">Mentors Panel</a>
-              <ul>
-                <li><a href="{% url 'resume-list' %}">Resume</a></li>
-                <li><a href="{% url 'interview-list-mentor' %}">Interviews</a></li>
-                <li><a href="{% url 'gd-list-mentor' %}">Group Discussion</a></li>
-              </ul>
-            </li>
-            {% endif %}
-            {% if user.is_authenticated %}
-            <li class="drop-down">
-              <a href="{% url 'profile' %}">Profile</a>
-              <ul>
-              {% if user.is_staff or user.is_superuser %}
-              <li><a href="/admin">Admin Panel</a></li>
-               <li class="drop-down">
-                  <a href="#">Mentors Panel</a>
-                  <ul>
-                    <li><a href="{% url 'resume-list' %}">Resume</a></li>
-                    <li><a href="{% url 'interview-list-mentor' %}">Interviews</a></li>
-                    <li><a href="{% url 'gd-list-mentor' %}">Group Discussion</a></li>
-                  </ul>
-                </li>
+                <nav class="nav-menu d-none d-lg-block">
+                    <ul>
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li><a href="{% url 'quiz_index' %}">Aptitude Tests</a></li>
+                        <li><a href="{% url 'language_quiz_index' %}">Language Tests</a></li>
+                        <li><a href="{% url 'resume-home' %}">Resume Builder</a></li>
+                        <li><a href="{% url 'interview-home' %}">Mock Interviews</a></li>
+                        <li><a href="{% url 'counselling-home' %}">Counselling</a></li>
+                        {% if user.is_authenticated and user.profile.is_mentor and not user.is_superuser %}
+                            <li class="drop-down">
+                                <a href="#">Mentors Panel</a>
+                                <ul>
+                                    <li><a href="{% url 'resume-list' %}">Resume</a></li>
+                                    <li><a href="{% url 'interview-list-mentor' %}">Interviews</a></li>
+                                    <li><a href="{% url 'gd-list-mentor' %}">Group Discussion</a></li>
+                                </ul>
+                            </li>
+                        {% endif %}
+                        {% if user.is_authenticated %}
+                            <li class="drop-down">
+                                <a href="{% url 'profile' %}">Profile</a>
+                                <ul>
+                                    {% if user.is_staff or user.is_superuser %}
+                                        <li><a href="/admin">Admin Panel</a></li>
+                                        <li class="drop-down">
+                                            <a href="#">Mentors Panel</a>
+                                            <ul>
+                                                <li><a href="{% url 'resume-list' %}">Resume</a></li>
+                                                <li><a href="{% url 'interview-list-mentor' %}">Interviews</a></li>
+                                                <li><a href="{% url 'gd-list-mentor' %}">Group Discussion</a></li>
+                                            </ul>
+                                        </li>
+                                    {% endif %}
+                                    <li><a href="{% url 'profile' %}">Profile</a></li>
+                                    <li><a href="{% url 'password_reset' %}">Reset Password</a></li>
+                                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                                </ul>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+                {% if not user.is_authenticated %}
+                    <a href="{% url 'login' %}" class="get-started-btn ml-auto">Login</a>
                 {% endif %}
-                <li><a href="{% url 'profile' %}">Profile</a></li>
-                <li><a href="{% url 'password_reset' %}">Reset Password</a></li>
-                <li><a href="{% url 'logout' %}">Logout</a></li>
-              </ul>
-             
-            </li>
-            {% endif %}
-          </ul>
-        </nav>
-        {% if not user.is_authenticated %}
-            <a href="{% url 'login' %}" class="get-started-btn ml-auto">Login</a>
-        {% endif %}
-      </div>
+            </div>
+        </div>
     </div>
-  </div>
 </header>
 <!-- End Header -->

@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect
 from interviews.models import Interview, GD
 from interviews.utils import google_calendar_set_interview1v1, google_calendar_cancel_interview1v1, \
     send_interview_cancel_email, send_interview_set_email, send_gd_set_email, update_gd_event, send_gd_cancel_email
+from resume_builder.models import Resume
 
 
 @login_required
@@ -16,7 +17,7 @@ def hr_interview_list(request):
     context = {
         'interviews_completed': interviews_completed,
         'interviews_scheduled': interviews_scheduled,
-        'heading': "HR interview list",
+        'heading': "HR interviews",
         'whatIS': 'hr'
     }
     return render(request, 'interviews/list.html', context)
@@ -25,6 +26,7 @@ def hr_interview_list(request):
 @login_required
 def hr_interview_details(request, intId):
     interview = Interview.objects.get(id=intId)
+    res = Resume.objects.filter(user=request.user, status="3")
     if request.POST:
         val = request.POST.get('hidden_option')
         if val == '0':
@@ -40,6 +42,10 @@ def hr_interview_details(request, intId):
                 messages.success(request, f'The interview has been cancelled and same is informed to the other')
                 interview.save()
         elif val == '1':
+            if len(res) == 0:
+                messages.error(request,
+                               f'Please complete your your resume for being eligible for interviews')
+                return redirect('hr-interviews-list')
             interview.participant_2 = request.user
             interview.complete = True
             interview.save()
@@ -53,7 +59,7 @@ def hr_interview_details(request, intId):
         return redirect('interviews-list')
     context = {
         'interview': interview,
-        'heading': "HR interview details"
+        'heading': "HR interview detail"
     }
     return render(request, 'interviews/single.html', context)
 
@@ -66,8 +72,8 @@ def interview_list(request):
     context = {
         'interviews_completed': interviews_completed,
         'interviews_scheduled': interviews_scheduled,
-        'heading': "Technical interview list",
-        'whatIs': 'tech',
+        'heading': "Technical interviews",
+        'whatIS': 'tech',
     }
     return render(request, 'interviews/list.html', context)
 
@@ -75,6 +81,7 @@ def interview_list(request):
 @login_required
 def interview_details(request, intId):
     interview = Interview.objects.get(id=intId)
+    res = Resume.objects.filter(user=request.user, status="3")
     if request.POST:
         val = request.POST.get('hidden_option')
         if val == '0':
@@ -90,6 +97,10 @@ def interview_details(request, intId):
                 messages.success(request, f'The interview has been cancelled and same is informed to the other')
                 interview.save()
         elif val == '1':
+            if len(res) == 0:
+                messages.error(request,
+                               f'Please complete your your resume for being eligible for interviews')
+                return redirect('interviews-list')
             interview.participant_2 = request.user
             interview.complete = True
             interview.save()
@@ -178,18 +189,22 @@ def interview_home(request):
     return render(request, 'interviews/interviews-home.html')
 
 
+def counselling_home(request):
+    return render(request, 'interviews/counselling-home.html')
+
+
 @login_required
 def counselling_list(request):
     interviews_completed = Interview.objects.filter(
-        ( Q(participant_2=request.user) | Q(participant_1=request.user) )& Q(complete=True) &
+        (Q(participant_2=request.user) | Q(participant_1=request.user)) & Q(complete=True) &
         ~(Q(type="HR") | Q(type="Technical")))
     interviews_scheduled = Interview.objects.filter(Q(complete=False) & ~(
-                                                    Q(type="HR") | Q(type="Technical")))
+            Q(type="HR") | Q(type="Technical")))
     context = {
         'interviews_completed': interviews_completed,
         'interviews_scheduled': interviews_scheduled,
-        'heading': "Counselling list",
-        'whatIs': 'counsel',
+        'heading': "Counselling Sessions",
+        'whatIS': 'counsel',
         'counselling': True
     }
     return render(request, 'interviews/list.html', context)
@@ -226,6 +241,7 @@ def counselling_details(request, intId):
         return redirect('interviews-list')
     context = {
         'interview': interview,
-        'heading': "Counselling Interview details"
+        'heading': "Counselling session details",
+        'counselling': True
     }
     return render(request, 'interviews/single.html', context)

@@ -26,6 +26,7 @@
                     <ol>
                         <li><a href="{% url 'index' %}">Home</a></li>
                         {% if counselling %}
+                        <li> <a href="{% url 'counselling-home' %}">Counselling</a></li>
                         <li>{{ heading }}</li>
                         {% else %}
                         <li><a href="{% url 'interview-home' %}">Mock Interviews</a></li>
@@ -41,8 +42,8 @@
         <section id="blog" class="blog pricing">
             <div class="container" data-aos="fade-up">
                 {% if form %}
-                    <div class="row">
-                        <form method="POST" action="" class="col-md-6">
+                    <div class="col-lg-8 offset-lg-2 col-12">
+                        <form method="POST" action="">
                             {% csrf_token %}
                             {{ form | crispy }}
                             <button type="submit" class="btn btn-block custom-success-btn animate__animated">Schedule
@@ -86,7 +87,7 @@
                 {% endif %}
 
             {% if interviews_completed %}
-                <h2 class="mt-5">Interviews Completed/Scheduled</h2>
+                <h2 class="mt-5">Sessions Completed/Scheduled</h2>
                     <div class="row">
                         {% for i in interviews_completed %}
                             <div class="col-lg-6 col-md-6 mt-4 mt-lg-0">
@@ -138,7 +139,22 @@
                 changeYear: true,
                 yearRange: "-100:+0",
             }).attr("autocomplete", "off");
-
+            $("#id_start_date").datepicker({
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-100:+0",
+            }).attr("autocomplete", "off");
+            $("#id_end_date").datepicker({
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-100:+0",
+            }).attr("autocomplete", "off");
+            $("#id_st_start_time").timepicker({
+            }).attr("autocomplete", "off");
+             $("#id_st_end_time").timepicker({
+            }).attr("autocomplete", "off");
         });
     </script>
 

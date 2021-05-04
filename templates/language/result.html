@@ -31,7 +31,7 @@
                 {% if previous.answers %}
 
                     <p class="muted"><small>{% trans "The previous question" %}:</small></p>
-                    <p>{{ previous.previous_question }}</p>
+                    <p>{{ previous.previous_question | safe }}</p>
                     <p>Your answer was
                         <strong>
                             {{ previous.previous_outcome|yesno:"correct,incorrect" }}
@@ -85,7 +85,8 @@
                     {% for question in questions %}
 
                         <h3>Q{{ forloop.counter }} &nbsp
-                            {{ question.content }}
+                            <div>{{ question.content | safe }}
+                            </div>
                         </h3>
 
                         {% correct_answer_for_all question %}

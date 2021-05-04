@@ -1,0 +1,59 @@
+{% extends 'base_page.html' %}
+{% load static %}
+
+{% block content %}
+    <main id="main">
+
+
+        <section id="breadcrumbs" class="breadcrumbs">
+            <div class="container">
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2>Counselling</h2>
+
+                    <ol>
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li>Counselling</li>
+                    </ol>
+                </div>
+
+            </div>
+        </section>
+
+    <section id="services" class="services">
+      <div class="container">
+          <h3 class="font-weight-bold pb-2">Advice from those who went before you</h3>
+
+
+        <div class="row">
+        
+            <div class="col-lg-6  align-self-baseline text-center" data-aos="fade-right" data-aos-delay="100">
+                <img src="/static/assets/img/counselling.svg" class="img-fluid" alt="" width="70%">
+            </div>
+
+            <div class="col-lg-6 wow pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up"
+                    data-aos-delay="100">
+                <p>
+                Vishwa Konkani Alumni has formed a pool of Mentors to provide you Counselling when you need it the most. Whether it is about your Career Planning or your Study Abroad dreams, you can clear your doubts and make informed decisions in life. all you need to do is just book a session available here. You can also seek counselling after each Campus Placement you attended, to discuss about successes or failures.</p>
+                <p>Chose from the available sessions in the various types here. We are here to guide you. We are here to advice you. Feel free to book a session. Let's talk it out.
+                </p>
+
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="icon-box">
+            <i class="icofont-ui-love"></i>
+              <h4><a href="{% url 'counselling-list' %}" class="stretched-link">Counselling Sessions</a></h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+
+    </main>
+{% endblock %}

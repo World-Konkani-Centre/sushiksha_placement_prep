@@ -17,6 +17,7 @@ from django.utils.translation import gettext_lazy as _
 from model_utils.managers import InheritanceManager
 from ckeditor.fields import RichTextField
 
+
 class CategoryManager(models.Manager):
 
     def new_category(self, category):
@@ -41,6 +42,8 @@ class Category(models.Model):
 
     def __str__(self):
         return self.category
+
+
 #
 #
 # class SubCategory(models.Model):
@@ -188,7 +191,8 @@ class Progress(models.Model):
     Data stored in csv using the format:
         category, score, possible, category, score, possible, ...
     """
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, verbose_name=_("User"), on_delete=models.CASCADE,related_name="l_user")
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, verbose_name=_("User"), on_delete=models.CASCADE,
+                                related_name="l_user")
 
     score = models.CharField(max_length=1024,
                              verbose_name=_("Score"),
@@ -370,7 +374,8 @@ class Sitting(models.Model):
     with the answer the user gave.
     """
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("User"), on_delete=models.CASCADE,related_name="s_user")
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("User"), on_delete=models.CASCADE,
+                             related_name="s_user")
 
     quiz = models.ForeignKey(Quiz, verbose_name=_("Quiz"), on_delete=models.CASCADE)
 
@@ -571,17 +576,16 @@ class Question(models.Model):
                                                                      "more understanding of the "
                                                                      "Question."))
 
-    content = models.CharField(max_length=1000,
-                               blank=False,
-                               help_text=_("Enter the question text that "
-                                           "you want displayed"),
-                               verbose_name=_('Question'))
+    content = RichTextField(blank=False,
+                            help_text=_("Enter the question text that "
+                                        "you want displayed"),
+                            verbose_name=_('Question'))
 
     explanation = RichTextField(blank=True,
-                                   help_text=_("Explanation to be shown "
-                                               "after the question has "
-                                               "been answered."),
-                                   verbose_name=_('Explanation'))
+                                help_text=_("Explanation to be shown "
+                                            "after the question has "
+                                            "been answered."),
+                                verbose_name=_('Explanation'))
 
     objects = InheritanceManager()
     image = models.ImageField(upload_to='Questions', blank=True, null=True, help_text=_("Add a optional image for "
@@ -595,6 +599,8 @@ class Question(models.Model):
 
     def __str__(self):
         return self.content
+
+
 #
 #
 # class TF_Question(Question):
