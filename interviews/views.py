@@ -30,10 +30,6 @@ def hr_interview_details(request, intId):
     if request.POST:
         val = request.POST.get('hidden_option')
         if val == '0':
-            if len(res) == 0:
-                messages.error(request,
-                               f'Please complete your your resume for being eligible for interviews')
-                return redirect('interviews-list')
             send_interview_cancel_email(interview)
             google_calendar_cancel_interview1v1(interview)
             if request.user == interview.participant_1:
@@ -46,6 +42,10 @@ def hr_interview_details(request, intId):
                 messages.success(request, f'The interview has been cancelled and same is informed to the other')
                 interview.save()
         elif val == '1':
+            if len(res) == 0:
+                messages.error(request,
+                               f'Please complete your your resume for being eligible for interviews')
+                return redirect('hr-interviews-list')
             interview.participant_2 = request.user
             interview.complete = True
             interview.save()
@@ -83,10 +83,6 @@ def interview_details(request, intId):
     interview = Interview.objects.get(id=intId)
     res = Resume.objects.filter(user=request.user, status="3")
     if request.POST:
-        if len(res) == 0:
-            messages.error(request,
-                           f'Please complete your your resume for being eligible for interviews')
-            return redirect('interviews-list')
         val = request.POST.get('hidden_option')
         if val == '0':
             send_interview_cancel_email(interview)
@@ -101,6 +97,10 @@ def interview_details(request, intId):
                 messages.success(request, f'The interview has been cancelled and same is informed to the other')
                 interview.save()
         elif val == '1':
+            if len(res) == 0:
+                messages.error(request,
+                               f'Please complete your your resume for being eligible for interviews')
+                return redirect('interviews-list')
             interview.participant_2 = request.user
             interview.complete = True
             interview.save()
