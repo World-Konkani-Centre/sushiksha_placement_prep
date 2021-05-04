@@ -139,7 +139,22 @@
                 changeYear: true,
                 yearRange: "-100:+0",
             }).attr("autocomplete", "off");
-
+            $("#id_start_date").datepicker({
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-100:+0",
+            }).attr("autocomplete", "off");
+            $("#id_end_date").datepicker({
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-100:+0",
+            }).attr("autocomplete", "off");
+            $("#id_st_start_time").timepicker({
+            }).attr("autocomplete", "off");
+             $("#id_st_end_time").timepicker({
+            }).attr("autocomplete", "off");
         });
     </script>
 
