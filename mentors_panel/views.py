@@ -7,6 +7,8 @@ from django.shortcuts import redirect, render
 from interviews.forms import InterviewRegisterForm
 from interviews.utils import send_interview_cancel_email, send_interview_set_email, google_calendar_set_interview1v1, \
     google_calendar_cancel_interview1v1, send_gd_cancel_email, send_gd_set_email, update_gd_event, set_gd_event
+from mentors_panel.forms import MultiInterviewScheduleForm
+from mentors_panel.utils import create_schedule
 from resume_builder.forms import ResumeModelForm, CommentModelForm
 from resume_builder.models import Resume, Comments
 from users.models import Profile
@@ -99,20 +101,30 @@ def interview_list(request):
                                                         complete=False)
         if request.POST:
             if request.user.profile.is_mentor:
-                form = InterviewRegisterForm(request.POST)
+                form = MultiInterviewScheduleForm(request.POST)
                 if form.is_valid():
-                    interview = form.save(commit=False)
-                    interview.participant_1 = request.user
-                    interview.save()
+                    heading = form.cleaned_data['heading']
+                    description = form.cleaned_data['description']
+                    int_type = form.cleaned_data['type']
+                    link = form.cleaned_data['link']
+                    start_date = form.cleaned_data['start_date']
+                    end_date = form.cleaned_data['end_date']
+                    start_time = form.cleaned_data['st_start_time']
+                    end_time = form.cleaned_data['st_end_time']
+                    schedule = create_schedule(start_date,end_date,start_time,end_time)
+                    for s in schedule:
+                        Interview.objects.create(heading=heading, type=int_type, description=description,
+                        link=link, participant_1=request.user,start_time=s[0],end_time=s[1])
                     messages.success(request, f'New Interview has been scheduled successfully')
                     return redirect('interview-list-mentor')
                 else:
                     messages.error(request, f'something wrong in the input')
         else:
             if request.user.profile.is_mentor:
-                form = InterviewRegisterForm()
+                form = MultiInterviewScheduleForm()
         context = {
             'form': form,
+            'heading': 'Interviews',
             'interviews_completed': interviews_completed,
             'interviews_scheduled': interviews_scheduled,
 
