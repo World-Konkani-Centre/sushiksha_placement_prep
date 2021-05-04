@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect
 from interviews.models import Interview, GD
 from interviews.utils import google_calendar_set_interview1v1, google_calendar_cancel_interview1v1, \
     send_interview_cancel_email, send_interview_set_email, send_gd_set_email, update_gd_event, send_gd_cancel_email
+from resume_builder.models import Resume
 
 
 @login_required
@@ -25,9 +26,14 @@ def hr_interview_list(request):
 @login_required
 def hr_interview_details(request, intId):
     interview = Interview.objects.get(id=intId)
+    res = Resume.objects.filter(user=request.user, status="3")
     if request.POST:
         val = request.POST.get('hidden_option')
         if val == '0':
+            if len(res) == 0:
+                messages.error(request,
+                               f'Please complete your your resume for being eligible for interviews')
+                return redirect('interviews-list')
             send_interview_cancel_email(interview)
             google_calendar_cancel_interview1v1(interview)
             if request.user == interview.participant_1:
@@ -75,7 +81,12 @@ def interview_list(request):
 @login_required
 def interview_details(request, intId):
     interview = Interview.objects.get(id=intId)
+    res = Resume.objects.filter(user=request.user, status="3")
     if request.POST:
+        if len(res) == 0:
+            messages.error(request,
+                           f'Please complete your your resume for being eligible for interviews')
+            return redirect('interviews-list')
         val = request.POST.get('hidden_option')
         if val == '0':
             send_interview_cancel_email(interview)
@@ -106,7 +117,6 @@ def interview_details(request, intId):
         'heading': "Technical Interview details"
     }
     return render(request, 'interviews/single.html', context)
-
 
 
 @login_required
@@ -186,10 +196,10 @@ def counselling_home(request):
 @login_required
 def counselling_list(request):
     interviews_completed = Interview.objects.filter(
-        ( Q(participant_2=request.user) | Q(participant_1=request.user) )& Q(complete=True) &
+        (Q(participant_2=request.user) | Q(participant_1=request.user)) & Q(complete=True) &
         ~(Q(type="HR") | Q(type="Technical")))
     interviews_scheduled = Interview.objects.filter(Q(complete=False) & ~(
-                                                    Q(type="HR") | Q(type="Technical")))
+            Q(type="HR") | Q(type="Technical")))
     context = {
         'interviews_completed': interviews_completed,
         'interviews_scheduled': interviews_scheduled,
