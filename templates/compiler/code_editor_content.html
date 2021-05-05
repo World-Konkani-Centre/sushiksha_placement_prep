@@ -29,9 +29,14 @@
             <option value="3">python3</option>
             <option value="3">java</option>
             <option value="3">cpp14</option>
-            <option value="3">go</option>
-            <option value="3">sql</option>
             <option value="3">csharp</option>
+            <option value="3">php</option>
+            <option value="3">perl</option>
+            <option value="3">ruby</option>
+            <option value="3">go</option>
+            <option value="3">scala</option>
+            <option value="3">bash</option>
+            <option value="3">r</option>
             <option value="3">dart</option>
             <option value="3">nodejs</option>
             <option value="2">kotlin</option>
@@ -43,9 +48,9 @@
             <h4 class="language-text">Select theme:</h4>
         </div>
         <div id="outer" class="col-">
-            <select id="language" data-placeholder="Choose a theme..." class="" tabindex="1">
+            <select id="theme" data-placeholder="Choose a theme..." class="" tabindex="1">
             <option value="iplastic">iplastic</option>
-            <option value="ambiance">ambiane</option>
+            <option value="ambiance">ambiance</option>
             <option value="chrome">chrome</option>
             <option value="clouds">clouds</option>
             <option value="github">github</option>
@@ -53,7 +58,10 @@
             <option value="terminal">terminal</option>
             <option value="xcode">xcode</option>
             <option value="kuroir">kuroir</option>
-            <option value="2">kotlin</option>
+                <option value="chaos">chaos</option>
+                <option value="dreamweaver">dreamweaver</option>
+                <option value="eclipse">eclipse</option>
+                <option value="vibrant_ink">vibrant_ink</option>
         </select>
         </div>
     </div>
@@ -89,25 +97,64 @@
 <script src="{% static 'compiler/src-min/ace.js' %}" type="text/javascript" charset="utf-8"></script>
 
 <script>
+
+    var editorContent;
+	// language selected
+	var languageSelected = "c";
+	// editor-theme
+	var editorThemeSelected = "iplastic";
+	// indent-spaces
+	var indentSpaces = 4;
+
+
+    var langBoilerplate = {}
+	langBoilerplate['c'] = "#include <stdio.h>\nint main(void) {\n	// your code goes here\n	return 0;\n}\n";
+	langBoilerplate['cpp14'] = "#include <iostream>\nusing namespace std;\n\nint main() {\n	// your code goes here\n	return 0;\n}\n";
+	langBoilerplate['java'] = "import java.util.*;\npublic class TestDriver {\n    public static void main(String[] args) {\n        // Your code goes here\n    }\n}";
+	langBoilerplate['python3'] = "def main():\n    # Your code goes here\n   return 0\n\nif __name__ == \"__main__\":\n    main()";
+    langBoilerplate['csharp'] = "using System;\n\npublic class Test\n{\n	public static void Main()\n	{\n		// your code goes here\n	}\n}\n";
+    langBoilerplate['perl'] = "#!/usr/bin/perl\n# your code here\n"
+    langBoilerplate['php'] = "<?php\n"+"\n" +"// your code goes here"
+	langBoilerplate['ruby'] = "# cook your code here"
+    langBoilerplate['go'] = "package main\n" +"import \"fmt\"\n" +"\n" +"func main(){\n" +"\t// your code goes here\n" +"}\n"
+    langBoilerplate['scala'] = "object Main extends App {\n" +"\t// your dish goes here\n" +"}\n"
+    langBoilerplate['bash'] = "/* cook your code below */\n"
+    langBoilerplate['nodejs'] = "process.stdin.resume();\n" +"process.stdin.setEncoding('utf8');\n" +"\n" +"// your code goes here\n" +"\n"
+    ace.config.set("basePath", "/static/compiler/src-min/");
+	// trigger extension
+	ace.require("ace/ext/language_tools");
+
     var editor = ace.edit("editor");
-    editor.setTheme("ace/theme/xcode");
+    editor.setTheme("ace/theme/"+editorThemeSelected);
     editor.getSession().setMode("ace/mode/c_cpp");
+    editor.getSession().setTabSize(4);
     editor.setShowPrintMargin(false);
-    editor.setFontSize("14px");
+    editor.setFontSize(15);
+    editor.setOptions({
+		enableBasicAutocompletion: true,
+		enableSnippets: true,
+		enableLiveAutocompletion: true
+	});
+
+editor.setValue(langBoilerplate[languageSelected]);
 
     $("#language").change(function () {
-        var l =$("select option:selected").text();
-        console.log(l);
-        if (l==="python" || l==="python3")
+        languageSelected =$("#language option:selected").text();
+        editor.setValue(langBoilerplate[languageSelected]);
+        if (languageSelected==="python" || languageSelected==="python3")
             {editor.getSession().setMode("ace/mode/python");}
-        else if (l==="c"){
+        else if (languageSelected==="c" || languageSelected==="cpp14"){
             editor.getSession().setMode("ace/mode/c_cpp");
         }
         else{
-            editor.getSession().setMode("ace/mode/"+l);
+            editor.getSession().setMode("ace/mode/"+languageSelected);
         }
+    });
 
-
+     $("#theme").change(function () {
+        editorThemeSelected =$("#theme option:selected").text();
+        console.log(editorThemeSelected);
+        editor.setTheme("ace/theme/"+editorThemeSelected);
     });
 
      $('#custom-input-checkbox').click(function () {
@@ -128,7 +175,7 @@
                 data: {
 
                     script: editor.getValue(),
-                    lang: $("select option:selected").text(),
+                    lang: $("#language option:selected").text(),
                     stdin:$("#stdin").val(),
                     csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
 
@@ -137,9 +184,16 @@
 
                 success: function (output) {
                     // enables submit btn
+                    console.log(output)
                     $("#btn").prop('disabled', false)
                     var str = (output.output).toString();
                     str=decodeURIComponent(escape(str));
+                    var sentences = str.split("\n");
+                    for(let i=0;i<sentences.length;i++)
+                    {
+                        sentences[i] = sentences[i]+"<br>";
+                    }
+                    str = sentences.join("");
                  $("#output").html(str);
                 },
 
