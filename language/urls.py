@@ -2,7 +2,7 @@ from django.urls import path
 
 from .views import QuizListView, CategoriesListView, \
     ViewQuizListByCategory, QuizUserProgressView, QuizMarkingList, \
-    QuizMarkingDetail, QuizDetailView, QuizTake
+    QuizMarkingDetail, QuizDetailView, QuizTake, QuizUserProgressViewAdmin
 
 urlpatterns = [
 
@@ -38,4 +38,8 @@ urlpatterns = [
     path('<str:quiz_name>/take/',
          view=QuizTake.as_view(),
          name='language_quiz_question'),
+
+    path('progress/<int:id>',
+         view=QuizUserProgressViewAdmin.as_view(),
+         name='language_quiz_progress-admin'),
 ]
