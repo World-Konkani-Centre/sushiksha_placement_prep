@@ -14,6 +14,7 @@ from resume_builder.models import Resume, Comments
 from users.models import Profile
 from interviews.models import Interview, GD
 from interviews.forms import GDCreationForm
+from users.models import Profile
 
 
 @login_required
@@ -265,3 +266,16 @@ def mentors_home(request):
         redirect('index')
     
     return render(request, 'mentors-panel/mentors-home.html')
+
+
+@login_required
+def profile_list(request):
+    if not request.user.profile.is_mentor:
+        messages.error(request, "You don't have access to view this page :)")
+        redirect('index')
+
+    data = Profile.objects.all()
+    context = {
+        'data': data,
+    }
+    return render(request, 'mentors-panel/profile-list.html', context=context)
