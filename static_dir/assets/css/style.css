@@ -2253,3 +2253,11 @@ section {
     color: #fff;
     background: #22CB5C;
 }
+
+.avatar {
+    margin: 0;
+    overflow: hidden;
+    text-align: center;
+    height: 50px;
+    width: 50px;
+}
