@@ -1,0 +1,46 @@
+{% extends 'base_page.html' %}
+{% block custom_css %}
+     {% load static %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'compiler/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+    <script src="{% static 'compiler/js/jquery.min.js'%}"></script>
+{% endblock %}
+{% block content %}
+    <main id="main">
+    <section class="breadcrumbs">
+        <div class="container">
+
+            {% if not heading %}
+                <h2 class="entry-title">Let's code
+                </h2>
+                {% else %}
+                <h2 class="entry-title">{{ heading }}</h2>
+            {% endif %}
+        </div>
+    </section>
+
+
+    <section id="blog" class="blog">
+        <div class="container" data-aos="fade-up">
+            <h4>{{ question.name }}</h4>
+            <h6>Category - {{ question.sub_cat.category }}</h6>
+            <h6>Sub category - {{ question.sub_cat.sub_name }}</h6>
+            <p>Question statement - {{ question.text | safe }}</p>
+
+            <h4>Sample input/ output</h4>
+            <p>{{ question.samplein }}</p>
+            <p>{{ question.sampleout }}</p>
+        </div>
+
+        <div class="container">
+            {% include 'compiler/code_editor.html' %}
+        </div>
+    </section>
+
+    </main>
+{% endblock %}
+
+
+

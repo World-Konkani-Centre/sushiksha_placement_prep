@@ -1,4 +1,3 @@
-{% extends 'base_page.html' %}
 {% block custom_css %}
      {% load static %}
     <meta charset="utf-8">
@@ -9,17 +8,6 @@
 {% endblock %}
 {% block content %}
     <main id="main">
-    <section class="breadcrumbs">
-        <div class="container">
-
-            {% if not heading %}
-                <h2 class="entry-title">Let's code
-                </h2>
-            {% endif %}
-        </div>
-    </section>
-
-
     <section id="blog" class="blog">
         <div class="container" data-aos="fade-up">
         {% include 'compiler/code_editor_content.html' %}

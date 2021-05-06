@@ -29,7 +29,7 @@ urlpatterns = [
     url('aptitude/', include(assmt_url)),
     url('language/', include(l_urls)),
     url('interview/', include(int_urls)),
-    url('compiler/', include(c_urls)),
+    url('problemset/', include(c_urls)),
     url('award-badge/', include(b_urls)),
 ]
 
