@@ -265,3 +265,31 @@ class QuizTake(FormView):
             messages.warning(self.request,
                              f'Keep learning and score higher percentage to win a badge')
         return render(self.request, self.result_template_name, results)
+
+
+def superuser_only(function):
+    def _inner(request, *args, **kwargs):
+        if not request.user.is_superuser:
+            raise PermissionDenied
+        return function(request, *args, **kwargs)
+
+    return _inner
+
+
+@method_decorator(login_required, name='dispatch')
+@method_decorator(superuser_only, name='dispatch')
+class QuizUserProgressViewAdmin(TemplateView):
+    template_name = 'quiz/progress.html'
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(QuizUserProgressViewAdmin, self) \
+            .dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(QuizUserProgressViewAdmin, self).get_context_data(**kwargs)
+        user = get_object_or_404(User, id=self.kwargs['id'])
+        progress= get_object_or_404(Progress, user=user)
+        context['cat_scores'] = progress.list_all_cat_scores
+        context['exams'] = progress.show_exams()
+        return context
