@@ -257,3 +257,11 @@ def gd_details(request, intId):
         return render(request, 'interviews/gd-single.html', context)
     else:
         return HttpResponse("Unauthorized", 401)
+
+@login_required
+def mentors_home(request):
+    if not request.user.profile.is_mentor:
+        messages.error(request, "You don't have access to view this page :)")
+        redirect('index')
+    
+    return render(request, 'mentors-panel/mentors-home.html')
