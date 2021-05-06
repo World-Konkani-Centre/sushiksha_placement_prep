@@ -1,0 +1,86 @@
+{% extends 'base_page.html' %}
+{% block custom_css %}
+     {% load static %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% endblock %}
+{% block content %}
+    <main id="main">
+    <section class="breadcrumbs">
+        <div class="container">
+
+            {% if not heading %}
+                <h2 class="entry-title">Let's code
+                </h2>
+                {% else %}
+                <h2 class="entry-title">{{ category.name }}</h2>
+            {% endif %}
+        </div>
+    </section>
+
+
+    <section id="blog" class="blog">
+        <div class="container" data-aos="fade-up">
+        {% if questions %}
+        <h5>All Questions</h5>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                <th>
+                    Question
+                </th>
+                    <th>
+                        Difficulty
+                    </th>
+                    <th>
+                        Category
+                    </th>
+                </tr>
+                </thead>
+            <tbody>
+                {% for q in questions %}
+                    <tr>
+                    <td>
+                      <a href="{% url 'compiler:question-single' qid=q.id %}">{{ q.name }}</a>
+                    </td>
+                    <td>
+                        {{ q.get_difficulty_display }}
+                    </td>
+                    <td>
+                        {{ q.sub_cat.category }}
+                    </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+        {% endif %}
+
+        {% if subcat %}
+        <h5>Sub categories</h5>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                <th>
+                    Subcategory
+                </th>
+                </tr>
+                </thead>
+            <tbody>
+                {% for q in subcat %}
+                    <tr>
+                    <td>
+                        <a href="{% url 'compiler:q-sub-category' scid=q.id %}">{{ q.sub_name }}</a>
+                    </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+{% endif %}
+        </div>
+    </section>
+    </main>
+{% endblock %}
+
+
+
