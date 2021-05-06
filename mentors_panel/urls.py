@@ -2,6 +2,8 @@ from django.urls import path
 import mentors_panel.views as m_views
 
 urlpatterns = [
+    path('', m_views.mentors_home, name='mentors-home'),
+    path('profile-list/', m_views.profile_list, name='profile-list'),
     path('resume/', m_views.resume_list, name="resume-list"),
     path('resume/user/', m_views.resume_view_user, name="resume-view-user"),
     path('resume/<int:resumeId>', m_views.resume_view, name="resume-view"),

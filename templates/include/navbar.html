@@ -18,14 +18,7 @@
                         <li><a href="{% url 'interview-home' %}">Mock Interviews</a></li>
                         <li><a href="{% url 'counselling-home' %}">Counselling</a></li>
                         {% if user.is_authenticated and user.profile.is_mentor and not user.is_superuser %}
-                            <li class="drop-down">
-                                <a href="#">Mentors Panel</a>
-                                <ul>
-                                    <li><a href="{% url 'resume-list' %}">Resume</a></li>
-                                    <li><a href="{% url 'interview-list-mentor' %}">Interviews</a></li>
-                                    <li><a href="{% url 'gd-list-mentor' %}">Group Discussion</a></li>
-                                </ul>
-                            </li>
+                            <li><a href="{% url 'mentors-home' %}">Mentors Panel</a></li>
                         {% endif %}
                         {% if user.is_authenticated %}
                             <li class="drop-down">
@@ -33,14 +26,7 @@
                                 <ul>
                                     {% if user.is_staff or user.is_superuser %}
                                         <li><a href="/admin">Admin Panel</a></li>
-                                        <li class="drop-down">
-                                            <a href="#">Mentors Panel</a>
-                                            <ul>
-                                                <li><a href="{% url 'resume-list' %}">Resume</a></li>
-                                                <li><a href="{% url 'interview-list-mentor' %}">Interviews</a></li>
-                                                <li><a href="{% url 'gd-list-mentor' %}">Group Discussion</a></li>
-                                            </ul>
-                                        </li>
+                                        <li><a href="{% url 'mentors-home' %}">Mentors Panel</a></li>
                                     {% endif %}
                                     <li><a href="{% url 'profile' %}">Profile</a></li>
                                     <li><a href="{% url 'password_reset' %}">Reset Password</a></li>
