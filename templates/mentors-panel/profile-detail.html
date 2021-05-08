@@ -1,0 +1,174 @@
+{% extends 'base_page.html' %} 
+{% load static %} {% load crispy_forms_filters %} {% load crispy_forms_tags %} 
+{% block content %}
+
+    <main id="main">
+
+        <section id="breadcrumbs" class="breadcrumbs">
+            <div class="container">
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2>Profiles</h2>
+                   <ol>
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                         <li><a href="{% url 'mentors-home' %}">Mentors Panel</a></li>
+                         <li><a href="{% url 'profile-list' %}">Mentors Panel</a></li>
+                        <li>{{user.name}}</li>
+                    </ol>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="" class="">
+            <div class="profile container" data-aos="fade-up">
+                <div class="row">
+                    <div class="col-md-4">
+
+                       <div class="card mb-4 user-profile user-level-2">
+                        <div class="card-body p-0">
+                        <div class="text-center">
+                             <img alt="" src="{{ user.image.url }}" width="200">
+                        </div>
+                                <div class="text-center mt-3">
+                                    <h4 class="h4">{{ user.name }}</h4>
+                                </div>
+                        </div>
+                        {% comment %} <div class="card-footer">
+                        Footer
+                        </div> {% endcomment %}
+                        </div>
+
+                        <div class="card mb-2">
+                            <div class="card-body">
+                                <div class="row badge-row"></div>
+                            </div>
+                        </div>
+
+                        {% comment %} <div class="card">
+                            <div class="card-header">Points to Upgrade</div>
+                            <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-light table-hover">
+                                    <thead>
+                                    <tr>
+                                        <td>Category</td>
+                                        <td>Progress</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for cat,count,max_cat_points in query_category %}
+                                        <tr>
+                                            <td>
+                                                {{ cat }} ({{ count|intdiv:max_cat_points }}%)
+                                            </td>
+                                            <td>
+                                                <div class="progress" style="height: 20px;">
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-info"
+                                                         style="width:{{ count|intdiv:max_cat_points }}%">
+                                                         Completed {{ count|intdiv:max_cat_points }}%
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                                </div>
+                            </div>
+                        </div> {% endcomment %}
+        </div>
+                        <div class="col-md-8">
+                            <div id="accordion">
+                                <div class="card mb-3">
+                                        <div class="card-body">
+                                                <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0 text-capitalize">Full Name</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-dark">
+                                                {{ user.name }}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <h6 class="mb-0 text-capitalize">Username</h6>
+                                                </div>
+                                                <div class="col-sm-9 text-dark">{{ user.user.username }}</div>
+                                            </div>
+                                            <hr>
+
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <h6 class="mb-0 text-capitalize">Email</h6>
+                                                </div>
+                                                <div class="col-sm-9 text-dark">{{ user.user.email }}</div>
+                                            </div>
+                                            <hr>
+                                          
+                                      
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <div class="d-flex flex-column align-items-center text-center wrapper">
+                                        <div class="badge-carousel pricing owl-carousel owl-theme"
+                                                data-aos="zoom-in"
+                                                data-aos-delay="100">
+                                            {% for badge in badges %}
+                                                <div class="box">
+                                                    <h3>{{ badge.badges__title }}</h3>
+                                                    <img src="/media/{{ badge.badges__logo }}"
+                                                            loading="lazy"
+                                                            title="{{ badge.badges__title }}"
+                                                            alt="{{ badge.badges__title }}"
+                                                            width="80%"
+                                                            class="img-rounded"/>
+                                                    <h4>{{ badge.badges__title__count }}</h4>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card-footer">
+                                    <h1 class="lead text-center">Badges</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    <!-- End #main -->
+
+{% endblock content %} 
+
+{% block custom_js %}
+  
+    <script>
+
+        $('.badge-carousel').owlCarousel({
+            loop: false,
+            nav: true,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 3
+                },
+                1000: {
+                    items: 4
+                }
+            }
+        })
+    </script>
+
+
+{% endblock custom_js %}

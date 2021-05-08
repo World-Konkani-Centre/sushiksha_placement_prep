@@ -1,8 +1,8 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.http import HttpResponseNotFound, HttpResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 
 from interviews.forms import InterviewRegisterForm
 from interviews.utils import send_interview_cancel_email, send_interview_set_email, google_calendar_set_interview1v1, \
@@ -15,6 +15,7 @@ from users.models import Profile
 from interviews.models import Interview, GD
 from interviews.forms import GDCreationForm
 from users.models import Profile
+from badge.models import Reward
 
 
 @login_required
@@ -263,7 +264,7 @@ def gd_details(request, intId):
 def mentors_home(request):
     if not request.user.profile.is_mentor:
         messages.error(request, "You don't have access to view this page :)")
-        redirect('index')
+        return redirect('index')
     
     return render(request, 'mentors-panel/mentors-home.html')
 
@@ -272,10 +273,25 @@ def mentors_home(request):
 def profile_list(request):
     if not request.user.profile.is_mentor:
         messages.error(request, "You don't have access to view this page :)")
-        redirect('index')
+        return redirect('index')
 
     data = Profile.objects.all()
     context = {
         'data': data,
     }
     return render(request, 'mentors-panel/profile-list.html', context=context)
+
+
+@login_required
+def profile_detail(request, id):
+    if not request.user.profile.is_mentor:
+        messages.error(request, "You don't have access to view this page :)")
+        return redirect('index')
+
+    user = get_object_or_404(Profile, id=id)
+    badges = Reward.objects.filter(user=user).values('badge__title', 'badge__image').annotate(Count('badge__title'))
+    context = {
+        'user': user,
+        'badges': badges,
+    }
+    return render(request, 'mentors-panel/profile-detail.html', context=context)
