@@ -34,7 +34,7 @@
                         <div class="card mb-4">
                             <div class="card-header py-3">
                                 <p class="font-weight-bold p-0 m-0 text-center text-uppercase underline highlight_text">
-                                    Individual Leaderboard</p>
+                                    User Profile</p>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -42,6 +42,8 @@
                                         <thead>
                                         <tr>
                                             <th>Profile</th>
+                                            <th>Aptitude Progress</th>
+                                            <th>Language Progress</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -49,14 +51,13 @@
                                             <tr>
                                                 <td>
                                                     <div class="media align-items-center">
-                                                        <a href="#"
-                                                           class="avatar rounded-circle mr-3">
+                                                        <a href="{% url 'profile-detail' id=entry.id %}">
                                                             <img src="{{ entry.image.url }}" loading="lazy"
                                                                  alt="{{ entry.name }}"
-                                                                 title="{{ entry.user.username }}">
+                                                                 title="{{ entry.user.username }}" class="avatar rounded-cricle mr-3">
                                                         </a>
                                                         <div class="media-body">
-                                                            <a href="#"><span
+                                                            <a href="{% url 'profile-detail' id=entry.id %}"><span
                                                                     class="mb-0 text-sm font-weight-bold">
                                                                 {% if entry.name %}
                                                                     {{ entry.name }}
@@ -67,7 +68,10 @@
                                                         </div>
                                                     </div>
                                                 </td>
+                                                  <td><a href="{% url 'quiz_progress-admin' id=entry.user.id %}">Aptitude Page <i class="icofont-computer"></i></a></td>
+                                                  <td><a href="{% url 'language_quiz_progress-admin' id=entry.user.id %}">Language Page <i class="icofont-computer"></i></a></td>
                                             </tr>
+                                          
                                         {% endfor %}
                                         </tbody>
                                     </table>

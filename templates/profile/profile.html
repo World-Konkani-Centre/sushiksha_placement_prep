@@ -21,37 +21,29 @@
 
 
 
-            <section id="team" class="team ">
+<section class="team ">
       <div class="container">
 
         <div class="row">
 
-          <div class="col-lg-12">
+        <div class="col-lg-4 col-12">
+        <div class="text-center">
+        <img src="{{ user.profile.image.url }}" class="img-fluid" loading="lazy">
+        </div>
+  
+        </div>
+        <div class="col-lg-8 col-12">
+        <h1>{{user.profile.name}}</h1>
+        <hr>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ u_form | crispy }}
+            {% csrf_token %}
+            {{ p_form | crispy }}
+            <button type="submit" class="btn btn-block custom-info-btn animate__animated animate__fadeInUp scrollto">Submit</button>
+        </form>
+        </div>
 
-            <div class="member d-flex align-items-start">
-            <div class="row">
-            <div class="col-lg-4 col-12">
-              <div class="pic"><img src="{{ user.profile.image.url }}" class="img-fluid" alt=""></div>
-              </div>
-              <div class="col-lg-8 col-12">
-              <div class="member-info">
-                <h4>{{ user.profile.name }}</h4>
-                <span><strong>Username: </strong>{{ user.username }}</span>
-                <div class="profile-update-form">
-                   <form action="" method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        {{ u_form | crispy }}
-                        {% csrf_token %}
-                        {{ p_form | crispy }}
-                        <button type="submit" class="btn btn-block custom-info-btn animate__animated animate__fadeInUp scrollto">Submit</button>
-                    </form>
-                </div>
-              </div>
-              </div>
-            
-            </div>
-            </div>
-          </div>
           </div>
           <div>
         </section>
