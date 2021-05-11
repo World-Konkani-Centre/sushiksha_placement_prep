@@ -286,7 +286,7 @@ class QuizUserProgressViewAdmin(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(QuizUserProgressViewAdmin, self).get_context_data(**kwargs)
         user = get_object_or_404(User, id=self.kwargs['id'])
-        progress = get_object_or_404(Progress, user=user)
+        progress = Progress.objects.filter(user=user).first()
         context['cat_scores'] = progress.list_all_cat_scores
         context['exams'] = progress.show_exams()
         return context
