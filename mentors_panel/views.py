@@ -106,7 +106,7 @@ def interview_list(request):
                 form = MultiInterviewScheduleForm(request.POST)
                 if form.is_valid():
                     heading = form.cleaned_data['heading']
-                    description = form.cleaned_data['description']
+                    branch = form.cleaned_data['branch']
                     int_type = form.cleaned_data['type']
                     link = form.cleaned_data['link']
                     start_date = form.cleaned_data['start_date']
@@ -115,7 +115,7 @@ def interview_list(request):
                     end_time = form.cleaned_data['st_end_time']
                     schedule = create_schedule(start_date,end_date,start_time,end_time)
                     for s in schedule:
-                        Interview.objects.create(heading=heading, type=int_type, description=description,
+                        Interview.objects.create(heading=heading, type=int_type, branch=branch,
                         link=link, participant_1=request.user,start_time=s[0],end_time=s[1])
                     messages.success(request, f'New Interview has been scheduled successfully')
                     return redirect('interview-list-mentor')
@@ -275,7 +275,7 @@ def profile_list(request):
         messages.error(request, "You don't have access to view this page :)")
         return redirect('index')
 
-    data = Profile.objects.all()
+    data = Profile.objects.all().filter(is_mentor=False)
     context = {
         'data': data,
     }
