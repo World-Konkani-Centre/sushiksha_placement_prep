@@ -52,7 +52,7 @@
                                 <p>Start Time : {{ interview.start_time }}</p>
                                 <p>End Time : {{ interview.end_time }}</p>
                                 <p>Location : <a href="{{ interview.link }}">{{ interview.link }}</a></p>
-                                <p>Description : {{ interview.description }}</p>
+                                {% comment %} <p>Description : {{ interview.description }}</p> {% endcomment %}
                             </div>
                         </article>
                     </div>

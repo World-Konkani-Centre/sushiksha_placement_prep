@@ -4,7 +4,7 @@ from django.db.models import Q, Count
 from django.http import HttpResponseNotFound, HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
 
-from interviews.forms import InterviewRegisterForm
+# from interviews.forms import InterviewRegisterForm
 from interviews.utils import send_interview_cancel_email, send_interview_set_email, google_calendar_set_interview1v1, \
     google_calendar_cancel_interview1v1, send_gd_cancel_email, send_gd_set_email, update_gd_event, set_gd_event
 from mentors_panel.forms import MultiInterviewScheduleForm
@@ -105,7 +105,6 @@ def interview_list(request):
             if request.user.profile.is_mentor:
                 form = MultiInterviewScheduleForm(request.POST)
                 if form.is_valid():
-                    heading = form.cleaned_data['heading']
                     branch = form.cleaned_data['branch']
                     int_type = form.cleaned_data['type']
                     link = form.cleaned_data['link']
@@ -115,7 +114,7 @@ def interview_list(request):
                     end_time = form.cleaned_data['st_end_time']
                     schedule = create_schedule(start_date,end_date,start_time,end_time)
                     for s in schedule:
-                        Interview.objects.create(heading=heading, type=int_type, branch=branch,
+                        Interview.objects.create(type=int_type, branch=branch,
                         link=link, participant_1=request.user,start_time=s[0],end_time=s[1])
                     messages.success(request, f'New Interview has been scheduled successfully')
                     return redirect('interview-list-mentor')

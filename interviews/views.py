@@ -3,10 +3,12 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import render, redirect
 
+
 from interviews.models import Interview, GD
 from interviews.utils import google_calendar_set_interview1v1, google_calendar_cancel_interview1v1, \
     send_interview_cancel_email, send_interview_set_email, send_gd_set_email, update_gd_event, send_gd_cancel_email
 from resume_builder.models import Resume
+# from .tables import InterviewTable
 
 
 @login_required
