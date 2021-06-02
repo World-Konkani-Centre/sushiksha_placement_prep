@@ -56,12 +56,13 @@
             {% if interviews_scheduled %}
 
                     <h2 class="mt-5"> Available Sessions</h2>
+                    
                     <div class="row ">
                      {% for i in interviews_scheduled %}
                             <div class="col-lg-6 col-md-6 mt-4 mt-lg-0">
                                 <div class="box">
                                 <span class="advanced">{{ i.type }}</span>
-                                        <h3 class="card-title">{{ i.heading }}</h3>
+                                        <h3 class="card-title">{{ i.branch }}</h3>
                                         <h4 class="card-text">Timings: {{ i.start_time | date:"h:i A, D d"}} - {{ i.end_time | date:"h:i A, D d" }}  ({{ i.end_time | date:"M, Y" }})</h4>
                                         <div class="btn-wrap">
                                         {% if request.user == i.participant_1 %}
@@ -93,7 +94,7 @@
                             <div class="col-lg-6 col-md-6 mt-4 mt-lg-0">
                                 <div class="box">
                                 <span class="advanced">{{ i.type }}</span>
-                                        <h3 class="card-title">{{ i.heading }}</h3>
+                                        <h3 class="card-title">{{ i.branch }}</h3>
                                         <h4 class="card-text">Timings: {{ i.start_time | date:"h:i A, D d"}} - {{ i.end_time | date:"h:i A, D d" }}  ({{ i.end_time | date:"M, Y" }})</h4>
                                         <h4 class="card-text">Participants: {{ i.participant_1 }}, {{ i.participant_2 }}</h4>
                                         {% if request.user.profile.is_mentor and request.user == i.participant_1 %}

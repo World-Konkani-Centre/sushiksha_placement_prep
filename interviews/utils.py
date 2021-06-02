@@ -37,9 +37,9 @@ def google_calendar_set_interview1v1(interview):
     service = Create_Service()
     timezone = 'Asia/Kolkata'
     event = {
-        'summary': f'{interview.heading}--{interview.type}',
+        'summary': f'{interview.branch}--{interview.type}',
         'location': interview.link,
-        'description': interview.description,
+        'description': interview.branch,
         'start': {
             'dateTime': interview.start_time.strftime("%Y-%m-%dT%H:%M:%S"),
             'timeZone': timezone,
@@ -79,25 +79,23 @@ def send_interview_cancel_email(interview):
         {
             'name': interview.participant_1.profile.name,
             'content': 'The Below Interview has been canceled',
-            'interview_type': f'{interview.heading} -- {interview.type}',
+            'interview_type': f'{interview.branch} -- {interview.type}',
             'interview_date': f'{interview.start_time.strftime("%I:%M %p")} -- {interview.end_time.strftime("%I:%M %p")} ({interview.end_time.strftime("%A, %x")})',
-            'interview_description': interview.description,
             'interview_location': interview.link,
             'interview_time': 'Asia/Kolkata',
             'link': f'https://scopea.konkanischolarship.com/interview/{interview_type}/view/{interview.id}'
         }
     )
 
-    subject = f'CANCELED : {interview.heading} - {interview.start_time.strftime("%I:%M %p, %A, %x")} - {interview.type}'
+    subject = f'CANCELED : {interview.branch} - {interview.start_time.strftime("%I:%M %p, %A, %x")} - {interview.type}'
 
     if interview.participant_2:
         html_message = loader.render_to_string(
         'mail/template.html',
         {
             'content': 'The Below Interview has been canceled',
-            'interview_type': f'{interview.heading} -- {interview.type}',
+            'interview_type': f'{interview.branch} -- {interview.type}',
             'interview_date': f'{interview.start_time.strftime("%I:%M %p")} -- {interview.end_time.strftime("%I:%M %p")} ({interview.end_time.strftime("%A, %x")})',
-            'interview_description': interview.description,
             'interview_location': interview.link,
             'interview_time': 'Asia/Kolkata',
             'link': f'https://scopea.konkanischolarship.com/interview/{interview_type}/view/{interview.id}'
@@ -134,16 +132,15 @@ def send_interview_set_email(interview):
         'mail/template.html',
         {
             'content': 'A new Mock Interview has been scheduled.',
-            'interview_type': f'{interview.heading} -- {interview.type}',
+            'interview_type': f'{interview.branch} -- {interview.type}',
             'interview_date': f'{interview.start_time.strftime("%I:%M %p")} -- {interview.end_time.strftime("%I:%M %p")} ({interview.end_time.strftime("%A, %x")})',
-            'interview_description': interview.description,
             'interview_location': interview.link,
             'interview_time': 'Asia/Kolkata',
             'link': f'https://scopea.konkanischolarship.com/interview/{interview_type}/view/{interview.id}'
         }
     )
 
-    subject = f'NEW INTERVIEW : {interview.heading} -- {interview.start_time.strftime("%I:%M %p, %A, %x")} -- {interview.type}'
+    subject = f'NEW INTERVIEW : {interview.branch} -- {interview.start_time.strftime("%I:%M %p, %A, %x")} -- {interview.type}'
 
     send_mail(
         subject=subject,
