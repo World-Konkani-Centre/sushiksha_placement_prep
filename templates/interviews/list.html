@@ -59,48 +59,50 @@
                     <h2 class="mt-5"> Available Sessions</h2>
                     
                     <div class="row ">
-
-                        <div class="table-responsive">
-                        <table id="interviewTable" class="table table-striped table-bordered" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>Sl no.</th>
-                                    <th>Interview Type</th>
-                                    <th>Branch</th>
-                                    <th style="min-width:200px">Timings</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            {% for i in interviews_scheduled %}
-                                <tr>
-                                    <td>{{forloop.counter}}</td>
-                                    <td>{{i.type}}</td>
-                                    <td>{{i.branch}}</td>
-                                    <td>{{ i.start_time | date:"h:i A, D d"}} - {{ i.end_time | date:"h:i A, D d" }}  ({{ i.end_time | date:"M, Y" }})</td>
-                                    <td>
-                                        {% if request.user == i.participant_1 %}
-                                            <a href="{% url 'interview-detail-mentor' intId=i.id %}"
-                                               class="btn btn-info">Details </a>
-                                        {% else %}
-                                            {% if whatIS == 'hr' %}
-                                                <a href="{% url 'hr-interviews-single' intId=i.id %}"
-                                                   class="btn btn-info">Details </a>
-                                            {% elif whatIS == 'tech' %}
-                                                <a href="{% url 'interviews-single' intId=i.id %}"
-                                                   class="btn btn-info">Details </a>
-                                            {% else %}
-                                                <a href="{% url 'counselling-single' intId=i.id %}"
-                                                   class="btn btn-info">Details </a>
-                                            {% endif %}
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
+                        <div class="card" style="width: 100%">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="interviewTable" class="table table-striped table-bordered" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Sl no.</th>
+                                                <th>Interview Type</th>
+                                                <th>Branch</th>
+                                                <th style="min-width:200px">Timings</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for i in interviews_scheduled %}
+                                            <tr>
+                                                <td>{{forloop.counter}}</td>
+                                                <td>{{i.type}}</td>
+                                                <td>{{i.branch}}</td>
+                                                <td>{{ i.start_time | date:"h:i A, D d"}} - {{ i.end_time | date:"h:i A, D d" }}  ({{ i.end_time | date:"M, Y" }})</td>
+                                                <td>
+                                                    {% if request.user == i.participant_1 %}
+                                                        <a href="{% url 'interview-detail-mentor' intId=i.id %}"
+                                                        class="btn btn-info">Details </a>
+                                                    {% else %}
+                                                        {% if whatIS == 'hr' %}
+                                                            <a href="{% url 'hr-interviews-single' intId=i.id %}"
+                                                            class="btn btn-info">Details </a>
+                                                        {% elif whatIS == 'tech' %}
+                                                            <a href="{% url 'interviews-single' intId=i.id %}"
+                                                            class="btn btn-info">Details </a>
+                                                        {% else %}
+                                                            <a href="{% url 'counselling-single' intId=i.id %}"
+                                                            class="btn btn-info">Details </a>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
-
                     </div>
                 {% endif %}
 
