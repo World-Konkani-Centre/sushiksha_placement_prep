@@ -14,10 +14,10 @@ class InterviewRegisterForm(forms.ModelForm):
 class GDCreationForm(forms.ModelForm):
     class Meta:
         model = GD
-        fields = ['heading',  'description', 'start_time', 'end_time', 'link']
+        fields = ['start_time', 'end_time', 'link']
         help_texts = {
             'link': _("<strong class='text-info'>Please check again if your dates is following the timeline </strong> \
-                                                                                <ol><li>For Technical Interview from 21st June to 15th July</li><li>For GD from 21st June to 15th July</li><li>For HR from 16th July to 31st July</li></ol>"),
+                                                                                <ol><li>For GD from 21st June to 15th July</li></ol>"),
             'start_time': _("Enter the Date and Time"),
             'end_time': _('End Date and Time'),
         }
