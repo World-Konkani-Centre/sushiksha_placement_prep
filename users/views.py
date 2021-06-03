@@ -51,9 +51,8 @@ def user_login(request):
             messages.success(request, 'You have logged into your account!!')
             return redirect('profile')
 
-        else:
-            messages.error(request, 'Invalid Credential')
-            return redirect('login')
+        messages.error(request, 'Invalid Credential')
+        return redirect('login')
     else:
         return render(request, 'profile/login.html', {'title': "Login"})
 

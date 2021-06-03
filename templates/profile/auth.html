@@ -7,8 +7,10 @@
   {% if title %}
   <title>{{ title }}</title>
   {% else %}
-  <title>Sushiksha Authentication</title>
+  <title>SCOPEA</title>
   {% endif %}
+  {% include 'include/style.html' %}
+
 {% block custom_css %}{% endblock %}
 </head>
 
@@ -17,6 +19,7 @@
 
 {% block content %}
 {% endblock %}
+{% include 'include/scripts.html' %}
 {% block custom_js %}{% endblock %}
 {% include 'include/notification.html' %}
 </body>
