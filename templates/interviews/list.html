@@ -71,7 +71,9 @@
                                                 <th>Branch</th>
                                                 {% endif %}
                                                 <th style="min-width:200px">Timings</th>
+                                                {% if not request.user.profile.is_mentor %}
                                                 <th>Interview</th>
+                                                {% endif %}
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -83,6 +85,7 @@
                                                 <td>{{i.branch}}</td>
                                                 {% endif %}
                                                 <td>{{ i.start_time}}</td>
+                                                {% if not request.user.profile.is_mentor %}
                                                 <td>
                                                     {% if request.user == i.participant_1 %}
                                                         <a href="{% url 'interview-detail-mentor' intId=i.id %}"
@@ -100,6 +103,7 @@
                                                         {% endif %}
                                                     {% endif %}
                                                 </td>
+                                                {% endif %}
                                             </tr>
                                         {% endfor %}
                                         </tbody>

@@ -60,7 +60,9 @@
                                                 <th>Sl no.</th>
                                                 <th>Interview Name</th>
                                                 <th style="min-width:200px">Timings</th>
+                                                {% if not request.user.profile.is_mentor %}
                                                 <th>Interview</th>
+                                                {% endif %}
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -69,6 +71,7 @@
                                                 <td>{{forloop.counter}}</td>
                                                 <td>GD - {{i.id}}</td>
                                                 <td>{{ i.start_time}}</td>
+                                                {% if not request.user.profile.is_mentor %}
                                                 <td>
                                                     {% if request.user == i.participant_1 %}
                                                         <a href="{% url 'gd-detail-mentor' intId=i.id %}" class="btn btn-block custom-info-btn animate__animated animate__fadeInUp scrollto">Details </a>
@@ -76,6 +79,7 @@
                                                         <a href="{% url 'gd-single' intId=i.id %}" class="btn btn-block custom-info-btn animate__animated animate__fadeInUp scrollto">Details </a>
                                                     {% endif %}
                                                 </td>
+                                                {% endif %}
                                             </tr>
                                         {% endfor %}
                                         </tbody>
