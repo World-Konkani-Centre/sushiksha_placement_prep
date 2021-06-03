@@ -26,7 +26,7 @@ class Interview(models.Model):
     event_id = models.CharField(max_length=50, null=True, blank=True)
 
     def __str__(self):
-        return f'{self.heading} - {self.type} - {self.participant_1}'
+        return f'{self.branch} - {self.type} - {self.participant_1}'
 
 
 class GD(models.Model):
