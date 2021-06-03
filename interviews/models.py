@@ -30,7 +30,6 @@ class Interview(models.Model):
 
 
 class GD(models.Model):
-    heading = models.CharField(max_length=50)
     count = models.IntegerField(default=1)
     participant_1 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='part_1', null=True)
     participant_2 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='part_2', null=True, blank=True)
@@ -43,10 +42,9 @@ class GD(models.Model):
     participant_9 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='part_9', null=True, blank=True)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
-    description = models.TextField()
-    link = models.URLField(default='https://tinyurl.com/pair-link')
+    link = models.URLField()
     complete = models.BooleanField(default=False)
     event_id = models.CharField(max_length=50, null=True, blank=True)
 
     def __str__(self):
-        return f'{self.heading} - {self.participant_1}'
+        return f'GD {self.id} - {self.participant_1}'
