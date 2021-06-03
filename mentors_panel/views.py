@@ -23,7 +23,7 @@ from badge.models import Reward
 @login_required
 def resume_list(request):
     if request.user.profile.is_mentor:
-        query = Resume.objects.all()
+        query = Resume.objects.all().filter(user__profile__is_mentor = False)
         context = {
             'query': query,
             'heading': 'Resumes',

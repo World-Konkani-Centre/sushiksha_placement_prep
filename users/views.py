@@ -53,7 +53,7 @@ def user_login(request):
 
         else:
             messages.error(request, 'Invalid Credential')
-            return redirect(request.META['HTTP_REFERER'])
+            return redirect('login')
     else:
         return render(request, 'profile/login.html', {'title': "Login"})
 
