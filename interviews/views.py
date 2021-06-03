@@ -15,7 +15,7 @@ from resume_builder.models import Resume
 def hr_interview_list(request):
     interviews_completed = Interview.objects.filter(
         Q(participant_2=request.user) | Q(participant_1=request.user) & Q(complete=True), type='HR')
-    interviews_scheduled = Interview.objects.filter(complete=False, type='HR')
+    interviews_scheduled = Interview.objects.filter(complete=False, type='HR').order_by('start_time')
     context = {
         'interviews_completed': interviews_completed,
         'interviews_scheduled': interviews_scheduled,
@@ -70,7 +70,7 @@ def hr_interview_details(request, intId):
 def interview_list(request):
     interviews_completed = Interview.objects.filter(
         Q(participant_2=request.user) | Q(participant_1=request.user) & Q(complete=True), type="Technical")
-    interviews_scheduled = Interview.objects.filter(complete=False, type="Technical")
+    interviews_scheduled = Interview.objects.filter(complete=False, type="Technical").order_by('start_time')
     context = {
         'interviews_completed': interviews_completed,
         'interviews_scheduled': interviews_scheduled,

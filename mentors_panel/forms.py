@@ -7,7 +7,7 @@ OPTIONS = (
 )
 
 class MultiInterviewScheduleForm(forms.Form):
-    branch = forms.ModelChoiceField(queryset=Branch.objects.all(), help_text='Branch Name will be heading of the Interview', label='Interview Heading')
+    branch = forms.ModelChoiceField(queryset=Branch.objects.all(), help_text='Branch Name will be heading of the Interview, If Interview is HR, then you can select NULL option for heading.', label='Interview Heading')
     start_date = forms.DateField(help_text="<strong class='text-info'>While Selecting Dates Please follow below timeline</strong> \
                                             <ol><li>For Technical Interview from 21st June to 15th July</li> <li>For HR from 16th July to 31st July</li></ol>")
     end_date = forms.DateField()
