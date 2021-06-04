@@ -185,7 +185,8 @@
                                             <td style="word-break: break-word; vertical-align: top; padding-bottom: 0px; padding-left: 10px; padding-right: 0px; padding-top: 5px; text-align: center; width: 100%;"
                                                 width="100%" align="center" valign="top">
                                                 <h1 style="color:#6d0707;direction:ltr;font-family:'Bitter', Georgia, Times, 'Times New Roman', serif;font-size:34px;font-weight:normal;letter-spacing:normal;line-height:120%;text-align:left;margin-top:0;margin-bottom:0;">
-                                                    <strong>{{ contact.first_name }} {{ contact.last_name }}</strong></h1>
+                                                    <strong>{{ contact.first_name }} {{ contact.last_name }}</strong>
+                                                </h1>
                                             </td>
                                         </tr>
                                     </table>
@@ -209,7 +210,7 @@
                                             <td style="padding-right: 0px; padding-left: 10px; padding-top: 10px; padding-bottom: 0px; font-family: Arial, sans-serif">
                                     <![endif]-->
                                     <div style="color:#393d47;font-family:'Cabin', Arial, 'Helvetica Neue', Helvetica, sans-serif;line-height:1.2;padding-top:10px;padding-right:0px;padding-bottom:0px;padding-left:10px;">
-                                       <div class="txtTinyMce-wrapper"
+                                        <div class="txtTinyMce-wrapper"
                                              style="font-size: 14px; line-height: 1.2; font-family: 'Cabin', Arial, 'Helvetica Neue', Helvetica, sans-serif; color: #393d47; mso-line-height-alt: 17px;">
                                             <p style="margin: 0; font-size: 12px; line-height: 1.2; word-break: break-word; text-align: left; mso-line-height-alt: 14px; margin-top: 0; margin-bottom: 0;">
                                                 <span style="font-size: 12px;">Email:{{ contact.email }} - Mobile: +91 {{ contact.phone_number }}}&nbsp;<br>{{ contact.address_1 }}, {{ contact.address_2 }},{{ contact.state }}
@@ -368,7 +369,17 @@
                                     {% endfor %}
 
 
-
+                                    <table cellpadding="0" cellspacing="0" role="presentation" width="100%"
+                                           style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"
+                                           valign="top">
+                                        <tr style="vertical-align: top;" valign="top">
+                                            <td style="word-break: break-word; vertical-align: top; padding-bottom: 0px; padding-left: 0px; padding-right: 20px; padding-top: 10px; text-align: center; width: 100%;"
+                                                width="100%" align="center" valign="top">
+                                                <h1 style="color:#950a0a;direction:ltr;font-family:'Bitter', Georgia, Times, 'Times New Roman', serif;font-size:21px;font-weight:normal;letter-spacing:normal;line-height:120%;text-align:left;margin-top:0;margin-bottom:0;">
+                                                    <strong>PROJECTS</strong></h1>
+                                            </td>
+                                        </tr>
+                                    </table>
 
                                     {% for p in projects %}
                                         <div style="color:#393d47;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;line-height:1.2;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:0px;">
@@ -378,13 +389,12 @@
                                                    style="margin: 0; font-size: 14px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 17px; margin-top: 0; margin-bottom: 0;">
                                                     <strong><span
                                                             style="font-size: 13px; mso-ansi-font-size: 14px;"><span
-                                                            style="font-size: 14px;">Hostel Catering Management System - </span></span><span
-                                                            style="font-size: 13px; color: #8e0303; mso-ansi-font-size: 14px;">Java Swings, SQL</span></strong>
+                                                            style="font-size: 14px;">{{ p.name }} - </span></span><span
+                                                            style="font-size: 13px; color: #8e0303; mso-ansi-font-size: 14px;">{{ p.tech }}</span></strong>
                                                 </p>
                                                 <p dir="ltr"
                                                    style="margin: 0; font-size: 12px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 14px; margin-top: 0; margin-bottom: 0;">
-                                                    <span style="font-size: 12px;">Developed a user-friendly software for students to avail one-touch </span><span
-                                                        style="font-size: 12px;">access to all meals, order history, transaction details, thus increasing efficiency of 30+ hostel catering services</span>
+                                                    <span style="font-size: 12px;">{{ p.description }}</span>
                                                 </p>
                                             </div>
                                         </div>
