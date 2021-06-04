@@ -9,7 +9,7 @@ from interviews.utils import google_calendar_set_interview1v1, google_calendar_c
     send_interview_cancel_email, send_interview_set_email, send_gd_set_email, update_gd_event, send_gd_cancel_email
 from resume_builder.models import Resume
 # from .tables import InterviewTable
-
+from badge.models import Badge,BadgeCategory,Reward
 
 @login_required
 def hr_interview_list(request):
@@ -29,6 +29,7 @@ def hr_interview_list(request):
 def hr_interview_details(request, intId):
     interview = Interview.objects.get(id=intId)
     res = Resume.objects.filter(user=request.user, status="3")
+    # badges = Badges.objets.filter
     if request.POST:
         val = request.POST.get('hidden_option')
         if val == '0':
@@ -84,6 +85,7 @@ def interview_list(request):
 def interview_details(request, intId):
     interview = Interview.objects.get(id=intId)
     res = Resume.objects.filter(user=request.user, status="3")
+    badges = Reward.objects.filter(user=request.user,badge__category__name="LEVEL 1")
     if request.POST:
         val = request.POST.get('hidden_option')
         if val == '0':
@@ -99,9 +101,9 @@ def interview_details(request, intId):
                 messages.success(request, f'The interview has been cancelled and same is informed to the other')
                 interview.save()
         elif val == '1':
-            if len(res) == 0:
+            if len(res) == 0 or len(badges) == 0:
                 messages.error(request,
-                               f'Please complete your your resume for being eligible for interviews')
+                               f'Please complete your your resume and aptitude test for being eligible for interviews')
                 return redirect('interviews-list')
             interview.participant_2 = request.user
             interview.complete = True
@@ -141,6 +143,8 @@ def gd_interview_details(request, intId):
     context = {
         'interview': interview
     }
+    res = Resume.objects.filter(user=request.user, status="3")
+    badges = Reward.objects.filter(user=request.user, badge__category__name="LEVEL 1")
     if request.POST:
         val = request.POST.get('hidden_option')
         if val == '0':
@@ -152,6 +156,10 @@ def gd_interview_details(request, intId):
             else:
                 messages.error(request, "invalid operation by non mentor")
         elif val == '1':
+            if len(res) == 0 or len(badges) == 0:
+                messages.error(request,
+                               f'Please complete your your resume and aptitude test for being eligible for interviews')
+                return redirect('gd-interviews-list')
             if interview.count == 10:
                 messages.error(request, "slot is full")
                 return redirect('gd-interviews-list')

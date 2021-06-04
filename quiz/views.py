@@ -7,6 +7,7 @@ from django.shortcuts import get_object_or_404, render
 from django.utils.decorators import method_decorator
 from django.views.generic import DetailView, ListView, TemplateView, FormView
 
+from badge.models import Reward, Badge
 from .forms import QuestionForm, EssayForm
 from .models import Quiz, Category, Progress, Sitting, Question, Essay_Question
 
@@ -237,33 +238,38 @@ class QuizTake(FormView):
         if self.quiz.exam_paper is False:
             self.sitting.delete()
 
-        percent = results['percent']
-        describe = "This is a badge for your aptitude practice session, keep learning."
-        awarded = 'ADMIN'
-        if percent == 100:
-            pass
-        # badge_obj = get_object_or_404(Badge, id=129)
-        #  Reward.objects.create(user=get_object_or_404(User, id=int(self.request.user.id)), description=describe,
-        #                        awarded_by=awarded, badges=badge_obj)
-        #  messages.success(self.request,
-        #                   f'You have successfully completed the quiz and you are awarded with {badge_obj.title} badge')
-        elif percent >= 80:
-            pass
-            # badge_obj = get_object_or_404(Badge, id=130)
-            # Reward.objects.create(user=get_object_or_404(User, id=int(self.request.user.id)), description=describe,
-            #                       awarded_by=awarded, badges=badge_obj)
-            # messages.success(self.request,
-            #                  f'You have successfully completed the quiz and you are awarded with {badge_obj.title} badge')
-        elif percent >= 50:
-            pass
-            # badge_obj = get_object_or_404(Badge, id=131)
-            # Reward.objects.create(user=get_object_or_404(User, id=int(self.request.user.id)), description=describe,
-            #                       awarded_by=awarded, badges=badge_obj)
-            # messages.success(self.request,
-            #                  f'You have successfully completed the quiz and you are awarded with {badge_obj.title} badge')
         else:
-            messages.warning(self.request,
-                             f'Keep learning and score higher percentage to win a badge')
+            percent = results['percent']
+            describe = "This is a badge for your aptitude practice session, keep learning."
+            awarded = 'ADMIN'
+            if percent >= 100:
+                badges = Reward.objects.filter(user=self.request.user, badge__category__name="LEVEL 1")
+                if len(badges) != 0:
+                    pass
+                else:
+                    badge_obj = get_object_or_404(Badge, id=1)
+                    Reward.objects.create(user=get_object_or_404(User, id=int(self.request.user.id)),
+                                          description=describe,
+                                          awarded_by=awarded, badge=badge_obj)
+                    messages.success(self.request,
+                                     f'You have successfully completed the quiz and you are awarded with {badge_obj.title} badge')
+            elif percent >= 80:
+                pass
+                # badge_obj = get_object_or_404(Badge, id=130)
+                # Reward.objects.create(user=get_object_or_404(User, id=int(self.request.user.id)), description=describe,
+                #                       awarded_by=awarded, badges=badge_obj)
+                # messages.success(self.request,
+                #                  f'You have successfully completed the quiz and you are awarded with {badge_obj.title} badge')
+            elif percent >= 50:
+                pass
+                # badge_obj = get_object_or_404(Badge, id=131)
+                # Reward.objects.create(user=get_object_or_404(User, id=int(self.request.user.id)), description=describe,
+                #                       awarded_by=awarded, badges=badge_obj)
+                # messages.success(self.request,
+                #                  f'You have successfully completed the quiz and you are awarded with {badge_obj.title} badge')
+            else:
+                messages.warning(self.request,
+                                 f'Keep learning and score higher percentage to win a badge')
         return render(self.request, self.result_template_name, results)
 
 
