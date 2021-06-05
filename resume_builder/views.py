@@ -39,6 +39,7 @@ def contact(request):
             messages.error(request, f'Something is wrong in your input')
         return redirect('resume-contact')
 
+
 #
 # @login_required
 # def obj(request):
@@ -568,6 +569,7 @@ def preview_template(request):
             'extras': extra_obj,
             'language': lang_obj,
             'achievement': achievement_obj,
+            'actual_user': user,
         }
         return render(request, loc, context=context)
 

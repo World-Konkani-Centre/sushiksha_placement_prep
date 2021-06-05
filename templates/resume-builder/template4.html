@@ -155,7 +155,7 @@
                     <td align="center" style="background-color:#FFFFFF"><![endif]-->
             <div style="background-color:transparent;">
                 <div class="block-grid mixed-two-up"
-                     style="min-width: 320px; max-width: 730px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; Margin: 0 auto; background-color: transparent;">
+                     style="min-width: 320px; max-width: 100%; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; Margin: 0 ; background-color: transparent;">
                     <div style="border-collapse: collapse;display: table;width: 100%;background-color:transparent;">
                         <!--[if (mso)|(IE)]>
                         <table width="100%" cellpadding="0" cellspacing="0" border="0"
@@ -173,7 +173,7 @@
                                     <td style="padding-right: 0px; padding-left: 0px; padding-top:5px; padding-bottom:5px;background-color:#fce2e2;">
                         <![endif]-->
                         <div class="col num8"
-                             style="display: table-cell; vertical-align: top; max-width: 320px; min-width: 480px; background-color: #fce2e2; width: 486px;">
+                             style="display: table-cell; vertical-align: top; max-width: 100%; min-width: 480px; background-color: #fce2e2; width: 486px;">
                             <div class="col_cont" style="width:100% !important;">
                                 <!--[if (!mso)&(!IE)]><!-->
                                 <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:5px; padding-bottom:5px; padding-right: 0px; padding-left: 0px;">
@@ -249,7 +249,7 @@
                                             <tr style="line-height:0px">
                                                 <td style="padding-right: 0px;padding-left: 0px;" align="center">
                                         <![endif]--><img class="center fixedwidth" align="center" border="0"
-                                                         src="https://d15k2d11r6t6rl.cloudfront.net/public/users/Integrators/BeeProAgency/668034_650407/Sam.jpg"
+                                                         src="{{ user.profile.image.url }}"
                                                          style="text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 146px; display: block;"
                                                          width="146">
                                         <!--[if mso]></td></tr></table><![endif]-->
@@ -266,7 +266,7 @@
             </div>
             <div style="background-color:transparent;">
                 <div class="block-grid mixed-two-up"
-                     style="min-width: 320px; max-width: 730px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; Margin: 0 auto; background-color: transparent;">
+                     style="min-width: 320px; max-width: 100%; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; Margin: 0 auto; background-color: transparent;">
                     <div style="border-collapse: collapse;display: table;width: 100%;background-color:transparent;">
                         <!--[if (mso)|(IE)]>
                         <table width="100%" cellpadding="0" cellspacing="0" border="0"
@@ -284,7 +284,7 @@
                                     <td style="padding-right: 0px; padding-left: 0px; padding-top:5px; padding-bottom:5px;">
                         <![endif]-->
                         <div class="col num8"
-                             style="display: table-cell; vertical-align: top; max-width: 320px; min-width: 480px; width: 486px;">
+                             style="display: table-cell; vertical-align: top; max-width: 100%; min-width: 480px; width: 486px;">
                             <div class="col_cont" style="width:100% !important;">
                                 <!--[if (!mso)&(!IE)]><!-->
                                 <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:5px; padding-bottom:5px; padding-right: 0px; padding-left: 0px;">
@@ -379,6 +379,32 @@
                                                     <strong>PROJECTS</strong></h1>
                                             </td>
                                         </tr>
+                                    </table>
+
+
+                                    <table class="divider" border="0" cellpadding="0" cellspacing="0"
+                                           width="100%"
+                                           style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;"
+                                           role="presentation" valign="top">
+                                        <tbody>
+                                        <tr style="vertical-align: top;" valign="top">
+                                            <td class="divider_inner"
+                                                style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px;"
+                                                valign="top">
+                                                <table class="divider_content" border="0" cellpadding="0"
+                                                       cellspacing="0" width="95%"
+                                                       style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-top: 3px solid #CC9933; width: 95%;"
+                                                       align="left" role="presentation" valign="top">
+                                                    <tbody>
+                                                    <tr style="vertical-align: top;" valign="top">
+                                                        <td style="word-break: break-word; vertical-align: top; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;"
+                                                            valign="top"><span></span></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        </tbody>
                                     </table>
 
                                     {% for p in projects %}
@@ -555,8 +581,8 @@
                                             {% for t in training %}
                                                 <p style="margin: 0; line-height: 1.5; word-break: break-word; font-size: 13px; mso-line-height-alt: 20px; mso-ansi-font-size: 14px; margin-top: 0; margin-bottom: 0;">
                                                     <span style="font-size: 13px; mso-ansi-font-size: 14px;"><strong>{{ t.name }} by {{ t.provider }} -&nbsp;</strong></span><span
-                                                        style="font-size: 13px; mso-ansi-font-size: 14px;"><strong>{% if e.date %}
-                                                    {{ e.date }}{% else %}Current{% endif %}</strong></span>
+                                                        style="font-size: 13px; mso-ansi-font-size: 14px;"><strong>{% if t.date %}
+                                                    {{ t.date }}{% else %}Current{% endif %}</strong></span>
                                                 </p>
                                             {% endfor %}
                                         </div>
