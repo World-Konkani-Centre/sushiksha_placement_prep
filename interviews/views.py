@@ -3,12 +3,14 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import render, redirect
 
-
 from interviews.models import Interview, GD
 from interviews.utils import google_calendar_set_interview1v1, google_calendar_cancel_interview1v1, \
     send_interview_cancel_email, send_interview_set_email, send_gd_set_email, update_gd_event, send_gd_cancel_email
 from resume_builder.models import Resume
 # from .tables import InterviewTable
+from badge.models import Badge, BadgeCategory, Reward
+from sushiksha_placement_prep.settings import APTITUDE_BADGE_ID, RESUME_BADGE_ID, HR_BADGE_ID, GD_BADGE_ID, \
+    TECHNICAL_BADGE_ID
 
 
 @login_required
@@ -28,7 +30,8 @@ def hr_interview_list(request):
 @login_required
 def hr_interview_details(request, intId):
     interview = Interview.objects.get(id=intId)
-    res = Resume.objects.filter(user=request.user, status="3")
+    technical = Reward.objects.filter(badge=Badge.objects.get(id=TECHNICAL_BADGE_ID), user=request.user)
+    gd = Reward.objects.filter(badge=Badge.objects.get(id=GD_BADGE_ID),user=request.user)
     if request.POST:
         val = request.POST.get('hidden_option')
         if val == '0':
@@ -44,9 +47,9 @@ def hr_interview_details(request, intId):
                 messages.success(request, f'The interview has been cancelled and same is informed to the other')
                 interview.save()
         elif val == '1':
-            if len(res) == 0:
+            if len(technical) == 0 or len(gd):
                 messages.error(request,
-                               f'Please complete your your resume for being eligible for interviews')
+                               f'Please complete your your technical and gd interviews for eligibility of HR interviews')
                 return redirect('hr-interviews-list')
             interview.participant_2 = request.user
             interview.complete = True
@@ -83,7 +86,8 @@ def interview_list(request):
 @login_required
 def interview_details(request, intId):
     interview = Interview.objects.get(id=intId)
-    res = Resume.objects.filter(user=request.user, status="3")
+    res = Reward.objects.filter(user=request.user, badge=Badge.objects.get(id=RESUME_BADGE_ID))
+    aptitude = Reward.objects.filter(user=request.user, badge=Badge.objects.get(APTITUDE_BADGE_ID))
     if request.POST:
         val = request.POST.get('hidden_option')
         if val == '0':
@@ -99,9 +103,10 @@ def interview_details(request, intId):
                 messages.success(request, f'The interview has been cancelled and same is informed to the other')
                 interview.save()
         elif val == '1':
-            if len(res) == 0:
+            if len(res) == 0 or len(aptitude) == 0:
                 messages.error(request,
-                               f'Please complete your your resume for being eligible for interviews')
+                               f'Please complete your your resume and aptitude test for being eligible for Technical '
+                               f'interviews')
                 return redirect('interviews-list')
             interview.participant_2 = request.user
             interview.complete = True
@@ -141,6 +146,8 @@ def gd_interview_details(request, intId):
     context = {
         'interview': interview
     }
+    res = Reward.objects.filter(user=request.user, id=RESUME_BADGE_ID)
+    aptitude = Reward.objects.filter(user=request.user, id=APTITUDE_BADGE_ID)
     if request.POST:
         val = request.POST.get('hidden_option')
         if val == '0':
@@ -152,6 +159,10 @@ def gd_interview_details(request, intId):
             else:
                 messages.error(request, "invalid operation by non mentor")
         elif val == '1':
+            if len(res) == 0 or len(aptitude) == 0:
+                messages.error(request,
+                               f'Please complete your your resume and aptitude test for being eligible for interviews')
+                return redirect('gd-interviews-list')
             if interview.count == 10:
                 messages.error(request, "slot is full")
                 return redirect('gd-interviews-list')
