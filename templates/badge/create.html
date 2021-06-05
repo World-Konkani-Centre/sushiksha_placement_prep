@@ -3,6 +3,10 @@
 {% load crispy_forms_tags %}
 {% load static %}
 
+{% block custom_css %}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock custom_css %}
+
 {% block content %}
     <main id="main">
 
@@ -39,3 +43,16 @@
 
     </main>
 {% endblock %}
+
+{% block custom_js %}
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('.selectmultiple').select2();
+});
+$('.selectmultiple').select2({
+  placeholder: 'Select the user, you can select multiple user by pressing ctrl button and clicking on users',
+  theme: 'classic'
+});
+</script>
+{% endblock custom_js %}
