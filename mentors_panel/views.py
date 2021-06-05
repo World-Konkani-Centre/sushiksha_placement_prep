@@ -13,7 +13,6 @@ from mentors_panel.forms import MultiInterviewScheduleForm
 from mentors_panel.utils import create_schedule
 from resume_builder.forms import ResumeModelForm, CommentModelForm
 from resume_builder.models import Resume, Comments
-from users.models import Profile
 from interviews.models import Interview, GD
 from interviews.forms import GDCreationForm
 from users.models import Profile
