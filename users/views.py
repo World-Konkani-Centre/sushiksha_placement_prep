@@ -78,11 +78,12 @@ def profile(request):
             return redirect('profile')
         else:
             messages.error(request,"Unable to update the account, check the details")
-    else:
-        u_form = UserUpdateForm(instance=request.user)
-        p_form = ProfileUpdateForm(instance=request.user.profile)
-        user = get_object_or_404(Profile, id=request.user.id)
-        badges = Reward.objects.filter(user=user).values('badge__title', 'badge__image').annotate(Count('badge__title'))
+            return redirect('profile')
+            
+    u_form = UserUpdateForm(instance=request.user)
+    p_form = ProfileUpdateForm(instance=request.user.profile)
+    user = get_object_or_404(Profile, id=request.user.id)
+    badges = Reward.objects.filter(user=user).values('badge__title', 'badge__image').annotate(Count('badge__title'))
     context = {
         'u_form': u_form,
         'p_form': p_form,
