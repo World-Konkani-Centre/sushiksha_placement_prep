@@ -5,8 +5,13 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
+from django.db.models import Count
+
 
 from .forms import UserUpdateForm, ProfileUpdateForm, UserRegisterForm
+from .models import Profile
+from badge.models import Reward
+
 
 
 def email_check(email):
@@ -76,10 +81,13 @@ def profile(request):
     else:
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)
+        user = get_object_or_404(Profile, id=request.user.id)
+        badges = Reward.objects.filter(user=user).values('badge__title', 'badge__image').annotate(Count('badge__title'))
     context = {
         'u_form': u_form,
         'p_form': p_form,
         'title': "Profile",
+        'badges': badges,
     }
     return render(request, 'profile/profile.html', context=context)
 
