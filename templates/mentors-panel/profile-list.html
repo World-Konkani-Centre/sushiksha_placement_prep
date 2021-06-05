@@ -71,12 +71,42 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td><img src="{% static 'assets/img/error.png' %}" width="50px"></td>
-                                                <td><img src="{% static 'assets/img/error.png' %}" width="50px"></td>
-                                                <td><img src="{% static 'assets/img/error.png' %}" width="50px"></td>
-                                                <td><img src="{% static 'assets/img/error.png' %}" width="50px"></td>
-                                                <td><img src="{% static 'assets/img/success.png' %}" width="50px"></td>
-                                            </tr>
+                                                <td>
+                                                    {% if entry.check_for_apti %}
+                                                    <img src="{{entry.url_for_apti}}" width="50px">
+                                                    {% else %}
+                                                    <img src="{% static 'assets/img/error.png' %}" width="50px">
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if entry.check_for_resume %}
+                                                    <img src="{{entry.url_for_resume}}" width="50px">
+                                                    {% else %}
+                                                    <img src="{% static 'assets/img/error.png' %}" width="50px">
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if entry.check_for_gd %}
+                                                    <img src="{{entry.url_for_gd}}" width="50px">
+                                                    {% else %}
+                                                    <img src="{% static 'assets/img/error.png' %}" width="50px">
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if entry.check_for_tech %}
+                                                    <img src="{{entry.url_for_apti}}" width="50px">
+                                                    {% else %}
+                                                    <img src="{% static 'assets/img/error.png' %}" width="50px">
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if entry.check_for_hr %}
+                                                    <img src="{{entry.url_for_apti}}" width="50px">
+                                                    {% else %}
+                                                    <img src="{% static 'assets/img/error.png' %}" width="50px">
+                                                    {% endif %}
+                                                </td>
+                                             </tr>
                                           
                                         {% endfor %}
                                         </tbody>

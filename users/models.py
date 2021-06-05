@@ -1,8 +1,8 @@
 from django.contrib.auth.models import User
 from django.db import models
 from PIL import Image
-from datetime import datetime
-
+from sushiksha_placement_prep.settings import APTITUDE_BADGE_ID, RESUME_BADGE_ID, HR_BADGE_ID, GD_BADGE_ID, \
+    TECHNICAL_BADGE_ID
 
 
 
@@ -30,3 +30,50 @@ class Profile(models.Model):
         img.thumbnail(output_size)
         img.save(self.image.path)
 
+    
+    
+    def check_for_apti(self):
+        if len(self.reward_set.filter(badge__id=APTITUDE_BADGE_ID, user=self)) == 0:
+            return False
+        else:
+            return True
+
+    def check_for_resume(self):
+        if len(self.reward_set.filter(badge__id=RESUME_BADGE_ID, user=self)) == 0:
+            return False
+        else:
+            return True
+
+    def check_for_tech(self):
+        if len(self.reward_set.filter(badge__id=TECHNICAL_BADGE_ID, user=self)) == 0:
+            return False
+        else:
+            return True
+
+    def check_for_gd(self):
+        if len(self.reward_set.filter(badge__id=GD_BADGE_ID, user=self)) == 0:
+            return False
+        else:
+            return True
+
+    def check_for_hr(self):
+        if len(self.reward_set.filter(badge__id=HR_BADGE_ID, user=self)) == 0:
+            return False
+        else:
+            return True
+
+
+    def url_for_hr(self):
+        return self.reward_set.filter(badge__id=HR_BADGE_ID).first().badge.image.url
+
+    def url_for_tech(self):
+        return self.reward_set.filter(badge__id=TECHNICAL_BADGE_ID).first().badge.image.url
+
+    def url_for_resume(self):
+        return self.reward_set.filter(badge__id=RESUME_BADGE_ID).first().badge.image.url
+
+    def url_for_apti(self):
+        return self.reward_set.filter(badge__id=APTITUDE_BADGE_ID).first().badge.image.url
+
+    def url_for_gd(self):
+        return self.reward_set.filter(badge__id=GD_BADGE_ID).first().badge.image.url
