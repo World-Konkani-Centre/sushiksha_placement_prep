@@ -359,6 +359,7 @@ def project_delete(request, id):
     return redirect('resume-project')
 
 
+@login_required
 def extra(request):
     if request.method == 'GET':
         extra_obj = Extra.objects.filter(user=request.user)

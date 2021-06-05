@@ -13,18 +13,17 @@ from mentors_panel.forms import MultiInterviewScheduleForm
 from mentors_panel.utils import create_schedule
 from resume_builder.forms import ResumeModelForm, CommentModelForm
 from resume_builder.models import Resume, Comments
-from sushiksha_placement_prep.settings import RESUME_BADGE_ID
 from users.models import Profile
 from interviews.models import Interview, GD
 from interviews.forms import GDCreationForm
 from users.models import Profile
-from badge.models import Reward, Badge
+from badge.models import Reward
 
 
 @login_required
 def resume_list(request):
     if request.user.profile.is_mentor:
-        query = Resume.objects.all().filter(user__profile__is_mentor=False)
+        query = Resume.objects.all().filter(user__profile__is_mentor = False)
         context = {
             'query': query,
             'heading': 'Resumes',
@@ -40,7 +39,8 @@ def resume_view_user(request):
     if resume:
         return redirect('resume-view', resumeId=resume.id)
     else:
-        return HttpResponseNotFound("You have not submitted any resume for review")
+        messages.error("You have not submitted any resume for review.")
+        return redirect('resume-home')
 
 
 @login_required
@@ -75,12 +75,6 @@ def resume_view(request, resumeId):
             form_c = CommentModelForm(request.POST)
             if form_r.is_valid():
                 form_r.save()
-                status = form_r.cleaned_data.get('status')
-                print(status)
-                if status == '3' or status == 'Complete':
-                    if len(Reward.objects.filter(user=resume.user, badge=Badge.objects.get(id=RESUME_BADGE_ID))) == 0:
-                        Reward.objects.create(badge=Badge.objects.get(id=RESUME_BADGE_ID), user=resume.user,
-                                              awarded_by='ADMIN', descritpion="Award for completion of Resume")
                 messages.success(request, f'Resume has been changed successfully')
             if form_c.is_valid():
                 comm = form_c.save(commit=False)
@@ -121,10 +115,10 @@ def interview_list(request):
                     end_date = form.cleaned_data['end_date']
                     start_time = form.cleaned_data['st_start_time']
                     end_time = form.cleaned_data['st_end_time']
-                    schedule = create_schedule(start_date, end_date, start_time, end_time)
+                    schedule = create_schedule(start_date,end_date,start_time,end_time)
                     for s in schedule:
                         Interview.objects.create(type=int_type, branch=branch,
-                                                 link=link, participant_1=request.user, start_time=s[0], end_time=s[1])
+                        link=link, participant_1=request.user,start_time=s[0],end_time=s[1])
                     messages.success(request, f'New Interview has been scheduled successfully')
                     return redirect('interview-list-mentor')
                 else:
@@ -141,8 +135,7 @@ def interview_list(request):
         }
         return render(request, 'interviews/list.html', context)
     else:
-        messages.error(request, f'something wrong in the input')
-        return redirect('interview-home')
+        return HttpResponse("Unauthorized", 401)
 
 
 @login_required
@@ -181,10 +174,10 @@ def interview_details(request, intId):
         }
         if interview.type == 'Counselling':
             context = {
-                'interview': interview,
-                'heading': "Counselling session details",
-                'counselling': True
-            }
+            'interview': interview,
+            'heading': "Counselling session details",
+            'counselling': True
+        }
         return render(request, 'interviews/single.html', context)
     else:
         return HttpResponse("Unauthorized", 401)
@@ -269,13 +262,12 @@ def gd_details(request, intId):
     else:
         return HttpResponse("Unauthorized", 401)
 
-
 @login_required
 def mentors_home(request):
     if not request.user.profile.is_mentor:
         messages.error(request, "You don't have access to view this page :)")
         return redirect('index')
-
+    
     return render(request, 'mentors-panel/mentors-home.html')
 
 
