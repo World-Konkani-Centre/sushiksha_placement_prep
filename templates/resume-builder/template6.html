@@ -164,7 +164,7 @@
                     <td align="center" style="background-color:#FFFFFF"><![endif]-->
             <div style="background-color:transparent;">
                 <div class="block-grid "
-                     style="min-width: 320px; max-width: 730px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; Margin: 0 auto; background-color: transparent;">
+                     style="min-width: 320px; max-width: 100%; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; Margin: 0 auto; background-color: transparent;">
                     <div style="border-collapse: collapse;display: table;width: 100%;background-color:transparent;">
                         <!--[if (mso)|(IE)]>
                         <table width="100%" cellpadding="0" cellspacing="0" border="0"
@@ -182,7 +182,7 @@
                                     <td style="padding-right: 0px; padding-left: 0px; padding-top:5px; padding-bottom:5px;background-color:#ccd0e8;">
                         <![endif]-->
                         <div class="col num12"
-                             style="min-width: 320px; max-width: 730px; display: table-cell; vertical-align: top; background-color: #ccd0e8; width: 730px;">
+                             style="min-width: 320px; max-width: 100%; display: table-cell; vertical-align: top; background-color: #ccd0e8; width: 100%;">
                             <div class="col_cont" style="width:100% !important;">
                                 <!--[if (!mso)&(!IE)]><!-->
                                 <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:5px; padding-bottom:5px; padding-right: 0px; padding-left: 0px;">
@@ -237,7 +237,7 @@
             </div>
             <div style="background-color:transparent;">
                 <div class="block-grid mixed-two-up"
-                     style="min-width: 320px; max-width: 730px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; Margin: 0 auto; background-color: transparent;">
+                     style="min-width: 320px; max-width: 100%; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; Margin: 0 auto; background-color: transparent;">
                     <div style="border-collapse: collapse;display: table;width: 100%;background-color:transparent;">
                         <!--[if (mso)|(IE)]>
                         <table width="100%" cellpadding="0" cellspacing="0" border="0"
@@ -806,8 +806,8 @@
                                             {% for t in training %}
                                                 <p style="margin: 0; line-height: 1.5; word-break: break-word; font-size: 13px; mso-line-height-alt: 20px; mso-ansi-font-size: 14px; margin-top: 0; margin-bottom: 0;">
                                                     <span style="font-size: 13px; mso-ansi-font-size: 14px;"><strong>{{ t.name }} by {{ t.provider }} - </strong></span><span
-                                                        style="font-size: 13px; mso-ansi-font-size: 14px;"><strong>{% if e.date %}
-                                                    {{ e.date }}{% else %}Current{% endif %}</strong></span>
+                                                        style="font-size: 13px; mso-ansi-font-size: 14px;"><strong>{% if t.date %}
+                                                    {{ t.date }}{% else %}Current{% endif %}</strong></span>
                                                 </p>
                                             {% endfor %}
                                         </div>
