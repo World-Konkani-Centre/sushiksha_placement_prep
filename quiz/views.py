@@ -11,6 +11,7 @@ from badge.models import Reward, Badge
 from sushiksha_placement_prep.settings import APTITUDE_BADGE_ID, PERCENTAGE
 from .forms import QuestionForm, EssayForm
 from .models import Quiz, Category, Progress, Sitting, Question, Essay_Question
+from users.models import Profile
 
 
 class QuizMarkerMixin(object):
@@ -245,7 +246,7 @@ class QuizTake(FormView):
                 badges = Reward.objects.filter(user=self.request.user.profile, badge_id=APTITUDE_BADGE_ID)
                 if len(badges) == 0:
                     badge_obj = get_object_or_404(Badge, id=1)
-                    Reward.objects.create(user=get_object_or_404(User, id=int(self.request.user.id)),
+                    Reward.objects.create(user=get_object_or_404(Profile, id=int(self.request.user.profile.id)),
                                           description=describe,
                                           awarded_by=awarded, badge=badge_obj)
                     messages.success(self.request,
