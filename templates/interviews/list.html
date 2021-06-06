@@ -85,7 +85,7 @@
                                                 <td>{{i.branch}}</td>
                                                 {% endif %}
                                                 <td>{{ i.start_time}}</td>
-                                                {% if not request.user.profile.is_mentor %}
+                                                {% comment %} {% if not request.user.profile.is_mentor %} {% endcomment %}
                                                 <td>
                                                     {% if request.user == i.participant_1 %}
                                                         <a href="{% url 'interview-detail-mentor' intId=i.id %}"
@@ -103,7 +103,7 @@
                                                         {% endif %}
                                                     {% endif %}
                                                 </td>
-                                                {% endif %}
+                                                {% comment %} {% endif %} {% endcomment %}
                                             </tr>
                                         {% endfor %}
                                         </tbody>

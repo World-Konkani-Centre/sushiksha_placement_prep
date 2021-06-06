@@ -74,6 +74,7 @@
 
                                 <h3 class="sidebar-title">Apply</h3>
                                 <div class="sidebar-item categories">
+                                {% if not request.user.profile.is_mentor %}
                                     <form method="POST">
                                         {% csrf_token %}
                                         <input type="hidden" name="hidden_option" value="1">
@@ -82,6 +83,7 @@
                                             Book Now
                                         </button>
                                     </form>
+                                {% endif %}
                                 </div>
                             {% endif %}
                         </div><!-- End sidebar -->
