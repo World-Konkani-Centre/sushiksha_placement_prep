@@ -71,9 +71,9 @@
                                                 <th>Branch</th>
                                                 {% endif %}
                                                 <th style="min-width:200px">Timings</th>
-                                                {% if not request.user.profile.is_mentor %}
+                                                {% comment %} {% if not request.user.profile.is_mentor %} {% endcomment %}
                                                 <th>Interview</th>
-                                                {% endif %}
+                                                {% comment %} {% endif %} {% endcomment %}
                                             </tr>
                                         </thead>
                                         <tbody>
