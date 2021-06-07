@@ -70,6 +70,13 @@
             </div>
           </div>
 
+          <div class="col-md-4">
+            <div class="icon-box">
+            <i class="icofont-dart"></i>
+              <h4><a href="{% url 'quiz_category_list_all' %}" class="stretched-link">Category wise</a></h4>
+            </div>
+          </div>
+
             <div class="col-md-4">
             <div class="icon-box">
             <i class="icofont-anchor"></i>
@@ -77,12 +84,7 @@
             </div>
             </div>
 
-          <div class="col-md-4">
-            <div class="icon-box">
-            <i class="icofont-dart"></i>
-              <h4><a href="{% url 'quiz_category_list_all' %}" class="stretched-link">Category wise</a></h4>
-            </div>
-          </div>
+
 
 
             {% if user.is_superuser %}
