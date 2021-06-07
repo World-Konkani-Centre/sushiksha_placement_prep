@@ -32,12 +32,30 @@ class SittingFilterTitleMixin(object):
         return queryset
 
 
+# Quiz Home page
+@login_required
+def apti_home_page(request):
+    return render(request, 'quiz/quiz_home.html')
+
+
+# Normal default home apti page and practice test list
 class QuizListView(ListView):
     model = Quiz
 
     def get_queryset(self):
         queryset = super(QuizListView, self).get_queryset()
-        return queryset.filter(draft=False)
+        return queryset.filter(draft=False, exam_paper=False)
+
+
+# Vkssf test view
+class VkssfQuizListView(ListView):
+    model = Quiz
+    context_object_name = 'vkssf_tests'
+    template_name = 'quiz/vkssf_list.html'
+
+    def get_queryset(self):
+        queryset = super(VkssfQuizListView, self).get_queryset()
+        return queryset.filter(draft=False, exam_paper=True)
 
 
 @method_decorator(login_required, name='dispatch')
