@@ -33,30 +33,7 @@
                     </div>
                 </div>
 
-                <div class="card mb-4 mt-2">
-                    <div class="card-body">
-                        <div class="d-flex flex-column align-items-center text-center wrapper">
-                            <div class="badge-carousel pricing owl-carousel owl-theme"
-                                    data-aos="zoom-in"
-                                    data-aos-delay="100">
-                                            {% for badge in badges %}
-                                                <div class="box">
-                                                    <img src="/media/{{ badge.badge__image }}"
-                                                            loading="lazy"
-                                                            title="{{ badge.badge__title }}"
-                                                            alt="{{ badge.badge__title }}"
-                                                            width="80%"
-                                                            class="img-rounded"/>
-                                                </div>
-                                            {% endfor %}
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="card-footer">
-                        <h1 class="lead text-center">Your Badges</h1>
-                    </div>
-                </div>
 
         </div>
         
@@ -76,6 +53,31 @@
         </div>
         </div>
         </div>
+
+                        <div class="card mb-4 mt-2">
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center wrapper">
+                            <div class="badge-carousel pricing owl-carousel owl-theme"
+                                    data-aos="zoom-in"
+                                    data-aos-delay="100">
+                                            {% for badge in badges %}
+                                                <div class="box">
+                                                    <img src="/media/{{ badge.badge__image }}"
+                                                            loading="lazy"
+                                                            title="{{ badge.badge__title }}"
+                                                            alt="{{ badge.badge__title }}"
+                                                            width="100%"
+                                                            class="img-rounded"/>
+                                                </div>
+                                            {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-footer">
+                        <h1 class="lead text-center">Your Badges</h1>
+                    </div>
+                </div>
 
           </div>
           <div>
