@@ -82,6 +82,7 @@ def resume_view(request, resumeId):
                                           description="A badge for your completed Resume",
                                           awarded_by="ADMIN", badge=badge_obj)
                 messages.success(request, f'Resume has been changed successfully')
+
             if form_c.is_valid():
                 comm = form_c.save(commit=False)
                 comm.resume = resume
