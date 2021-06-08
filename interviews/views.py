@@ -192,8 +192,7 @@ def gd_interview_details(request, intId):
             send_gd_set_email(interview, request.user)
             update_gd_event(interview, request.user)
             messages.success(request,
-                             f'The interview has been set up and same is informed to the other along with the google '
-                             f'calendar, accept the google calendar link for further notification')
+                             f'The interview has been set up')
         return redirect('gd-interviews-list')
     return render(request, 'interviews/gd-single.html', context)
 
