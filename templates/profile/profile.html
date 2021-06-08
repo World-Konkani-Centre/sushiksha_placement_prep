@@ -34,48 +34,51 @@
                 </div>
         </div>
         
-        
-        <div class="col-lg-8 col-12">
-        <div class="card">
-        <div class="card-body">
-        <h1>{{user.profile.name}}</h1>
-        <hr>
-            <form action="" method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ u_form | crispy }}
-                {% csrf_token %}
-                {{ p_form | crispy }}
-                <button type="submit" class="btn btn-block btn-info">Submit</button>
-            </form>
-        </div>
-        </div>
-        </div>
-                    <div class="col-lg-8">
-                    <div class="card mb-4 mt-2">
-                    <div class="card-body">
-                        <div class="d-flex flex-column align-items-center text-center wrapper">
-                            <div class="badge-carousel pricing owl-carousel owl-theme"
-                                    data-aos="zoom-in"
-                                    data-aos-delay="100">
-                                            {% for badge in badges %}
-                                                <div class="box">
-                                                    <img src="/media/{{ badge.badge__image }}"
-                                                            loading="lazy"
-                                                            title="{{ badge.badge__title }}"
-                                                            alt="{{ badge.badge__title }}"
-                                                            width="100%"
-                                                            class="img-rounded"/>
-                                                </div>
-                                            {% endfor %}
+            <div class="col-lg-8">
+                <div class="row">
+                    <div class="col-12">
+                            <div class="card">
+                            <div class="card-body">
+                            <h1>{{user.profile.name}}</h1>
+                            <hr>
+                                <form action="" method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    {{ u_form | crispy }}
+                                    {% csrf_token %}
+                                    {{ p_form | crispy }}
+                                    <button type="submit" class="btn btn-block btn-info">Submit</button>
+                                </form>
                             </div>
-                        </div>
+                            </div>
                     </div>
+                    <div class="col-12">
+                                <div class="card mb-4 mt-2">
+                                <div class="card-body">
+                                    <div class="d-flex flex-column align-items-center text-center wrapper">
+                                        <div class="badge-carousel pricing owl-carousel owl-theme"
+                                                data-aos="zoom-in"
+                                                data-aos-delay="100">
+                                                        {% for badge in badges %}
+                                                            <div class="box">
+                                                                <img src="/media/{{ badge.badge__image }}"
+                                                                        loading="lazy"
+                                                                        title="{{ badge.badge__title }}"
+                                                                        alt="{{ badge.badge__title }}"
+                                                                        width="100%"
+                                                                        class="img-rounded"/>
+                                                            </div>
+                                                        {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
 
-                    <div class="card-footer">
-                        <h1 class="lead text-center">Your Badges</h1>
+                                <div class="card-footer">
+                                    <h1 class="lead text-center">Your Badges</h1>
+                                </div>
+                            </div>
                     </div>
                 </div>
-                </div>
+            </div>
 
           </div>
           <div>
