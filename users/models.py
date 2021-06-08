@@ -9,7 +9,7 @@ from sushiksha_placement_prep.settings import APTITUDE_BADGE_ID, RESUME_BADGE_ID
 # Create your models here.
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField(default='default.png', upload_to='profile_pics/%Y/%m/')
+    image = models.ImageField(default='default.jpg', upload_to='profile_pics/%Y/%m/')
     is_mentor = models.BooleanField(default=False)
     name = models.CharField(max_length=100, default=None, blank=True, null=True)
 
