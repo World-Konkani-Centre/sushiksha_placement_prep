@@ -39,7 +39,7 @@ def google_calendar_set_interview1v1(interview):
     event = {
         'summary': f'{interview.branch}--{interview.type}',
         'location': interview.link,
-        'description': interview.branch,
+        'description': str(interview.branch),
         'start': {
             'dateTime': interview.start_time.strftime("%Y-%m-%dT%H:%M:%S"),
             'timeZone': timezone,
