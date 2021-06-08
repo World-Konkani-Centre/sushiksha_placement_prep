@@ -39,18 +39,18 @@
                             <div class="badge-carousel pricing owl-carousel owl-theme"
                                     data-aos="zoom-in"
                                     data-aos-delay="100">
-                                {% for badge in badges %}
-                                    <div class="box">
-                                        <h3>{{ badge.badges__title }}</h3>
-                                        <img src="/media/{{ badge.badges__logo }}"
-                                                loading="lazy"
-                                                title="{{ badge.badges__title }}"
-                                                alt="{{ badge.badges__title }}"
-                                                width="80%"
-                                                class="img-rounded"/>
-                                        <h4>{{ badge.badges__title__count }}</h4>
-                                    </div>
-                                {% endfor %}
+                                            {% for badge in badges %}
+                                                <div class="box">
+                                                    <h3>{{ badge.badge__title }}</h3>
+                                                    <img src="/media/{{ badge.badge__image }}"
+                                                            loading="lazy"
+                                                            title="{{ badge.badge__title }}"
+                                                            alt="{{ badge.badge__title }}"
+                                                            width="80%"
+                                                            class="img-rounded"/>
+                                                    <h4>{{ badge.badge__title__count }}</h4>
+                                                </div>
+                                            {% endfor %}
                             </div>
                         </div>
                     </div>
