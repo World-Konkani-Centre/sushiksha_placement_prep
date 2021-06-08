@@ -57,7 +57,7 @@
                                                         <a href="{% url 'profile-detail' id=entry.id %}">
                                                             <img src="{{ entry.image.url }}" loading="lazy"
                                                                  alt="{{ entry.name }}"
-                                                                 title="{{ entry.user.username }}" class="avatar rounded-cricle mr-3">
+                                                                 title="{{ entry.user.username }}" width="100px" class="mr-3">
                                                         </a>
                                                         <div class="media-body">
                                                             <a href="{% url 'profile-detail' id=entry.id %}"><span
@@ -71,39 +71,39 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td>
+                                                <td class="text-center">
                                                     {% if entry.check_for_apti %}
-                                                    <img src="{{entry.url_for_apti}}" width="50px">
+                                                    <img src="{{entry.url_for_apti}}" width="100px">
                                                     {% else %}
-                                                    <img src="{% static 'assets/img/error.png' %}" width="50px">
+                                                    <img src="{% static 'assets/img/error.png' %}" width="100px">
                                                     {% endif %}
                                                 </td>
-                                                <td>
+                                                <td class="text-center">
                                                     {% if entry.check_for_resume %}
-                                                    <img src="{{entry.url_for_resume}}" width="50px">
+                                                    <img src="{{entry.url_for_resume}}" width="100px">
                                                     {% else %}
-                                                    <img src="{% static 'assets/img/error.png' %}" width="50px">
+                                                    <img src="{% static 'assets/img/error.png' %}" width="100px">
                                                     {% endif %}
                                                 </td>
-                                                <td>
+                                                <td class="text-center">
                                                     {% if entry.check_for_gd %}
-                                                    <img src="{{entry.url_for_gd}}" width="50px">
+                                                    <img src="{{entry.url_for_gd}}" width="100px">
                                                     {% else %}
-                                                    <img src="{% static 'assets/img/error.png' %}" width="50px">
+                                                    <img src="{% static 'assets/img/error.png' %}" width="100px">
                                                     {% endif %}
                                                 </td>
-                                                <td>
+                                                <td class="text-center">
                                                     {% if entry.check_for_tech %}
-                                                    <img src="{{entry.url_for_apti}}" width="50px">
+                                                    <img src="{{entry.url_for_apti}}" width="100px">
                                                     {% else %}
-                                                    <img src="{% static 'assets/img/error.png' %}" width="50px">
+                                                    <img src="{% static 'assets/img/error.png' %}" width="100px">
                                                     {% endif %}
                                                 </td>
-                                                <td>
+                                                <td class="text-center">
                                                     {% if entry.check_for_hr %}
-                                                    <img src="{{entry.url_for_apti}}" width="50px">
+                                                    <img src="{{entry.url_for_apti}}" width="100px">
                                                     {% else %}
-                                                    <img src="{% static 'assets/img/error.png' %}" width="50px">
+                                                    <img src="{% static 'assets/img/error.png' %}" width="100px">
                                                     {% endif %}
                                                 </td>
                                              </tr>
