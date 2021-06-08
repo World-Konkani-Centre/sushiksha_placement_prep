@@ -17,8 +17,8 @@ from users.models import Profile
 from interviews.models import Interview, GD
 from interviews.forms import GDCreationForm
 from users.models import Profile
-from badge.models import Reward
-
+from badge.models import Reward, Badge
+from sushiksha_placement_prep.settings import APTITUDE_BADGE_ID
 
 @login_required
 def resume_list(request):
@@ -76,6 +76,11 @@ def resume_view(request, resumeId):
             form_c = CommentModelForm(request.POST)
             if form_r.is_valid():
                 form_r.save()
+                if form_r.cleaned_data.get('status') == "3":
+                    badge_obj = get_object_or_404(Badge, id=APTITUDE_BADGE_ID)
+                    Reward.objects.create(user=get_object_or_404(Profile, id=int(request.user.profile.id)),
+                                          description="A badge for your completed Resume",
+                                          awarded_by="ADMIN", badge=badge_obj)
                 messages.success(request, f'Resume has been changed successfully')
             if form_c.is_valid():
                 comm = form_c.save(commit=False)
