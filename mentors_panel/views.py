@@ -18,7 +18,8 @@ from interviews.models import Interview, GD
 from interviews.forms import GDCreationForm
 from users.models import Profile
 from badge.models import Reward, Badge
-from sushiksha_placement_prep.settings import APTITUDE_BADGE_ID
+from sushiksha_placement_prep.settings import APTITUDE_BADGE_ID, RESUME_BADGE_ID
+
 
 @login_required
 def resume_list(request):
@@ -77,11 +78,13 @@ def resume_view(request, resumeId):
             if form_r.is_valid():
                 form_r.save()
                 if form_r.cleaned_data.get('status') == "3":
-                    badge_obj = get_object_or_404(Badge, id=APTITUDE_BADGE_ID)
-                    Reward.objects.create(user=get_object_or_404(Profile, id=int(request.user.profile.id)),
-                                          description="A badge for your completed Resume",
-                                          awarded_by="ADMIN", badge=badge_obj)
-                messages.success(request, f'Resume has been changed successfully')
+                    if len(Reward.objects.filter(user=get_object_or_404(Profile, id=int(request.user.profile.id)),
+                                                 badge_id=RESUME_BADGE_ID)) == 0:
+                        badge_obj = get_object_or_404(Badge, id=RESUME_BADGE_ID)
+                        Reward.objects.create(user=get_object_or_404(Profile, id=int(request.user.profile.id)),
+                                              description="A badge for your completed Resume",
+                                              awarded_by="ADMIN", badge=badge_obj)
+                messages.success(request, f'Resume review has been submitted')
 
             if form_c.is_valid():
                 comm = form_c.save(commit=False)
@@ -200,7 +203,7 @@ def gd_list(request):
             if form.is_valid():
                 gd_obj = form.save(commit=False)
                 gd_obj.participant_1 = request.user
-                gd_obj.end_time = gd_obj.start_time + timedelta(hours = 1)
+                gd_obj.end_time = gd_obj.start_time + timedelta(hours=1)
                 gd_obj.count = gd_obj.count + 1
                 eventId = set_gd_event(gd_obj, request.user)
                 gd_obj.event_id = eventId
