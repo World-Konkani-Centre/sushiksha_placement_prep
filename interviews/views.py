@@ -146,8 +146,8 @@ def gd_interview_details(request, intId):
     context = {
         'interview': interview
     }
-    res = Reward.objects.filter(user=request.user.profile, id=RESUME_BADGE_ID)
-    aptitude = Reward.objects.filter(user=request.user.profile, id=APTITUDE_BADGE_ID)
+    res = Reward.objects.filter(user=request.user.profile, badge=Badge.objects.get(id=RESUME_BADGE_ID))
+    aptitude = Reward.objects.filter(user=request.user.profile, badge=Badge.objects.get(id=APTITUDE_BADGE_ID))
     if request.POST:
         val = request.POST.get('hidden_option')
         if val == '0':
