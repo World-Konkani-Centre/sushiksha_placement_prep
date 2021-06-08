@@ -31,7 +31,7 @@ def hr_interview_list(request):
 def hr_interview_details(request, intId):
     interview = Interview.objects.get(id=intId)
     technical = Reward.objects.filter(badge=Badge.objects.get(id=TECHNICAL_BADGE_ID), user=request.user)
-    gd = Reward.objects.filter(badge=Badge.objects.get(id=GD_BADGE_ID),user=request.user)
+    gd = Reward.objects.filter(badge=Badge.objects.get(id=GD_BADGE_ID), user=request.user)
     if request.POST:
         val = request.POST.get('hidden_option')
         if val == '0':
@@ -47,7 +47,7 @@ def hr_interview_details(request, intId):
                 messages.success(request, f'The interview has been cancelled and same is informed to the other')
                 interview.save()
         elif val == '1':
-            if len(technical) == 0 or len(gd):
+            if len(technical) == 0 or len(gd) == 0:
                 messages.error(request,
                                f'Please complete your your technical and gd interviews for eligibility of HR interviews')
                 return redirect('hr-interviews-list')
