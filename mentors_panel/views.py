@@ -78,10 +78,10 @@ def resume_view(request, resumeId):
             if form_r.is_valid():
                 form_r.save()
                 if form_r.cleaned_data.get('status') == "3":
-                    if len(Reward.objects.filter(user=get_object_or_404(Profile, id=int(request.user.profile.id)),
+                    if len(Reward.objects.filter(user=resume.user.profile,
                                                  badge_id=RESUME_BADGE_ID)) == 0:
                         badge_obj = get_object_or_404(Badge, id=RESUME_BADGE_ID)
-                        Reward.objects.create(user=get_object_or_404(Profile, id=int(request.user.profile.id)),
+                        Reward.objects.create(user=resume.user.profile,
                                               description="A badge for your completed Resume",
                                               awarded_by="ADMIN", badge=badge_obj)
                 messages.success(request, f'Resume review has been submitted')
