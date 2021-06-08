@@ -30,8 +30,8 @@ def hr_interview_list(request):
 @login_required
 def hr_interview_details(request, intId):
     interview = Interview.objects.get(id=intId)
-    technical = Reward.objects.filter(badge=Badge.objects.get(id=TECHNICAL_BADGE_ID), user=request.user)
-    gd = Reward.objects.filter(badge=Badge.objects.get(id=GD_BADGE_ID), user=request.user)
+    technical = Reward.objects.filter(badge=Badge.objects.get(id=TECHNICAL_BADGE_ID), user=request.user.profile)
+    gd = Reward.objects.filter(badge=Badge.objects.get(id=GD_BADGE_ID), user=request.user.profile)
     if request.POST:
         val = request.POST.get('hidden_option')
         if val == '0':
