@@ -57,7 +57,8 @@ def resume_view(request, resumeId):
                 'form_r': form_r,
                 'form_c': form_c,
                 'heading': 'Resume',
-                'comments': comments
+                'comments': comments,
+                'user': resume.user,
             }
             return render(request, 'mentors-panel/resume-single.html', context=context)
         else:
@@ -81,7 +82,7 @@ def resume_view(request, resumeId):
                 comm.resume = resume
                 comm.user = request.user
                 comm.save()
-                messages.success(request, f'comment has been posted successfully')
+                messages.success(request, f'Review has been posted successfully')
             return redirect('resume-list')
         else:
             form_c = CommentModelForm(request.POST)
@@ -90,7 +91,7 @@ def resume_view(request, resumeId):
                 comm.resume = resume
                 comm.user = request.user
                 comm.save()
-                messages.success(request, f'comment has been posted successfully')
+                messages.success(request, f'Comment has been posted successfully')
             else:
                 messages.error(request, f'something wrong in the input')
                 return redirect('resume-view', resumeId=resumeId)

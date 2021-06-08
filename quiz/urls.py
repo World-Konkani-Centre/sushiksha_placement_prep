@@ -2,13 +2,19 @@ from django.urls import path
 
 from .views import QuizListView, CategoriesListView, \
     ViewQuizListByCategory, QuizUserProgressView, QuizMarkingList, \
-    QuizMarkingDetail, QuizDetailView, QuizTake, QuizUserProgressViewAdmin
+    QuizMarkingDetail, QuizDetailView, QuizTake, QuizUserProgressViewAdmin, VkssfQuizListView, apti_home_page
 
 urlpatterns = [
+    
+    path('', apti_home_page, name='quiz_index'),
 
-    path('',
+    path('practice-tests',
          view=QuizListView.as_view(),
-         name='quiz_index'),
+         name='practice_tests'),
+
+    path('vkssf-tests',
+         view=VkssfQuizListView.as_view(),
+         name='vkssf_test'),
 
     path('category/',
          view=CategoriesListView.as_view(),

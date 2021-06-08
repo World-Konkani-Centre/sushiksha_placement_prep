@@ -86,8 +86,8 @@ def interview_list(request):
 @login_required
 def interview_details(request, intId):
     interview = Interview.objects.get(id=intId)
-    res = Reward.objects.filter(user=request.user, badge=Badge.objects.get(id=RESUME_BADGE_ID))
-    aptitude = Reward.objects.filter(user=request.user, badge=Badge.objects.get(APTITUDE_BADGE_ID))
+    res = Reward.objects.filter(user=request.user.profile, badge=Badge.objects.get(id=RESUME_BADGE_ID))
+    aptitude = Reward.objects.filter(user=request.user.profile, badge=Badge.objects.get(id=APTITUDE_BADGE_ID))
     if request.POST:
         val = request.POST.get('hidden_option')
         if val == '0':
@@ -146,8 +146,8 @@ def gd_interview_details(request, intId):
     context = {
         'interview': interview
     }
-    res = Reward.objects.filter(user=request.user, id=RESUME_BADGE_ID)
-    aptitude = Reward.objects.filter(user=request.user, id=APTITUDE_BADGE_ID)
+    res = Reward.objects.filter(user=request.user.profile, id=RESUME_BADGE_ID)
+    aptitude = Reward.objects.filter(user=request.user.profile, id=APTITUDE_BADGE_ID)
     if request.POST:
         val = request.POST.get('hidden_option')
         if val == '0':

@@ -11,6 +11,7 @@ from badge.models import Reward, Badge
 from sushiksha_placement_prep.settings import APTITUDE_BADGE_ID, PERCENTAGE
 from .forms import QuestionForm, EssayForm
 from .models import Quiz, Category, Progress, Sitting, Question, Essay_Question
+from users.models import Profile
 
 
 class QuizMarkerMixin(object):
@@ -31,12 +32,30 @@ class SittingFilterTitleMixin(object):
         return queryset
 
 
+# Quiz Home page
+@login_required
+def apti_home_page(request):
+    return render(request, 'quiz/quiz_home.html')
+
+
+# Normal default home apti page and practice test list
 class QuizListView(ListView):
     model = Quiz
 
     def get_queryset(self):
         queryset = super(QuizListView, self).get_queryset()
-        return queryset.filter(draft=False)
+        return queryset.filter(draft=False, exam_paper=False)
+
+
+# Vkssf test view
+class VkssfQuizListView(ListView):
+    model = Quiz
+    context_object_name = 'vkssf_tests'
+    template_name = 'quiz/vkssf_list.html'
+
+    def get_queryset(self):
+        queryset = super(VkssfQuizListView, self).get_queryset()
+        return queryset.filter(draft=False, exam_paper=True)
 
 
 @method_decorator(login_required, name='dispatch')
@@ -242,10 +261,10 @@ class QuizTake(FormView):
             describe = "This is a badge for your aptitude test, keep learning."
             awarded = 'ADMIN'
             if percent >= PERCENTAGE:
-                badges = Reward.objects.filter(user=self.request.user, badge_id=APTITUDE_BADGE_ID)
+                badges = Reward.objects.filter(user=self.request.user.profile, badge_id=APTITUDE_BADGE_ID)
                 if len(badges) == 0:
                     badge_obj = get_object_or_404(Badge, id=1)
-                    Reward.objects.create(user=get_object_or_404(User, id=int(self.request.user.id)),
+                    Reward.objects.create(user=get_object_or_404(Profile, id=int(self.request.user.profile.id)),
                                           description=describe,
                                           awarded_by=awarded, badge=badge_obj)
                     messages.success(self.request,

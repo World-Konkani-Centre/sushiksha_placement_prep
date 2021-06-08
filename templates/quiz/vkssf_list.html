@@ -13,27 +13,24 @@
             <div class="container">
 
                 <div class="d-flex justify-content-between align-items-center">
-                    <h2>{% trans "Aptitude Tests" %}</h2>
+                    <h2>VKSSF Tests</h2>
                     <ol>
                         <li><a href="{% url 'index' %}">Home</a></li>
                         <li><a href="{% url 'quiz_index' %}">Aptitude Tests</a></li>
-                        <li>Practice Tests</li>
+                        <li>VKSSF Tests</li>
                     </ol>
                 </div>
             </div>
         </section>
 
-
-
-
     {% if user.is_authenticated %}
 <section id="" class="">
                 <div class="container">
-        {% if quiz_list %}
+        {% if vkssf_tests %}
                     <div class="card">
                         <div class="card-header py-3">
                             <p class="font-weight-bold p-0 m-0 text-center text-uppercase underline highlight_text">
-                                Available Practice Tests</p>
+                                Available VKSSF Tests</p>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -46,14 +43,15 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {% for quiz in quiz_list %}
+                                    {% for quiz in vkssf_tests %}
 
                                         <tr>
                                             <td>{{ quiz.title }}</td>
                                             <td>{{ quiz.category }}</td>
                                             <td>
                                                 <a href="{% url 'quiz_start_page' slug=quiz.url %}"
-                                                   class="btn btn-danger">
+                                                   class="btn btn-danger"
+                                                   >
                                                     {% trans "Start Test" %}
                                                 </a>
                                         </tr>
@@ -67,7 +65,7 @@
                     <div class="card">
                         <div class="card-header py-3">
                             <p class="font-weight-bold p-0 m-0 text-center text-uppercase underline highlight_text">
-                                No Practice tests available now, stay tuned</p>
+                                No tests available now, stay tuned</p>
                         </div>
                     </div>
         {% endif %}

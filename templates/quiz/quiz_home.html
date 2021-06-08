@@ -1,0 +1,105 @@
+{% extends 'base_page.html' %}
+{% load static %}
+{% load i18n %}
+{% block title %}{% trans "All Quizzes" %}{% endblock %}
+
+{% block loader %}
+ <div id="preloader"></div>
+{% endblock loader %}
+
+{% block content %}
+    <main id="main">
+        <section id="breadcrumbs" class="breadcrumbs">
+            <div class="container">
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2>{% trans "Aptitude Tests" %}</h2>
+                    <ol>
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li>Aptitude Tests</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+    <section id="services" class="services">
+      <div class="container">
+
+      <h3 class="font-weight-bold pb-2">Take your Aptitude solving skills to new level</h3>
+        <div class="row">
+
+            <div class="col-lg-6  align-self-baseline text-center" data-aos="fade-right" data-aos-delay="100">
+                <img src="/static/assets/img/aptitude.svg" class="img-fluid" alt="" width="65%">
+                
+            </div>
+
+            <div class="col-lg-6 wow pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up"
+                    data-aos-delay="100">
+                <p>
+                    Aptitude tests are used by the employers to assess you, in terms of your skills, knowledge, ability and personality. Aptitude tests are an accurate way of predicting the potential contribution of a candidate and the likelihood of them achieving success within the organization. SCOPEA's Aptitude Tests Bank has been evolved over the years. Constant reviews by KSHAMATA Resources and Alumni Mentors, SCOPEA's Aptitude Tests are kept up to date to ensure, you are practicing with tools relevant to your placements.</p>
+                <p>
+                    Remember, in Aptitude Practice, "How recently you have practiced?" matters a lot. Keep practicing, ask yourself what can be better than this?
+                </p>
+
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+
+            {% if not user.is_authenticated %}
+            <div class="col-md-4">
+                <div class="icon-box">
+                <i class="icofont-calculations"></i>
+                <h4><a href="{% url 'login' %}" class="stretched-link">Take Test</a></h4>
+                </div>
+            </div>
+            {% endif %}
+
+          <div class="col-md-4">
+            <div class="icon-box">
+            <i class="icofont-dart"></i>
+              <h4><a href="{% url 'vkssf_test' %}" class="stretched-link">VKSSF TESTS</a></h4>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="icon-box">
+            <i class="icofont-dart"></i>
+              <h4><a href="{% url 'practice_tests' %}" class="stretched-link">PRACTICE TESTS</a></h4>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="icon-box">
+            <i class="icofont-dart"></i>
+              <h4><a href="{% url 'quiz_category_list_all' %}" class="stretched-link">Category wise</a></h4>
+            </div>
+          </div>
+
+            <div class="col-md-4">
+            <div class="icon-box">
+            <i class="icofont-anchor"></i>
+              <h4><a href="{% url 'quiz_progress' %}" class="stretched-link">Progress</a></h4>
+            </div>
+            </div>
+
+
+
+
+            {% if user.is_superuser %}
+                    <div class="col-md-4">
+                        <div class="icon-box">
+                            <i class="icofont-settings"></i>
+                            <h4><a href="{% url 'quiz_marking' %}" class="stretched-link">View Test Submission</a></h4>
+                        </div>
+                    </div>
+            {% endif %}
+        </div>
+      </div>
+    </section>
+
+
+
+    </main>
+{% endblock %}
