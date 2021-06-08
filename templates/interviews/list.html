@@ -55,9 +55,7 @@
 
 
             {% if interviews_scheduled %}
-
                     <h2 class="mt-5"> Available Sessions</h2>
-                    
                     <div class="row ">
                         <div class="card" style="width: 100%">
                             <div class="card-body">
@@ -71,9 +69,9 @@
                                                 <th>Branch</th>
                                                 {% endif %}
                                                 <th style="min-width:200px">Timings</th>
-                                                {% if not request.user.profile.is_mentor %}
+                                                {% comment %} {% if not request.user.profile.is_mentor %} {% endcomment %}
                                                 <th>Interview</th>
-                                                {% endif %}
+                                                {% comment %} {% endif %} {% endcomment %}
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -85,7 +83,7 @@
                                                 <td>{{i.branch}}</td>
                                                 {% endif %}
                                                 <td>{{ i.start_time}}</td>
-                                                {% if not request.user.profile.is_mentor %}
+                                                {% comment %} {% if not request.user.profile.is_mentor %} {% endcomment %}
                                                 <td>
                                                     {% if request.user == i.participant_1 %}
                                                         <a href="{% url 'interview-detail-mentor' intId=i.id %}"
@@ -103,7 +101,7 @@
                                                         {% endif %}
                                                     {% endif %}
                                                 </td>
-                                                {% endif %}
+                                                {% comment %} {% endif %} {% endcomment %}
                                             </tr>
                                         {% endfor %}
                                         </tbody>
@@ -112,10 +110,10 @@
                             </div>
                         </div>
                     </div>
-                {% endif %}
+            {% endif %}
 
             {% if interviews_completed %}
-                <h2 class="mt-5">Sessions Completed/Scheduled</h2>
+                    <h2 class="mt-5">Sessions Completed/Scheduled</h2>
                     <div class="row">
                         {% for i in interviews_completed %}
                             <div class="col-lg-6 col-md-6 mt-4 mt-lg-0">
@@ -133,7 +131,8 @@
                             </div>
                         {% endfor %}
                     </div>
-                {% endif %}
+            {% endif %}
+            
             </div>
         </section><!-- End Blog Single Section -->
 

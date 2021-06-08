@@ -18,7 +18,7 @@ def award_badge(request):
             awarded_by = request.user.profile.name
 
         for user in profiles:
-            Reward.objects.create(user=user, awarded_by=awarded_by, descritpion=message, badge=badge)
+            Reward.objects.create(user=user, awarded_by=awarded_by, description=message, badge=badge)
         messages.success(request, f'{badge.title} Awarded to {len(profiles)} Users')
 
         return redirect('badge')
