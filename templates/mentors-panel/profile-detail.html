@@ -89,14 +89,12 @@
                                                 data-aos-delay="100">
                                             {% for badge in badges %}
                                                 <div class="box">
-                                                    <h3>{{ badge.badge__title }}</h3>
-                                                    <img src="/media/{{ badge.badge__logo }}"
+                                                    <img src="/media/{{ badge.badge__image }}"
                                                             loading="lazy"
                                                             title="{{ badge.badge__title }}"
                                                             alt="{{ badge.badge__title }}"
-                                                            width="80%"
+                                                            width="100%"
                                                             class="img-rounded"/>
-                                                    <h4>{{ badge.badge__title__count }}</h4>
                                                 </div>
                                             {% endfor %}
                                         </div>
