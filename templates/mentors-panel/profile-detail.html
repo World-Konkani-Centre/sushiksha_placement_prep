@@ -34,9 +34,11 @@
                                     <h4 class="h4">{{ user.name }}</h4>
                                 </div>
                         </div>
-                        {% comment %} <div class="card-footer">
-                        Footer
-                        </div> {% endcomment %}
+                        <div class="card-footer">
+                            <h4>User Progress Records</h4>
+                            <a href="{% url 'quiz_progress-admin' id=user.id %}">Aptitude Page</a> |
+                            <a href="{% url 'language_quiz_progress-admin' id=user.id %}">Language Page </i></a>
+                        </div>
                         </div>
 
                         <div class="card mb-2">
@@ -44,39 +46,6 @@
                                 <div class="row badge-row"></div>
                             </div>
                         </div>
-
-                        {% comment %} <div class="card">
-                            <div class="card-header">Points to Upgrade</div>
-                            <div class="card-body p-0">
-                            <div class="table-responsive">
-                                <table class="table table-light table-hover">
-                                    <thead>
-                                    <tr>
-                                        <td>Category</td>
-                                        <td>Progress</td>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% for cat,count,max_cat_points in query_category %}
-                                        <tr>
-                                            <td>
-                                                {{ cat }} ({{ count|intdiv:max_cat_points }}%)
-                                            </td>
-                                            <td>
-                                                <div class="progress" style="height: 20px;">
-                                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-info"
-                                                         style="width:{{ count|intdiv:max_cat_points }}%">
-                                                         Completed {{ count|intdiv:max_cat_points }}%
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
-                                </div>
-                            </div>
-                        </div> {% endcomment %}
         </div>
                         <div class="col-md-8">
                             <div id="accordion">
@@ -120,14 +89,14 @@
                                                 data-aos-delay="100">
                                             {% for badge in badges %}
                                                 <div class="box">
-                                                    <h3>{{ badge.badges__title }}</h3>
-                                                    <img src="/media/{{ badge.badges__logo }}"
+                                                    <h3>{{ badge.badge__title }}</h3>
+                                                    <img src="/media/{{ badge.badge__logo }}"
                                                             loading="lazy"
-                                                            title="{{ badge.badges__title }}"
-                                                            alt="{{ badge.badges__title }}"
+                                                            title="{{ badge.badge__title }}"
+                                                            alt="{{ badge.badge__title }}"
                                                             width="80%"
                                                             class="img-rounded"/>
-                                                    <h4>{{ badge.badges__title__count }}</h4>
+                                                    <h4>{{ badge.badge__title__count }}</h4>
                                                 </div>
                                             {% endfor %}
                                         </div>

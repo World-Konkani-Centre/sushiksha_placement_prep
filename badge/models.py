@@ -27,7 +27,7 @@ class Reward(models.Model):
     awarded_by = models.CharField(max_length=50, default='admin')
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
-    descritpion = models.TextField()
+    description = models.TextField()
     badge = models.ForeignKey(Badge, on_delete=models.CASCADE)
 
     def __str__(self):

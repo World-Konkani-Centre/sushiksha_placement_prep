@@ -1,10 +1,12 @@
+from datetime import datetime
+import datetime as datetm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q, Count
 from django.http import HttpResponseNotFound, HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
 
-from interviews.forms import InterviewRegisterForm
+# from interviews.forms import InterviewRegisterForm
 from interviews.utils import send_interview_cancel_email, send_interview_set_email, google_calendar_set_interview1v1, \
     google_calendar_cancel_interview1v1, send_gd_cancel_email, send_gd_set_email, update_gd_event, set_gd_event
 from mentors_panel.forms import MultiInterviewScheduleForm
@@ -21,7 +23,7 @@ from badge.models import Reward
 @login_required
 def resume_list(request):
     if request.user.profile.is_mentor:
-        query = Resume.objects.all()
+        query = Resume.objects.all().filter(user__profile__is_mentor = False)
         context = {
             'query': query,
             'heading': 'Resumes',
@@ -37,7 +39,8 @@ def resume_view_user(request):
     if resume:
         return redirect('resume-view', resumeId=resume.id)
     else:
-        return HttpResponseNotFound("You have not submitted any resume for review")
+        messages.error("You have not submitted any resume for review.")
+        return redirect('resume-home')
 
 
 @login_required
@@ -54,7 +57,8 @@ def resume_view(request, resumeId):
                 'form_r': form_r,
                 'form_c': form_c,
                 'heading': 'Resume',
-                'comments': comments
+                'comments': comments,
+                'user': resume.user,
             }
             return render(request, 'mentors-panel/resume-single.html', context=context)
         else:
@@ -78,7 +82,7 @@ def resume_view(request, resumeId):
                 comm.resume = resume
                 comm.user = request.user
                 comm.save()
-                messages.success(request, f'comment has been posted successfully')
+                messages.success(request, f'Review has been posted successfully')
             return redirect('resume-list')
         else:
             form_c = CommentModelForm(request.POST)
@@ -87,7 +91,7 @@ def resume_view(request, resumeId):
                 comm.resume = resume
                 comm.user = request.user
                 comm.save()
-                messages.success(request, f'comment has been posted successfully')
+                messages.success(request, f'Comment has been posted successfully')
             else:
                 messages.error(request, f'something wrong in the input')
                 return redirect('resume-view', resumeId=resumeId)
@@ -105,7 +109,6 @@ def interview_list(request):
             if request.user.profile.is_mentor:
                 form = MultiInterviewScheduleForm(request.POST)
                 if form.is_valid():
-                    heading = form.cleaned_data['heading']
                     branch = form.cleaned_data['branch']
                     int_type = form.cleaned_data['type']
                     link = form.cleaned_data['link']
@@ -115,7 +118,7 @@ def interview_list(request):
                     end_time = form.cleaned_data['st_end_time']
                     schedule = create_schedule(start_date,end_date,start_time,end_time)
                     for s in schedule:
-                        Interview.objects.create(heading=heading, type=int_type, branch=branch,
+                        Interview.objects.create(type=int_type, branch=branch,
                         link=link, participant_1=request.user,start_time=s[0],end_time=s[1])
                     messages.success(request, f'New Interview has been scheduled successfully')
                     return redirect('interview-list-mentor')

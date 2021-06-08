@@ -7,8 +7,11 @@ from django.shortcuts import get_object_or_404, render
 from django.utils.decorators import method_decorator
 from django.views.generic import DetailView, ListView, TemplateView, FormView
 
+from badge.models import Reward, Badge
+from sushiksha_placement_prep.settings import APTITUDE_BADGE_ID, PERCENTAGE
 from .forms import QuestionForm, EssayForm
 from .models import Quiz, Category, Progress, Sitting, Question, Essay_Question
+from users.models import Profile
 
 
 class QuizMarkerMixin(object):
@@ -29,12 +32,30 @@ class SittingFilterTitleMixin(object):
         return queryset
 
 
+# Quiz Home page
+@login_required
+def apti_home_page(request):
+    return render(request, 'quiz/quiz_home.html')
+
+
+# Normal default home apti page and practice test list
 class QuizListView(ListView):
     model = Quiz
 
     def get_queryset(self):
         queryset = super(QuizListView, self).get_queryset()
-        return queryset.filter(draft=False)
+        return queryset.filter(draft=False, exam_paper=False)
+
+
+# Vkssf test view
+class VkssfQuizListView(ListView):
+    model = Quiz
+    context_object_name = 'vkssf_tests'
+    template_name = 'quiz/vkssf_list.html'
+
+    def get_queryset(self):
+        queryset = super(VkssfQuizListView, self).get_queryset()
+        return queryset.filter(draft=False, exam_paper=True)
 
 
 @method_decorator(login_required, name='dispatch')
@@ -233,37 +254,24 @@ class QuizTake(FormView):
                 self.sitting.get_questions(with_answers=True)
             results['incorrect_questions'] = \
                 self.sitting.get_incorrect_questions
-
         if self.quiz.exam_paper is False:
             self.sitting.delete()
-
-        percent = results['percent']
-        describe = "This is a badge for your aptitude practice session, keep learning."
-        awarded = 'ADMIN'
-        if percent == 100:
-            pass
-        # badge_obj = get_object_or_404(Badge, id=129)
-        #  Reward.objects.create(user=get_object_or_404(User, id=int(self.request.user.id)), description=describe,
-        #                        awarded_by=awarded, badges=badge_obj)
-        #  messages.success(self.request,
-        #                   f'You have successfully completed the quiz and you are awarded with {badge_obj.title} badge')
-        elif percent >= 80:
-            pass
-            # badge_obj = get_object_or_404(Badge, id=130)
-            # Reward.objects.create(user=get_object_or_404(User, id=int(self.request.user.id)), description=describe,
-            #                       awarded_by=awarded, badges=badge_obj)
-            # messages.success(self.request,
-            #                  f'You have successfully completed the quiz and you are awarded with {badge_obj.title} badge')
-        elif percent >= 50:
-            pass
-            # badge_obj = get_object_or_404(Badge, id=131)
-            # Reward.objects.create(user=get_object_or_404(User, id=int(self.request.user.id)), description=describe,
-            #                       awarded_by=awarded, badges=badge_obj)
-            # messages.success(self.request,
-            #                  f'You have successfully completed the quiz and you are awarded with {badge_obj.title} badge')
         else:
-            messages.warning(self.request,
-                             f'Keep learning and score higher percentage to win a badge')
+            percent = results['percent']
+            describe = "This is a badge for your aptitude test, keep learning."
+            awarded = 'ADMIN'
+            if percent >= PERCENTAGE:
+                badges = Reward.objects.filter(user=self.request.user.profile, badge_id=APTITUDE_BADGE_ID)
+                if len(badges) == 0:
+                    badge_obj = get_object_or_404(Badge, id=1)
+                    Reward.objects.create(user=get_object_or_404(Profile, id=int(self.request.user.profile.id)),
+                                          description=describe,
+                                          awarded_by=awarded, badge=badge_obj)
+                    messages.success(self.request,
+                                     f'You have successfully completed the quiz and you are awarded with {badge_obj.title} badge')
+            else:
+                messages.warning(self.request,
+                                 f'Keep learning and score higher percentage to win a badge and open Technical Interviews')
         return render(self.request, self.result_template_name, results)
 
 

@@ -20,12 +20,12 @@
                     <ol>
                         <li><a href="{% url 'index' %}">Home</a></li>
                         {% if counselling %}
-                        <li> <a href="{% url 'counselling-home' %}">Counselling</a></li>
-                        <li><a href="{% url 'counselling-list' %}">Counselling Sessions</a></li>
-                        <li>{{ heading }}</li>
+                            <li><a href="{% url 'counselling-home' %}">Counselling</a></li>
+                            <li><a href="{% url 'counselling-list' %}">Counselling Sessions</a></li>
+                            <li>{{ heading }}</li>
                         {% else %}
-                        <li><a href="{% url 'interview-home' %}">Mock Interviews</a></li>
-                        <li>{{ heading }}</li>
+                            <li><a href="{% url 'interview-home' %}">Mock Interviews</a></li>
+                            <li>{{ heading }}</li>
                         {% endif %}
                     </ol>
                 </div>
@@ -48,40 +48,45 @@
                             </h2>
                             <div class="entry-content">
                                 <p>Interview type : {{ interview.type }}</p>
-                                <p>Participants : {{ interview.participant_1.profile.name }},{{ interview.participant_2.profile.name }}</p>
+                                {% if request.user.profile.is_mentor %}
+                                    <p>Participants
+                                        : {{ interview.participant_1.profile.name }},{{ interview.participant_2.profile.name }}</p>
+                                {% endif %}
                                 <p>Start Time : {{ interview.start_time }}</p>
                                 <p>End Time : {{ interview.end_time }}</p>
                                 <p>Location : <a href="{{ interview.link }}">{{ interview.link }}</a></p>
-                                <p>Description : {{ interview.description }}</p>
+                                {% comment %} <p>Description : {{ interview.description }}</p> {% endcomment %}
                             </div>
                         </article>
                     </div>
                     <div class="col-lg-3 ml-auto">
                         <div class="sidebar">
-                                {% if interview.participant_1 == request.user or interview.participant_2 == request.user %}
-                                    <h3 class="sidebar-title">Cancel</h3>
-                                    <div class="sidebar-item categories">
-                                        <form method="POST">
-                                            {% csrf_token %}
-                                            <input type="hidden" name="hidden_option" value="0">
-                                            <button type="submit"
-                                                    class="btn custom-danger-btn animate__animated animate__fadeInUp scrollto">
-                                                Cancel the Interview
-                                            </button>
-                                        </form>
-                                    </div>
+                            {% if interview.participant_1 == request.user or interview.participant_2 == request.user %}
+                                <h3 class="sidebar-title">Cancel</h3>
+                                <div class="sidebar-item categories">
+                                    <form method="POST">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="hidden_option" value="0">
+                                        <button type="submit"
+                                                class="btn custom-danger-btn animate__animated animate__fadeInUp scrollto">
+                                            Cancel the Interview
+                                        </button>
+                                    </form>
+                                </div>
                             {% else %}
 
                                 <h3 class="sidebar-title">Apply</h3>
                                 <div class="sidebar-item categories">
-                                    <form method="POST">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="hidden_option" value="1">
-                                        <button type="submit"
-                                                class="btn custom-danger-btn animate__animated animate__fadeInUp scrollto">
-                                            Book Now
-                                        </button>
-                                    </form>
+                                    {% if not request.user.profile.is_mentor %}
+                                        <form method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="hidden_option" value="1">
+                                            <button type="submit"
+                                                    class="btn custom-danger-btn animate__animated animate__fadeInUp scrollto">
+                                                Book Now
+                                            </button>
+                                        </form>
+                                    {% endif %}
                                 </div>
                             {% endif %}
                         </div><!-- End sidebar -->

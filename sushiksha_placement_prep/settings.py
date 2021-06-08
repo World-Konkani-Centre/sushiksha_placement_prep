@@ -91,8 +91,6 @@ DATABASES = {
     }
 }
 
-
-
 CKEDITOR_CONFIGS = {
     'default': {
         # 'skin': 'moono-lisa',
@@ -141,7 +139,7 @@ CKEDITOR_CONFIGS = {
         'mathJaxLib': '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML',
         'tabSpaces': 4,
         'extraPlugins': ','.join([
-            'uploadimage', # the upload image feature
+            'uploadimage',  # the upload image feature
             # your extra plugins here
             'div',
             'autolink',
@@ -216,9 +214,7 @@ EMAIL_HOST_PASSWORD = config.get('MAIL_PASS')
 LOGIN_REDIRECT_URL = 'profile'
 LOGIN_URL = 'login'
 
-
 SERVICE_EMAIL = config.get("SERVICE_EMAIL")
-
 
 Client_id = config.get('CLIENT_ID')
 Client_secret = config.get('CLIENT_SECRET')
@@ -226,3 +222,10 @@ Client_secret = config.get('CLIENT_SECRET')
 ERROR_MESSAGE = "Something went wrong please try again"
 CORECT_SUBMISSION_MESSAGE = "Correct!!"
 INCORECT_SUBMISSION_MESSAGE = "Wrong Answer. How about changing few more lines in the code"
+
+APTITUDE_BADGE_ID = 1
+GD_BADGE_ID = 1
+HR_BADGE_ID = 1
+RESUME_BADGE_ID = 1
+TECHNICAL_BADGE_ID = 1
+PERCENTAGE = (25 / 30) * 100
