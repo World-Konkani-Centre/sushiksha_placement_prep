@@ -1,5 +1,5 @@
 from datetime import datetime
-import datetime as datetm
+from datetime import timedelta
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q, Count
@@ -194,6 +194,7 @@ def gd_list(request):
             if form.is_valid():
                 gd_obj = form.save(commit=False)
                 gd_obj.participant_1 = request.user
+                gd_obj.end_time = gd_obj.start_time + timedelta(hours = 1)
                 gd_obj.count = gd_obj.count + 1
                 eventId = set_gd_event(gd_obj, request.user)
                 gd_obj.event_id = eventId

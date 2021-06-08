@@ -8,7 +8,7 @@ from interviews.utils import google_calendar_set_interview1v1, google_calendar_c
     send_interview_cancel_email, send_interview_set_email, send_gd_set_email, update_gd_event, send_gd_cancel_email
 from resume_builder.models import Resume
 # from .tables import InterviewTable
-from badge.models import Badge, BadgeCategory, Reward
+from badge.models import Badge, Reward
 from sushiksha_placement_prep.settings import APTITUDE_BADGE_ID, RESUME_BADGE_ID, HR_BADGE_ID, GD_BADGE_ID, \
     TECHNICAL_BADGE_ID
 
