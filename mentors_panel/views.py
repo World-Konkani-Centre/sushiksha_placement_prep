@@ -17,13 +17,13 @@ from users.models import Profile
 from interviews.models import Interview, GD
 from interviews.forms import GDCreationForm
 from users.models import Profile
-from badge.models import Reward
-
+from badge.models import Reward, Badge
+from sushiksha_placement_prep.settings import APTITUDE_BADGE_ID
 
 @login_required
 def resume_list(request):
     if request.user.profile.is_mentor:
-        query = Resume.objects.all().filter(user__profile__is_mentor = False)
+        query = Resume.objects.all().filter(user__profile__is_mentor=False)
         context = {
             'query': query,
             'heading': 'Resumes',
@@ -76,7 +76,13 @@ def resume_view(request, resumeId):
             form_c = CommentModelForm(request.POST)
             if form_r.is_valid():
                 form_r.save()
+                if form_r.cleaned_data.get('status') == "3":
+                    badge_obj = get_object_or_404(Badge, id=APTITUDE_BADGE_ID)
+                    Reward.objects.create(user=get_object_or_404(Profile, id=int(request.user.profile.id)),
+                                          description="A badge for your completed Resume",
+                                          awarded_by="ADMIN", badge=badge_obj)
                 messages.success(request, f'Resume has been changed successfully')
+
             if form_c.is_valid():
                 comm = form_c.save(commit=False)
                 comm.resume = resume
@@ -116,10 +122,10 @@ def interview_list(request):
                     end_date = form.cleaned_data['end_date']
                     start_time = form.cleaned_data['st_start_time']
                     end_time = form.cleaned_data['st_end_time']
-                    schedule = create_schedule(start_date,end_date,start_time,end_time)
+                    schedule = create_schedule(start_date, end_date, start_time, end_time)
                     for s in schedule:
                         Interview.objects.create(type=int_type, branch=branch,
-                        link=link, participant_1=request.user,start_time=s[0],end_time=s[1])
+                                                 link=link, participant_1=request.user, start_time=s[0], end_time=s[1])
                     messages.success(request, f'New Interview has been scheduled successfully')
                     return redirect('interview-list-mentor')
                 else:
@@ -175,10 +181,10 @@ def interview_details(request, intId):
         }
         if interview.type == 'Counselling':
             context = {
-            'interview': interview,
-            'heading': "Counselling session details",
-            'counselling': True
-        }
+                'interview': interview,
+                'heading': "Counselling session details",
+                'counselling': True
+            }
         return render(request, 'interviews/single.html', context)
     else:
         return HttpResponse("Unauthorized", 401)
@@ -199,7 +205,6 @@ def gd_list(request):
                 eventId = set_gd_event(gd_obj, request.user)
                 gd_obj.event_id = eventId
                 gd_obj.save()
-
                 messages.success(request, f'New GD Interview has been scheduled successfully')
                 return redirect('gd-list-mentor')
             else:
@@ -264,12 +269,13 @@ def gd_details(request, intId):
     else:
         return HttpResponse("Unauthorized", 401)
 
+
 @login_required
 def mentors_home(request):
     if not request.user.profile.is_mentor:
         messages.error(request, "You don't have access to view this page :)")
         return redirect('index')
-    
+
     return render(request, 'mentors-panel/mentors-home.html')
 
 

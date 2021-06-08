@@ -199,7 +199,6 @@ def send_gd_cancel_email(interview):
 
 
 def send_gd_set_email(interview, user):
-
     html_message = loader.render_to_string(
         'mail/template.html',
         {
