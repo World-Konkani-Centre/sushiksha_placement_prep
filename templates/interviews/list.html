@@ -86,7 +86,7 @@
                                                         class="btn btn-outline-info btn-sm">Book Now </a>
                                                     {% else %}
                                                         {% if i.complete %}
-                                                            <button type="button" class="btn btn-danger" disabled>Taken</button>
+                                                            <button type="button" class="btn btn-danger btn-sm" disabled>Taken</button>
                                                         {% else %}
                                                             {% if whatIS == 'hr' %}
                                                                 <a href="{% url 'hr-interviews-single' intId=i.id %}"
