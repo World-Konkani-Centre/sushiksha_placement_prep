@@ -36,13 +36,6 @@
                                         </thead>
                                         <tbody>
                                             {% for q in query %}
-                                            {% if q.status == '1' %}
-                                                <tr style="background-color:#a7bbc7">
-                                            {% elif q.status == '2' %}
-                                                <tr style="background-color:#fff5b7">   
-                                            {% elif q.status == '3' %}
-                                                 <tr style="background-color:#caf7e3"> 
-                                            {% endif %}
                                                 <td><a href="{% url 'resume-view' resumeId=q.id %}">{{ q.user.profile.name}} | {{q.user.email }}</a></td>
                                                 <td><a href="{% url 'resume-view' resumeId=q.id %}">Resume</a></td>
                                                 {% if q.status == '1' %}
