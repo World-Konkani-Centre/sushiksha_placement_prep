@@ -40,7 +40,7 @@ def resume_view_user(request):
     if resume:
         return redirect('resume-view', resumeId=resume.id)
     else:
-        messages.error("You have not submitted any resume for review.")
+        messages.error(request, "You have not submitted any resume for review.")
         return redirect('resume-home')
 
 
