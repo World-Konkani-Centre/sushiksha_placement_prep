@@ -37,7 +37,7 @@
                                         <tbody>
                                             {% for q in query %}
                                             {% if q.status == '1' %}
-                                                <tr style="background-color:#e798ae">
+                                                <tr style="background-color:#a7bbc7">
                                             {% elif q.status == '2' %}
                                                 <tr style="background-color:#fff5b7">   
                                             {% elif q.status == '3' %}
@@ -46,11 +46,11 @@
                                                 <td><a href="{% url 'resume-view' resumeId=q.id %}">{{ q.user.profile.name}} | {{q.user.email }}</a></td>
                                                 <td><a href="{% url 'resume-view' resumeId=q.id %}">Resume</a></td>
                                                 {% if q.status == '1' %}
-                                                    <td class="badge bg-danger">Under Review</td>
+                                                    <td ><p><span class="badge bg-danger">Under Review</span></p></td>
                                                 {% elif q.status == '2' %}
-                                                    <td class="badge bg-warning">Needs Update</td>
+                                                    <td><p><span class="badge bg-warning">Needs Update</span></p></td>
                                                 {% elif q.status == '3' %}
-                                                    <td class="badge bg-success">Complete</td>
+                                                    <td><p><span class="badge bg-success">Complete</span></p></td>
                                                 {% endif %}
                                                 </tr>
                                             {% endfor %}
