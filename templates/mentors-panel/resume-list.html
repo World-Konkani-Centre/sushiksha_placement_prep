@@ -36,15 +36,21 @@
                                         </thead>
                                         <tbody>
                                             {% for q in query %}
-                                                <tr>
-                                                <td>{{ q.user.profile.name}} | {{q.user.email }}</td>
-                                                    <td><a href="{% url 'resume-view' resumeId=q.id %}">Resume</a></td>
+                                            {% if q.status == '1' %}
+                                                <tr style="background-color:#e798ae">
+                                            {% elif q.status == '2' %}
+                                                <tr style="background-color:#fff5b7">   
+                                            {% elif q.status == '3' %}
+                                                 <tr style="background-color:#caf7e3"> 
+                                            {% endif %}
+                                                <td><a href="{% url 'resume-view' resumeId=q.id %}">{{ q.user.profile.name}} | {{q.user.email }}</a></td>
+                                                <td><a href="{% url 'resume-view' resumeId=q.id %}">Resume</a></td>
                                                 {% if q.status == '1' %}
-                                                    <td>Under Review</td>
+                                                    <td class="badge bg-danger">Under Review</td>
                                                 {% elif q.status == '2' %}
-                                                    <td>Needs Update</td>
+                                                    <td class="badge bg-warning">Needs Update</td>
                                                 {% elif q.status == '3' %}
-                                                    <td>Complete</td>
+                                                    <td class="badge bg-success">Complete</td>
                                                 {% endif %}
                                                 </tr>
                                             {% endfor %}
