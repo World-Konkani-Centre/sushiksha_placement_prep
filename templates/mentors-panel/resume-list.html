@@ -37,7 +37,7 @@
                                         <tbody>
                                             {% for q in query %}
                                                 <tr>
-                                                <td>{{ q.user.username.profile.name}} | {{q.user.email }}</td>
+                                                <td>{{ q.user.profile.name}} | {{q.user.email }}</td>
                                                     <td><a href="{% url 'resume-view' resumeId=q.id %}">Resume</a></td>
                                                 {% if q.status == '1' %}
                                                     <td>Under Review</td>
