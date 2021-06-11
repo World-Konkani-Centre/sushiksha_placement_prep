@@ -263,7 +263,7 @@ class QuizTake(FormView):
             if percent >= PERCENTAGE:
                 badges = Reward.objects.filter(user=self.request.user.profile, badge_id=APTITUDE_BADGE_ID)
                 if len(badges) == 0:
-                    badge_obj = get_object_or_404(Badge, id=1)
+                    badge_obj = get_object_or_404(Badge, id=APTITUDE_BADGE_ID)
                     Reward.objects.create(user=get_object_or_404(Profile, id=int(self.request.user.profile.id)),
                                           description=describe,
                                           awarded_by=awarded, badge=badge_obj)

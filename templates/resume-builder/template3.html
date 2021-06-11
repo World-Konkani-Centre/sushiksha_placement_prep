@@ -226,7 +226,7 @@
                                         <div class="txtTinyMce-wrapper"
                                              style="font-size: 14px; line-height: 1.2; font-family: 'Cabin', Arial, 'Helvetica Neue', Helvetica, sans-serif; color: #393d47; mso-line-height-alt: 17px;">
                                             <p style="margin: 0; font-size: 12px; line-height: 1.2; word-break: break-word; text-align: left; mso-line-height-alt: 14px; margin-top: 0; margin-bottom: 0;">
-                                                <span style="font-size: 12px;">Email:{{ contact.email }} - Mobile: +91 {{ contact.phone_number }}}&nbsp;<br>{{ contact.address_1 }}, {{ contact.address_2 }},{{ contact.state }}
+                                                <span style="font-size: 12px;">Email: {{ contact.email }} - Mobile: +91 {{ contact.phone_number }}&nbsp;<br>{{ contact.address_1 }}, {{ contact.address_2 }}, {{ contact.state }}
                             - {{ contact.pin }}</span>
                                             </p>
                                             <p style="margin: 0; font-size: 12px; line-height: 1.2; word-break: break-word; text-align: left; mso-line-height-alt: 14px; margin-top: 0; margin-bottom: 0;">
@@ -343,10 +343,10 @@
                                                     <strong><span style="font-size: 15px;"><span
                                                             style="font-size: 14px;">{{ i.position }} - </span></span><span
                                                             style="font-size: 13px; color: #8e0303; mso-ansi-font-size: 14px;">{{ i.name }}</span></strong><br><span
-                                                        style="font-size: 12px;">{{ i.date_of_joining }}-
+                                                        style="font-size: 12px;">{{ i.date_of_joining }} - 
                                                     {% if i.date_of_exit %}
                                                         {{ i.date_of_exit }}{% else %}Current{% endif %}
-                                                    ({{ i.city }},{{ i.state }},{{ i.country }})</span><br><span
+                                                    ({{ i.city }}, {{ i.state }}, {{ i.country }})</span><br><span
                                                         style="font-size: 12px;">{{ i.description }}</span></p>
                                             </div>
                                         </div>

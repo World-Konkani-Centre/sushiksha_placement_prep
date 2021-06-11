@@ -36,15 +36,14 @@
                                         </thead>
                                         <tbody>
                                             {% for q in query %}
-                                                <tr>
-                                                <td>{{ q.user.username.profile.name}} | {{q.user.email }}</td>
-                                                    <td><a href="{% url 'resume-view' resumeId=q.id %}">Resume</a></td>
+                                                <td><a href="{% url 'resume-view' resumeId=q.id %}">{{ q.user.profile.name}} | {{q.user.email }}</a></td>
+                                                <td><a href="{% url 'resume-view' resumeId=q.id %}">Resume</a></td>
                                                 {% if q.status == '1' %}
-                                                    <td>Under Review</td>
+                                                    <td ><p><span class="badge bg-danger">Under Review</span></p></td>
                                                 {% elif q.status == '2' %}
-                                                    <td>Needs Update</td>
+                                                    <td><p><span class="badge bg-warning">Needs Update</span></p></td>
                                                 {% elif q.status == '3' %}
-                                                    <td>Complete</td>
+                                                    <td><p><span class="badge bg-success">Complete</span></p></td>
                                                 {% endif %}
                                                 </tr>
                                             {% endfor %}

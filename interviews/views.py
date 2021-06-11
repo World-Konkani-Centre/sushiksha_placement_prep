@@ -73,7 +73,7 @@ def hr_interview_details(request, intId):
 def interview_list(request):
     interviews_completed = Interview.objects.filter(
         Q(participant_2=request.user) | Q(participant_1=request.user) & Q(complete=True), type="Technical")
-    interviews_scheduled = Interview.objects.filter(complete=False, type="Technical").order_by('start_time')
+    interviews_scheduled = Interview.objects.filter(type="Technical").order_by('start_time')
     context = {
         'interviews_completed': interviews_completed,
         'interviews_scheduled': interviews_scheduled,
@@ -146,8 +146,8 @@ def gd_interview_details(request, intId):
     context = {
         'interview': interview
     }
-    res = Reward.objects.filter(user=request.user.profile, id=RESUME_BADGE_ID)
-    aptitude = Reward.objects.filter(user=request.user.profile, id=APTITUDE_BADGE_ID)
+    res = Reward.objects.filter(user=request.user.profile, badge=Badge.objects.get(id=RESUME_BADGE_ID))
+    aptitude = Reward.objects.filter(user=request.user.profile, badge=Badge.objects.get(id=APTITUDE_BADGE_ID))
     if request.POST:
         val = request.POST.get('hidden_option')
         if val == '0':
@@ -192,8 +192,7 @@ def gd_interview_details(request, intId):
             send_gd_set_email(interview, request.user)
             update_gd_event(interview, request.user)
             messages.success(request,
-                             f'The interview has been set up and same is informed to the other along with the google '
-                             f'calendar, accept the google calendar link for further notification')
+                             f'The interview has been set up')
         return redirect('gd-interviews-list')
     return render(request, 'interviews/gd-single.html', context)
 

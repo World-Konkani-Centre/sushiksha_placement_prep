@@ -39,7 +39,7 @@ def google_calendar_set_interview1v1(interview):
     event = {
         'summary': f'{interview.branch}--{interview.type}',
         'location': interview.link,
-        'description': interview.branch,
+        'description': str(interview.branch),
         'start': {
             'dateTime': interview.start_time.strftime("%Y-%m-%dT%H:%M:%S"),
             'timeZone': timezone,
@@ -78,7 +78,7 @@ def send_interview_cancel_email(interview):
         'mail/template.html',
         {
             'name': interview.participant_1.profile.name,
-            'content': 'The Below Interview has been canceled',
+            'content': 'The Below Interview has been cancelled',
             'interview_type': f'{interview.branch} -- {interview.type}',
             'interview_date': f'{interview.start_time.strftime("%I:%M %p")} -- {interview.end_time.strftime("%I:%M %p")} ({interview.end_time.strftime("%A, %x")})',
             'interview_location': interview.link,
@@ -87,13 +87,13 @@ def send_interview_cancel_email(interview):
         }
     )
 
-    subject = f'CANCELED : {interview.branch} - {interview.start_time.strftime("%I:%M %p, %A, %x")} - {interview.type}'
+    subject = f'CANCELLED : {interview.branch} - {interview.start_time.strftime("%I:%M %p, %A, %x")} - {interview.type}'
 
     if interview.participant_2:
         html_message = loader.render_to_string(
         'mail/template.html',
         {
-            'content': 'The Below Interview has been canceled',
+            'content': 'The Below Interview has been cancelled',
             'interview_type': f'{interview.branch} -- {interview.type}',
             'interview_date': f'{interview.start_time.strftime("%I:%M %p")} -- {interview.end_time.strftime("%I:%M %p")} ({interview.end_time.strftime("%A, %x")})',
             'interview_location': interview.link,
@@ -176,7 +176,7 @@ def send_gd_cancel_email(interview):
     html_message = loader.render_to_string(
         'mail/template.html',
         {
-            'content': 'The Below GD Interview has been canceled',
+            'content': 'The Below GD Interview has been cancelled',
             'interview_type': f'GD - {interview.id}',
             'interview_date': f'{interview.start_time.strftime("%I:%M %p")} -- {interview.end_time.strftime("%I:%M %p")} ({interview.end_time.strftime("%A, %x")})',
             'interview_location': interview.link,
@@ -185,7 +185,7 @@ def send_gd_cancel_email(interview):
         }
     )
 
-    subject = f'CANCELED : GD - {interview.id} -- {interview.start_time.strftime("%I:%M %p, %A, %x")} -- GD'
+    subject = f'CANCELLED : GD - {interview.id} -- {interview.start_time.strftime("%I:%M %p, %A, %x")} -- GD'
     
 
     send_mail(
@@ -199,7 +199,6 @@ def send_gd_cancel_email(interview):
 
 
 def send_gd_set_email(interview, user):
-
     html_message = loader.render_to_string(
         'mail/template.html',
         {
