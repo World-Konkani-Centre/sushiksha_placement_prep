@@ -37,7 +37,7 @@ class SkillModelForm(forms.ModelForm):
 class EducationModelForm(forms.ModelForm):
     class Meta:
         model = Education
-        fields = ['school_name', 'board', 'degree', 'country', 'state', 'city', 'field_of_study', 'joining_date',
+        fields = ['school_name', 'board', 'degree', 'field_of_study', 'country', 'state', 'city',  'joining_date',
                   'status', 'passing_date', 'grades_type', 'score']
 
     def __init__(self, *args, **kwargs):

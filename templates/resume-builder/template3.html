@@ -427,6 +427,12 @@
                                                         style="color: #8e0303;"><strong><span
                                                         style={{ p.tech }}"font-size: 13px; mso-ansi-font-size: 14px;">{{ p.tech }}</span></strong></span><br><span
                                                         style="font-size: 11px;">{{ p.description }}</span>
+                                                    </br>
+                                                    <span style="font-size: 12px;">
+
+                                                        <span style="">{{ p.start_date|date:"M,Y"  }} - {% if p.end_date %}
+                                        {{ p.end_date|date:"M,Y"  }}{% else %}
+                                        Current{% endif %}</span></span>
                                                 </p>
                                             </div>
                                         </div>
@@ -587,7 +593,7 @@
                                                 <p style="margin: 0; line-height: 1.5; word-break: break-word; font-size: 13px; mso-line-height-alt: 20px; mso-ansi-font-size: 14px; margin-top: 0; margin-bottom: 0;">
                                                     <span style="font-size: 13px; mso-ansi-font-size: 14px;"><strong>{{ t.name }} by {{ t.provider }} -&nbsp;</strong></span><span
                                                         style="font-size: 13px; mso-ansi-font-size: 14px;"><strong>{% if t.date %}
-                                                    {{ t.date }}{% else %}Current{% endif %}</strong></span>
+                                                    {{ t.date|date:"M,Y" }}{% else %}Current{% endif %}</strong></span>
                                                 </p>
                                             {% endfor %}
                                         </div>
@@ -720,22 +726,22 @@
                                                 <p dir="ltr"
                                                    style="margin: 0; font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin-top: 0; margin-bottom: 0;">
                                                     <span style="font-size: 14px; color: #ffffff;"><strong><span
-                                                            style>{{ e.degree }} </span></strong></span>
+                                                            style>{{ e.degree }} in {{ e.field_of_study }}</span></strong></span>
                                                 </p>
                                                 <p dir="ltr"
                                                    style="margin: 0; font-size: 12px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 18px; margin-top: 0; margin-bottom: 0;">
                                                 <span style="color: #ffffff;"><strong><span
                                                         style="font-size: 15px;"><span
-                                                        style="font-size: 12px;">{{ e.school_name }}</span></span></strong></span><br><span
-                                                        style="font-size: 12px; color: #ffffff;">{{ e.joining_date }}-
-                                                    {% if e.passing_date %}
-                                                        {{ e.passing_date }}{% else %}Current{% endif %}
-                                                    ; {{ e.grades_type }} - {{ e.score }} </span>
+                                                        style="font-size: 12px;">{{ e.school_name }}, {{ e.city }}, {{ e.state }}</span></span></strong></span><br><span
+                                                        style="font-size: 12px; color: #ffffff;">{{ e.joining_date|date:"M,Y" }} -                                                    {% if e.passing_date %}
+                                                        {{ e.passing_date|date:"M,Y" }}{% else %}Current{% endif %}
+                                                      </span>
+                                                <br>
+                                                <span style="font-size: 12px; color: #ffffff;">{{ e.grades_type }} - {{ e.score }}
+                                               </span>
                                                 </p>
-                                                <p dir="ltr"
-                                                   style="margin: 0; font-size: 12px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 18px; margin-top: 0; margin-bottom: 0;">
-                                                    <span style="font-size: 12px; color: #ffffff;">{{ e.field_of_study }}</span>
-                                                </p>
+
+
                                             </div>
                                         </div>
 
