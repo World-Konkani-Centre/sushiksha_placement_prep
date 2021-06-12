@@ -1,4 +1,5 @@
 from django import forms
+from tinymce import TinyMCE
 
 from resume_builder.models import Contact, Skill, Education, InternshipExperience, TrainingCertification, \
     Project, Extra, Language, Achievement, Resume, Comments
@@ -106,7 +107,17 @@ class ResumeModelForm(forms.ModelForm):
         fields = ['status']
 
 
+class TinyMCEWidget(TinyMCE):
+    def use_required_attribute(self, *args):
+        return False
+
+
 class CommentModelForm(forms.ModelForm):
+    comment = forms.CharField(
+        widget=TinyMCEWidget(
+            attrs={'required': False, 'cols': 20, 'rows': 10}
+        )
+    )
     class Meta:
         model = Comments
         fields = ['comment']
