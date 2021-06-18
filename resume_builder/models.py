@@ -44,8 +44,8 @@ class Contact(models.Model):
     email = models.EmailField(unique=True)
     linked_in = models.URLField(unique=True,null=True)
     linked_in_user = models.CharField(max_length=50,null=True)
-    github = models.URLField(unique=True,null=True)
-    github_user = models.CharField(max_length=50,null=True)
+    github = models.URLField(unique=True,null=True, blank=True)
+    github_user = models.CharField(max_length=50,null=True, blank=True)
 
 
 # class Objective(models.Model):

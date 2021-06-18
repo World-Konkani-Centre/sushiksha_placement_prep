@@ -217,7 +217,7 @@
                             - {{ contact.pin }}</span>
                                             </p>
                                             <p style="margin: 0; font-size: 12px; line-height: 1.2; word-break: break-word; text-align: left; mso-line-height-alt: 14px; margin-top: 0; margin-bottom: 0;">
-                                                <span style="font-size: 12px;"> {{ contact.linked_in }} - {{ contact.github }}</span>
+                                                <span style="font-size: 12px;"> LinkedIn: {{ contact.linked_in }} {% if contact.github %} - GitHub: {{contact.github}}{% endif %}</span>
                                             </p>
                                         </div>
                                     </div>
@@ -335,9 +335,9 @@
                                                     <strong><span style="font-size: 15px;"><span
                                                             style="font-size: 14px;">{{ i.position }} - </span></span><span
                                                             style="font-size: 13px; color: #8e0303; mso-ansi-font-size: 14px;">{{ i.name }}</span></strong><br><span
-                                                        style="font-size: 12px;">{{ i.date_of_joining|date:"M,Y"  }} -
+                                                        style="font-size: 12px;">{{ i.date_of_joining|date:"M Y"  }} -
                                                     {% if i.date_of_exit %}
-                                                        {{ i.date_of_exit|date:"M,Y"  }}{% else %}Current{% endif %}
+                                                        {{ i.date_of_exit|date:"M Y"  }}{% else %}Present{% endif %}
                                                     ({{ i.city }}, {{ i.state }}, {{ i.country }})</span><br><span
                                                         style="font-size: 12px;">{{ i.description }}</span></p>
                                             </div>
@@ -428,9 +428,9 @@
                                                     </br>
                                                     <span style="font-size: 12px;">
 
-                                                        <span style="">{{ p.start_date|date:"M,Y"  }} - {% if p.end_date %}
-                                        {{ p.end_date|date:"M,Y"  }}{% else %}
-                                        Current{% endif %}</span></span>
+                                                        <span style="">{{ p.start_date|date:"M Y"  }} - {% if p.end_date %}
+                                        {{ p.end_date|date:"M Y"  }}{% else %}
+                                        Present{% endif %}</span></span>
                                                 </p>
                                             </div>
                                         </div>
@@ -594,7 +594,7 @@
                                                 <p style="margin: 0; line-height: 1.5; word-break: break-word; font-size: 13px; mso-line-height-alt: 20px; mso-ansi-font-size: 14px; margin-top: 0; margin-bottom: 0;">
                                                     <span style="font-size: 13px; mso-ansi-font-size: 14px;"><strong>{{ t.name }} by {{ t.provider }} -&nbsp;</strong></span><span
                                                         style="font-size: 13px; mso-ansi-font-size: 14px;"><strong>{% if t.date %}
-                                                    {{ t.date|date:"M,Y" }}{% else %}Current{% endif %}</strong></span>
+                                                    {{ t.date|date:"M Y" }}{% else %}Present{% endif %}</strong></span>
                                                 </p>
                                             {% endfor %}
                                         </div>
@@ -738,9 +738,9 @@
                                                     <span style="color: #8e0303;"><strong><span
                                                             style="font-size: 15px;"><span
                                                             style="font-size: 12px;">{{ e.school_name }}, {{ e.city }}, {{ e.state }}</span></span></strong></span><br><span
-                                                        style="font-size: 12px; color: #000000;">{{ e.joining_date|date:"M,Y" }} -
+                                                        style="font-size: 12px; color: #000000;">{{ e.joining_date|date:"M Y" }} -
                                                     {% if e.passing_date %}
-                                                        {{ e.passing_date|date:"M,Y" }}{% else %}Current{% endif %}
+                                                        {{ e.passing_date|date:"M Y" }}{% else %}Present{% endif %}
                                                 </span></p>
                                                 <p dir="ltr"
                                                    style="margin: 0; font-size: 12px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 18px; margin-top: 0; margin-bottom: 0;">
