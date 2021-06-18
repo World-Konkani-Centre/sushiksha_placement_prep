@@ -223,7 +223,7 @@
                                     </p>
                                     <p class="ie-p">
                                         {{ i.date_of_joining }}-{% if i.date_of_exit %}
-                                        {{ i.date_of_exit }}{% else %}Current{% endif %}
+                                        {{ i.date_of_exit }}{% else %}Present{% endif %}
                                     </p>
                                 </li>
                             {% endfor %}
@@ -245,7 +245,7 @@
                                     </i>
                                     <i class="ie-pf">{{e.grades_type}} - {{ e.score }}</i>
                                     <p class="ie-p">{{ e.joining_date }}-{% if e.passing_date %}
-                                        {{ e.passing_date }}{% else %}Current{% endif %}</p>
+                                        {{ e.passing_date }}{% else %}Present{% endif %}</p>
                                 </li>
                             {% endfor %}
                         </ul>
@@ -338,7 +338,7 @@
                                     </p>
                                     <p class="ie-p">{{ p.start_date }}-{% if p.end_date %}
                                         {{ p.end_date }}{% else %}
-                                        Current{% endif %}</p>
+                                        Present{% endif %}</p>
                                 </li>
                             {% endfor %}
                         </ul>
@@ -354,7 +354,7 @@
                                 <li>
                                     <h6 class="ie-h6">{{ e.name }} by {{ e.provider }} </h6>
                                     <p class="ie-p">{% if e.date %}
-                                        {{ e.date }}{% else %}Current{% endif %}</p>
+                                        {{ e.date }}{% else %}Present{% endif %}</p>
                                 </li>
                             {% endfor %}
                         </ul>

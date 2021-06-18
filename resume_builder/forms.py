@@ -1,5 +1,8 @@
 from django import forms
 from tinymce import TinyMCE
+from django.utils.translation import gettext as _
+
+
 
 from resume_builder.models import Contact, Skill, Education, InternshipExperience, TrainingCertification, \
     Project, Extra, Language, Achievement, Resume, Comments
@@ -11,10 +14,16 @@ class ContactModelForm(forms.ModelForm):
         fields = ['prefix', 'first_name', 'last_name', 'address_1', 'address_2', 'country', 'state', 'pin',
                   'phone_number', 'email', 'linked_in', 'linked_in_user', 'github', 'github_user']
 
+        help_texts = {
+            'github': _('Provide the gihtub profile link, If the account is not there leave it blank'),
+            'prefix': _('The tagline <strong>coder, activist, eager to learn</strong> is just for example, please change it according to your need.')
+        }
+
     def __init__(self, *args, **kwargs):
         super(ContactModelForm, self).__init__(*args, **kwargs)
         self.fields['linked_in'].required = False
         self.fields['github'].required = False
+        self.fields['github_user'].label = False
         self.fields['github'].label = 'GitHub'
         self.fields['linked_in'].label = 'LinkedIn'
         self.fields['prefix'].label = 'Tagline'
@@ -115,9 +124,11 @@ class TinyMCEWidget(TinyMCE):
 class CommentModelForm(forms.ModelForm):
     comment = forms.CharField(
         widget=TinyMCEWidget(
-            attrs={'required': False, 'cols': 20, 'rows': 10}
+            attrs={'required': True, 'rows': 15},
         )
     )
     class Meta:
         model = Comments
         fields = ['comment']
+
+        
