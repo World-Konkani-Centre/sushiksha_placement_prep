@@ -16,9 +16,11 @@
                         <li><a href="{% url 'language_quiz_index' %}">Language Tests</a></li>
                         <li><a href="{% url 'resume-home' %}">Resume Builder</a></li>
                         <li><a href="{% url 'interview-home' %}">Mock Interviews</a></li>
-                        
                         {% if user.is_authenticated and user.profile.is_mentor and not user.is_superuser %}
                             <li><a href="{% url 'mentors-home' %}">Mentors Panel</a></li>
+                            {% endif %}
+                    {% if user.is_authenticated and not user.profile.is_mentor and not user.is_superuser %}
+                             <li><a href="{% url 'profile-list' %}">Profiles</a></li>
                         {% endif %}
                         {% if request.user.is_authenticated %}
                             <li class="drop-down">

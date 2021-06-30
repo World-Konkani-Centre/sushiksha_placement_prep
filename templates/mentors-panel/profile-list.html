@@ -18,7 +18,9 @@
 
                    <ol>
                         <li><a href="{% url 'index' %}">Home</a></li>
+                       {% if user.is_authenticated and user.profile.is_mentor %}
                          <li><a href="{% url 'mentors-home' %}">Mentors Panel</a></li>
+                       {% endif %}
                         <li>Profiles</li>
                     </ol>
                 </div>
@@ -54,12 +56,21 @@
                                             <tr>
                                                 <td>
                                                     <div class="media align-items-center">
+                                                    {% if user.is_authenticated and user.profile.is_mentor %}
                                                         <a href="{% url 'profile-detail' id=entry.id %}">
                                                             <img src="{{ entry.image.url }}" loading="lazy"
                                                                  alt="{{ entry.name }}"
                                                                  title="{{ entry.user.username }}" width="100px" class="mr-3">
                                                         </a>
+                                                        {% else %}
+                                                        <a href="#">
+                                                            <img src="{{ entry.image.url }}" loading="lazy"
+                                                                 alt="{{ entry.name }}"
+                                                                 title="{{ entry.user.username }}" width="100px" class="mr-3">
+                                                        </a>
+                                                    {% endif %}
                                                         <div class="media-body">
+                                                         {% if user.is_authenticated and user.profile.is_mentor %}
                                                             <a href="{% url 'profile-detail' id=entry.id %}"><span
                                                                     class="mb-0 text-sm font-weight-bold">
                                                                 {% if entry.name %}
@@ -68,6 +79,16 @@
                                                                     {{ entry.user.username }}
                                                                 {% endif %}
                                                             </span></a>
+                                                        {% else %}
+                                                               <a href="#"><span
+                                                                    class="mb-0 text-sm font-weight-bold">
+                                                                {% if entry.name %}
+                                                                    {{ entry.name }}
+                                                                {% else %}
+                                                                    {{ entry.user.username }}
+                                                                {% endif %}
+                                                            </span></a>
+                                                        {% endif %}
                                                         </div>
                                                     </div>
                                                 </td>
