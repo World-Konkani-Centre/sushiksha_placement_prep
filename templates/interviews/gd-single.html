@@ -40,8 +40,8 @@
                             <div class="entry-content">
                             {% if request.user.profile.is_mentor %}
                                 <p>Participants : {{ interview.participant_1.profile.name }}
-                                    {% if interview.participant_2 %},{{ interview.participant_2.profile.name }}{% endif %}
-                                    {% if interview.participant_3 %},{{ interview.participant_3.profile.name }}{% endif %}
+                                {% if interview.participant_2 %},{{ interview.participant_2.profile.name }}{% endif %}
+                                {% if interview.participant_3 %},{{ interview.participant_3.profile.name }}{% endif %}
                                 {% if interview.participant_4 %},{{ interview.participant_4.profile.name }}{% endif %}
                                 {% if interview.participant_5 %},{{ interview.participant_5.profile.name }}{% endif %}
                                 {% if interview.participant_6 %},{{ interview.participant_6.profile.name }}{% endif %}
