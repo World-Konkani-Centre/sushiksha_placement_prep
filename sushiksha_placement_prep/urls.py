@@ -31,6 +31,7 @@ urlpatterns = [
     url('interview/', include(int_urls)),
     url('problemset/', include(c_urls)),
     url('award-badge/', include(b_urls)),
+    path('tinymce/', include('tinymce.urls')),
 ]
 
 if settings.DEBUG:

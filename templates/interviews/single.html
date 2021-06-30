@@ -64,6 +64,7 @@
                             {% if interview.participant_1 == request.user or interview.participant_2 == request.user %}
                                 <h3 class="sidebar-title">Cancel</h3>
                                 <div class="sidebar-item categories">
+                                {% if request.user.profile.is_mentor %}
                                     <form method="POST">
                                         {% csrf_token %}
                                         <input type="hidden" name="hidden_option" value="0">
@@ -72,6 +73,9 @@
                                             Cancel the Interview
                                         </button>
                                     </form>
+                                {% else %}
+                                    <p>You are not allowed to Cancel the Interview.</p>
+                                {% endif %}
                                 </div>
                             {% else %}
 

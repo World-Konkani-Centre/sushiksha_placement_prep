@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'language',
     'interviews',
     'compiler',
-    'badge'
+    'badge',
+    'tinymce'
 ]
 
 MIDDLEWARE = [
