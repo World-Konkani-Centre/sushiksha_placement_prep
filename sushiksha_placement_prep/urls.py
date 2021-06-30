@@ -12,6 +12,7 @@ from .views import index
 import language.urls as l_urls
 import  compiler.urls as c_urls
 import badge.urls as b_urls
+from mentors_panel.views import profile_list
 
 handler404 = 'sushiksha_placement_prep.views.handler404'
 handler500 = 'sushiksha_placement_prep.views.handler500'
@@ -20,6 +21,7 @@ handler403 = 'sushiksha_placement_prep.views.handler403'
 
 urlpatterns = [
     path('', index, name='index'),
+    path('results/', profile_list, name='result'),
     path('grappelli/', include('grappelli.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('admin/', admin.site.urls),
