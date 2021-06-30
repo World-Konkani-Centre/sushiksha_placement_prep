@@ -1,5 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
+from tinymce import HTMLField
+
 
 STATUS = (
     ('1', 'Under Review'),
@@ -25,7 +27,7 @@ class Resume(models.Model):
 class Comments(models.Model):
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    comment = models.TextField()
+    comment = HTMLField()
 
 
 class Contact(models.Model):
@@ -42,8 +44,8 @@ class Contact(models.Model):
     email = models.EmailField(unique=True)
     linked_in = models.URLField(unique=True,null=True)
     linked_in_user = models.CharField(max_length=50,null=True)
-    github = models.URLField(unique=True,null=True)
-    github_user = models.CharField(max_length=50,null=True)
+    github = models.URLField(unique=True,null=True, blank=True)
+    github_user = models.CharField(max_length=50,null=True, blank=True)
 
 
 # class Objective(models.Model):

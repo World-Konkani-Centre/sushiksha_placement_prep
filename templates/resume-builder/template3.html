@@ -230,7 +230,7 @@
                             - {{ contact.pin }}</span>
                                             </p>
                                             <p style="margin: 0; font-size: 12px; line-height: 1.2; word-break: break-word; text-align: left; mso-line-height-alt: 14px; margin-top: 0; margin-bottom: 0;">
-                                                <span style="font-size: 12px;"> {{ contact.linked_in }} - {{ contact.github }}</span>
+                                                <span style="font-size: 12px;"> LinkedIn: {{ contact.linked_in }} {% if contact.github %} - GitHub: {{contact.github}}{% endif %}</span>
                                             </p>
                                         </div>
                                     </div>
@@ -299,6 +299,7 @@
                                 <!--[if (!mso)&(!IE)]><!-->
                                 <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:5px; padding-bottom:5px; padding-right: 0px; padding-left: 0px;">
                                     <!--<![endif]-->
+                                    {% if ie %}
                                     <table cellpadding="0" cellspacing="0" role="presentation" width="100%"
                                            style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"
                                            valign="top">
@@ -334,6 +335,7 @@
                                         </tr>
                                         </tbody>
                                     </table>
+                                    {% endif %}
                                     {% for i in ie %}
                                         <div style="color:#393d47;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;line-height:1.2;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:0px;">
                                             <div class="txtTinyMce-wrapper"
@@ -345,7 +347,7 @@
                                                             style="font-size: 13px; color: #8e0303; mso-ansi-font-size: 14px;">{{ i.name }}</span></strong><br><span
                                                         style="font-size: 12px;">{{ i.date_of_joining }} - 
                                                     {% if i.date_of_exit %}
-                                                        {{ i.date_of_exit }}{% else %}Current{% endif %}
+                                                        {{ i.date_of_exit }}{% else %}Present{% endif %}
                                                     ({{ i.city }}, {{ i.state }}, {{ i.country }})</span><br><span
                                                         style="font-size: 12px;">{{ i.description }}</span></p>
                                             </div>
@@ -378,7 +380,7 @@
                                         {% endif %}
                                     {% endfor %}
 
-
+                                    {% if projects %}
                                     <table cellpadding="0" cellspacing="0" role="presentation" width="100%"
                                            style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"
                                            valign="top">
@@ -413,6 +415,7 @@
                                         </tr>
                                         </tbody>
                                     </table>
+                                    {% endif %}
 
                                     {% for p in projects %}
                                         <div style="color:#393d47;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;line-height:1.2;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:0px;">
@@ -424,6 +427,12 @@
                                                         style="color: #8e0303;"><strong><span
                                                         style={{ p.tech }}"font-size: 13px; mso-ansi-font-size: 14px;">{{ p.tech }}</span></strong></span><br><span
                                                         style="font-size: 11px;">{{ p.description }}</span>
+                                                    </br>
+                                                    <span style="font-size: 12px;">
+
+                                                        <span style="">{{ p.start_date|date:"M Y"  }} - {% if p.end_date %}
+                                        {{ p.end_date|date:"M Y"  }}{% else %}
+                                        Present{% endif %}</span></span>
                                                 </p>
                                             </div>
                                         </div>
@@ -456,7 +465,7 @@
                                     {% endfor %}
 
 
-
+                                    {% if extras %}
                                     <table cellpadding="0" cellspacing="0" role="presentation" width="100%"
                                            style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"
                                            valign="top">
@@ -492,6 +501,7 @@
                                         </tr>
                                         </tbody>
                                     </table>
+                                    {% endif %}
 
                                     {% for e in extras %}
                                         <div style="color:#393d47;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;line-height:1.2;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:0px;">
@@ -538,7 +548,7 @@
 
 
 
-
+                                    {% if training %}
                                     <table cellpadding="0" cellspacing="0" role="presentation" width="100%"
                                            style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"
                                            valign="top">
@@ -573,6 +583,7 @@
                                         </tr>
                                         </tbody>
                                     </table>
+                                    {% endif %}
 
 
                                     <div style="color:#393d47;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;line-height:1.5;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:0px;">
@@ -582,7 +593,7 @@
                                                 <p style="margin: 0; line-height: 1.5; word-break: break-word; font-size: 13px; mso-line-height-alt: 20px; mso-ansi-font-size: 14px; margin-top: 0; margin-bottom: 0;">
                                                     <span style="font-size: 13px; mso-ansi-font-size: 14px;"><strong>{{ t.name }} by {{ t.provider }} -&nbsp;</strong></span><span
                                                         style="font-size: 13px; mso-ansi-font-size: 14px;"><strong>{% if t.date %}
-                                                    {{ t.date }}{% else %}Current{% endif %}</strong></span>
+                                                    {{ t.date|date:"M Y" }}{% else %}Present{% endif %}</strong></span>
                                                 </p>
                                             {% endfor %}
                                         </div>
@@ -715,22 +726,22 @@
                                                 <p dir="ltr"
                                                    style="margin: 0; font-size: 14px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 21px; margin-top: 0; margin-bottom: 0;">
                                                     <span style="font-size: 14px; color: #ffffff;"><strong><span
-                                                            style>{{ e.degree }} </span></strong></span>
+                                                            style>{{ e.degree }} in {{ e.field_of_study }}</span></strong></span>
                                                 </p>
                                                 <p dir="ltr"
                                                    style="margin: 0; font-size: 12px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 18px; margin-top: 0; margin-bottom: 0;">
                                                 <span style="color: #ffffff;"><strong><span
                                                         style="font-size: 15px;"><span
-                                                        style="font-size: 12px;">{{ e.school_name }}</span></span></strong></span><br><span
-                                                        style="font-size: 12px; color: #ffffff;">{{ e.joining_date }}-
-                                                    {% if e.passing_date %}
-                                                        {{ e.passing_date }}{% else %}Current{% endif %}
-                                                    ; {{ e.grades_type }} - {{ e.score }} </span>
+                                                        style="font-size: 12px;">{{ e.school_name }}, {{ e.city }}, {{ e.state }}</span></span></strong></span><br><span
+                                                        style="font-size: 12px; color: #ffffff;">{{ e.joining_date|date:"M Y" }} -                                                    {% if e.passing_date %}
+                                                        {{ e.passing_date|date:"M Y" }}{% else %}Present{% endif %}
+                                                      </span>
+                                                <br>
+                                                <span style="font-size: 12px; color: #ffffff;">{{ e.grades_type }} - {{ e.score }}
+                                               </span>
                                                 </p>
-                                                <p dir="ltr"
-                                                   style="margin: 0; font-size: 12px; line-height: 1.5; word-break: break-word; mso-line-height-alt: 18px; margin-top: 0; margin-bottom: 0;">
-                                                    <span style="font-size: 12px; color: #ffffff;">{{ e.field_of_study }}</span>
-                                                </p>
+
+
                                             </div>
                                         </div>
 

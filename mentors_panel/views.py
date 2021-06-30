@@ -284,10 +284,6 @@ def mentors_home(request):
 
 @login_required
 def profile_list(request):
-    if not request.user.profile.is_mentor:
-        messages.error(request, "You don't have access to view this page :)")
-        return redirect('index')
-
     data = Profile.objects.all().filter(is_mentor=False)
     context = {
         'data': data,
@@ -297,10 +293,6 @@ def profile_list(request):
 
 @login_required
 def profile_detail(request, id):
-    if not request.user.profile.is_mentor:
-        messages.error(request, "You don't have access to view this page :)")
-        return redirect('index')
-
     user = get_object_or_404(Profile, id=id)
     badges = Reward.objects.filter(user=user).values('badge__title', 'badge__image').annotate(Count('badge__title'))
     context = {

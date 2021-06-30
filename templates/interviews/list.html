@@ -123,7 +123,9 @@
                                 <span class="advanced">{{ i.type }}</span>
                                         <h3 class="card-title">{{ i.branch }}</h3>
                                         <h4 class="card-text">Timings: {{ i.start_time}}</h4>
+                                        {% if request.user.profile.is_mentor %}
                                         <h4 class="card-text">Participants: {{ i.participant_1 }}, {{ i.participant_2 }}</h4>
+                                        {% endif %}
                                         {% if request.user.profile.is_mentor and request.user == i.participant_1 %}
                                             <a href="{% url 'interview-detail-mentor' intId=i.id %}" class="btn-buy btn-block">Details</a>
                                         {% else %}

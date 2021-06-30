@@ -31,6 +31,7 @@
                             <div class="card card-comments mb-3">
                                 <div class="card-header mb-3">
                                     <h4>Leave a Reply</h4>
+                                    {{ form_c.media }}
                                     <form method="POST">
                                         {% csrf_token %}
                                         {{ form_c | crispy }}
