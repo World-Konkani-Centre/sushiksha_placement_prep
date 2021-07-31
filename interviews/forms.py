@@ -16,8 +16,7 @@ class GDCreationForm(forms.ModelForm):
         model = GD
         fields = ['start_time', 'link']
         help_texts = {
-            'link': _("<strong class='text-info'>Please check again if your dates is following the timeline </strong> \
-                                                                                <ol><li>For GD from 21st June to 15th July</li></ol>"),
+            'link': _(" "),
             'start_time': _("Enter the Date and Time"),
             # 'end_time': _('End Date and Time'),
         }
