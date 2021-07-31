@@ -47,10 +47,10 @@ def hr_interview_details(request, intId):
                 messages.success(request, f'The interview has been cancelled and same is informed to the other')
                 interview.save()
         elif val == '1':
-            if len(technical) == 0 or len(gd) == 0:
-                messages.error(request,
-                               f'Please complete your your technical and gd interviews for eligibility of HR interviews')
-                return redirect('hr-interviews-list')
+            #  if len(technical) == 0 or len(gd) == 0:
+            #   messages.error(request,
+            #                 f'Please complete your your technical and gd interviews for eligibility of HR interviews')
+            #   return redirect('hr-interviews-list')
             interview.participant_2 = request.user
             interview.complete = True
             interview.save()
