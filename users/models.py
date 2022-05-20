@@ -11,6 +11,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default='default.jpg', upload_to='profile_pics/%Y/%m/')
     is_mentor = models.BooleanField(default=False)
+    batch = models.IntegerField(default=2018)
     name = models.CharField(max_length=100, default=None, blank=True, null=True)
 
     def __str__(self):
