@@ -47,7 +47,10 @@ def user_login(request):
         user_cred = request.POST['username']
         password = request.POST['password']
         if email_check(user_cred):
-            username = User.objects.get(email=user_cred).username
+            try:
+                username = User.objects.get(email=user_cred).username
+            except:
+                messages.error(request, 'Email is not registered with us.')
             user = authenticate(request, username=username, password=password)
         else:
             user = authenticate(request, username=user_cred, password=password)
