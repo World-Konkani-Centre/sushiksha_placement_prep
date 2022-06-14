@@ -49,11 +49,12 @@ def user_login(request):
         if email_check(user_cred):
             try:
                 username = User.objects.get(email=user_cred).username
+                user = authenticate(request, username=username, password=password)
             except:
                 messages.error(request, 'Email is not registered with us.')
-            user = authenticate(request, username=username, password=password)
         else:
             user = authenticate(request, username=user_cred, password=password)
+            
         if user is not None:
             login(request, user)
             messages.success(request, 'You have logged into your account!!')
