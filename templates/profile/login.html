@@ -1,6 +1,39 @@
 {% extends 'profile/auth.html' %} {% load static %} {% block custom_css %}
 <link href="{% static 'assets/css/auth.css' %}" rel="stylesheet" />
-{% endblock custom_css %} {% block content %}
+{% endblock custom_css %} 
+
+{% block content %}
+
+
+  <main id="main" data-aos="fade-in">
+
+    <div class="login-page">
+      <h2 class="heading">Login</h2>
+      <div class="col-lg-8 offset-lg-2 col-12">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-danger btn-block" type="submit">Login</button>
+            </div>
+        </form>
+        <div class="text-center">
+          <a class="small" href="{% url 'password_reset' %}">Forgot Password?</a>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+
+
+  </main><!-- End #main -->
+{% endblock content %}
+
+{% comment %} {% block content %}
 
 <div class="login-page">
   <h2 class="heading">Login</h2>
@@ -33,9 +66,7 @@
         </button>
       </div>
     </form>
-    <div class="text-center">
-      <a class="small" href="{% url 'password_reset' %}">Forgot Password?</a>
-    </div>
+
   </div>
 </div>
-{% endblock content %}
+{% endblock content %} {% endcomment %}
