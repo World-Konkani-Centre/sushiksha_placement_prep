@@ -101,6 +101,7 @@ def resume_view(request, resumeId):
                 comm.user = request.user
                 comm.save()
                 messages.success(request, f'Comment has been posted successfully')
+                return redirect('resume-view', resumeId=resumeId)
             else:
                 messages.error(request, f'something wrong in the input')
                 return redirect('resume-view', resumeId=resumeId)
