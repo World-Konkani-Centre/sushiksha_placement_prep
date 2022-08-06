@@ -2,8 +2,10 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import render, redirect
+from datetime import datetime
 
-from interviews.models import Interview, GD
+
+from interviews.models import Branch, Interview, GD
 from interviews.utils import google_calendar_set_interview1v1, google_calendar_cancel_interview1v1, \
     send_interview_cancel_email, send_interview_set_email, send_gd_set_email, update_gd_event, send_gd_cancel_email
 from resume_builder.models import Resume
@@ -17,7 +19,7 @@ from sushiksha_placement_prep.settings import APTITUDE_BADGE_ID, RESUME_BADGE_ID
 def hr_interview_list(request):
     interviews_completed = Interview.objects.filter(
         Q(participant_2=request.user) | Q(participant_1=request.user) & Q(complete=True), type='HR')
-    interviews_scheduled = Interview.objects.filter(type='HR').order_by('start_time')
+    interviews_scheduled = Interview.objects.filter(Q(type="HR") & Q(start_time__gte = datetime.now())).order_by('start_time')
     context = {
         'interviews_completed': interviews_completed,
         'interviews_scheduled': interviews_scheduled,
@@ -73,7 +75,7 @@ def hr_interview_details(request, intId):
 def interview_list(request):
     interviews_completed = Interview.objects.filter(
         Q(participant_2=request.user) | Q(participant_1=request.user) & Q(complete=True), type="Technical")
-    interviews_scheduled = Interview.objects.filter(type="Technical").order_by('start_time')
+    interviews_scheduled = Interview.objects.filter(Q(type="Technical") & Q(start_time__gte = datetime.now())).order_by('start_time')  
     context = {
         'interviews_completed': interviews_completed,
         'interviews_scheduled': interviews_scheduled,
