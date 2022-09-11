@@ -109,6 +109,8 @@
                                                 <td class="text-center">
                                                     {% if entry.check_for_gd %}
                                                     <img src="{{entry.url_for_gd}}" width="100px">
+                                                    {% elif entry.check_for_attempted %}
+                                                    <img src="{{entry.url_for_attempted}}" width="100px">
                                                     {% else %}
                                                     <img src="{% static 'assets/img/error.png' %}" width="100px">
                                                     {% endif %}
