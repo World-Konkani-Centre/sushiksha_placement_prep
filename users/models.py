@@ -63,6 +63,18 @@ class Profile(models.Model):
         else:
             return True
 
+    def check_for_attempted_tech(self):
+        if self.reward_set.filter(badge__id=ATTEMPTED_BADGE_ID, user=self).first().description != 'tech':
+            return False
+        else:
+            return True
+
+    def check_for_attempted_hr(self):
+        if self.reward_set.filter(badge__id=ATTEMPTED_BADGE_ID, user=self).first().description != 'hr':
+            return False
+        else:
+            return True
+
     def check_for_hr(self):
         if len(self.reward_set.filter(badge__id=HR_BADGE_ID, user=self)) == 0:
             return False
