@@ -66,13 +66,13 @@ class Profile(models.Model):
     def check_for_attempted_tech(self):
         if len(self.reward_set.filter(badge__id=ATTEMPTED_BADGE_ID, user=self)) == 0:
             return False
-        elif self.reward_set.filter(badge__id=ATTEMPTED_BADGE_ID, user=self).first().description != 'tech':
+        elif self.reward_set.filter(badge__id=ATTEMPTED_BADGE_ID, user=self).first().description == 'tech':
             return True
 
     def check_for_attempted_hr(self):
         if len(self.reward_set.filter(badge__id=ATTEMPTED_BADGE_ID, user=self)) == 0:
             return False
-        elif self.reward_set.filter(badge__id=ATTEMPTED_BADGE_ID, user=self).first().description != 'hr':
+        elif self.reward_set.filter(badge__id=ATTEMPTED_BADGE_ID, user=self).first().description == 'hr':
             return True
 
     def check_for_hr(self):
