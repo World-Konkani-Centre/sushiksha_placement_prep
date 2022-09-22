@@ -100,4 +100,4 @@ class Profile(models.Model):
         return self.reward_set.filter(badge__id=GD_BADGE_ID).first().badge.image.url
 
     def url_for_attempted(self):
-        return self.reward_set.filter(badge__id=ATTEMPTED_BADGE_ID).first().badge.image.url
+        return 'https://scopea.konkanischolarship.com/media/badges/Attempted_Badge_1_B2bcp40.png'
