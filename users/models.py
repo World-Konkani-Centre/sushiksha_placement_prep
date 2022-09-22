@@ -5,6 +5,8 @@ from sushiksha_placement_prep.settings import APTITUDE_BADGE_ID, RESUME_BADGE_ID
     TECHNICAL_BADGE_ID
 
 ATTEMPTED_BADGE_ID = 7
+ATTEMPTED_BADGE_ID_TECH = 8
+ATTEMPTED_BADGE_ID_HR = 9
 
 # Create your models here.
 class Profile(models.Model):
@@ -64,15 +66,15 @@ class Profile(models.Model):
             return True
 
     def check_for_attempted_tech(self):
-        if len(self.reward_set.filter(badge__id=ATTEMPTED_BADGE_ID, user=self)) == 0:
+        if len(self.reward_set.filter(badge__id=ATTEMPTED_BADGE_ID_TECH, user=self)) == 0:
             return False
-        elif self.reward_set.filter(badge__id=ATTEMPTED_BADGE_ID, user=self).first().description == 'tech':
+        else:
             return True
 
     def check_for_attempted_hr(self):
-        if len(self.reward_set.filter(badge__id=ATTEMPTED_BADGE_ID, user=self)) == 0:
+        if len(self.reward_set.filter(badge__id=ATTEMPTED_BADGE_ID_HR, user=self)) == 0:
             return False
-        elif self.reward_set.filter(badge__id=ATTEMPTED_BADGE_ID, user=self).first().description == 'hr':
+        else:
             return True
 
     def check_for_hr(self):
