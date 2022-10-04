@@ -16,7 +16,11 @@ class UserRegisterForm(UserCreationForm):
 
 
 class UserUpdateForm(forms.ModelForm):
-    email = forms.EmailField(help_text='Please use the email that is given to World Konkani Center, maintain a one email for all konkanischolarship accouts.')
+
+    def __init__(self, *args, **kwargs):
+       super(UserUpdateForm, self).__init__(*args, **kwargs)
+       self.fields['username'].widget.attrs['readonly'] = True
+       self.fields['email'].widget.attrs['readonly'] = True
 
     class Meta:
         model = User
@@ -29,6 +33,7 @@ class ProfileUpdateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['name'].required = True
+        self.fields['name'].widget.attrs['readonly'] = True
 
     class Meta:
         model = Profile

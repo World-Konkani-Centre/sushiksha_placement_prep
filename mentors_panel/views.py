@@ -24,7 +24,7 @@ from sushiksha_placement_prep.settings import APTITUDE_BADGE_ID, RESUME_BADGE_ID
 @login_required
 def resume_list(request):
     if request.user.profile.is_mentor:
-        query = Resume.objects.all().filter(user__profile__is_mentor=False)
+        query = Resume.objects.all().filter(user__profile__is_mentor=False).filter(user__profile__batch=2019)
         context = {
             'query': query,
             'heading': 'Resumes',
@@ -101,6 +101,7 @@ def resume_view(request, resumeId):
                 comm.user = request.user
                 comm.save()
                 messages.success(request, f'Comment has been posted successfully')
+                return redirect('resume-view', resumeId=resumeId)
             else:
                 messages.error(request, f'something wrong in the input')
                 return redirect('resume-view', resumeId=resumeId)
@@ -284,7 +285,7 @@ def mentors_home(request):
 
 @login_required
 def profile_list(request):
-    data = Profile.objects.all().filter(is_mentor=False)
+    data = Profile.objects.all().filter(is_mentor=False).filter(batch=2019)
     context = {
         'data': data,
     }
