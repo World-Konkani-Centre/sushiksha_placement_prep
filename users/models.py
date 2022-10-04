@@ -4,13 +4,16 @@ from PIL import Image
 from sushiksha_placement_prep.settings import APTITUDE_BADGE_ID, RESUME_BADGE_ID, HR_BADGE_ID, GD_BADGE_ID, \
     TECHNICAL_BADGE_ID
 
-
+ATTEMPTED_BADGE_ID = 7
+ATTEMPTED_BADGE_ID_TECH = 8
+ATTEMPTED_BADGE_ID_HR = 9
 
 # Create your models here.
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default='default.jpg', upload_to='profile_pics/%Y/%m/')
     is_mentor = models.BooleanField(default=False)
+    batch = models.IntegerField(default=2018)
     name = models.CharField(max_length=100, default=None, blank=True, null=True)
 
     def __str__(self):
@@ -56,6 +59,24 @@ class Profile(models.Model):
         else:
             return True
 
+    def check_for_attempted(self):
+        if len(self.reward_set.filter(badge__id=ATTEMPTED_BADGE_ID, user=self)) == 0:
+            return False
+        else:
+            return True
+
+    def check_for_attempted_tech(self):
+        if len(self.reward_set.filter(badge__id=ATTEMPTED_BADGE_ID_TECH, user=self)) == 0:
+            return False
+        else:
+            return True
+
+    def check_for_attempted_hr(self):
+        if len(self.reward_set.filter(badge__id=ATTEMPTED_BADGE_ID_HR, user=self)) == 0:
+            return False
+        else:
+            return True
+
     def check_for_hr(self):
         if len(self.reward_set.filter(badge__id=HR_BADGE_ID, user=self)) == 0:
             return False
@@ -77,3 +98,6 @@ class Profile(models.Model):
 
     def url_for_gd(self):
         return self.reward_set.filter(badge__id=GD_BADGE_ID).first().badge.image.url
+
+    def url_for_attempted(self):
+        return 'https://scopea.konkanischolarship.com/media/badges/Attempted_Badge_1_B2bcp40.png'

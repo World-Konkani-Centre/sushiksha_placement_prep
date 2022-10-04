@@ -52,7 +52,9 @@
                             {% endif %}
                                 <p>Start Time : {{ interview.start_time }}</p>
                                 <p>End Time : {{ interview.end_time }}</p>
-                                <p>Location : <a href="{{ interview.link }}">{{ interview.link }}</a></p>
+                                {% if interview.participant_2 == request.user or interview.participant_3 == request.user or interview.participant_4 == request.user or interview.participant_5 == request.user or interview.participant_6 == request.user or interview.participant_7 == request.user or interview.participant_8 == request.user or interview.participant_9 == request.user%}
+                                    <p>Location : <a href="{{ interview.link }}">{{ interview.link }}</a></p>
+                                {% endif %}
                                 <p>Description : {{ interview.description }}</p>
                             </div>
                         </article>

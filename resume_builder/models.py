@@ -11,7 +11,7 @@ STATUS = (
 
 
 class Template(models.Model):
-    template = models.CharField(max_length=50)
+    template = models.CharField(max_length=90)
     image = models.ImageField(upload_to='templates')
 
 
@@ -32,25 +32,25 @@ class Comments(models.Model):
 
 class Contact(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    prefix = models.CharField(max_length=50, default="coder, activist, eager to learn")
+    prefix = models.CharField(max_length=90, default="coder, activist, eager to learn")
     first_name = models.CharField(max_length=20, blank=False, default=None)
     last_name = models.CharField(max_length=20, blank=False, default=None)
-    address_1 = models.CharField(max_length=50)
-    address_2 = models.CharField(max_length=50)
-    country = models.CharField(max_length=50)
-    state = models.CharField(max_length=50)
+    address_1 = models.CharField(max_length=90)
+    address_2 = models.CharField(max_length=90)
+    country = models.CharField(max_length=90)
+    state = models.CharField(max_length=90)
     pin = models.BigIntegerField()
     phone_number = models.BigIntegerField()
     email = models.EmailField(unique=True)
     linked_in = models.URLField(unique=True,null=True)
-    linked_in_user = models.CharField(max_length=50,null=True)
+    linked_in_user = models.CharField(max_length=90,null=True)
     github = models.URLField(unique=True,null=True, blank=True)
-    github_user = models.CharField(max_length=50,null=True, blank=True)
+    github_user = models.CharField(max_length=90,null=True, blank=True)
 
 
 # class Objective(models.Model):
 #     user = models.ForeignKey(User, on_delete=models.CASCADE)
-#     description = models.CharField(max_length=50)
+#     description = models.CharField(max_length=90)
 
 
 PROFICIENCY_OPTIONS = (
@@ -63,7 +63,7 @@ PROFICIENCY_OPTIONS = (
 
 class Skill(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    skill = models.CharField(max_length=50)
+    skill = models.CharField(max_length=90)
     proficiency = models.CharField(max_length=1, choices=PROFICIENCY_OPTIONS, default="1")
 
 
@@ -79,13 +79,13 @@ GRADE = (
 
 class Education(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    school_name = models.CharField(max_length=50)
-    board = models.CharField(max_length=50)
-    country = models.CharField(max_length=50)
-    state = models.CharField(max_length=50)
-    city = models.CharField(max_length=50)
-    degree = models.CharField(max_length=50)
-    field_of_study = models.CharField(max_length=50)
+    school_name = models.CharField(max_length=90)
+    board = models.CharField(max_length=90)
+    country = models.CharField(max_length=90)
+    state = models.CharField(max_length=90)
+    city = models.CharField(max_length=90)
+    degree = models.CharField(max_length=90)
+    field_of_study = models.CharField(max_length=90)
     joining_date = models.DateField()
     status = models.CharField(max_length=1, default="2", choices=STATUS)
     passing_date = models.DateField(null=True, blank=True)
@@ -95,11 +95,11 @@ class Education(models.Model):
 
 class InternshipExperience(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=50)
-    position = models.CharField(max_length=50)
-    country = models.CharField(max_length=50)
-    state = models.CharField(max_length=50)
-    city = models.CharField(max_length=50)
+    name = models.CharField(max_length=90)
+    position = models.CharField(max_length=90)
+    country = models.CharField(max_length=90)
+    state = models.CharField(max_length=90)
+    city = models.CharField(max_length=90)
     date_of_joining = models.DateField()
     i_status = models.CharField(max_length=1, choices=STATUS, default="2")
     date_of_exit = models.DateField(null=True, blank=True)
@@ -108,8 +108,8 @@ class InternshipExperience(models.Model):
 
 class TrainingCertification(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=50)
-    provider = models.CharField(max_length=50)
+    name = models.CharField(max_length=90)
+    provider = models.CharField(max_length=90)
     t_status = models.CharField(max_length=1, choices=STATUS, default="2")
     date = models.DateField(null=True)
 
@@ -122,8 +122,8 @@ PROJECT_STATUS = (
 
 class Project(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=50)
-    tech = models.CharField(max_length=50)
+    name = models.CharField(max_length=90)
+    tech = models.CharField(max_length=90)
     start_date = models.DateField()
     p_status = models.CharField(choices=PROJECT_STATUS, max_length=1, default="2")
     end_date = models.DateField(null=True, blank=True)
@@ -132,16 +132,16 @@ class Project(models.Model):
 
 class Extra(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=90)
     description = models.TextField()
 
 
 class Language(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    language = models.CharField(max_length=50)
+    language = models.CharField(max_length=90)
     proficiency = models.CharField(max_length=1, choices=PROFICIENCY_OPTIONS, default="0")
 
 
 class Achievement(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    description = models.CharField(max_length=50)
+    description = models.CharField(max_length=90)

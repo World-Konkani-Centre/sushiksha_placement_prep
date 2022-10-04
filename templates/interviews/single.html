@@ -48,13 +48,14 @@
                             </h2>
                             <div class="entry-content">
                                 <p>Interview type : {{ interview.type }}</p>
-                                {% if request.user.profile.is_mentor %}
+                                {% if interview.participant_1 == request.user or interview.participant_2 == request.user %}
                                     <p>Participants
                                         : {{ interview.participant_1.profile.name }},{{ interview.participant_2.profile.name }}</p>
+                                    <p>Location : <a href="{{ interview.link }}">{{ interview.link }}</a></p>
                                 {% endif %}
                                 <p>Start Time : {{ interview.start_time }}</p>
                                 <p>End Time : {{ interview.end_time }}</p>
-                                <p>Location : <a href="{{ interview.link }}">{{ interview.link }}</a></p>
+                                
                                 {% comment %} <p>Description : {{ interview.description }}</p> {% endcomment %}
                             </div>
                         </article>
