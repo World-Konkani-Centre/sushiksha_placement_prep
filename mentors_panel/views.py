@@ -24,7 +24,7 @@ from sushiksha_placement_prep.settings import APTITUDE_BADGE_ID, RESUME_BADGE_ID
 @login_required
 def resume_list(request):
     if request.user.profile.is_mentor:
-        query = Resume.objects.all().filter(user__profile__is_mentor=False).filter(user__profile__batch=2019)
+        query = Resume.objects.all().filter(user__profile__is_mentor=False).filter(user__profile__batch=2020)
         context = {
             'query': query,
             'heading': 'Resumes',
