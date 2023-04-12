@@ -285,7 +285,7 @@ def mentors_home(request):
 
 @login_required
 def profile_list(request):
-    data = Profile.objects.all().filter(is_mentor=False).filter(batch=2019)
+    data = Profile.objects.all().filter(is_mentor=False).filter(batch=2020)
     context = {
         'data': data,
     }
