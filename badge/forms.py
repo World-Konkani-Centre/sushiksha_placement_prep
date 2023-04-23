@@ -29,4 +29,4 @@ from django.db.models.functions import Lower
 class BadgeForm(forms.Form):
     badge = forms.ModelChoiceField(queryset=Badge.objects.all(), required=True, label='Badge to be awarded')
     description = forms.CharField(widget=forms.Textarea(), label='Message to user')
-    profiles = forms.ModelMultipleChoiceField(queryset=Profile.objects.filter(is_mentor=False).filter(batch=2019).order_by(Lower('name')), required=True, label='Select the Profiles')
+    profiles = forms.ModelMultipleChoiceField(queryset=Profile.objects.filter(is_mentor=False).filter(batch=2020).order_by(Lower('name')), required=True, label='Select the Profiles')
