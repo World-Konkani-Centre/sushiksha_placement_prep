@@ -92,7 +92,7 @@ def resume_view(request, resumeId):
                 comm.user = request.user
                 comm.save()
                 messages.success(request, f'Review has been posted successfully')
-            return redirect('resume-list')
+            return redirect('resume-view', resumeId=resumeId)
         else:
             form_c = CommentModelForm(request.POST)
             if form_c.is_valid():
