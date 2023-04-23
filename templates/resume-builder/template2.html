@@ -126,7 +126,7 @@
 
         .ie-p {
             margin-bottom: 0px;
-            font-size: 100%;
+            font-size: 80%;
         }
 
         .ie-pf {
@@ -209,29 +209,6 @@
         <div class="second-level">
             <div class="second-first-level">
 
-                {% if ie %}
-                    <section>
-                        <h4 class="header-i">INTERNSHIP AND EXPERIENCE</h4>
-
-                        <ul>
-                            {% for i in ie %}
-                                <li>
-                                    <h6 class="ie-h6">{{ i.name }}</h6>
-                                    <i class="ie-p"><span style="font-weight: 500">{{ i.position }}</span> - {{ i.city }},{{ i.state }},{{ i.country }}</i>
-                                    <p class="ie-p">
-                                        {{ i.description }}
-                                    </p>
-                                    <p class="ie-p">
-                                        {{ i.date_of_joining }}-{% if i.date_of_exit %}
-                                        {{ i.date_of_exit }}{% else %}Present{% endif %}
-                                    </p>
-                                </li>
-                            {% endfor %}
-                        </ul>
-
-                    </section>
-                {% endif %}
-
                 {% if education %}
                     <section>
                         <h4 class="header-i">EDUCATION</h4>
@@ -241,16 +218,40 @@
                                     <h6 class="ie-h6">{{ e.degree }}, {{ e.field_of_study }}</h6>
                                     <p class="ie-p">{{ e.school_name }}</p>
                                     <i class="ie-p">
-                                        {{ e.city }},{{ e.state }}
+                                        {{ e.city }}, {{ e.state }}
                                     </i>
                                     <i class="ie-pf">{{e.grades_type}} - {{ e.score }}</i>
-                                    <p class="ie-p">{{ e.joining_date }}-{% if e.passing_date %}
+                                    <p class="ie-p">{{ e.joining_date }} - {% if e.passing_date %}
                                         {{ e.passing_date }}{% else %}Present{% endif %}</p>
                                 </li>
                             {% endfor %}
                         </ul>
                     </section>
                 {% endif %}
+
+                {% if ie %}
+                    <section>
+                        <h4 class="header-i">INTERNSHIP AND EXPERIENCE</h4>
+
+                        <ul>
+                            {% for i in ie %}
+                                <li>
+                                    <h6 class="ie-h6">{{ i.name }}</h6>
+                                    <i class="ie-p"><span style="font-weight: 500">{{ i.position }}</span> - {{ i.city }}, {{ i.state }}, {{ i.country }}</i>
+                                    <p class="ie-p">
+                                        {{ i.description }}
+                                    </p>
+                                    <p class="ie-p">
+                                        {{ i.date_of_joining }} - {% if i.date_of_exit %}
+                                        {{ i.date_of_exit }}{% else %}Present{% endif %}
+                                    </p>
+                                </li>
+                            {% endfor %}
+                        </ul>
+
+                    </section>
+                {% endif %}
+
 
                 {% if achievement %}
                     <section>
